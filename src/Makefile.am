@@ -106,7 +106,6 @@ BITCOIN_CORE_H = \
   addressindex.h \
   spentindex.h \
   addrman.h \
-  alert.h \
   base58.h \
   batchedlogger.h \
   bip39.h \
@@ -263,7 +262,6 @@ libaxe_server_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libaxe_server_a_SOURCES = \
   addrdb.cpp \
   addrman.cpp \
-  alert.cpp \
   batchedlogger.cpp \
   bloom.cpp \
   blockencodings.cpp \
@@ -331,7 +329,6 @@ libaxe_server_a_SOURCES = \
   rpc/server.cpp \
   script/sigcache.cpp \
   script/ismine.cpp \
-  sendalert.cpp \
   spork.cpp \
   timedata.cpp \
   torcontrol.cpp \
