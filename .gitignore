@@ -11,6 +11,7 @@ src/axed
 src/axe-cli
 src/axe-tx
 src/test/test_axe
+src/test/test_bitcoin_fuzzy
 src/qt/test/test_axe-qt
 src/bench/bench_axe
 
