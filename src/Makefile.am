@@ -261,8 +261,8 @@ libaxe_util_a-clientversion.$(OBJEXT): obj/build.h
 libaxe_server_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(EVENT_CFLAGS) $(EVENT_PTHREADS_CFLAGS)
 libaxe_server_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libaxe_server_a_SOURCES = \
-  addrman.cpp \
   addrdb.cpp \
+  addrman.cpp \
   alert.cpp \
   batchedlogger.cpp \
   bloom.cpp \
