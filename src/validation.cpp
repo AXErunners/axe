@@ -2507,6 +2507,16 @@ void PruneAndFlush() {
     FlushStateToDisk(chainparams, state, FLUSH_STATE_NONE);
 }
 
+static void DoWarning(const std::string& strWarning)
+{
+    static bool fWarned = false;
+    SetMiscWarning(strWarning);
+    if (!fWarned) {
+        AlertNotify(strWarning);
+        fWarned = true;
+    }
+}
+
 /** Update chainActive and related internal data structures. */
 void static UpdateTip(CBlockIndex *pindexNew, const CChainParams& chainParams) {
     chainActive.SetTip(pindexNew);
@@ -2516,7 +2526,6 @@ void static UpdateTip(CBlockIndex *pindexNew, const CChainParams& chainParams) {
 
     cvBlockChange.notify_all();
 
-    static bool fWarned = false;
     std::vector<std::string> warningMessages;
     if (!IsInitialBlockDownload())
     {
@@ -2526,15 +2535,11 @@ void static UpdateTip(CBlockIndex *pindexNew, const CChainParams& chainParams) {
             WarningBitsConditionChecker checker(bit);
             ThresholdState state = checker.GetStateFor(pindex, chainParams.GetConsensus(), warningcache[bit]);
             if (state == THRESHOLD_ACTIVE || state == THRESHOLD_LOCKED_IN) {
+                const std::string strWarning = strprintf(_("Warning: unknown new rules activated (versionbit %i)"), bit);
                 if (state == THRESHOLD_ACTIVE) {
-                    std::string strWarning = strprintf(_("Warning: unknown new rules activated (versionbit %i)"), bit);
-                    SetMiscWarning(strWarning);
-                    if (!fWarned) {
-                        AlertNotify(strWarning);
-                        fWarned = true;
-                    }
+                    DoWarning(strWarning);
                 } else {
-                    warningMessages.push_back(strprintf("unknown new rules are about to activate (versionbit %i)", bit));
+                    warningMessages.push_back(strWarning);
                 }
             }
         }
@@ -2547,16 +2552,12 @@ void static UpdateTip(CBlockIndex *pindexNew, const CChainParams& chainParams) {
             pindex = pindex->pprev;
         }
         if (nUpgraded > 0)
-            warningMessages.push_back(strprintf("%d of last 100 blocks have unexpected version", nUpgraded));
+            warningMessages.push_back(strprintf(_("%d of last 100 blocks have unexpected version"), nUpgraded));
         if (nUpgraded > 100/2)
         {
             std::string strWarning = _("Warning: Unknown block versions being mined! It's possible unknown rules are in effect");
             // notify GetWarnings(), called by Qt and the JSON-RPC code to warn the user:
-            SetMiscWarning(strWarning);
-            if (!fWarned) {
-                AlertNotify(strWarning);
-                fWarned = true;
-            }
+            DoWarning(strWarning);
         }
     }
     std::string strMessage = strprintf("%s: new best=%s height=%d version=0x%08x log2_work=%.8f tx=%lu date='%s' progress=%f cache=%.1fMiB(%utxo)", __func__,
