@@ -7,8 +7,6 @@
 #include "random.h"
 #include "test/test_axe.h"
 
-#include <boost/assign/std/vector.hpp> // for 'operator+=()'
-#include <boost/assert.hpp>
 #include <boost/test/unit_test.hpp>
 
 // Test if a string consists entirely of null characters

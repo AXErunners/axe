@@ -7,8 +7,6 @@
 #include "test/test_axe.h"
 #include "random.h"
 #include <thread>
-#include <boost/thread.hpp>
-
 
 /** Test Suite for CuckooCache
  *
