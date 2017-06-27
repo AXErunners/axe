@@ -92,6 +92,8 @@
 #include <openssl/rand.h>
 #include <openssl/conf.h>
 
+// Application startup time (used for uptime calculation)
+const int64_t nStartupTime = GetTime();
 
 //Axe only features
 bool fMasternodeMode = false;
@@ -1097,4 +1099,11 @@ std::string SafeIntVersionToString(uint32_t nVersion)
     {
         return "invalid_version";
     }
+}
+
+
+// Obtain the application startup time (used for uptime calculation)
+int64_t GetStartupTime()
+{
+    return nStartupTime;
 }
