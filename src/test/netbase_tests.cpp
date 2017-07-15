@@ -6,6 +6,7 @@
 
 #include "netbase.h"
 #include "test/test_axe.h"
+#include "utilstrencodings.h"
 
 #include <string>
 
