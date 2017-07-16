@@ -19,6 +19,12 @@ BITCOIN_GUI_NAME=axe-qt
 BITCOIN_CLI_NAME=axe-cli
 BITCOIN_TX_NAME=axe-tx
 
+dnl Unless the user specified ARFLAGS, force it to be cr
+AC_ARG_VAR(ARFLAGS, [Flags for the archiver, defaults to <cr> if not set])
+if test "x${ARFLAGS+set}" != "xset"; then
+  ARFLAGS="cr"
+fi
+
 AC_CANONICAL_HOST
 
 AH_TOP([#ifndef AXE_CONFIG_H])
@@ -159,7 +165,7 @@ AC_ARG_ENABLE([lcov],
   [enable lcov testing (default is no)])],
   [use_lcov=yes],
   [use_lcov=no])
-  
+
 AC_ARG_ENABLE([lcov-branch-coverage],
   [AS_HELP_STRING([--enable-lcov-branch-coverage],
   [enable lcov testing branch coverage (default is no)])],
@@ -1344,4 +1350,5 @@ echo "  CPPFLAGS            = $CPPFLAGS"
 echo "  CXX                 = $CXX"
 echo "  CXXFLAGS            = $CXXFLAGS"
 echo "  LDFLAGS             = $LDFLAGS"
+echo "  ARFLAGS       = $ARFLAGS"
 echo
