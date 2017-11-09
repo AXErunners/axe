@@ -3221,8 +3221,7 @@ CNode::~CNode()
 {
     CloseSocket(hSocket);
 
-    if (pfilter)
-        delete pfilter;
+    delete pfilter;
 }
 
 void CNode::AskFor(const CInv& inv, int64_t doubleRequestDelay)
