@@ -3,7 +3,7 @@
 # Distributed under the MIT/X11 software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-# Mac OS X makefile for axe
+# Mac OS X makefile for Axe
 # Originally by Laszlo Hanyecz (solar@heliacal.net)
 
 CXX=llvm-g++
