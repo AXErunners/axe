@@ -1,1 +1,1 @@
-Axe is a hybrid Scrypt Pow/PoS cryptocurrency.
+Axe is a Scrypt PoS-based cryptocurrency.
