@@ -1,7 +1,7 @@
 
 Axe development tree
 
-Axe is a PoS-based cryptocurrency.
+Axe is a hybrid Scrypt Pow/PoS cryptocurrency.
 
 Development process
 ===========================
