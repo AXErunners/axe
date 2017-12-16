@@ -3,12 +3,13 @@
 </p>
 
 * scrypt pow/pos
+* pos interest 13%
+* 10000 pow blocks
+* coin supply 48927835
 * block reward 113 AXE
 * 5 confirmations
-* coin supply 48927835
-* coinbase maturity 23 blocks
+* maturity 23 blocks
 * spacing 64 seconds
 * minimum coin age 6 hours
-* pos interest 13%
 * p2p port 29057
 * rpc port 29058
