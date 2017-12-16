@@ -4,14 +4,6 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 
-//
-// Why base-58 instead of standard base-64 encoding?
-// - Don't want 0OIl characters that look the same in some fonts and
-//      could be used to create visually identical looking account numbers.
-// - A string with non-alphanumeric characters is not as easily accepted as an account number.
-// - E-mail usually won't line-break if there's no punctuation to break at.
-// - Double-clicking selects the whole number as one word if it's all alphanumeric.
-//
 #ifndef BITCOIN_BASE58_H
 #define BITCOIN_BASE58_H
 
