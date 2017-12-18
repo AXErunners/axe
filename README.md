@@ -2,7 +2,8 @@
   <img src="https://github.com/charlesrocket/axe/raw/master/axe%20logo%20256.png"/>
 </p>
 
-[![Build status](https://ci.appveyor.com/api/projects/status/jrni1r4ovyb8p38k?svg=true)](https://ci.appveyor.com/project/charlesrocket/axe)<br />
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fcharlesrocket%2Faxe.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fcharlesrocket%2Faxe?ref=badge_shield)<br />
+[![Build status](https://ci.appveyor.com/api/projects/status/jrni1r4ovyb8p38k?svg=true)](https://ci.appveyor.com/project/charlesrocket/axe)
 * scrypt pow/pos
 * pos interest 13%
 * 10000 pow blocks
