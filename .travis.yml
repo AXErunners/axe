@@ -1,5 +1,2 @@
-language: ruby
-rvm:
- - 2.2
- - jruby
- - rbx-3
+install: make get-deps
+./configure && make && make test
