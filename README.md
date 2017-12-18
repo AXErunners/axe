@@ -2,6 +2,7 @@
   <img src="https://github.com/charlesrocket/axe/raw/master/axe%20logo%20256.png"/>
 </p>
 
+[![Build status](https://ci.appveyor.com/api/projects/status/jrni1r4ovyb8p38k?svg=true)](https://ci.appveyor.com/project/charlesrocket/axe)
 * scrypt pow/pos
 * pos interest 13%
 * 10000 pow blocks
@@ -13,3 +14,4 @@
 * minimum coin age 6 hours
 * p2p port 29057
 * rpc port 29058
+
