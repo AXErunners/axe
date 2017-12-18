@@ -14,3 +14,6 @@
 * minimum coin age 6 hours
 * p2p port 29057
 * rpc port 29058
+
+
+[![Join the chat at https://gitter.im/axe-coin/Lobby](https://badges.gitter.im/axe-coin/Lobby.svg)](https://gitter.im/axe-coin/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
