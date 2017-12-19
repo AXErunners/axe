@@ -1,4 +1,3 @@
-sudo: require
 language: cpp
 compiler: gcc
 
