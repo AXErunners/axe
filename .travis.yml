@@ -13,4 +13,7 @@ script:
  - cd obj
  - mkdir zerocoin
  - cd ..
- - make -f makefile.unix 
+ - make -f makefile.unix
+ 
+after_success: 
+  - bash <(curl -s https://codecov.io/bash)
