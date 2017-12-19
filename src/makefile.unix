@@ -96,7 +96,7 @@ xCXXFLAGS=-O2 $(EXT_OPTIONS) -pthread -Wall -Wextra -Wno-ignored-qualifiers -Wfo
 
 # LDFLAGS can be specified on the make command line, so we use xLDFLAGS that only
 # adds some defaults in front. Unfortunately, LDFLAGS=... $(LDFLAGS) does not work.
-xLDFLAGS=$(LDHARDENING) -lhw1 -fprofile-arcs -ftest-coverage $(LDFLAGS)
+xLDFLAGS=$(LDHARDENING) $(LDFLAGS)
 
 OBJS= \
     obj/alert.o \
