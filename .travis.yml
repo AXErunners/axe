@@ -2,6 +2,7 @@ language: cpp
 compiler: gcc
 
 script:
+ - cd src
  - mkdir obj
  - cd obj
  - mkdir zerocoin
