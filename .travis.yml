@@ -8,7 +8,6 @@ before_install:
  - sudo apt-get install libminiupnpc-dev -y
 
 script:
- - ./configure --enable-gcov && make && make check
  - cd src
  - mkdir obj
  - cd obj
