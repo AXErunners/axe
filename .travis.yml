@@ -12,6 +12,13 @@ before_install:
  - sudo apt-get install libdb-dev libdb++-dev -y
  - sudo apt-get install libminiupnpc-dev -y
 
+addons:
+  coverity_scan:
+    project:
+      name: "charlesrocket/axe"
+      description: "<Your project description here>"
+    branch_pattern: main
+
 script:
  - cd src
  - mkdir obj
