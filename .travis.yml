@@ -3,14 +3,19 @@ compiler: gcc
 
 before_install:
  - sudo apt-get -qq update
+ - pip install --user cpp-coveralls
  - sudo apt-get install libboost1.54-all-dev -y
  - sudo apt-get install libdb-dev libdb++-dev -y
  - sudo apt-get install libminiupnpc-dev -y
 
 script:
+ - ./configure --enable-gcov && make && make check
  - cd src
  - mkdir obj
  - cd obj
  - mkdir zerocoin
  - cd ..
  - make -f makefile.unix
+
+after_success:
+  - coveralls --exclude lib --exclude tests --gcov-options '\-lp'
