@@ -15,8 +15,10 @@ script:
  - mkdir zerocoin
  - cd ..
  - make -f makefile.unix
- - cd ..
- - ./get_code_cov.sh
  
-after_success: 
-  - bash <(curl -s https://codecov.io/bash)
+ after_success:
+  - cd ${TRAVIS_BUILD_DIR}
+  - lcov --directory . --capture --output-file coverage.info
+  - lcov --remove coverage.info '/usr/*' --output-file coverage.info
+  - lcov --list coverage.info
+  - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
