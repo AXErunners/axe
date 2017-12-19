@@ -1,6 +1,6 @@
 language: cpp
 compiler: gcc
-- secure: "kHh4AgjCRydcGoWPDl0q6/jSf3HvQaERWj928BVlCABUS5jP8hXSJ3HoLhEcEDQ9FKEwNLehUZKd1+DBc/rGpXH6cBGPMZIvrRekYFuVNpmqoV9/O8L1EjqVOPt9lXYatIV7Ecylz14D+TzSdz+KguNKHN3G0JiTrV7+vGuc8WfwB4Ewk25ENfwNixRlwadrm8jeXUcyFdbpTk2T3NjqG5lAYJqpFbv5T52IuINN4j090LeLOIsECQY9U/zguSIA11+XN+b1WYlFBb34Qpm21+UW18AgczNmCf0guuhACBa8/n1LG2CBWXm+1ZUkuJK5wTGOFlbznLBtvI0ZUz+T8uRPqzrypKVGg054q8GeeLY2Dl2zt7pgF0f8JpTkILWViBApXlGXNZTkBHbhvGMsF2iefnggDiJVX1e+9NcVUWAnCI5yRwTAc8qjgItlIzZgli6NZHvxOpzme5+3Z5DAePPBtDnUFZAC8R/F5p9jE/uqXMGUgy/OVxcoWiH3zdBK8Lmqt0LtBSH0hiubDPuaAid2yoWPU/YAUqh+5uQa59LFGMyS/wQgM0lNul7iYq9rc5VibsnEnlP0xbdZ8NBidN2kTxhngK/Cd8If8zhe3Svw8RGvOkhcMoPlht5Ou+txt9H7FDioOK29NlBXJ0ob6YSZENCCzZEQZz6ltxU0W0U="
+- secure: "dQjlHA9MsbbypYTrCdn2zXIum/+uGR/f2/HA6p0a559wVD7LRcHRCnpSilvsZj835fAVJGs0e48ZIbYSEcR0UDcNBG9pV9rLcMohl/9P7OoRuf2btk6NhnyoqArzWVfILJ9MzjrYrja5f+sTmoYl8RlMKkq1Q4TbkzafC2AONfSTSzORdJdxsrDE3wKqy2xsnL+dX0YFbe0kAT/AuvKoV/adhXXktZm7PT1v0b1exckm/YkN3nyf0V0dwi1NY7TtglDcuFUWNrHzLDR8dwbamjGk0aTnlabR6/KpH5dVAKE6fvbCYochAyV8dUa/tydc6xj21hJFH12gvrBHVLbvcPJJmuJ/oQ5nLO/oFSqaxLXTvARIbXULeXSVdffPTriusF6pDJCG2hdcSAHO7ekXXFlve3A1WMT4+g8B0pfs47gvSBZ/nvz9pbToWXMwtbNO4uz28v8hfExObZHUt0uPYwTVCXLWmCdUixbbAtadvaUZc4JgkcStMIb/orXo3zq+QWpRLPNmW9W5POAURIWZy4FF/ylKyi2FejBWkYWmKfGMI3Fx6hAEBB0jFj5gBpDS+Td38Lxa6YABJH8FQm3zRO1zHcr6BHCBWdsKzIVWEtY6zMZnytxOi3N1koKkVLJdwOGASsi66YDdv/+9ogen/aj4pmwOkYlJpSahtPFX7gc="
 
 before_install:
  - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
@@ -14,7 +14,9 @@ addons:
     project:
       name: "charlesrocket/axe"
       description: "<Your project description here>"
-    branch_pattern: main
+      build_command_prepend: "/src"
+    build_command: "- cd src  - mkdir obj  - cd obj  - mkdir zerocoin  - cd ..  - make -f makefile.unix"
+    branch_pattern: master
 
 script:
  - cd src
