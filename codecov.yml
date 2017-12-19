@@ -29,5 +29,3 @@ comment:
   layout: "reach, diff, flags, files, footer"
   behavior: default
   require_changes: no
-
-curl --data-binary @codecov.yml https://codecov.io/validate
