@@ -7,6 +7,9 @@ before_install:
  - sudo apt-get install libdb-dev libdb++-dev -y
  - sudo apt-get install libminiupnpc-dev -y
 
+r_github_packages:
+  - r-lib/covr
+
 script:
  - cd src
  - mkdir obj
@@ -14,3 +17,6 @@ script:
  - mkdir zerocoin
  - cd ..
  - make -f makefile.unix
+
+after_success:
+  - Rscript -e 'covr::codecov()'
