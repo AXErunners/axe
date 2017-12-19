@@ -2,5 +2,9 @@ language: cpp
 compiler: gcc
 
 script:
- - cd src/
+ - cd /src
+ - mkdir obj
+ - cd /obj
+ - mkdir zerocoin
+ - cd ..
  - make -f makefile.unix 
