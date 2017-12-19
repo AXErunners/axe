@@ -10,7 +10,7 @@ echo -e "\033[33;1mNote: COVERITY_SCAN_PROJECT_NAME and COVERITY_SCAN_TOKEN are 
 [ -z "$COVERITY_SCAN_BUILD_COMMAND" ] && echo "ERROR: COVERITY_SCAN_BUILD_COMMAND must be set" && exit 1
 [ -z "$COVERITY_SCAN_TOKEN" ] && echo "ERROR: COVERITY_SCAN_TOKEN must be set" && exit 1
 
-PLATFORM=`uname`
+PLATFORM=$(uname)
 TOOL_ARCHIVE=/tmp/cov-analysis-${PLATFORM}.tgz
 TOOL_URL=https://scan.coverity.com/download/${PLATFORM}
 TOOL_BASE=/tmp/coverity-scan-analysis
@@ -24,7 +24,7 @@ if [ "${TRAVIS_PULL_REQUEST}" = "true" ]; then
 fi
 
 # Verify this branch should run
-IS_COVERITY_SCAN_BRANCH=`ruby -e "puts '${TRAVIS_BRANCH}' =~ /\\A$COVERITY_SCAN_BRANCH_PATTERN\\z/ ? 1 : 0"`
+IS_COVERITY_SCAN_BRANCH=$(ruby -e "puts '${TRAVIS_BRANCH}' =~ /\\A$COVERITY_SCAN_BRANCH_PATTERN\\z/ ? 1 : 0")
 if [ "$IS_COVERITY_SCAN_BRANCH" = "1" ]; then
   echo -e "\033[33;1mCoverity Scan configured to run on branch ${TRAVIS_BRANCH}\033[0m"
 else
@@ -34,16 +34,16 @@ fi
 
 # Verify upload is permitted
 permit=true
-AUTH_RES=`curl -s --form project="$COVERITY_SCAN_PROJECT_NAME" --form token="$COVERITY_SCAN_TOKEN" $SCAN_URL/api/upload_permitted`
+AUTH_RES=$(curl -s --form project="$COVERITY_SCAN_PROJECT_NAME" --form token="$COVERITY_SCAN_TOKEN" $SCAN_URL/api/upload_permitted)
 if [ "$AUTH_RES" = "Access denied" ]; then
   echo -e "\033[33;1mCoverity Scan API access denied. Check COVERITY_SCAN_PROJECT_NAME and COVERITY_SCAN_TOKEN.\033[0m"
   exit 1
 else
-  AUTH=`echo $AUTH_RES | ruby -e "require 'rubygems'; require 'json'; puts JSON[STDIN.read]['upload_permitted']"`
+  AUTH=$(echo $AUTH_RES | ruby -e "require 'rubygems'; require 'json'; puts JSON[STDIN.read]['upload_permitted']")
   if [ "$AUTH" = "true" ]; then
     echo -e "\033[33;1mCoverity Scan analysis authorized per quota.\033[0m"
   else
-    WHEN=`echo $AUTH_RES | ruby -e "require 'rubygems'; require 'json'; puts JSON[STDIN.read]['next_upload_permitted_at']"`
+    WHEN=$(echo $AUTH_RES | ruby -e "require 'rubygems'; require 'json'; puts JSON[STDIN.read]['next_upload_permitted_at']")
     echo -e "\033[33;1mOops!Coverity Scan analysis engine NOT authorized until $WHEN.\033[0m"
     permit=false
   fi
@@ -65,7 +65,7 @@ if [ ! -d $TOOL_BASE ]; then
   popd
 fi
 
-TOOL_DIR=`find $TOOL_BASE -type d -name 'cov-analysis*'`
+TOOL_DIR=$(find $TOOL_BASE -type d -name 'cov-analysis*')
 export PATH=$TOOL_DIR/bin:$PATH
 
 # Build
@@ -81,7 +81,7 @@ cov-import-scm --dir $RESULTS_DIR --scm git --log $RESULTS_DIR/scm_log.txt 2>&1
 echo -e "\033[33;1mTarring Coverity Scan Analysis results...\033[0m"
 RESULTS_ARCHIVE=analysis-results.tgz
 tar czf $RESULTS_ARCHIVE $RESULTS_DIR
-SHA=`git rev-parse --short HEAD`
+SHA=$(git rev-parse --short HEAD)
 
 echo -e "\033[33;1mUploading Coverity Scan Analysis results...\033[0m"
 response=$(curl \
