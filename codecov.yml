@@ -1,6 +1,9 @@
 cat codecov.yml | curl --data-binary @- https://codecov.io/validate
 
 codecov:
+  branch: master
+
+codecov:
   notify:
     require_ci_to_pass: yes
 
