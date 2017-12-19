@@ -1,7 +1,6 @@
 language: cpp
 compiler: gcc
 
-
 before_install:
  - sudo apt-get -qq update
  - sudo apt-get install libboost1.54-all-dev -y
