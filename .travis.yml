@@ -1,14 +1,13 @@
 language: cpp
 compiler: gcc
+sudo: true
 
 before_install:
  - sudo apt-get -qq update
+ - sudo pip install codecov
  - sudo apt-get install libboost1.54-all-dev -y
  - sudo apt-get install libdb-dev libdb++-dev -y
  - sudo apt-get install libminiupnpc-dev -y
-
-r_github_packages:
-  - r-lib/covr
 
 script:
  - cd src
@@ -17,3 +16,5 @@ script:
  - mkdir zerocoin
  - cd ..
  - make -f makefile.unix
+ - ./get_code_cov.sh
+ - codecov
