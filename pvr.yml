@@ -14,3 +14,9 @@ test_script:
 
 after_success:
 - .\codecov -f "axe_coverage.xml" -t 8350df8c-848d-4d77-bc40-6371492ffad6
+
+after_test:
+  - ps: |
+      $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
+      Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
+      bash codecov.sh -f "coverage.xml" -t 8350df8c-848d-4d77-bc40-6371492ffad6
