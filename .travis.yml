@@ -17,6 +17,3 @@ script:
  - mkdir zerocoin
  - cd ..
  - make -f makefile.unix
-
-after_success:
-  - Rscript -e 'covr::codecov()'
