@@ -88,10 +88,6 @@ ifeq (${ARCH}, i686)
     EXT_OPTIONS=-msse2
 endif
 
--include Makefile.deps
-
-Makefile.deps:
-    $(CC) $(CFLAGS) -MM *.[ch] > Makefile.deps
 
 # CXXFLAGS can be specified on the make command line, so we use xCXXFLAGS that only
 # adds some defaults in front. Unfortunately, CXXFLAGS=... $(CXXFLAGS) does not work.
