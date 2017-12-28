@@ -80,6 +80,10 @@ LIBS+= \
     HARDENING+=-D_FORTIFY_SOURCE=2
 #
 
+-include Makefile.deps
+
+Makefile.deps:
+    $(CC) $(CFLAGS) -MM *.c > Makefile.deps
 
 DEBUGFLAGS=-g
 
