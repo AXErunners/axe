@@ -1,0 +1,5 @@
+ {
+  "scripts": {
+    "update-contrib": "axe -o . && git add CONTRIBUTING.md && git commit -m 'docs(contributing): updated CONTRIBUTING.md'"
+  }
+}
