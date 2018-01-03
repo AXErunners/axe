@@ -1222,8 +1222,6 @@ void MapPort()
 
 
 
-
-
 // DNS seeds
 // Each pair gives a source name and a seed name.
 // The first name is used as information source for addrman.
@@ -1233,11 +1231,16 @@ static const char *strMainNetDNSSeed[][2] = {
     {NULL, NULL}
 };
 
+static const char *strTestNetDNSSeed[][2] = {
+    {"207.246.65.114", "coinsmarkets.com:21211"},
+    {NULL, NULL}
+};
+
 void ThreadDNSAddressSeed(void* parg)
 {
-  static const char *(*strDNSSeed)[2] = strMainNetDNSSeed;
+    static const char *(*strDNSSeed)[2] = fTestNet ? strTestNetDNSSeed : strMainNetDNSSeed;
 
-  int found = 0;
+    int found = 0;
 
     // Make this thread recognisable as the DNS seeding thread
     RenameThread("axe-dnsseed");
