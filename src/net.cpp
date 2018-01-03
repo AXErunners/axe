@@ -1235,6 +1235,10 @@ static const char *strMainNetDNSSeed[][2] = {
 
 void ThreadDNSAddressSeed(void* parg)
 {
+  static const char *(*strDNSSeed)[2] = strMainNetDNSSeed;
+
+  int found = 0;
+
     // Make this thread recognisable as the DNS seeding thread
     RenameThread("axe-dnsseed");
 
