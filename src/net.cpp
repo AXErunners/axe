@@ -1226,45 +1226,62 @@ void MapPort()
 // Each pair gives a source name and a seed name.
 // The first name is used as information source for addrman.
 // The second name should resolve to a list of seed addresses.
-static const char *strMainNetDNSSeed[][2] = {
-    {"207.246.65.114", "coinsmarkets.com:21211"},
-    {NULL, NULL}
+static const char *strDNSSeed[][2] = {
 };
 
-static const char *strTestNetDNSSeed[][2] = {
-   {NULL, NULL}
-};
-
-void ThreadDNSAddressSeed()
+void ThreadDNSAddressSeed(void* parg)
 {
-   static const char *(*strDNSSeed)[2] = fTestNet ? strTestNetDNSSeed : strMainNetDNSSeed;
+    // Make this thread recognisable as the DNS seeding thread
+    RenameThread("axe-dnsseed");
 
-   int found = 0;
+    try
+    {
+        vnThreadsRunning[THREAD_DNSSEED]++;
+        ThreadDNSAddressSeed2(parg);
+        vnThreadsRunning[THREAD_DNSSEED]--;
+    }
+    catch (std::exception& e) {
+        vnThreadsRunning[THREAD_DNSSEED]--;
+        PrintException(&e, "ThreadDNSAddressSeed()");
+    } catch (...) {
+        vnThreadsRunning[THREAD_DNSSEED]--;
+        throw; // support pthread_cancel()
+    }
+    printf("ThreadDNSAddressSeed exited\n");
+}
 
-   printf("Loading addresses from DNS seeds (could take a while)\n");
+void ThreadDNSAddressSeed2(void* parg)
+{
+    printf("ThreadDNSAddressSeed started\n");
+    int found = 0;
 
-   for (unsigned int seed_idx = 0; strDNSSeed[seed_idx][0] != NULL; seed_idx++) {
-       if (HaveNameProxy()) {
-           AddOneShot(strDNSSeed[seed_idx][1]);
-       } else {
-           vector<CNetAddr> vaddr;
-           vector<CAddress> vAdd;
-           if (LookupHost(strDNSSeed[seed_idx][1], vaddr))
-           {
-               BOOST_FOREACH(CNetAddr& ip, vaddr)
-               {
-                   int nOneDay = 24*3600;
-                   CAddress addr = CAddress(CService(ip, GetDefaultPort()));
-                   addr.nTime = GetTime() - 3*nOneDay - GetRand(4*nOneDay); // use a random age between 3 and 7 days old
-                   vAdd.push_back(addr);
-                   found++;
-               }
-           }
-           addrman.Add(vAdd, CNetAddr(strDNSSeed[seed_idx][0], true));
-       }
-   }
+    if (!fTestNet)
+    {
+        printf("Loading addresses from DNS seeds (could take a while)\n");
 
-   printf("%d addresses found from DNS seeds\n", found);
+        for (unsigned int seed_idx = 0; seed_idx < ARRAYLEN(strDNSSeed); seed_idx++) {
+            if (HaveNameProxy()) {
+                AddOneShot(strDNSSeed[seed_idx][1]);
+            } else {
+                vector<CNetAddr> vaddr;
+                vector<CAddress> vAdd;
+                if (LookupHost(strDNSSeed[seed_idx][1], vaddr))
+                {
+                    BOOST_FOREACH(CNetAddr& ip, vaddr)
+                    {
+                        int nOneDay = 24*3600;
+                        CAddress addr = CAddress(CService(ip, GetDefaultPort()));
+                        addr.nTime = GetTime() - 3*nOneDay - GetRand(4*nOneDay); // use a random age between 3 and 7 days old
+                        vAdd.push_back(addr);
+                        found++;
+                    }
+                }
+                addrman.Add(vAdd, CNetAddr(strDNSSeed[seed_idx][0], true));
+            }
+        }
+    }
+
+    printf("%d addresses found from DNS seeds\n", found);
 }
 
 
