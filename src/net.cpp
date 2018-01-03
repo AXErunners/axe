@@ -1232,15 +1232,15 @@ static const char *strMainNetDNSSeed[][2] = {
 };
 
 static const char *strTestNetDNSSeed[][2] = {
-    {"207.246.65.114", "coinsmarkets.com:21211"},
-    {NULL, NULL}
+{NULL, NULL}
 };
 
-void ThreadDNSAddressSeed(void* parg)
+void ThreadDNSAddressSeed()
 {
-    static const char *(*strDNSSeed)[2] = fTestNet ? strTestNetDNSSeed : strMainNetDNSSeed;
+  
+static const char *(*strDNSSeed)[2] = fTestNet ? strTestNetDNSSeed : strMainNetDNSSeed;
 
-    int found = 0;
+int found = 0;
 
     // Make this thread recognisable as the DNS seeding thread
     RenameThread("axe-dnsseed");
