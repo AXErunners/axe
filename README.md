@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/charlesrocket/axe/raw/master/axe%20logo%20256.png"/>
+  <img src="https://github.com/charlesrocket/axe/raw/master/img/axe-logo256.png"/>
 </p>
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FAXErunners%2Faxe.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FAXErunners%2Faxe?ref=badge_shield)<br />
