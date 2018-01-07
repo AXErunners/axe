@@ -1,3 +1,5 @@
+AXE
+
 Copyright (c) 2017-2018 AXE Developers
 Copyright (c) 2015-2016 Litecoin Developers
 Copyright (c) 2013-2014 NovaCoin Developers
@@ -14,9 +16,9 @@ cryptographic software written by Eric Young (eay@cryptsoft.com).
 Intro
 -----
 AXE is a free open source project derived from Bitcoin, with
-the goal of providing a long-term energy-efficient scrypt-based crypto-currency.
-Built on the foundation of Bitcoin, PPCoin and NovaCoin, innovations such as proof-of-stake
-help further advance the field of crypto-currency.
+the goal of providing a long-term energy-efficient Scrypt-based cryptocurrency.
+Built on the foundation of Bitcoin, Litecoin, PPCoin and NovaCoin.
+Innovations such as proof-of-stake help further advance the field of cryptocurrency.
 
 Setup
 -----
