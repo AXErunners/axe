@@ -1,5 +1,6 @@
-Axe 0.4.4 BETA
+AXE
 
+Copyright (c) 2018 AXE Developers
 Copyright (c) 2013 NovaCoin Developers
 Copyright (c) 2011-2013 PPCoin Developers
 Distributed under the MIT/X11 software license, see the accompanying
