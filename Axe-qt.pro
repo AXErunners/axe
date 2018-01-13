@@ -5,6 +5,7 @@ INCLUDEPATH += src src/json src/qt
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
 CONFIG += thread
+CONFIG += USE_UPNP=-
 
 greaterThan(QT_MAJOR_VERSION, 4) {
     QT += widgets
@@ -27,8 +28,7 @@ UI_DIR = build
 
 # use: qmake "RELEASE=1"
 contains(RELEASE, 1) {
-    # Mac: compile for maximum compatibility (10.5, 32-bit)
-    macx:QMAKE_CXXFLAGS += -mmacosx-version-min=10.5 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.5.sdk
+    macx:QMAKE_CXXFLAGS += -mmacosx-version-min=10.10 -isysroot /Developer/SDKs/MacOSX10.13.sdk
 
     !windows:!macx {
         # Linux: static link
@@ -53,23 +53,6 @@ contains(USE_QRCODE, 1) {
     message(Building with QRCode support)
     DEFINES += USE_QRCODE
     LIBS += -lqrencode
-}
-
-# use: qmake "USE_UPNP=1" ( enabled by default; default)
-#  or: qmake "USE_UPNP=0" (disabled by default)
-#  or: qmake "USE_UPNP=-" (not supported)
-# miniupnpc (http://miniupnp.free.fr/files/) must be installed for support
-contains(USE_UPNP, -) {
-    message(Building without UPNP support)
-} else {
-    message(Building with UPNP support)
-    count(USE_UPNP, 0) {
-        USE_UPNP=1
-    }
-    DEFINES += USE_UPNP=$$USE_UPNP STATICLIB
-    INCLUDEPATH += $$MINIUPNPC_INCLUDE_PATH
-    LIBS += $$join(MINIUPNPC_LIB_PATH,,-L,) -lminiupnpc
-    win32:LIBS += -liphlpapi
 }
 
 # use: qmake "USE_DBUS=1" or qmake "USE_DBUS=0"
@@ -355,6 +338,11 @@ OTHER_FILES += \
     doc/*.rst doc/*.txt doc/README README.md res/bitcoin-qt.rc
 
 # platform specific defaults, if not overridden on command line
+isEmpty(BOOST_LIB_SUFFIX) {
+    macx:BOOST_LIB_SUFFIX = -mt
+    windows:BOOST_LIB_SUFFIX = -mt
+}
+
 isEmpty(BOOST_THREAD_LIB_SUFFIX) {
     win32:BOOST_THREAD_LIB_SUFFIX = _win32$$BOOST_LIB_SUFFIX
     else:BOOST_THREAD_LIB_SUFFIX = $$BOOST_LIB_SUFFIX
