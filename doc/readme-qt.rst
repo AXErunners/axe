@@ -46,7 +46,7 @@ Windows build instructions:
 Mac OS X
 --------
 
-- Download and install the `Qt Mac OS X SDK`_. It is recommended to also install Apple's Xcode with UNIX tools.
+- Download and install the `Qt Mac OS X SDK`_. It is recommended to also install Apple's Xcode with Command Line Tools.
 
 - Download and install `brew`_
 
