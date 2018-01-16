@@ -10,7 +10,7 @@
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_GUI -DBOOST_THREAD_USE_LIB -DBOOST_SPIRIT_THREADSAFE -DUSE_UPNP=1 -DSTATICLIB -DHAVE_BUILD_INFO -DLINUX -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED
+DEFINES       = -DQT_GUI -DBOOST_THREAD_USE_LIB -DBOOST_SPIRIT_THREADSAFE -DUSE_UPNP=- -DSTATICLIB -DHAVE_BUILD_INFO -DLINUX -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_SHARED
 CFLAGS        = -m64 -pipe -O2 -D_REENTRANT -Wall -W $(DEFINES)
 CXXFLAGS      = -m64 -pipe -fstack-protector-all --param ssp-buffer-size=1 -O2 -D_REENTRANT -fdiagnostics-show-option -Wall -Wextra -Wno-ignored-qualifiers -Wformat -Wformat-security -Wno-unused-parameter -Wstack-protector $(DEFINES)
 INCPATH       = -I/usr/share/qt4/mkspecs/linux-g++-64 -I/usr/include/qt4/QtCore -I/usr/include/qt4/QtGui -I/usr/include/qt4 -Isrc -Isrc/json -Isrc/qt -Isrc/leveldb/include -Isrc/leveldb/helpers -Ibuild -Ibuild
