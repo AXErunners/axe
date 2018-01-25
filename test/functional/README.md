@@ -87,7 +87,7 @@ start the networking thread.  (Continue with the test logic in your existing
 thread.)
 
 - Can be used to write tests where specific P2P protocol behavior is tested.
-Examples tests are `p2p-acceptblock.py`, `p2p-compactblocks.py`.
+Examples tests are `p2p_unrequested_blocks.py`, `p2p_compactblocks.py`.
 
 ### test-framework modules
 
