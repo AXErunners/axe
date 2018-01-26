@@ -54,7 +54,7 @@ Mac OS X
 
 ::
 
-    brew install boost@1.57 openssl protobuf cmake automake miniupnpc qrencode berkeley-db4 zlib pkg-config automake python
+    brew install boost@1.57 openssl protobuf cmake automake miniupnpc qrencode berkeley-db4 pkg-config automake python
     brew link boost@1.57 --force
 
 
