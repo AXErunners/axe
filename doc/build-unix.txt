@@ -13,11 +13,24 @@ UNIX BUILD NOTES
 To Build
 --------
 
-cd src/
-make -f makefile.unix            # Headless axe
+ apt-get -qq update
+ apt-get install libboost1.54-all-dev -y
+ apt-get install libdb-dev libdb++-dev -y
+ apt-get install libminiupnpc-dev -y
 
-See readme-qt.rst for instructions on building Axe QT,
-the graphical axe.
+compilation:
+ 
+ cd src/
+ mkdir obj
+ cd obj
+ mkdir zerocoin
+ cd ..
+ make -f makefile.unix     # headless Axe
+
+           
+
+See readme-qt.rst for instructions on building Axe-Qt,
+the graphical Axe.
 
 Dependencies
 ------------
