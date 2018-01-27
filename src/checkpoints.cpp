@@ -27,8 +27,12 @@ namespace Checkpoints
     //
     static MapCheckpoints mapCheckpoints =
         boost::assign::map_list_of
-        ( 0,      hashGenesisBlock )
-    ;
+        ( 0, hashGenesisBlockOfficial )
+        ( 5000, uint256("0x0000000000b004cf94deb187cb9bc738f5480707e54b79dc2002fb487135955e"))
+        ( 10000, uint256("0x00000000017f7399c06fe523c3bfa49228b8af61be692a162f6785bd52cfd1fa"))
+        ( 32000, uint256("0x039165fb3d275515fb6c7cfc1d0451c2f98398f869ffb195b1ea45c62e42092b"))
+        ( 65000, uint256("0xb526460e909d7868e8996c2859923012a8ee45b831aae8850e026b04d5da5eee"))
+        ;
 
     // TestNet has no checkpoints
     static MapCheckpoints mapCheckpointsTestnet =
@@ -187,7 +191,7 @@ namespace Checkpoints
         return false;
     }
 
-    // Automatically select a suitable sync-checkpoint 
+    // Automatically select a suitable sync-checkpoint
     uint256 AutoSelectSyncCheckpoint()
     {
         const CBlockIndex *pindex = pindexBest;
@@ -232,7 +236,7 @@ namespace Checkpoints
             return false;
         if (hashBlock == hashPendingCheckpoint)
             return true;
-        if (mapOrphanBlocks.count(hashPendingCheckpoint) 
+        if (mapOrphanBlocks.count(hashPendingCheckpoint)
             && hashBlock == WantedByOrphan(mapOrphanBlocks[hashPendingCheckpoint]))
             return true;
         return false;
