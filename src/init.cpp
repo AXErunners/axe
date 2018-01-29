@@ -544,7 +544,7 @@ bool AppInit2()
     std::ostringstream strErrors;
 
     if (fDaemon)
-        fprintf(stdout, "Axe server starting\n");
+        fprintf(stdout, "▂▃▅▇█▓▒░ AXE ░▒▓█▇▅▃▂\n");
 
     int64_t nStart;
 
