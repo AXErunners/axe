@@ -211,7 +211,7 @@ Value stop(const Array& params, bool fHelp)
             "Stop Axe server.");
     // Shutdown will take long enough that the response should get back
     StartShutdown();
-    return "Axe server stopping";
+    return "Axe server stopping (✖╭╮✖)";
 }
 
 
