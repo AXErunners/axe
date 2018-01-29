@@ -9,6 +9,9 @@ AboutDialog::AboutDialog(QWidget *parent) :
     ui(new Ui::AboutDialog)
 {
     ui->setupUi(this);
+
+    QPixmap pix(":/images/about");
+    ui->label_4->setPixmap(pix);
 }
 
 void AboutDialog::setModel(ClientModel *model)
