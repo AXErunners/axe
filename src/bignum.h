@@ -202,7 +202,7 @@ public:
         pch[1] = (nSize >> 16) & 0xff;
         pch[2] = (nSize >> 8) & 0xff;
         pch[3] = (nSize) & 0xff;
-        BN_mpi2bn(pch, p - pch, this);
+        BN_mpi2bn(pch, (int)(p - pch), this);
     }
 
     uint64_t getuint64()
@@ -455,7 +455,7 @@ public:
         CBigNum ret;
         if (!BN_mod_mul(&ret, this, &b, &m, pctx))
             throw bignum_error("CBigNum::mul_mod : BN_mod_mul failed");
-        
+
         return ret;
     }
 

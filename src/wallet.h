@@ -302,7 +302,7 @@ public:
     unsigned int GetKeyPoolSize()
     {
         AssertLockHeld(cs_wallet); // setKeyPool
-        return setKeyPool.size();
+        return (unsigned int)(setKeyPool.size());
     }
 
     bool GetTransaction(const uint256 &hashTx, CWalletTx& wtx);
