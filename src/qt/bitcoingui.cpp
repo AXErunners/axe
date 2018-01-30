@@ -75,9 +75,11 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     trayIcon(0),
     notificator(0),
     rpcConsole(0),
-    nWeight(0)
+    nWeight(0),
+    aboutDialog(0),
+    optionsDialog(0)
 {
-    resize(850, 425);
+    resize(845, 425);
     setWindowTitle(tr("Axe") + " - " + tr("Wallet"));
 #ifndef Q_OS_MAC
     qApp->setWindowIcon(QIcon(":icons/bitcoin"));
@@ -190,6 +192,9 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     rpcConsole = new RPCConsole(0);
     connect(openRPCConsoleAction, SIGNAL(triggered()), rpcConsole, SLOT(show()));
 
+    aboutDialog = new AboutDialog(0);
+    optionsDialog = new OptionsDialog(0);
+
     // Clicking on "Verify Message" in the address book sends you to the verify message tab
     connect(addressBookPage, SIGNAL(verifyMessage(QString)), this, SLOT(gotoVerifyMessageTab(QString)));
     // Clicking on "Sign Message" in the receive coins page sends you to the sign message tab
@@ -207,6 +212,8 @@ BitcoinGUI::~BitcoinGUI()
 #endif
 
     delete rpcConsole;
+    delete aboutDialog;
+    delete optionsDialog;
 }
 
 void BitcoinGUI::createActions()
@@ -473,9 +480,9 @@ void BitcoinGUI::optionsClicked()
 {
     if(!clientModel || !clientModel->getOptionsModel())
         return;
-    OptionsDialog dlg;
-    dlg.setModel(clientModel->getOptionsModel());
-    dlg.exec();
+    optionsDialog->setModel(clientModel->getOptionsModel());
+    optionsDialog->setModel(clientModel->getOptionsModel());
+    optionsDialog->show();
 }
 
 void BitcoinGUI::aboutClicked()
@@ -649,7 +656,7 @@ void BitcoinGUI::closeEvent(QCloseEvent *event)
     }
     // close rpcConsole in case it was open to make some space for the shutdown window
     rpcConsole->close();
-    
+
     QMainWindow::closeEvent(event);
 }
 

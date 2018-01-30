@@ -1046,6 +1046,33 @@ const boost::filesystem::path &GetDataDir(bool fNetSpecific)
     return path;
 }
 
+string randomStrGen(int length) {
+    static string charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    string result;
+    result.resize(length);
+    for (int32_t i = 0; i < length; i++)
+        result[i] = charset[rand() % charset.length()];
+
+    return result;
+}
+
+void createConf()
+{
+    srand(time(NULL));
+
+    ofstream pConf;
+    pConf.open(GetConfigFile().generic_string().c_str());
+    pConf << "rpcuser=user\nrpcpassword="
+            + randomStrGen(15)
+            + "\nrpcport=29058"
+            + "\nport=29057"
+            + "\ndaemon=0 #(0=off, 1=on) Run in the background as a daemon and accept commands"
+            + "\nserver=0 #(0=off, 1=on) Accept command line and JSON-RPC commands"
+            + "\nrpcallowip=127.0.0.1"
+            + "\ntestnet=0";
+    pConf.close();
+}
+
 boost::filesystem::path GetConfigFile()
 {
     boost::filesystem::path pathConfigFile(GetArg("-conf", "axe.conf"));
@@ -1058,7 +1085,13 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
 {
     boost::filesystem::ifstream streamConfig(GetConfigFile());
     if (!streamConfig.good())
-        return; // No bitcoin.conf file is OK
+
+    {
+        createConf();
+        new(&streamConfig) boost::filesystem::ifstream(GetConfigFile());
+        if(!streamConfig.good())
+            return;
+    }
 
     set<string> setOptions;
     setOptions.insert("*");
