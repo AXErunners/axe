@@ -956,7 +956,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+1"/>
         <source>This label turns red, if any recipient receives an amount smaller than %1.
 
- This means a fee of at least %2 is required. 
+ This means a fee of at least %2 is required.
 
  Amounts below 0.546 times the minimum relay fee are shown as DUST.</source>
         <translation type="unfinished"/>
@@ -1452,6 +1452,21 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
 </context>
 <context>
     <name>RPCConsole</name>
+    <message>
+      <location filename="../rpcconsole.cpp" line="352"/>
+      <source>Inbound:</source>
+      <translation>Входящие:</translation>
+    </message>
+    <message>
+      <location filename="../rpcconsole.cpp" line="353"/>
+      <source>Outbound:</source>
+      <translation>Исходящие:</translation>
+    </message>
+    <message>
+      <location filename="../forms/rpcconsole.ui" line="118"/>
+      <source>Using BerkeleyDB version</source>
+      <translation>Используется версия BerkeleyDB</translation>
+    </message>
     <message>
         <location filename="../forms/rpcconsole.ui" line="+46"/>
         <source>Client name</source>
