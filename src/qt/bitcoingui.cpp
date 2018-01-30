@@ -75,7 +75,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     trayIcon(0),
     notificator(0),
     rpcConsole(0),
-    nWeight(0)
+    nWeight(0),
     aboutDialog(0),
     optionsDialog(0)
 {
