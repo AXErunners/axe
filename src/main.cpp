@@ -522,6 +522,10 @@ bool CTransaction::CheckTransaction() const
         return DoS(10, error("CTransaction::CheckTransaction() : vin empty"));
     if (vout.empty())
         return DoS(10, error("CTransaction::CheckTransaction() : vout empty"));
+
+    if (nTime > FutureDrift(GetAdjustedTime()))
+        return DoS(10, error("CTransaction::CheckTransaction() : timestamp is too far into the future"));
+
     // Size limits
     if (::GetSerializeSize(*this, SER_NETWORK, PROTOCOL_VERSION) > MAX_BLOCK_SIZE)
         return DoS(100, error("CTransaction::CheckTransaction() : size limits failed"));
@@ -3777,3 +3781,24 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
     }
     return true;
 }
+
+class CMainCleanup
+{
+public:
+    CMainCleanup() {}
+    ~CMainCleanup() {
+        // block headers
+        std::map<uint256, CBlockIndex*>::iterator it1 = mapBlockIndex.begin();
+        for (; it1 != mapBlockIndex.end(); it1++)
+            delete (*it1).second;
+        mapBlockIndex.clear();
+
+        // orphan blocks
+        std::map<uint256, CBlock*>::iterator it2 = mapOrphanBlocks.begin();
+        for (; it2 != mapOrphanBlocks.end(); it2++)
+            delete (*it2).second;
+        mapOrphanBlocks.clear();
+
+        // orphan transactions
+    }
+} instance_of_cmaincleanup;
