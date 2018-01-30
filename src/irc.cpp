@@ -191,6 +191,8 @@ void ThreadIRCSeed(void* parg)
     // Make this thread recognisable as the IRC seeding thread
     RenameThread("axe-ircseed");
 
+    printf("ThreadIRCSeed started\n");
+
     try
     {
         ThreadIRCSeed2(parg);
@@ -217,7 +219,8 @@ void ThreadIRCSeed2(void* parg)
     if (!GetBoolArg("-irc", false))
         return;
 
-    printf("ThreadIRCSeed started\n");
+    printf("ThreadIRCSeed trying to connect...\n");
+    
     int nErrorWait = 10;
     int nRetryWait = 10;
     int nNameRetry = 0;
