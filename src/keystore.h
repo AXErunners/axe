@@ -155,7 +155,7 @@ public:
                 return CBasicKeyStore::HaveKey(address);
             return mapCryptedKeys.count(address) > 0;
         }
-        return false;
+        
     }
     bool GetKey(const CKeyID &address, CKey& keyOut) const;
     bool GetPubKey(const CKeyID &address, CPubKey& vchPubKeyOut) const;
