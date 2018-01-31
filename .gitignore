@@ -1,4 +1,4 @@
-##################
+### os  ###############
 
 .DS_Store
 .DS_Store?
@@ -8,6 +8,95 @@
 ehthumbs.db
 Thumbs.db
 
-##################
+
+### c++ ###############
+
+*.slo
+*.lo
+*.o
+*.a
+
+
+### qt  ###############
+
+/.qmake.cache
+/.qmake.stash
+target_wrapper.*
+*.qmlc
+*.jsc
+Makefile*
+*build-*
+
+
+### pj  ###############
 
 Axe-qt.pro.user
+
+
+### tr  # # # # # # # #
+
+src/qt/locale/bitcoin_af_ZA.qm
+src/qt/locale/bitcoin_ar.qm
+src/qt/locale/bitcoin_be_BY.qm
+src/qt/locale/bitcoin_bg.qm
+src/qt/locale/bitcoin_bs.qm
+src/qt/locale/bitcoin_ca.qm
+src/qt/locale/bitcoin_ca@valencia.qm
+src/qt/locale/bitcoin_ca_ES.qm
+src/qt/locale/bitcoin_cs.qm
+src/qt/locale/bitcoin_cy.qm
+src/qt/locale/bitcoin_da.qm
+src/qt/locale/bitcoin_de.qm
+src/qt/locale/bitcoin_el_GR.qm
+src/qt/locale/bitcoin_en.qm
+src/qt/locale/bitcoin_eo.qm
+src/qt/locale/bitcoin_es.qm
+src/qt/locale/bitcoin_es_CL.qm
+src/qt/locale/bitcoin_es_DO.qm
+src/qt/locale/bitcoin_es_MX.qm
+src/qt/locale/bitcoin_es_UY.qm
+src/qt/locale/bitcoin_et.qm
+src/qt/locale/bitcoin_eu_ES.qm
+src/qt/locale/bitcoin_fa.qm
+src/qt/locale/bitcoin_fa_IR.qm
+src/qt/locale/bitcoin_fi.qm
+src/qt/locale/bitcoin_fr.qm
+src/qt/locale/bitcoin_fr_CA.qm
+src/qt/locale/bitcoin_gl.qm
+src/qt/locale/bitcoin_he.qm
+src/qt/locale/bitcoin_hi_IN.qm
+src/qt/locale/bitcoin_hr.qm
+src/qt/locale/bitcoin_hu.qm
+src/qt/locale/bitcoin_id_ID.qm
+src/qt/locale/bitcoin_it.qm
+src/qt/locale/bitcoin_ja.qm
+src/qt/locale/bitcoin_ka.qm
+src/qt/locale/bitcoin_kk_KZ.qm
+src/qt/locale/bitcoin_ko_KR.qm
+src/qt/locale/bitcoin_ky.qm
+src/qt/locale/bitcoin_la.qm
+src/qt/locale/bitcoin_lt.qm
+src/qt/locale/bitcoin_lv_LV.qm
+src/qt/locale/bitcoin_ms_MY.qm
+src/qt/locale/bitcoin_nb.qm
+src/qt/locale/bitcoin_nl.qm
+src/qt/locale/bitcoin_pam.qm
+src/qt/locale/bitcoin_pl.qm
+src/qt/locale/bitcoin_pt_BR.qm
+src/qt/locale/bitcoin_pt_PT.qm
+src/qt/locale/bitcoin_ro_RO.qm
+src/qt/locale/bitcoin_ru.qm
+src/qt/locale/bitcoin_sah.qm
+src/qt/locale/bitcoin_sk.qm
+src/qt/locale/bitcoin_sl_SI.qm
+src/qt/locale/bitcoin_sq.qm
+src/qt/locale/bitcoin_sr.qm
+src/qt/locale/bitcoin_sv.qm
+src/qt/locale/bitcoin_th_TH.qm
+src/qt/locale/bitcoin_tr.qm
+src/qt/locale/bitcoin_uk.qm
+src/qt/locale/bitcoin_ur_PK.qm
+src/qt/locale/bitcoin_vi.qm
+src/qt/locale/bitcoin_vi_VN.qm
+src/qt/locale/bitcoin_zh_CN.qm
+src/qt/locale/bitcoin_zh_TW.qm
