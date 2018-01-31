@@ -426,7 +426,7 @@ int ReadHTTPHeader(std::basic_istream<char>& stream, map<string, string>& mapHea
         {
             string strHeader = str.substr(0, nColon);
             boost::trim(strHeader);
-            boost::to_lower(strHeader);
+            transform(strHeader.begin(), strHeader.end(), strHeader.begin(), ::tolower);
             string strValue = str.substr(nColon+1);
             boost::trim(strValue);
             mapHeadersRet[strHeader] = strValue;
