@@ -49,16 +49,16 @@ static const int64_t CENT = 1000000;
 #define UINTBEGIN(a)        ((uint32_t*)&(a))
 #define CUINTBEGIN(a)        ((const uint32_t*)&(a))
 
-#ifndef PRId64		
-#if defined(_MSC_VER) || defined(__MSVCRT__)		
-#define PRId64  "I64d"		
-#define PRIu64  "I64u"		
-#define PRIx64  "I64x"		
-#else		
-#define PRId64  "lld"		
-#define PRIu64  "llu"		
-#define PRIx64  "llx"		
-#endif		
+#ifndef PRId64
+#if defined(_MSC_VER) || defined(__MSVCRT__)
+#define PRId64  "I64d"
+#define PRIu64  "I64u"
+#define PRIx64  "I64x"
+#else
+#define PRId64  "lld"
+#define PRIu64  "llu"
+#define PRIx64  "llx"
+#endif
 #endif
 
 #ifndef THROW_WITH_STACKTRACE
@@ -343,7 +343,7 @@ inline int64_t GetPerformanceCounter()
 
 inline int64_t GetTimeMillis()
 {
-    return (boost::posix_time::ptime(boost::posix_time::microsec_clock::universal_time()) -
+    return (boost::posix_time::microsec_clock::universal_time() -
             boost::posix_time::ptime(boost::gregorian::date(1970,1,1))).total_milliseconds();
 }
 
@@ -659,4 +659,3 @@ inline uint32_t ByteReverse(uint32_t value)
 }
 
 #endif
-
