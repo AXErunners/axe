@@ -1029,6 +1029,31 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, int64_t nFees)
     return nSubsidy + nFees;
 }
 
+// Remove a random orphan block (which does not have any dependent orphans).
+ void static PruneOrphanBlocks()
+ {
+     if (mapOrphanBlocksByPrev.size() <= (size_t)std::max((int64_t)0, GetArg("-maxorphanblocks", DEFAULT_MAX_ORPHAN_BLOCKS)))
+         return;
+
+     // Pick a random orphan block.
+     int pos = insecure_rand() % mapOrphanBlocksByPrev.size();
+     std::multimap<uint256, CBlock*>::iterator it = mapOrphanBlocksByPrev.begin();
+     while (pos--) it++;
+
+     // As long as this block has other orphans depending on it, move to one of those successors.
+     do {
+         std::multimap<uint256, CBlock*>::iterator it2 = mapOrphanBlocksByPrev.find(it->second->GetHash());
+         if (it2 == mapOrphanBlocksByPrev.end())
+             break;
+         it = it2;
+     } while(1);
+
+     uint256 hash = it->second->GetHash();
+     delete it->second;
+     mapOrphanBlocksByPrev.erase(it);
+     mapOrphanBlocks.erase(hash);
+ }
+
 static const int64_t nTargetTimespan = 16 * 60;  // 16 mins
 
 //
@@ -2290,6 +2315,7 @@ bool ProcessBlock(CNode* pfrom, CBlock* pblock)
             else
                 setStakeSeenOrphan.insert(pblock->GetProofOfStake());
         }
+        PruneOrphanBlocks();
         CBlock* pblock2 = new CBlock(*pblock);
         mapOrphanBlocks.insert(make_pair(hash, pblock2));
         mapOrphanBlocksByPrev.insert(make_pair(pblock2->hashPrevBlock, pblock2));
@@ -3334,7 +3360,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
             AddOrphanTx(tx);
 
             // DoS prevention: do not allow mapOrphanTransactions to grow unbounded
-            unsigned int nEvicted = LimitOrphanTxSize(MAX_ORPHAN_TRANSACTIONS);
+            unsigned int nMaxOrphanTx = (unsigned int)std::max((int64_t)0, GetArg("-maxorphantx", DEFAULT_MAX_ORPHAN_TRANSACTIONS));
+            unsigned int nEvicted = LimitOrphanTxSize(nMaxOrphanTx);
             if (nEvicted > 0)
                 printf("mapOrphan overflow, removed %u tx\n", nEvicted);
         }
