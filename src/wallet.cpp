@@ -1617,7 +1617,7 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
         bool fKernelFound = false;
         for (unsigned int n=0; n<min(nSearchInterval,(int64_t)nMaxStakeSearchInterval) && !fKernelFound && !fShutdown && pindexPrev == pindexBest; n++)
         {
-            // Search backward in time from the given txNew timestamp 
+            // Search backward in time from the given txNew timestamp
             // Search nSearchInterval seconds back up to nMaxStakeSearchInterval
             uint256 hashProofOfStake = 0, targetProofOfStake = 0;
             COutPoint prevoutStake = COutPoint(pcoin.first->GetHash(), pcoin.second);
@@ -2464,3 +2464,24 @@ void CWallet::GetKeyBirthTimes(std::map<CKeyID, int64_t> &mapKeyBirth) const {
     for (std::map<CKeyID, CBlockIndex*>::const_iterator it = mapKeyFirstBlock.begin(); it != mapKeyFirstBlock.end(); it++)
         mapKeyBirth[it->first] = it->second->nTime - 7200; // block times can be 2h off
 }
+
+void CWallet::ClearOrphans()
+ {
+     list<uint256> orphans;
+
+     LOCK(cs_wallet);
+     for(map<uint256, CWalletTx>::const_iterator it = mapWallet.begin(); it != mapWallet.end(); ++it)
+     {
+         const CWalletTx *wtx = &(*it).second;
+         if((wtx->IsCoinBase() || wtx->IsCoinStake()) && !wtx->IsInMainChain())
+         {
+           orphans.push_back(wtx->GetHash());
+         }
+     }
+
+     for(list<uint256>::const_iterator it = orphans.begin(); it != orphans.end(); ++it)
+     {
+         EraseFromWallet(*it);
+         UpdatedTransaction(*it);
+     }
+ }
