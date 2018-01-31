@@ -57,6 +57,8 @@ public:
     QVariant data(const QModelIndex &index, int role) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
     QModelIndex index(int row, int column, const QModelIndex & parent = QModelIndex()) const;
+    void refresh();
+    
 private:
     CWallet* wallet;
     WalletModel *walletModel;
@@ -83,4 +85,3 @@ public slots:
 };
 
 #endif
-
