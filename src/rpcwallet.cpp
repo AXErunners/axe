@@ -1352,7 +1352,7 @@ Value keypoolrefill(const Array& params, bool fHelp)
             "Fills the keypool."
             + HelpRequiringPassphrase());
 
-    unsigned int nSize = max(GetArg("-keypool", 100), (int64_t)0);
+    unsigned int nSize = (GetArgUInt("-keypool", 100), (int64_t)0);
     if (params.size() > 0) {
         if (params[0].get_int() < 0)
             throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, expected valid size");
