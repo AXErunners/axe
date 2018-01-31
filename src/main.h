@@ -38,10 +38,12 @@ static const unsigned int MAX_BLOCK_SIZE_GEN = MAX_BLOCK_SIZE/2;
 static const unsigned int MAX_STANDARD_TX_SIZE = MAX_BLOCK_SIZE_GEN/5;
 /** The maximum allowed number of signature check operations in a block (network rule) */
 static const unsigned int MAX_BLOCK_SIGOPS = MAX_BLOCK_SIZE/50;
-/** The maximum number of orphan transactions kept in memory */
-static const unsigned int MAX_ORPHAN_TRANSACTIONS = MAX_BLOCK_SIZE/100;
+/** Default for -maxorphantx, maximum number of orphan transactions kept in memory */
+static const unsigned int DEFAULT_MAX_ORPHAN_TRANSACTIONS = 100;
 /** The maximum number of entries in an 'inv' protocol message */
 static const unsigned int MAX_INV_SZ = 50000;
+/** Default for -maxorphanblocks, maximum number of orphan blocks kept in memory */
+static const unsigned int DEFAULT_MAX_ORPHAN_BLOCKS = 750;
 /** Fees smaller than this (in satoshi) are considered zero fee (for transaction creation) */
 static const int64_t MIN_TX_FEE = 10000;
 /** Fees smaller than this (in satoshi) are considered zero fee (for relaying) */
