@@ -50,12 +50,11 @@ Mac OS X
 
 - Download and install `brew`_
 
-- Execute the following commands in a terminal
+- Execute the following command in a terminal
 
 ::
 
-    brew install boost@1.57 openssl protobuf cmake automake miniupnpc qrencode berkeley-db4 pkg-config automake python
-    brew link boost@1.57 --force
+    brew install boost@1.57 openssl protobuf cmake automake miniupnpc qrencode berkeley-db4 pkg-config automake python librsvg libevent && brew link boost@1.57 --force
 
 
 - Open the .pro file in Qt Creator and build as normal (cmd-B)
