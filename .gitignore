@@ -35,13 +35,6 @@ src/qt/test/test_axe-qt
 
 ### qt  ###############
 
-/.qmake.cache
-/.qmake.stash
-target_wrapper.*
-*.qmlc
-*.jsc
-Makefile*
-*build-*
 
 
 ### pj  ###############
@@ -63,48 +56,6 @@ src/test/test_axe
 src/qt/test/test_axe-qt
 
 # autoreconf
-Makefile.in
-aclocal.m4
-autom4te.cache/
-build-aux/config.guess
-build-aux/config.sub
-build-aux/depcomp
-build-aux/install-sh
-build-aux/ltmain.sh
-build-aux/m4/libtool.m4
-build-aux/m4/lt~obsolete.m4
-build-aux/m4/ltoptions.m4
-build-aux/m4/ltsugar.m4
-build-aux/m4/ltversion.m4
-build-aux/missing
-build-aux/compile
-build-aux/test-driver
-config.log
-config.status
-configure
-libtool
-src/bitcoin-config.h
-src/bitcoin-config.h.in
-src/stamp-h1
-share/setup.nsi
-share/qt/Info.plist
-
-src/leveldb/.deps/
-
-src/test/.deps
-src/test/.dirstamp
-
-src/qt/.deps/
-src/qt/.dirstamp
-src/qt/*.moc
-src/qt/moc_*.cpp
-src/qt/forms/ui_*.h
-
-src/qt/test/.deps/
-src/qt/test/.dirstamp
-src/qt/test/moc*.cpp
-src/qt/res/.deps/
-src/qt/res/.dirstamp
 
 .*.swp
 *.*~*
@@ -140,8 +91,7 @@ axe-qt_test
 linux-coverage-build
 linux-build
 win32-build
-qa/pull-tester/run-bitcoind-for-test.sh
-qa/pull-tester/build-tests.sh
+
 
 !src/leveldb-*/Makefile
 axe-qt
