@@ -22,7 +22,7 @@ To Build
 compilation:
  
  git clone https://github.com/AXErunners/axe.git
- cd src/
+ cd /axe/src/
  mkdir obj
  cd obj
  mkdir zerocoin
