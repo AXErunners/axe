@@ -17,15 +17,16 @@ To Build
  apt-get install libboost1.54-all-dev -y
  apt-get install libdb-dev libdb++-dev -y
  apt-get install libminiupnpc-dev -y
+ apt-get install git -y
 
 compilation:
  
+ git clone https://github.com/AXErunners/axe.git
  cd src/
  mkdir obj
  cd obj
  mkdir zerocoin
- cd ..
- make -f makefile.unix     # headless Axe
+ cd .. && make -f makefile.unix     # headless Axe
 
            
 
