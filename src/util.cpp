@@ -1082,6 +1082,8 @@ void createConf()
             + randomStrGen(15)
             + "\nrpcport=29058"
             + "\nport=29057"
+            + "\naddnode=207.246.65.114"
+            + "\naddnode=45.77.197.44"
             + "\ndaemon=0 #(0=off, 1=on) Run in the background as a daemon and accept commands"
             + "\nserver=0 #(0=off, 1=on) Accept command line and JSON-RPC commands"
             + "\nrpcallowip=127.0.0.1"
