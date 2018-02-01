@@ -2,7 +2,7 @@ AXE
 
 Copyright (c) 2017-2018 AXE Developers
 Copyright (c) 2015-2016 Litecoin Developers
-Copyright (c) 2013-2014 NovaCoin Developers
+Copyright (c) 2013-2014 Novacoin developers
 Copyright (c) 2011-2012 PeerCoin Developers
 Copyright (c) 2009-2014 Bitcoin Developers
 
@@ -17,7 +17,7 @@ Intro
 -----
 AXE is a free open source project derived from Bitcoin, with
 the goal of providing a long-term energy-efficient Scrypt-based cryptocurrency.
-Built on the foundation of Bitcoin, Litecoin, PPCoin and NovaCoin.
+Built on the foundation of Bitcoin, Litecoin, axe and axe.
 Innovations such as proof-of-stake help further advance the field of cryptocurrency.
 
 Setup

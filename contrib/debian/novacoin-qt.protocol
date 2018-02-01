@@ -1,6 +1,6 @@
 [Protocol]
-exec=novacoin-qt '%u'
-protocol=novacoin
+exec=axe-qt '%u'
+protocol=axe
 input=none
 output=none
 helper=true

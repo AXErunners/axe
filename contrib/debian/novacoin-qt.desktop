@@ -1,12 +1,12 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=NovaCoin
-Comment=NovaCoin P2P Cryptocurrency
-Comment[fr]=NovaCoin, monnaie virtuelle cryptographique pair à pair
-Comment[tr]=NovaCoin, eşten eşe kriptografik sanal para birimi
-Exec=/usr/bin/novacoin-qt
+Name=axe
+Comment=axe P2P Cryptocurrency
+Comment[fr]=axe, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=axe, eşten eşe kriptografik sanal para birimi
+Exec=/usr/bin/axe-qt
 Terminal=false
 Type=Application
 Icon=/usr/share/pixmaps/bitcoin80.xpm
-MimeType=x-scheme-handler/novacoin;
+MimeType=x-scheme-handler/axe;
 Categories=Office;
