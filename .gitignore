@@ -57,20 +57,7 @@ src/qt/test/test_axe-qt
 
 # autoreconf
 
-.*.swp
-*.*~*
-*.bak
-*.rej
-*.orig
-*.o
-*.patch
-*.a
-*.pb.cc
-*.pb.h
 
-*.log
-*.trs
-*.dmg
 
 
 ### cmp ###############
@@ -87,14 +74,6 @@ axe-qt_plugin_import.cpp
 ### tst ###############
 Makefile.test
 axe-qt_test
-
-linux-coverage-build
-linux-build
-win32-build
-
-
-!src/leveldb-*/Makefile
-axe-qt
 
 
 ### mngw ###############
