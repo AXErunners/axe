@@ -30,7 +30,7 @@ Then you must choose to either build from your local repository or from the offi
 
 To build from your local repository:
 
-* modify `contrib/gitian-descriptors/gitian-linux.yml` and `contrib/gitian-descriptors/gitian-win.yml`: replace the line `- "url": "https://github.com/peercoin/peercoin"` with `- "url": "/peercoin"`
+* modify `contrib/gitian-descriptors/gitian-linux.yml` and `contrib/gitian-descriptors/gitian-win.yml`: replace the line `- "url": "https://github.com/axerunners/axe"` with `- "url": "/peercoin"`
 * start the container with `docker run --privileged -ti -w /gitian-builder -v $PWD:/peercoin peergitian/setup bash`
 
 To build from the official repository start the container with this command:

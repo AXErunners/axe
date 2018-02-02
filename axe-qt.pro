@@ -1,6 +1,6 @@
 TEMPLATE = app
-TARGET = peercoin-qt
-macx:TARGET = "Peercoin-Qt"
+TARGET = axe-qt
+macx:TARGET = "Axe-Qt"
 VERSION = 0.6.2
 INCLUDEPATH += src src/json src/qt
 QT += network core
@@ -431,7 +431,7 @@ macx:HEADERS += src/qt/macdockiconhandler.h src/qt/macnotificationhandler.h
 macx:OBJECTIVE_SOURCES += src/qt/macdockiconhandler.mm src/qt/macnotificationhandler.mm
 macx:LIBS += -framework Foundation -framework ApplicationServices -framework AppKit
 macx:DEFINES += BOOST_NO_CXX11_SCOPED_ENUMS MAC_OSX MSG_NOSIGNAL=0
-macx:ICON = src/qt/res/icons/peercoin.icns
+macx:ICON = src/qt/res/icons/axe.icns
 macx:QMAKE_CFLAGS_THREAD += -pthread
 macx:QMAKE_LFLAGS_THREAD += -pthread
 macx:QMAKE_CXXFLAGS_THREAD += -pthread
