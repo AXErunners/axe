@@ -2,7 +2,7 @@ ACLOCAL_AMFLAGS = -I build-aux/m4
 SUBDIRS = src
 .PHONY: deploy
 
-GZIP_ENV="-9n"
+override GZIP_ENV = "-9n"
 
 BITCOIND_BIN=$(top_builddir)/src/axed$(EXEEXT)
 BITCOIN_QT_BIN=$(top_builddir)/src/qt/axe-qt$(EXEEXT)
