@@ -68,7 +68,7 @@ BITCOIN_CORE_H = \
   key.h \
   kernel.h \
   keystore.h \
-  leveldbwrapper.h \
+  txdb-leveldb.h \
   limitedmap.h \
   main.h \
   mruset.h \
@@ -126,7 +126,7 @@ libaxe_server_a_SOURCES = \
   init.cpp \
   kernel.cpp \
   keystore.cpp \
-  leveldbwrapper.cpp \
+  txdb-leveldb.cpp\
   main.cpp \
   net.cpp \
   noui.cpp \

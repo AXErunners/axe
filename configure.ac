@@ -335,8 +335,7 @@ AC_TRY_COMPILE([#include <sys/socket.h>],
 )
 
 dnl Check for libdb_cxx
-AC_CHECK_HEADER([db_cxx.h],,AC_MSG_ERROR(libdb_cxx headers missing))
-AC_CHECK_LIB([db_cxx], [main],, AC_MSG_ERROR(libdb_cxx missing))
+BITCOIN_FIND_BDB48
 
 dnl Check for libminiupnpc (optional)
 if test x$use_upnp != xno; then
