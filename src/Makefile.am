@@ -110,11 +110,12 @@ JSON_H = \
   json/json_spirit_writer_template.h
 
 obj/build.h: FORCE
-	@$(MKDIR_P) $(abs_top_builddir)/src/obj
+	@$(MKDIR_P) $(builddir)/obj
 	@$(top_srcdir)/share/genbuild.sh $(abs_top_builddir)/src/obj/build.h \
 	  $(abs_top_srcdir)
-version.o: obj/build.h
+libaxe_common_a-version.$(OBJEXT): obj/build.h
 
+libaxe_server_a_CPPFLAGS = $(BITCOIN_INCLUDES)
 libaxe_server_a_SOURCES = \
   addrman.cpp \
   alert.cpp \
@@ -149,6 +150,7 @@ libaxe_server_a_SOURCES = \
   $(JSON_H) \
   $(BITCOIN_CORE_H)
 
+libaxe_wallet_a_CPPFLAGS = $(BITCOIN_INCLUDES)
 libaxe_wallet_a_SOURCES = \
   db.cpp \
   rpcdump.cpp \
@@ -161,6 +163,7 @@ libaxe_wallet_a_SOURCES = \
   rpcwallet.cpp \
   $(BITCOIN_CORE_H)
 
+libaxe_common_a_CPPFLAGS = $(BITCOIN_INCLUDES)
 libaxe_common_a_SOURCES = \
   hash.cpp \
   key.cpp \
@@ -176,7 +179,7 @@ libaxe_cli_a_SOURCES = \
   rpcclient.cpp \
   $(BITCOIN_CORE_H)
 
-nodist_libaxe_common_a_SOURCES = $(top_srcdir)/src/obj/build.h
+nodist_libaxe_common_a_SOURCES = $(srcdir)/obj/build.h
 #
 
 # axed binary #
@@ -197,13 +200,14 @@ if TARGET_WINDOWS
 axed_SOURCES += bitcoind-res.rc
 endif
 
-AM_CPPFLAGS += $(BDB_CPPFLAGS)
 axed_LDADD += $(BDB_LIBS)
+axed_CPPFLAGS = $(BITCOIN_INCLUDES)
 
 # bitcoin-cli binary #
 axe_cli_LDADD = libaxe_cli.a libaxe_common.a $(BOOST_LIBS)
 axe_cli_SOURCES = bitcoin-cli.cpp
 axe_cli_LDFLAGS = $(AM_LDFLAGS)
+axe_cli_CPPFLAGS = $(BITCOIN_INCLUDES)
 
 if TARGET_WINDOWS
 axe_cli_SOURCES += bitcoin-cli-res.rc
