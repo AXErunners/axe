@@ -1,11 +1,10 @@
-
 ---
 name: "boost"
 suites:
 - "lucid"
 architectures:
 - "i386"
-packages:
+packages: 
 - "mingw32"
 - "faketime"
 - "zip"
@@ -26,6 +25,7 @@ script: |
   ;" > user-config.jam
   ./bootstrap.sh --without-icu
   ./bjam toolset=gcc target-os=windows threadapi=win32 threading=multi variant=release link=static --user-config=user-config.jam --without-mpi --without-python -sNO_BZIP2=1 -sNO_ZLIB=1 --layout=tagged --build-type=complete --prefix="$INSTALLPREFIX" $MAKEOPTS install
+
   cd "$INSTALLPREFIX"
   export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
   export FAKETIME=$REFERENCE_DATETIME

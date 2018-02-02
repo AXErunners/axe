@@ -1,56 +1,65 @@
 ---
-name: "axe"
+name: "peercoin"
 suites:
-- "lucid"
+- "precise"
 architectures:
 - "i386"
 - "amd64"
 packages:
-- "libdb4.8++-dev"
-- "qt4-qmake"
-- "libqt4-dev"
-- "libboost-system-dev"
-- "libboost-filesystem-dev"
-- "libboost-program-options-dev"
-- "libboost-thread-dev"
-- "libssl-dev"
+- "g++"
 - "git-core"
 - "unzip"
 - "pkg-config"
-- "libpng12-dev"
+- "faketime"
+- "zlib1g-dev"
+- "qt4-qmake"
+- "libqt4-dev"   
 reference_datetime: "2011-01-30 00:00:00"
 remotes:
-- "url": "https://github.com/axerunners/axe.git"
-  "dir": "axe"
+- "url": "https://github.com/peercoin/peercoin.git"
+  "dir": "peercoin"
 files:
-- "miniupnpc-1.6.tar.gz"
-- "qrencode-3.2.0.tar.bz2"
+- "peercoin-deps-linux32-gitian-r1.zip"
+- "peercoin-deps-linux64-gitian-r1.zip"
+- "boost-linux32-1.55.0-gitian-r1.zip"
+- "boost-linux64-1.55.0-gitian-r1.zip"
 script: |
-  INSTDIR="$HOME/install"
-  export LIBRARY_PATH="$INSTDIR/lib"
+  STAGING="$HOME/install"
+  OPTFLAGS='-O2'
+  BINDIR="${OUTDIR}/bin/${GBUILD_BITS}" # 32/64 bit build specific output directory
+  TEMPDIR="$HOME/tempdir"
+  export TZ=UTC
+  export LIBRARY_PATH="$STAGING/lib"
+  export PATH="$STAGING/bin:$PATH"
+  mkdir -p ${BINDIR}
   #
-  tar xzf miniupnpc-1.6.tar.gz
-  cd miniupnpc-1.6
-  INSTALLPREFIX=$INSTDIR make $MAKEOPTS install
+  mkdir -p $STAGING
+  cd $STAGING
+  unzip ../build/peercoin-deps-linux${GBUILD_BITS}-gitian-r1.zip
+  unzip ../build/boost-linux${GBUILD_BITS}-1.55.0-gitian-r1.zip
   cd ..
   #
-  tar xjf qrencode-3.2.0.tar.bz2
-  cd qrencode-3.2.0
-  ./configure --prefix=$INSTDIR --enable-static --disable-shared
-  make $MAKEOPTS install
-  cd ..
+  cd $HOME/build/peercoin
+  git archive --format=tar -o peercoin.tar HEAD
+  cp doc/README.md $OUTDIR
+  cp COPYING $OUTDIR
+  DISTNAME=peercoin.tar
   #
-  cd axe
-  mkdir -p $OUTDIR/src
-  git archive HEAD | tar -x -C $OUTDIR/src
-  cp $OUTDIR/src/doc/README $OUTDIR
-  cp $OUTDIR/src/COPYING $OUTDIR
-  cd src
-  make -f makefile.unix STATIC=1 OPENSSL_INCLUDE_PATH="$INSTDIR/include" OPENSSL_LIB_PATH="$INSTDIR/lib" $MAKEOPTS axed USE_UPNP=1 DEBUGFLAGS=
-  mkdir -p $OUTDIR/bin/$GBUILD_BITS
-  install -s axed $OUTDIR/bin/$GBUILD_BITS
-  #
-  cd ..
-  qmake INCLUDEPATH="$INSTDIR/include" LIBS="-L$INSTDIR/lib" RELEASE=1 USE_QRCODE=1
+  export LD_PRELOAD=/usr/lib/faketime/libfaketime.so.1
+  export FAKETIME=$REFERENCE_DATETIME
+
+  qmake INCLUDEPATH="$STAGING/include" LIBS="-L$STAGING/lib" USE_QRCODE=1 RELEASE=1 BOOST_LIB_SUFFIX=-mt QMAKE_CXXFLAGS=-frandom-seed=peercoin QMAKE_LFLAGS=-frandom-seed=peercoin
   make $MAKEOPTS
-  install axe-qt $OUTDIR/bin/$GBUILD_BITS
+  install -s peercoin-qt $BINDIR
+
+  cd src
+  make -f makefile.unix STATIC=1 $MAKEOPTS peercoind USE_UPNP=0 BDB_INCLUDE_PATH=$STAGING/include BDB_LIB_PATH=$STAGING/lib BOOST_LIB_SUFFIX=-mt DEBUGFLAGS=
+  install -s peercoind $BINDIR
+
+  # sort distribution tar file and normalize user/group/mtime information for deterministic output
+  mkdir -p $OUTDIR/src
+  rm -rf $TEMPDIR
+  mkdir -p $TEMPDIR
+  cd $TEMPDIR
+  tar -xvf $HOME/build/peercoin/$DISTNAME | sort | tar --no-recursion -cT /dev/stdin --mode='u+rw,go+r-w,a+X' --owner=0 --group=0 --mtime="$REFERENCE_DATETIME" | gzip -n > $OUTDIR/src/$DISTNAME.gz
+
