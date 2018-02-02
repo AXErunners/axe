@@ -86,6 +86,17 @@ BITCOIN_CORE_H = \
   version.h \
   walletdb.h \
   wallet.h
+  zerocoin/Accumulator.h \
+  zerocoin/AccumulatorProofOfKnowledge.h \
+  zerocoin/Coin.h \
+  zerocoin/CoinSpend.h \
+  zerocoin/Commitment.h \
+  zerocoin/ParamGeneration.h \
+  zerocoin/Params.h \
+  zerocoin/SerialNumberSignatureOfKnowledge.h \
+  zerocoin/SpendMetaData.h \
+  zerocoin/ZeroTest.h \
+  zerocoin/Zerocoin.h \
 
 JSON_H = \
   json/json_spirit.h \
@@ -124,6 +135,17 @@ libaxe_server_a_SOURCES = \
   rpcrawtransaction.cpp \
   rpcserver.cpp \
   txdb.cpp \
+  zerocoin/Accumulator.cpp \
+  zerocoin/AccumulatorProofOfKnowledge.cpp \
+  zerocoin/Coin.cpp \
+  zerocoin/CoinSpend.cpp \
+  zerocoin/Commitment.cpp \
+  zerocoin/ParamGeneration.cpp \
+  zerocoin/Params.cpp \
+  zerocoin/SerialNumberSignatureOfKnowledge.cpp \
+  zerocoin/SpendMetaData.cpp \
+  zerocoin/ZeroTest.cpp
+
   $(JSON_H) \
   $(BITCOIN_CORE_H)
 
