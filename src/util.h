@@ -108,7 +108,6 @@ T* alignup(T* p)
 }
 
 #ifdef WIN32
-#define MSG_NOSIGNAL        0
 #define MSG_DONTWAIT        0
 
 #ifndef S_IRUSR
@@ -121,10 +120,13 @@ T* alignup(T* p)
 
 inline void MilliSleep(int64_t n)
 {
-#if BOOST_VERSION >= 105000
+#if defined(HAVE_WORKING_BOOST_SLEEP_FOR)
     boost::this_thread::sleep_for(boost::chrono::milliseconds(n));
-#else
+#elif defined(HAVE_WORKING_BOOST_SLEEP
     boost::this_thread::sleep(boost::posix_time::milliseconds(n));
+    #else
+ //should never get here
+ #error missing boost sleep implementation
 #endif
 }
 

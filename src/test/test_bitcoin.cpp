@@ -6,7 +6,6 @@
 #include "wallet.h"
 
 CWallet* pwalletMain;
-CClientUIInterface uiInterface;
 
 extern bool fPrintToConsole;
 extern void noui_connect();
@@ -41,4 +40,3 @@ void StartShutdown()
 {
   exit(0);
 }
-

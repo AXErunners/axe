@@ -136,8 +136,6 @@ bool CWallet::LoadCScript(const CScript& redeemScript)
 
 bool CWallet::Unlock(const SecureString& strWalletPassphrase)
 {
-    if (!IsLocked())
-        return false;
 
     CCrypter crypter;
     CKeyingMaterial vMasterKey;
