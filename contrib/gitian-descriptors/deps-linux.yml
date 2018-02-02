@@ -1,5 +1,5 @@
 ---
-name: "peercoin-deps"
+name: "axe-deps"
 suites:
 - "precise"
 architectures:
@@ -129,5 +129,5 @@ script: |
   done
   #
   cd $STAGING
-  find include lib bin host | sort | zip -X@ $OUTDIR/peercoin-deps-linux${GBUILD_BITS}-gitian-r1.zip
+  find include lib bin host | sort | zip -X@ $OUTDIR/axe-deps-linux${GBUILD_BITS}-gitian-r1.zip
 

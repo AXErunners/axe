@@ -1,7 +1,7 @@
 [Unit]
-Description=Peercoin daemon
-After=network.target 
-Conflicts=peercoind-tor@%i.service
+Description=Axe daemon
+After=network.target
+Conflicts=axed-tor@%i.service
 
 [Service]
 User=%i
@@ -9,7 +9,7 @@ Group=users
 Type=forking
 Restart=always
 RestartSec=15
-ExecStart=/usr/bin/peercoind -daemon
+ExecStart=/usr/bin/axed -daemon
 TimeoutStopSec=60s
 TimeoutStartSec=2s
 
