@@ -3,12 +3,11 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "main.h"
+#include "rpcserver.h"
 #include "db.h"
 #include "txdb.h"
 #include "init.h"
 #include "miner.h"
-#include "bitcoinrpc.h"
 
 using namespace json_spirit;
 using namespace std;
@@ -525,4 +524,3 @@ Value submitblock(const Array& params, bool fHelp)
 
     return Value::null;
 }
-
