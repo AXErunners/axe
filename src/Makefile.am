@@ -36,11 +36,11 @@ endif
 bin_PROGRAMS =
 TESTS =
 
-if BUILD_AXED
+if BUILD_BITCOIND
   bin_PROGRAMS += axed
 endif
 
-if BUILD_AXE_CLI
+if BUILD_BITCOIN_CLI
   bin_PROGRAMS += axe-cli
 endif
 
