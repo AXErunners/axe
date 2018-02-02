@@ -96,7 +96,7 @@ BITCOIN_CORE_H = \
   zerocoin/SerialNumberSignatureOfKnowledge.h \
   zerocoin/SpendMetaData.h \
   zerocoin/ZeroTest.h \
-  zerocoin/Zerocoin.h \
+  zerocoin/Zerocoin.h
 
 JSON_H = \
   json/json_spirit.h \
