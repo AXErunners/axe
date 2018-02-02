@@ -4,6 +4,8 @@
 #include "clientmodel.h"
 #include "bitcoinrpc.h"
 #include "guiutil.h"
+#include "rpcserver.h"
+#include "rpcclient.h"
 
 #include <QTime>
 #include <QTimer>
