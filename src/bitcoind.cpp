@@ -64,7 +64,7 @@ bool AppInit(int argc, char* argv[])
 
         // Command-line RPC
         for (int i = 1; i < argc; i++)
-            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "axe:") && !boost::algorithm::istarts_with(argv[i], "ppcoin:"))
+            if (!IsSwitchChar(argv[i][0]) && !boost::algorithm::istarts_with(argv[i], "axe:") && !boost::algorithm::istarts_with(argv[i], "axe:"))
                 fCommandLine = true;
 
         if (fCommandLine)
