@@ -7,7 +7,7 @@
 
 #include "base58.h"
 #include "util.h"
-#include "bitcoinrpc.h"
+#include "rpcserver.h"
 
 using namespace std;
 using namespace json_spirit;
