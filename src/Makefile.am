@@ -222,6 +222,10 @@ LIBAXE_COMMON=libaxe_common.a
 LIBAXE_CLI=libaxe_cli.a
 LIBAXEQT=qt/libaxeqt.a
 
+if EMBEDDED_LEVELDB
+include Makefile.leveldb.include
+endif
+
 if ENABLE_TESTS
 include Makefile.test.include
 endif
