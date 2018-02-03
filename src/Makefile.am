@@ -14,11 +14,11 @@ BITCOIN_CONFIG_INCLUDES=-I$(builddir)/config
 BITCOIN_INCLUDES=-I$(builddir) -I$(builddir)/obj $(BITCOIN_CONFIG_INCLUDES) $(BOOST_CPPFLAGS) $(LEVELDB_CPPFLAGS)
 
 noinst_LIBRARIES = \
-  libaxe_server.a \
-  libaxe_common.a \
+  libbitcoin_server.a \
+  libbitcoin_common.a \
   libbitcoin_cli.a
 if ENABLE_WALLET
-noinst_LIBRARIES += libaxe_wallet.a
+noinst_LIBRARIES += libbitcoin_wallet.a
 endif
 
 bin_PROGRAMS =
@@ -101,10 +101,10 @@ obj/build.h: FORCE
 	@$(MKDIR_P) $(builddir)/obj
 	@$(top_srcdir)/share/genbuild.sh $(abs_top_builddir)/src/obj/build.h \
 	  $(abs_top_srcdir)
-libaxe_common_a-version.$(OBJEXT): obj/build.h
+libbitcoin_common_a-version.$(OBJEXT): obj/build.h
 
-libaxe_server_a_CPPFLAGS = $(BITCOIN_INCLUDES)
-libaxe_server_a_SOURCES = \
+libbitcoin_server_a_CPPFLAGS = $(BITCOIN_INCLUDES)
+libbitcoin_server_a_SOURCES = \
   addrman.cpp \
   alert.cpp \
   rpcserver.cpp \
@@ -138,8 +138,8 @@ libaxe_server_a_SOURCES = \
   $(JSON_H) \
   $(BITCOIN_CORE_H)
 
-libaxe_wallet_a_CPPFLAGS = $(BITCOIN_INCLUDES)
-libaxe_wallet_a_SOURCES = \
+libbitcoin_wallet_a_CPPFLAGS = $(BITCOIN_INCLUDES)
+libbitcoin_wallet_a_SOURCES = \
   db.cpp \
   rpcdump.cpp \
   rpcmining.cpp \
@@ -151,8 +151,8 @@ libaxe_wallet_a_SOURCES = \
   rpcwallet.cpp \
   $(BITCOIN_CORE_H)
 
-libaxe_common_a_CPPFLAGS = $(BITCOIN_INCLUDES)
-libaxe_common_a_SOURCES = \
+libbitcoin_common_a_CPPFLAGS = $(BITCOIN_INCLUDES)
+libbitcoin_common_a_SOURCES = \
   hash.cpp \
   key.cpp \
   netbase.cpp \
@@ -167,19 +167,19 @@ libbitcoin_cli_a_SOURCES = \
   rpcclient.cpp \
   $(BITCOIN_CORE_H)
 
-nodist_libaxe_common_a_SOURCES = $(srcdir)/obj/build.h
+nodist_libbitcoin_common_a_SOURCES = $(srcdir)/obj/build.h
 #
 
 # axed binary #
 axed_LDADD = \
-  libaxe_server.a \
+  libbitcoin_server.a \
   libbitcoin_cli.a \
-  libaxe_common.a \
+  libbitcoin_common.a \
   $(LIBLEVELDB) \
   $(LIBMEMENV) \
   $(BOOST_LIBS)
 if ENABLE_WALLET
-axed_LDADD += libaxe_wallet.a
+axed_LDADD += libbitcoin_wallet.a
 endif
 axed_SOURCES = bitcoind.cpp
 axed_LDFLAGS = $(AM_LDFLAGS)
@@ -192,7 +192,7 @@ axed_LDADD += $(BDB_LIBS)
 axed_CPPFLAGS = $(BITCOIN_INCLUDES)
 
 # bitcoin-cli binary #
-bitcoin_cli_LDADD = libbitcoin_cli.a libaxe_common.a $(BOOST_LIBS)
+bitcoin_cli_LDADD = libbitcoin_cli.a libbitcoin_common.a $(BOOST_LIBS)
 bitcoin_cli_SOURCES = bitcoin-cli.cpp
 bitcoin_cli_LDFLAGS = $(AM_LDFLAGS)
 bitcoin_cli_CPPFLAGS = $(BITCOIN_INCLUDES)
@@ -220,11 +220,11 @@ clean-local:
 	$(OBJC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	  $(CPPFLAGS) $(AM_CXXFLAGS) $(QT_INCLUDES) $(CXXFLAGS)  -c -o $@ $<
 
-LIBAXE_SERVER=libaxe_server.a
-LIBAXE_WALLET=libaxe_wallet.a
-LIBAXE_COMMON=libaxe_common.a
+LIBAXE_SERVER=libbitcoin_server.a
+LIBAXE_WALLET=libbitcoin_wallet.a
+LIBAXE_COMMON=libbitcoin_common.a
 LIBbitcoin_cli=libbitcoin_cli.a
-LIBAXEQT=qt/libaxeqt.a
+LIBAXEQT=qt/libbitcoinqt.a
 
 if EMBEDDED_LEVELDB
 include Makefile.leveldb.include
