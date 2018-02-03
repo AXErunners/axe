@@ -10,22 +10,7 @@ AM_CPPFLAGS += -I$(top_srcdir)/src/leveldb/helpers/memenv \
 
 AM_CPPFLAGS += -I$(builddir)
 
-if EMBEDDED_LEVELDB
-LEVELDB_CPPFLAGS += -I$(top_srcdir)/src/leveldb/include
-LEVELDB_CPPFLAGS += -I$(top_srcdir)/src/leveldb/helpers/memenv
-LIBLEVELDB += $(top_builddir)/src/leveldb/libleveldb.a
-LIBMEMENV  += $(top_builddir)/src/leveldb/libmemenv.a
-
-# NOTE: This dependency is not strictly necessary, but without it make may try to build both in parallel, which breaks the LevelDB build system in a race
-$(LIBLEVELDB): $(LIBMEMENV)
-
-$(LIBLEVELDB) $(LIBMEMENV):
-	@echo "Building LevelDB ..." && $(MAKE) -C $(@D) $(@F) CXX="$(CXX)" \
-	  CC="$(CC)" PLATFORM=$(TARGET_OS) AR="$(AR)" $(LEVELDB_TARGET_FLAGS) \
-          OPT="$(CXXFLAGS) $(CPPFLAGS)"
-endif
-
-noinst_LIBRARIES = \
+noinst_LIBRARIES += \
   libaxe_server.a \
   libaxe_common.a \
   libaxe_cli.a
