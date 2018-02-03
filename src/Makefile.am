@@ -29,7 +29,7 @@ if BUILD_BITCOIND
 endif
 
 if BUILD_BITCOIN_CLI
-  bin_PROGRAMS += axe-cli
+  bin_PROGRAMS += bitcoin-cli
 endif
 
 .PHONY: FORCE
@@ -191,7 +191,7 @@ endif
 axed_LDADD += $(BDB_LIBS)
 axed_CPPFLAGS = $(BITCOIN_INCLUDES)
 
-# axe-cli binary #
+# bitcoin-cli binary #
 axe_cli_LDADD = libaxe_cli.a libaxe_common.a $(BOOST_LIBS)
 axe_cli_SOURCES = bitcoin-cli.cpp
 axe_cli_LDFLAGS = $(AM_LDFLAGS)

@@ -32,9 +32,9 @@ static bool AppInitRPC(int argc, char* argv[])
         // First part of help message is specific to RPC client
         std::string strUsage = _("Axe RPC client version") + " " + FormatFullVersion() + "\n\n" +
             _("Usage:") + "\n" +
-              "  axe-cli [options] <command> [params]  " + _("Send command to Axe server") + "\n" +
-              "  axe-cli [options] help                " + _("List commands") + "\n" +
-              "  axe-cli [options] help <command>      " + _("Get help for a command") + "\n";
+              "  bitcoin-cli [options] <command> [params]  " + _("Send command to Axe server") + "\n" +
+              "  bitcoin-cli [options] help                " + _("List commands") + "\n" +
+              "  bitcoin-cli [options] help <command>      " + _("Get help for a command") + "\n";
 
         strUsage += "\n" + HelpMessageCli(true);
 
