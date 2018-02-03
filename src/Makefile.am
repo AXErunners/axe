@@ -13,10 +13,10 @@ AM_CPPFLAGS += -I$(builddir)
 BITCOIN_CONFIG_INCLUDES=-I$(builddir)/config
 BITCOIN_INCLUDES=-I$(builddir) -I$(builddir)/obj $(BITCOIN_CONFIG_INCLUDES) $(BOOST_CPPFLAGS) $(LEVELDB_CPPFLAGS)
 
-noinst_LIBRARIES += \
+noinst_LIBRARIES = \
   libaxe_server.a \
   libaxe_common.a \
-  libaxe_cli.a
+  libbitcoin_cli.a
 if ENABLE_WALLET
 noinst_LIBRARIES += libaxe_wallet.a
 endif
@@ -163,7 +163,7 @@ libaxe_common_a_SOURCES = \
   version.cpp \
   $(BITCOIN_CORE_H)
 
-libaxe_cli_a_SOURCES = \
+libbitcoin_cli_a_SOURCES = \
   rpcclient.cpp \
   $(BITCOIN_CORE_H)
 
@@ -173,7 +173,7 @@ nodist_libaxe_common_a_SOURCES = $(srcdir)/obj/build.h
 # axed binary #
 axed_LDADD = \
   libaxe_server.a \
-  libaxe_cli.a \
+  libbitcoin_cli.a \
   libaxe_common.a \
   $(LIBLEVELDB) \
   $(LIBMEMENV) \
@@ -192,13 +192,13 @@ axed_LDADD += $(BDB_LIBS)
 axed_CPPFLAGS = $(BITCOIN_INCLUDES)
 
 # bitcoin-cli binary #
-axe_cli_LDADD = libaxe_cli.a libaxe_common.a $(BOOST_LIBS)
-axe_cli_SOURCES = bitcoin-cli.cpp
-axe_cli_LDFLAGS = $(AM_LDFLAGS)
-axe_cli_CPPFLAGS = $(BITCOIN_INCLUDES)
+bitcoin_cli_LDADD = libbitcoin_cli.a libaxe_common.a $(BOOST_LIBS)
+bitcoin_cli_SOURCES = bitcoin-cli.cpp
+bitcoin_cli_LDFLAGS = $(AM_LDFLAGS)
+bitcoin_cli_CPPFLAGS = $(BITCOIN_INCLUDES)
 
 if TARGET_WINDOWS
-axe_cli_SOURCES += bitcoin-cli-res.rc
+bitcoin_cli_SOURCES += bitcoin-cli-res.rc
 endif
 
 CLEANFILES = leveldb/libleveldb.a leveldb/libmemenv.a *.gcda *.gcno
@@ -223,7 +223,7 @@ clean-local:
 LIBAXE_SERVER=libaxe_server.a
 LIBAXE_WALLET=libaxe_wallet.a
 LIBAXE_COMMON=libaxe_common.a
-LIBAXE_CLI=libaxe_cli.a
+LIBbitcoin_cli=libbitcoin_cli.a
 LIBAXEQT=qt/libaxeqt.a
 
 if EMBEDDED_LEVELDB
