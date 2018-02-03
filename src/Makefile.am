@@ -10,6 +10,9 @@ AM_CPPFLAGS += -I$(top_srcdir)/src/leveldb/helpers/memenv \
 
 AM_CPPFLAGS += -I$(builddir)
 
+BITCOIN_CONFIG_INCLUDES=-I$(builddir)/config
+BITCOIN_INCLUDES=-I$(builddir) -I$(builddir)/obj $(BITCOIN_CONFIG_INCLUDES) $(BOOST_CPPFLAGS) $(LEVELDB_CPPFLAGS)
+
 noinst_LIBRARIES += \
   libaxe_server.a \
   libaxe_common.a \
@@ -207,6 +210,7 @@ EXTRA_DIST = leveldb
 clean-local:
 	-$(MAKE) -C leveldb clean
 	rm -f leveldb/*/*.gcno leveldb/helpers/memenv/*.gcno
+ -rm -f config.h
 
 .rc.o:
 	@test -f $(WINDRES) && $(WINDRES) -i $< -o $@ || \
