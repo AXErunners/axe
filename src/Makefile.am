@@ -193,12 +193,12 @@ axed_CPPFLAGS = $(BITCOIN_INCLUDES)
 
 # axe-cli binary #
 axe_cli_LDADD = libaxe_cli.a libaxe_common.a $(BOOST_LIBS)
-axe_cli_SOURCES = axe-cli.cpp
+axe_cli_SOURCES = bitcoin-cli.cpp
 axe_cli_LDFLAGS = $(AM_LDFLAGS)
 axe_cli_CPPFLAGS = $(BITCOIN_INCLUDES)
 
 if TARGET_WINDOWS
-axe_cli_SOURCES += axe-cli-res.rc
+axe_cli_SOURCES += bitcoin-cli-res.rc
 endif
 
 CLEANFILES = leveldb/libleveldb.a leveldb/libmemenv.a *.gcda *.gcno
