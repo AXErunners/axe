@@ -10,7 +10,7 @@ improvements.
 
 Please report bugs using the issue tracker at github:
 
-  <https://github.com/axepay/axe/issues>
+  <https://github.com/axerunners/axe/issues>
 
 
 Upgrading and downgrading
@@ -76,25 +76,25 @@ This release also fixes a few crashes and compatibility issues.
 0.12.2.3 Change log
 ===================
 
-See detailed [change log](https://github.com/axepay/axe/compare/v0.12.2.2...axepay:v0.12.2.3) below.
+See detailed [change log](https://github.com/axerunners/axe/compare/v0.12.2.2...axerunners:v0.12.2.3) below.
 
 ### Backports:
-- [`068b20bc7`](https://github.com/axepay/axe/commit/068b20bc7) Merge #8256: BUG: bitcoin-qt crash
-- [`f71ab1daf`](https://github.com/axepay/axe/commit/f71ab1daf) Merge #11847: Fixes compatibility with boost 1.66 (#1836)
+- [`068b20bc7`](https://github.com/axerunners/axe/commit/068b20bc7) Merge #8256: BUG: bitcoin-qt crash
+- [`f71ab1daf`](https://github.com/axerunners/axe/commit/f71ab1daf) Merge #11847: Fixes compatibility with boost 1.66 (#1836)
 
 ### PrivateSend:
-- [`fa5fc418a`](https://github.com/axepay/axe/commit/fa5fc418a) Fix -liquidityprovider option (#1829)
-- [`d261575b4`](https://github.com/axepay/axe/commit/d261575b4) Skip existing masternode conections on mixing (#1833)
-- [`21a10057d`](https://github.com/axepay/axe/commit/21a10057d) Protect CKeyHolderStorage via mutex (#1834)
-- [`476888683`](https://github.com/axepay/axe/commit/476888683) Avoid reference leakage in CKeyHolderStorage::AddKey (#1840)
+- [`fa5fc418a`](https://github.com/axerunners/axe/commit/fa5fc418a) Fix -liquidityprovider option (#1829)
+- [`d261575b4`](https://github.com/axerunners/axe/commit/d261575b4) Skip existing masternode conections on mixing (#1833)
+- [`21a10057d`](https://github.com/axerunners/axe/commit/21a10057d) Protect CKeyHolderStorage via mutex (#1834)
+- [`476888683`](https://github.com/axerunners/axe/commit/476888683) Avoid reference leakage in CKeyHolderStorage::AddKey (#1840)
 
 ### InstantSend:
-- [`d6e2aa843`](https://github.com/axepay/axe/commit/d6e2aa843) Swap iterations and fUseInstantSend parameters in ApproximateBestSubset (#1819)
-- [`c9bafe154`](https://github.com/axepay/axe/commit/c9bafe154) Vote on IS only if it was accepted to mempool (#1826)
+- [`d6e2aa843`](https://github.com/axerunners/axe/commit/d6e2aa843) Swap iterations and fUseInstantSend parameters in ApproximateBestSubset (#1819)
+- [`c9bafe154`](https://github.com/axerunners/axe/commit/c9bafe154) Vote on IS only if it was accepted to mempool (#1826)
 
 ### Other:
-- [`ada41c3af`](https://github.com/axepay/axe/commit/ada41c3af) Fix crash on exit when -createwalletbackups=0 (#1810)
-- [`63e0e30e3`](https://github.com/axepay/axe/commit/63e0e30e3) bump version to 0.12.2.3 (#1827)
+- [`ada41c3af`](https://github.com/axerunners/axe/commit/ada41c3af) Fix crash on exit when -createwalletbackups=0 (#1810)
+- [`63e0e30e3`](https://github.com/axerunners/axe/commit/63e0e30e3) bump version to 0.12.2.3 (#1827)
 
 Credits
 =======
