@@ -1,0 +1,6 @@
+usr/local/bin/axe-qt usr/bin
+share/pixmaps/axe32.xpm usr/share/pixmaps
+share/pixmaps/axe16.xpm usr/share/pixmaps
+share/pixmaps/axe128.png usr/share/pixmaps
+debian/axe-qt.desktop usr/share/applications
+debian/axe-qt.protocol usr/share/kde4/services/

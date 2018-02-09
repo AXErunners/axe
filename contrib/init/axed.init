@@ -1,0 +1,67 @@
+#!/bin/bash
+#
+#  axed The Axe Core server.
+#
+#
+# chkconfig: 345 80 20
+# description: axed
+# processname: axed
+#
+
+# Source function library.
+. /etc/init.d/functions
+
+# you can override defaults in /etc/sysconfig/axed, see below
+if [ -f /etc/sysconfig/axed ]; then
+        . /etc/sysconfig/axed
+fi
+
+RETVAL=0
+
+prog=axed
+# you can override the lockfile via BITCOIND_LOCKFILE in /etc/sysconfig/axed
+lockfile=${BITCOIND_LOCKFILE-/var/lock/subsys/axed}
+
+# axed defaults to /usr/bin/axed, override with BITCOIND_BIN
+axed=${BITCOIND_BIN-/usr/bin/axed}
+
+# axed opts default to -disablewallet, override with BITCOIND_OPTS
+axed_opts=${BITCOIND_OPTS--disablewallet}
+
+start() {
+    echo -n $"Starting $prog: "
+    daemon $DAEMONOPTS $axed $axed_opts
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch $lockfile
+    return $RETVAL
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc $prog
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && rm -f $lockfile
+    return $RETVAL
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
+        status $prog
+        ;;
+    restart)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: service $prog {start|stop|status|restart}"
+        exit 1
+        ;;
+esac
