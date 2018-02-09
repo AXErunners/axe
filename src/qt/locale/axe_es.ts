@@ -2748,7 +2748,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Los desarrolladores de Bitcoin Core</translation>
     </message>
     <message>
-        <source>The Axe Core developers</source>
+        <source>The Dash Core developers</source>
         <translation>Los desarrolladores del Axe Core</translation>
     </message>
     <message>
@@ -3801,7 +3801,7 @@ por ejemplo: alertnotify=echo %%s | mail -s "Alerta de Axe" admin@foo.com
         <translation>Copyright (C) 2009-%i Los Desarrolladores de Bitcoin Core</translation>
     </message>
     <message>
-        <source>Copyright (C) 2014-%i The Axe Core Developers</source>
+        <source>Copyright (C) 2014-%i The Dash Core developers</source>
         <translation>Copyright (C) 2014-%i Los Desarrolladores de Axe Core</translation>
     </message>
     <message>

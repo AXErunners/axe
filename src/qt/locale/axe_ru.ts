@@ -3191,7 +3191,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Разработчики Bitcoin Core</translation>
     </message>
     <message>
-        <source>The Axe Core developers</source>
+        <source>The Dash Core developers</source>
         <translation>Разработчики Axe Core</translation>
     </message>
 </context>
@@ -4145,8 +4145,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Copyright (C) 2009-%i The Bitcoin Core Developers</translation>
     </message>
     <message>
-        <source>Copyright (C) 2014-%i The Axe Core Developers</source>
-        <translation>Copyright (C) 2014-%i The Axe Core Developers</translation>
+        <source>Copyright (C) 2014-%i The Dash Core developers</source>
+        <translation>Copyright (C) 2014-%i The Dash Core developers</translation>
     </message>
     <message>
         <source>Enable the client to act as a masternode (0-1, default: %u)</source>

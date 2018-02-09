@@ -4138,8 +4138,8 @@ https://www.transifex.com/projects/p/axe/</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>The Axe Core developers</source>
-        <translation>The Axe Core developers</translation>
+        <source>The Dash Core developers</source>
+        <translation>The Dash Core developers</translation>
     </message>
 </context>
 <context>
@@ -5354,8 +5354,8 @@ https://www.transifex.com/projects/p/axe/</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Copyright (C) 2014-%i The Axe Core Developers</source>
-        <translation>Copyright (C) 2014-%i The Axe Core Developers</translation>
+        <source>Copyright (C) 2014-%i The Dash Core developers</source>
+        <translation>Copyright (C) 2014-%i The Dash Core developers</translation>
     </message>
     <message>
         <location line="+14"/>

@@ -333,7 +333,7 @@ QT_TRANSLATE_NOOP("axe-core", "Connect to KeePassHttp on port <port> (default: %
 QT_TRANSLATE_NOOP("axe-core", "Connect to a node to retrieve peer addresses, and disconnect"),
 QT_TRANSLATE_NOOP("axe-core", "Connection options:"),
 QT_TRANSLATE_NOOP("axe-core", "Copyright (C) 2009-%i The Bitcoin Core Developers"),
-QT_TRANSLATE_NOOP("axe-core", "Copyright (C) 2014-%i The Axe Core Developers"),
+QT_TRANSLATE_NOOP("axe-core", "Copyright (C) 2014-%i The Dash Core developers"),
 QT_TRANSLATE_NOOP("axe-core", "Corrupted block database detected"),
 QT_TRANSLATE_NOOP("axe-core", "Could not parse masternode.conf"),
 QT_TRANSLATE_NOOP("axe-core", "Debugging/Testing options:"),

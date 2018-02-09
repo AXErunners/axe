@@ -2140,7 +2140,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Bitcoin Core-utvecklarna</translation>
     </message>
     <message>
-        <source>The Axe Core developers</source>
+        <source>The Dash Core developers</source>
         <translation>Axe Core-utvecklarna</translation>
     </message>
     <message>

@@ -3175,7 +3175,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Deweloperzy Bitcoin Core</translation>
     </message>
     <message>
-        <source>The Axe Core developers</source>
+        <source>The Dash Core developers</source>
         <translation>Deweloperzy Axe Core</translation>
     </message>
 </context>
@@ -4129,7 +4129,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Prawo autorskie (c) 2009-%i deweloperzy Bitcoin</translation>
     </message>
     <message>
-        <source>Copyright (C) 2014-%i The Axe Core Developers</source>
+        <source>Copyright (C) 2014-%i The Dash Core developers</source>
         <translation>Prawa autorskie (C) 2014-%i deweloperzy Axe</translation>
     </message>
     <message>

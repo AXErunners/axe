@@ -2964,7 +2964,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Vývojári Bitcoin Core</translation>
     </message>
     <message>
-        <source>The Axe Core developers</source>
+        <source>The Dash Core developers</source>
         <translation>Vývojári Axe Core</translation>
     </message>
 </context>
@@ -3834,7 +3834,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Autorské práva (C) 2009-%i Vývojári Bitcoin Core</translation>
     </message>
     <message>
-        <source>Copyright (C) 2014-%i The Axe Core Developers</source>
+        <source>Copyright (C) 2014-%i The Dash Core developers</source>
         <translation>Autorské práva (C) 2014-%i Vývojári jadra Axe</translation>
     </message>
     <message>

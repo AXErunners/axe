@@ -3194,7 +3194,7 @@ Dies kann passieren, wenn einige Axe aus ihrer Wallet bereits ausgegeben wurden.
         <translation>Die "Bitcoin Core"-Entwickler</translation>
     </message>
     <message>
-        <source>The Axe Core developers</source>
+        <source>The Dash Core developers</source>
         <translation>Die "Axe Core"-Entwickler</translation>
     </message>
 </context>
@@ -4148,7 +4148,7 @@ Dies kann passieren, wenn einige Axe aus ihrer Wallet bereits ausgegeben wurden.
         <translation>Copyright (C) 2009-%i Die "Bitcoin Core"-Entwickler</translation>
     </message>
     <message>
-        <source>Copyright (C) 2014-%i The Axe Core Developers</source>
+        <source>Copyright (C) 2014-%i The Dash Core developers</source>
         <translation>Copyright (C) 2014-%i Die "Axe Core"-Entwickler</translation>
     </message>
     <message>

@@ -3191,7 +3191,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Nhóm phát triển Bitcoin Core</translation>
     </message>
     <message>
-        <source>The Axe Core developers</source>
+        <source>The Dash Core developers</source>
         <translation>Nhóm phát triển Axe Core</translation>
     </message>
 </context>
@@ -4145,7 +4145,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Bản quyền (C) 2009-%i bởi Nhóm phát triển Bitcoin Core</translation>
     </message>
     <message>
-        <source>Copyright (C) 2014-%i The Axe Core Developers</source>
+        <source>Copyright (C) 2014-%i The Dash Core developers</source>
         <translation>Bản quyền (C) 2014-%i bởi Nhóm phát triển Axe Core</translation>
     </message>
     <message>

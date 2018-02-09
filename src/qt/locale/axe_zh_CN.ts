@@ -2741,7 +2741,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Bitcoin Core 的开发者</translation>
     </message>
     <message>
-        <source>The Axe Core developers</source>
+        <source>The Dash Core developers</source>
         <translation>达世币核心开发人员</translation>
     </message>
     <message>
@@ -3653,8 +3653,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>版权(C) 2009-%i The Bitcoin Core Developers</translation>
     </message>
     <message>
-        <source>Copyright (C) 2014-%i The Axe Core Developers</source>
-        <translation>版权 (C) 2014-%i The Axe Core Developers</translation>
+        <source>Copyright (C) 2014-%i The Dash Core developers</source>
+        <translation>版权 (C) 2014-%i The Dash Core developers</translation>
     </message>
     <message>
         <source>Could not parse -rpcbind value %s as network address</source>

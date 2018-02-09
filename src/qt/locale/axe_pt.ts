@@ -2732,7 +2732,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Os programadores Bitcoin Core</translation>
     </message>
     <message>
-        <source>The Axe Core developers</source>
+        <source>The Dash Core developers</source>
         <translation>Os programadores Axe Core</translation>
     </message>
     <message>
@@ -3696,8 +3696,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Copyright (C) 2009-%i The Bitcoin Core Developers</translation>
     </message>
     <message>
-        <source>Copyright (C) 2014-%i The Axe Core Developers</source>
-        <translation>Copyright (C) 2014-%i Axe Core Developers</translation>
+        <source>Copyright (C) 2014-%i The Dash Core developers</source>
+        <translation>Copyright (C) 2014-%i Dash Core developers</translation>
     </message>
     <message>
         <source>Could not parse -rpcbind value %s as network address</source>

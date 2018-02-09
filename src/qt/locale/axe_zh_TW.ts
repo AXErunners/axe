@@ -3167,7 +3167,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>位元幣核心開發人員</translation>
     </message>
     <message>
-        <source>The Axe Core developers</source>
+        <source>The Dash Core developers</source>
         <translation>達世幣核心開發人員</translation>
     </message>
 </context>
@@ -4077,7 +4077,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>版權為位元幣核心開發人員自西元 2009 至 %i 年起所有</translation>
     </message>
     <message>
-        <source>Copyright (C) 2014-%i The Axe Core Developers</source>
+        <source>Copyright (C) 2014-%i The Dash Core developers</source>
         <translation>版權為達世幣核心開發人員自西元 2014 至 %i 年起所有</translation>
     </message>
     <message>
