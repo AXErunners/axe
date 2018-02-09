@@ -24,9 +24,9 @@ Drag Axe-Qt to your applications folder, and then run Axe-Qt.
 
 ### Need Help?
 
-* See the [Axe documentation](https://axepay.atlassian.net/wiki/display/DOC)
+* See the [Axe documentation](https://axerunners.atlassian.net/wiki/display/DOC)
 for help and more information.
-* Ask for help on [#axepay](http://webchat.freenode.net?channels=axepay) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net?channels=axepay).
+* Ask for help on [#axerunners](http://webchat.freenode.net?channels=axerunners) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net?channels=axerunners).
 * Ask for help on the [AxeTalk](https://axetalk.org/) forums.
 
 Building
@@ -58,7 +58,7 @@ The Axe Core repo's [root README](/README.md) contains relevant information on t
 
 ### Resources
 * Discuss on the [AxeTalk](https://axetalk.org/) forums, in the Development & Technical Discussion board.
-* Discuss on [#axepay](http://webchat.freenode.net/?channels=axepay) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net/?channels=axepay).
+* Discuss on [#axerunners](http://webchat.freenode.net/?channels=axerunners) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net/?channels=axerunners).
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)

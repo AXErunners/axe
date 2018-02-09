@@ -4,11 +4,11 @@
 
 Axe Core version 0.12.0 is now available from:
 
-  https://axepay.io/downloads
+  https://axerunners.io/downloads
 
 Please report bugs using the issue tracker at github:
 
-  https://github.com/axepay/axe/issues
+  https://github.com/axerunners/axe/issues
 
 
 How to Upgrade

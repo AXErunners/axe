@@ -19,5 +19,5 @@ depending on the speed of your computer and network connection, the synchronizat
 process can take anywhere from a few hours to a day or more.
 
 See the axe wiki at:
-  https://axepay.atlassian.net/wiki/
+  https://axerunners.atlassian.net/wiki/
 for more help and information.
