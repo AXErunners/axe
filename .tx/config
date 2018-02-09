@@ -1,0 +1,7 @@
+[main]
+host = https://www.transifex.com
+
+[axe.qt-translation-012x]
+file_filter = src/qt/locale/axe_<lang>.ts
+source_file = src/qt/locale/axe_en.ts
+source_lang = en
