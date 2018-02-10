@@ -23,7 +23,7 @@ packages:
 - "python"
 reference_datetime: "2017-01-01 00:00:00"
 remotes:
-- "url": "https://github.com/axerunners/axe.git"
+- "url": "https://github.com/axepay/axe.git"
   "dir": "axe"
 files:
 - "MacOSX10.9.sdk.tar.gz"

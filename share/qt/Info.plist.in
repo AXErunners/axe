@@ -30,7 +30,7 @@
 
   <key>CFBundleExecutable</key>
   <string>Axe-Qt</string>
-
+  
   <key>CFBundleName</key>
   <string>Axe-Qt</string>
 
@@ -46,7 +46,7 @@
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>CFBundleURLName</key>
-      <string>org.axe.payment</string>
+      <string>org.axe.AxePayment</string>
       <key>CFBundleURLSchemes</key>
       <array>
         <string>axe</string>
@@ -99,7 +99,7 @@
 
   <key>LSAppNapIsDisabled</key>
     <string>True</string>
-
+  
   <key>LSApplicationCategoryType</key>
     <string>public.app-category.finance</string>
 </dict>

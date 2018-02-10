@@ -12,8 +12,8 @@ When a "Transaction Lock" occurs the hash of the related transaction is broadcas
 * `zmqpubhashtxlock`: publishes the transaction hash when locked via InstantSend
 
 This mechanism has been integrated into Bitcore-Node-Axe which allows for notification to be broadcast through Insight API in one of two ways:
-* WebSocket: [https://github.com/axerunners/insight-api-axe#web-socket-api](https://github.com/axerunners/insight-api-axe#web-socket-api)
-* API: [https://github.com/axerunners/insight-api-axe#instantsend-transactions](https://github.com/axerunners/insight-api-axe#instantsend-transactions)
+* WebSocket: [https://github.com/axepay/insight-api-axe#web-socket-api](https://github.com/axepay/insight-api-axe#web-socket-api)
+* API: [https://github.com/axepay/insight-api-axe#instantsend-transactions](https://github.com/axepay/insight-api-axe#instantsend-transactions)
 
 #### Command line option
 
