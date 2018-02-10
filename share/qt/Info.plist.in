@@ -71,7 +71,7 @@
         <string>application/x-axe-payment-request</string>
         <key>public.filename-extension</key>
         <array>
-          <string>axepaymentrequest</string>
+          <string>AXErunnersmentrequest</string>
         </array>
       </dict>
     </dict>

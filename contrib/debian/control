@@ -25,8 +25,8 @@ Build-Depends: debhelper,
  python
 Standards-Version: 3.9.2
 Homepage: https://www.axe.org/
-Vcs-Git: git://github.com/axepay/axe.git
-Vcs-Browser: https://github.com/axepay/axe
+Vcs-Git: git://github.com/AXErunners/axe.git
+Vcs-Browser: https://github.com/AXErunners/axe
 
 Package: axed
 Architecture: any
