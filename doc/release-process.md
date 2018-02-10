@@ -194,8 +194,6 @@ Note: check that SHA256SUMS itself doesn't end up in SHA256SUMS, which is a spur
 
   - Update title of #AXErunners on Freenode IRC
 
-  - Optionally reddit /r/Axepay, ... but this will usually sort out itself
-
 - Notify flare so that he can start building [the PPAs](https://launchpad.net/~axe.org/+archive/ubuntu/axe)
 
 - Add release notes for the new version to the directory `doc/release-notes` in git master
