@@ -1,5 +1,5 @@
 # Copyright (c) 2014-2015 The Bitcoin Core developers
-# Copyright (c) 2014-2017 The Axe Core developers
+# Copyright (c) 2014-2017 The Dash Core developers
 # Distributed under the MIT/X11 software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -37,7 +37,7 @@ MOCKTIME = 0
 
 def enable_mocktime():
     #For backwared compatibility of the python scripts
-    #with previous versions of the cache, set MOCKTIME 
+    #with previous versions of the cache, set MOCKTIME
     #to regtest genesis time + (201 * 156)
     global MOCKTIME
     MOCKTIME = 1417713337 + (201 * 156)
