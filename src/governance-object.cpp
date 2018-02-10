@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2017 The Axe Core developers
+// Copyright (c) 2014-2017 The Dash Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -441,7 +441,7 @@ bool CGovernanceObject::IsValidLocally(std::string& strError, bool& fMissingMast
 
     // CHECK COLLATERAL IF REQUIRED (HIGH CPU USAGE)
 
-    if(fCheckCollateral) { 
+    if(fCheckCollateral) {
         if((nObjectType == GOVERNANCE_OBJECT_TRIGGER) || (nObjectType == GOVERNANCE_OBJECT_WATCHDOG)) {
             std::string strOutpoint = vinMasternode.prevout.ToStringShort();
             masternode_info_t infoMn;
