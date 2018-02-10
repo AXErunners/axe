@@ -143,7 +143,7 @@ public:
         assert(consensus.hashGenesisBlock == uint256S("0x00000c33631ca6f2f61368991ce2dc03306b5bb50bf7cede5cfbba6db38e52e6"));
         assert(genesis.hashMerkleRoot == uint256S("0x987a08c31d7f04f47f1aeccdffc73ca4336e32a6615f619b94cc7109e7c2a7ac"));
 
-        vSeeds.push_back(CDNSSeedData("207.246.65.114", "45.77.197.44"));
+        vSeeds.push_back(CDNSSeedData("207.246.65.114", "207.246.65.114"));
 
         // Axe addresses start with 'x'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,55);
