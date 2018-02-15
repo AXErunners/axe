@@ -52,11 +52,11 @@ reachable from the Tor network. Add these lines to your /etc/tor/torrc (or equiv
 config file):
 
 	HiddenServiceDir /var/lib/tor/axecore-service/
-	HiddenServicePort 99037 127.0.0.1:99037
+	HiddenServicePort 9937 127.0.0.1:9937
 	HiddenServicePort 99036 127.0.0.1:99036
 
 The directory can be different of course, but (both) port numbers should be equal to
-your axed's P2P listen port (99037 by default).
+your axed's P2P listen port (9937 by default).
 
 	-externalip=X   You can tell Axe Core about its publicly reachable address using
 	                this option, and this can be a .onion address. Given the above
@@ -91,7 +91,7 @@ as well, use `discover` instead:
 
 	./axed ... -discover
 
-and open port 99037 on your firewall (or use -upnp).
+and open port 9937 on your firewall (or use -upnp).
 
 If you only want to use Tor to reach onion addresses, but not use it as a proxy
 for normal IPv4/IPv6 communication, use:

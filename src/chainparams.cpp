@@ -78,7 +78,7 @@ public:
         consensus.nMasternodePaymentsIncreaseBlock = 100000; // actual historical value
         consensus.nMasternodePaymentsIncreasePeriod = 576*30; // 17280 - actual historical value
         consensus.nInstantSendKeepLock = 24;
-        consensus.nBudgetPaymentsStartBlock = 1000000; 
+        consensus.nBudgetPaymentsStartBlock = 1000000;
         consensus.nBudgetPaymentsCycleBlocks = 16616; // ~(60*24*30)/2.6, actual number of blocks per month is 200700 / 12 = 16725
         consensus.nBudgetPaymentsWindowBlocks = 100;
         consensus.nBudgetProposalEstablishingTime = 60*60*24;
@@ -133,7 +133,7 @@ public:
         pchMessageStart[2] = 0x6b;
         pchMessageStart[3] = 0x04;
         vAlertPubKey = ParseHex("0");
-        nDefaultPort = 99037;
+        nDefaultPort = 9937;
         nMaxTipAge = 6 * 60 * 60; // ~144 blocks behind -> 2 x fork detection time, was 24 * 60 * 60 in bitcoin
         nDelayGetHeadersTime = 24 * 60 * 60;
         nPruneAfterHeight = 100000;
