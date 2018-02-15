@@ -53,7 +53,7 @@ config file):
 
 	HiddenServiceDir /var/lib/tor/axecore-service/
 	HiddenServicePort 9937 127.0.0.1:9937
-	HiddenServicePort 99036 127.0.0.1:99036
+	HiddenServicePort 9936 127.0.0.1:9936
 
 The directory can be different of course, but (both) port numbers should be equal to
 your axed's P2P listen port (9937 by default).
