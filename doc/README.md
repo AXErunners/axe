@@ -24,10 +24,9 @@ Drag Axe-Qt to your applications folder, and then run Axe-Qt.
 
 ### Need Help?
 
-* See the [Axe documentation](https://AXErunners.atlassian.net/wiki/display/DOC)
+* See the [Axe documentation](https://github.com/AXErunners/axe/wiki)
 for help and more information.
-* Ask for help on [#AXErunners](http://webchat.freenode.net?channels=AXErunners) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net?channels=AXErunners).
-* Ask for help on the [AxeTalk](https://axetalk.org/) forums.
+* Ask for help on [Discord](https://discordapp.com/invite/RKE5PD9) on Support channel.
 
 Building
 ---------------------
@@ -53,12 +52,8 @@ The Axe Core repo's [root README](/README.md) contains relevant information on t
 - [Unit Tests](unit-tests.md)
 - [Unauthenticated REST Interface](REST-interface.md)
 - [Shared Libraries](shared-libraries.md)
-- [BIPS](bips.md)
 - [Dnsseed Policy](dnsseed-policy.md)
 
-### Resources
-* Discuss on the [AxeTalk](https://axetalk.org/) forums, in the Development & Technical Discussion board.
-* Discuss on [#AXErunners](http://webchat.freenode.net/?channels=AXErunners) on Freenode. If you don't have an IRC client use [webchat here](http://webchat.freenode.net/?channels=AXErunners).
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)
