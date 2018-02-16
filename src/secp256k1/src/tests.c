@@ -2149,8 +2149,8 @@ void run_ecmult_chain(void) {
         secp256k1_scalar_mul(&gn, &gn, &gf);
 
         /* verify */
-        if (i == 19999) {
-            /* expected result after 19999 iterations */
+        if (i == 9936) {
+            /* expected result after 9936 iterations */
             secp256k1_gej rp = SECP256K1_GEJ_CONST(
                 0xD6E96687, 0xF9B10D09, 0x2A6F3543, 0x9D86CEBE,
                 0xA4535D0D, 0x409F5358, 0x6440BD74, 0xB933E830,

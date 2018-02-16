@@ -143,7 +143,7 @@ bool AppInit(int argc, char* argv[])
         fDaemon = GetBoolArg("-daemon", false);
         if (fDaemon)
         {
-            fprintf(stdout, "Axe Core server starting\n");
+            fprintf(stdout, "▂▃▅▇█▓▒░  A X E  ░▒▓█▇▅▃▂\n");
 
             // Daemonize
             pid_t pid = fork();
