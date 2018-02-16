@@ -145,7 +145,7 @@ public:
 
         vSeeds.push_back(CDNSSeedData("207.246.65.114", "45.32.168.226"));
 
-        // Axe addresses start with 'x'
+        // Axe addresses start with 'P'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,55);
         // Axe script addresses start with '7'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,16);
