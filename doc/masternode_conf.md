@@ -26,3 +26,5 @@ The following RPC commands are available (type `help masternode` in Console for 
 * start-missing
 * start-disabled
 * outputs
+
+Detailed guide https://github.com/AXErunners/axe/wiki/Masternodes
