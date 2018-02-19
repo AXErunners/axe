@@ -173,7 +173,10 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            (  0, uint256S("0x00000c33631ca6f2f61368991ce2dc03306b5bb50bf7cede5cfbba6db38e52e6")),
+            (     0, uint256S("0x00000c33631ca6f2f61368991ce2dc03306b5bb50bf7cede5cfbba6db38e52e6")),
+            (  1000, uint256S("0x000001c94f32e43dc459bc522e343b41f179b7b486e155e819c3f251ee4a6d8d")),
+            (  5000, uint256S("0x0000002e22464e17a0140f686bfdd7794ade570f71d884098302cba16b6059d5")),
+            ( 10000, uint256S("0x00000000009994b68f4fb71d5e3d21fa92b259c41c7734e1b10ab7d8fcabe78b")),
 
             1518140231, // * UNIX timestamp of last checkpoint block
             0,    // * total number of transactions between genesis and last checkpoint
@@ -246,7 +249,7 @@ public:
         pchMessageStart[2] = 0xca;
         pchMessageStart[3] = 0xff;
         vAlertPubKey = ParseHex("0");
-        nDefaultPort = 9936;
+          nDefaultPort = 9936;
         nMaxTipAge = 0x7fffffff; // allow mining on top of old blocks for testnet
         nDelayGetHeadersTime = 24 * 60 * 60;
         nPruneAfterHeight = 1000;
