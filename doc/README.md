@@ -66,3 +66,8 @@ License
 Distributed under the [MIT software license](http://www.opensource.org/licenses/mit-license.php).
 This product includes software developed by the OpenSSL Project for use in the [OpenSSL Toolkit](https://www.openssl.org/). This product includes
 cryptographic software written by Eric Young ([eay@cryptsoft.com](mailto:eay@cryptsoft.com)), and UPnP software written by Thomas Bernard.
+
+Attribution 3.0 Unported (CC BY 3.0)
+---------------------
+GUI intefrace includes work by Fabio Nucatolo from the Noun Project
+https://thenounproject.com/fabio.nucatolo/collection/hand-drawn-material-design-icon
