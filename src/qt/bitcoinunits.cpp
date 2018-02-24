@@ -22,7 +22,7 @@ QList<BitcoinUnits::Unit> BitcoinUnits::availableUnits()
     unitlist.append(AXE);
     unitlist.append(mAXE);
     unitlist.append(uAXE);
-    unitlist.append(duffs);
+    unitlist.append(haks);
     return unitlist;
 }
 
@@ -33,7 +33,7 @@ bool BitcoinUnits::valid(int unit)
     case AXE:
     case mAXE:
     case uAXE:
-    case duffs:
+    case haks:
         return true;
     default:
         return false;
@@ -49,7 +49,7 @@ QString BitcoinUnits::name(int unit)
             case AXE: return QString("AXE");
             case mAXE: return QString("mAXE");
             case uAXE: return QString::fromUtf8("μAXE");
-            case duffs: return QString("duffs");
+            case haks: return QString("haks");
             default: return QString("???");
         }
     }
@@ -60,7 +60,7 @@ QString BitcoinUnits::name(int unit)
             case AXE: return QString("tAXE");
             case mAXE: return QString("mtAXE");
             case uAXE: return QString::fromUtf8("μtAXE");
-            case duffs: return QString("tduffs");
+            case haks: return QString("thaks");
             default: return QString("???");
         }
     }
@@ -75,7 +75,7 @@ QString BitcoinUnits::description(int unit)
             case AXE: return QString("Axe");
             case mAXE: return QString("Milli-Axe (1 / 1" THIN_SP_UTF8 "000)");
             case uAXE: return QString("Micro-Axe (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-            case duffs: return QString("Ten Nano-Axe (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case haks: return QString("Ten Nano-Axe (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
             default: return QString("???");
         }
     }
@@ -86,7 +86,7 @@ QString BitcoinUnits::description(int unit)
             case AXE: return QString("TestAxes");
             case mAXE: return QString("Milli-TestAxe (1 / 1" THIN_SP_UTF8 "000)");
             case uAXE: return QString("Micro-TestAxe (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-            case duffs: return QString("Ten Nano-TestAxe (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case haks: return QString("Ten Nano-TestAxe (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
             default: return QString("???");
         }
     }
@@ -99,7 +99,7 @@ qint64 BitcoinUnits::factor(int unit)
     case AXE:  return 100000000;
     case mAXE: return 100000;
     case uAXE: return 100;
-    case duffs: return 1;
+    case haks: return 1;
     default:   return 100000000;
     }
 }
@@ -111,7 +111,7 @@ int BitcoinUnits::decimals(int unit)
     case AXE: return 8;
     case mAXE: return 5;
     case uAXE: return 2;
-    case duffs: return 0;
+    case haks: return 0;
     default: return 0;
     }
 }

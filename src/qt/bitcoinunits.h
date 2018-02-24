@@ -60,7 +60,7 @@ public:
         AXE,
         mAXE,
         uAXE,
-        duffs
+        haks
     };
 
     enum SeparatorStyle
