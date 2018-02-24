@@ -3531,13 +3531,13 @@ https://www.transifex.com/projects/p/axe/</translation>
     </message>
     <message>
         <location line="-488"/>
-        <source>If the custom fee is set to 1000 duffs and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 duffs in fee,&lt;br /&gt;while &quot;at least&quot; pays 1000 duffs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
-        <translation>If the custom fee is set to 1000 duffs and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 duffs in fee,&lt;br /&gt;while &quot;at least&quot; pays 1000 duffs. For transactions bigger than a kilobyte both pay by kilobyte.</translation>
+        <source>If the custom fee is set to 1000 haks and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 haks in fee,&lt;br /&gt;while &quot;at least&quot; pays 1000 haks. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <translation>If the custom fee is set to 1000 haks and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 haks in fee,&lt;br /&gt;while &quot;at least&quot; pays 1000 haks. For transactions bigger than a kilobyte both pay by kilobyte.</translation>
     </message>
     <message>
         <location line="+16"/>
-        <source>If the custom fee is set to 1000 duffs and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 duffs in fee,&lt;br /&gt;while &quot;total at least&quot; pays 1000 duffs. For transactions bigger than a kilobyte both pay by kilobyte.</source>
-        <translation>If the custom fee is set to 1000 duffs and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 duffs in fee,&lt;br /&gt;while &quot;total at least&quot; pays 1000 duffs. For transactions bigger than a kilobyte both pay by kilobyte.</translation>
+        <source>If the custom fee is set to 1000 haks and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 haks in fee,&lt;br /&gt;while &quot;total at least&quot; pays 1000 haks. For transactions bigger than a kilobyte both pay by kilobyte.</source>
+        <translation>If the custom fee is set to 1000 haks and the transaction is only 250 bytes, then &quot;per kilobyte&quot; only pays 250 haks in fee,&lt;br /&gt;while &quot;total at least&quot; pays 1000 haks. For transactions bigger than a kilobyte both pay by kilobyte.</translation>
     </message>
     <message>
         <location line="+33"/>

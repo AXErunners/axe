@@ -144,6 +144,10 @@ public:
         assert(genesis.hashMerkleRoot == uint256S("0x987a08c31d7f04f47f1aeccdffc73ca4336e32a6615f619b94cc7109e7c2a7ac"));
 
         vSeeds.push_back(CDNSSeedData("207.246.65.114", "45.32.168.226"));
+        vSeeds.push_back(CDNSSeedData("45.77.149.231", "45.76.254.202"));
+        vSeeds.push_back(CDNSSeedData("198.13.50.26", "45.56.99.202"));
+        vSeeds.push_back(CDNSSeedData("45.77.101.51", "144.202.3.252"));
+        vSeeds.push_back(CDNSSeedData("23.95.245.52", "209.250.253.235"));
 
         // Axe addresses start with 'P'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,55);
@@ -177,10 +181,13 @@ public:
             (  1000, uint256S("0x000001c94f32e43dc459bc522e343b41f179b7b486e155e819c3f251ee4a6d8d"))
             (  5000, uint256S("0x0000002e22464e17a0140f686bfdd7794ade570f71d884098302cba16b6059d5"))
             ( 10000, uint256S("0x00000000009994b68f4fb71d5e3d21fa92b259c41c7734e1b10ab7d8fcabe78b"))
-            ( 12860, uint256S("0x000000000002aae6fac2e55b094bcba9ded463d14bd81fa76f29623fa35d2261")),
+            ( 12860, uint256S("0x000000000002aae6fac2e55b094bcba9ded463d14bd81fa76f29623fa35d2261"))
+            ( 13500, uint256S("0x0000000000028510da80feb2ec0804f3fdbf62744ca5979d93f56514bbc45396"))
+            ( 14385, uint256S("0x000000000001af010a1dabf2dc45b4738c23453532c3c4d9b47903f8610a70b8"))
+            ( 15120, uint256S("0x000000000002eea846d5d97fa085ac6336d3e69832703c3ebeda89fdcfbcb7e4")),
 
-            1519006914, // * UNIX timestamp of last checkpoint block
-            6274,    // * total number of transactions between genesis and last checkpoint
+            1519439512, // * UNIX timestamp of last checkpoint block
+            7090,    // * total number of transactions between genesis and last checkpoint
                         //   (the tx=... number in the SetBestChain debug.log lines)
             500        // * estimated number of transactions per day after checkpoint
         };

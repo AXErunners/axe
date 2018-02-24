@@ -21,6 +21,7 @@ _Note: IPs like 127.0.0.* are not allowed actually, we are using them here for e
 
 The following RPC commands are available (type `help masternode` in Console for more info):
 * list-conf
+* status
 * start-alias \<alias\>
 * start-all
 * start-missing
