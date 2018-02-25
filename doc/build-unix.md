@@ -24,7 +24,8 @@ make
 make install # optional
 ```
 
-This will build axe-qt as well if the dependencies are met.
+This will build axe-qt as well if the dependencies are met.<br />
+`make install` will copy binaries to bin folder.
 
 Dependencies
 ---------------------
