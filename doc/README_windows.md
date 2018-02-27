@@ -1,16 +1,12 @@
-Axe Core
-=====================
+## Axe Core
 
-Intro
------
 Axe is a free open source peer-to-peer electronic cash system that is
 completely decentralized, without the need for a central server or trusted
 parties.  Users hold the crypto keys to their own money and transact directly
 with each other, with the help of a P2P network to check for double-spending.
 
 
-Setup
------
+### Setup
 Download client from https://github.com/AXErunners/axe/releases and run axe-qt.exe.
 
 Axe Core is the original Axe client and it builds the backbone of the network.
