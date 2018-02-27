@@ -4,7 +4,7 @@ Use the raw transactions API to send coins received on a particular
 address (or addresses).
 
 ### Usage: ###
-Depends on [jsonrpc](http://json-rpc.org/).
+Depends on [jsonrpc](http://jsonrpc.org/).
 
 	spendfrom.py --from=FROMADDRESS1[,FROMADDRESS2] --to=TOADDRESS --amount=amount \
 	             --fee=fee --datadir=/path/to/.axecore --testnet --dry_run
