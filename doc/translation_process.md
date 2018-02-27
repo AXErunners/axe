@@ -3,7 +3,7 @@ Translations
 
 The Axe Core project has been designed to support multiple localisations. This makes adding new phrases, and completely new languages easily achievable. For managing all application translations, Axe Core makes use of the Transifex online translation management tool.
 
-### Helping to translate (using Transifex)
+### Helping to translate (using Transifex) - WIP
 Transifex is setup to monitor the Github repo for updates, and when code containing new translations is found, Transifex will process any changes. It may take several hours after a pull-request has been merged, to appear in the Transifex web interface.
 
 Multiple language support is critical in assisting Axe’s global adoption, and growth. One of Axe’s greatest strengths is cross-boarder money transfers, any help making that easier is greatly appreciated.
