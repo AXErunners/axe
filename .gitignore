@@ -9,7 +9,9 @@
 *.so
 *.dll
 *.dylib
-
+*.app
+*.exe
+*.out
 
 # qt
 

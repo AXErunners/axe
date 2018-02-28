@@ -26,7 +26,7 @@ Drag Axe-Qt to your applications folder, and then run Axe-Qt.
 
 * See the [Axe documentation](https://github.com/AXErunners/axe/wiki)
 for help and more information.
-* Ask for help on [Discord](https://discordapp.com/invite/RKE5PD9) on Support channel.
+* Ask for help on [Discord](https://discordapp.com/invite/RKE5PD9) in Support channel.
 
 Building
 ---------------------
