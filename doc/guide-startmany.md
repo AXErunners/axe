@@ -130,4 +130,4 @@ Command output should have "_Masternode successfully started_" in its `status` f
 
 Search your Masternodes on https://axeninja.pl/masternodes.html
 
-_Hint: Bookmark it, you definitely will be using this site a lot._
+_https://github.com/AXErunners/axe/wiki_
