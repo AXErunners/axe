@@ -84,6 +84,8 @@ Installing this .service file consists of just copying it to
 To test, run `systemctl start axed` and to enable for system startup run
 `systemctl enable axed`
 
+NOTE: When installing for systemd in Debian/Ubuntu the .service file needs to be copied to the /lib/systemd/system directory instead.
+
 ### OpenRC
 
 Rename axed.openrc to axed and drop it in /etc/init.d.  Double
@@ -92,6 +94,8 @@ check ownership and permissions and make it executable.  Test it with
 `rc-update add axed`
 
 ### Upstart (for Debian/Ubuntu based distributions)
+
+Upstart is the default init system for Debian/Ubuntu versions older than 15.04. If you are using version 15.04 or newer and haven't manually configured upstart you should follow the systemd instructions instead.
 
 Drop axed.conf in /etc/init.  Test by running `service axed start`
 it will automatically start on reboot.
