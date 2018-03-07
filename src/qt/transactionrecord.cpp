@@ -375,7 +375,7 @@ bool TransactionRecord::statusUpdateNeeded(int chainLockHeight) const
         || (!status.lockedByChainLocks && status.cachedChainLockHeight != chainLockHeight);
 }
 
-QString TransactionRecord::getTxID() const
+QString TransactionRecord::getTxHash() const
 {
     return QString::fromStdString(hash.ToString());
 }
