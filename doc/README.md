@@ -1,6 +1,6 @@
-# AXE Core
+# AXE core
 
-This is the official reference wallet for Axe digital currency and comprises the backbone of the Axe peer-to-peer network. You can [download Axe Core](https://github.com/AXErunners/axe/releases) or [build it yourself](#building) using the guides below.
+This is the official reference wallet for Axe digital currency and comprises the backbone of the Axe peer-to-peer network. You can [download AXE core](https://github.com/AXErunners/axe/releases) or [build it yourself](#building) using the guides below.
 
 ## Running
 
@@ -61,8 +61,8 @@ The Axe Core repo's [root README](/README.md) contains relevant information on t
 - [Tor Support](tor.md)
 - [Init Scripts (systemd/upstart/openrc)](init.md)
 
-License
----------------------
+## License
+
 Distributed under the [MIT software license](http://www.opensource.org/licenses/mit-license.php).
 This product includes software developed by the OpenSSL Project for use in the [OpenSSL Toolkit](https://www.openssl.org/). This product includes
 cryptographic software written by Eric Young ([eay@cryptsoft.com](mailto:eay@cryptsoft.com)), and UPnP software written by Thomas Bernard.
