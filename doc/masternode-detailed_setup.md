@@ -67,7 +67,7 @@ axe-cli stop
 You could also download [binaries](https://github.com/AXErunners/axe/releases) instead of building the source.<br />
 Open your local Axe wallet (`axe-qt`)and let it sync with the network. After downloading the blockchain you can create masternode address with the key. Open debug console to enter `masternode genkey` and `getaccountaddress mn`. Send 1000 AXE to just generated `mn` address.
 
-### Edit `axe.conf` in your datadir
+### Edit `axe.conf` in your VPS datadir
 ```
 cd ~ && cd .axecore
 nano axe.conf
