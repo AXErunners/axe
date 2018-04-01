@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef AXE_SPECIALTX_H
-#define AXE_SPECIALTX_H
+#ifndef BITCOIN_EVO_SPECIALTX_H
+#define BITCOIN_EVO_SPECIALTX_H
 
 #include <primitives/transaction.h>
 #include <streams.h>
@@ -49,4 +49,4 @@ void SetTxPayload(CMutableTransaction& tx, const T& payload)
 
 uint256 CalcTxInputsHash(const CTransaction& tx);
 
-#endif //AXE_SPECIALTX_H
+#endif // BITCOIN_EVO_SPECIALTX_H

@@ -2,8 +2,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef AXE_QUORUMS_SIGNING_SHARES_H
-#define AXE_QUORUMS_SIGNING_SHARES_H
+#ifndef BITCOIN_LLMQ_QUORUMS_SIGNING_SHARES_H
+#define BITCOIN_LLMQ_QUORUMS_SIGNING_SHARES_H
 
 #include <bls/bls.h>
 #include <chainparams.h>
@@ -460,4 +460,4 @@ extern CSigSharesManager* quorumSigSharesManager;
 
 } // namespace llmq
 
-#endif //AXE_QUORUMS_SIGNING_SHARES_H
+#endif // BITCOIN_LLMQ_QUORUMS_SIGNING_SHARES_H
