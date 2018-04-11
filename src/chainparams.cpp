@@ -107,8 +107,8 @@ public:
 
         // Deployment of BIP68, BIP112, and BIP113.
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].bit = 0;
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1486252800; // Feb 5th, 2017
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1517788800; // Feb 5th, 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1523607642; // Apr 13th, 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1544865642; // Dec 15th, 2018
 
         // Deployment of DIP0001
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].bit = 1;
@@ -188,10 +188,12 @@ public:
             ( 20000, uint256S("0x00000000000363c860c63cc8e9baf1cb93010385f697e91c538a4ea9df178a07"))
             ( 23965, uint256S("0x00000000000bd575ee988f5768e931c4b8e3ca74d8f0fe0721ff9558e34944b7"))
             ( 27119, uint256S("0x00000000000f139246bbe4022bec06387527d55972fd1a2619aaee5ed43b36c0"))
-            ( 29425, uint256S("0x0000000000033abb70490884e1bc0eac1d36341f1afe2e66a148b4ff6feec6bf")),
+            ( 29425, uint256S("0x0000000000033abb70490884e1bc0eac1d36341f1afe2e66a148b4ff6feec6bf"))
+            ( 32749, uint256S("0x00000000000c74050c24bdef66854a6489021316dd0bce146c9b1aba2755381c"))
+            ( 40282, uint256S("0x000000000018ea87170b4590c45b67624512125e45bd1711f8f89746d8af2904")),
 
-            1521699036, // * UNIX timestamp of last checkpoint block
-            17553,    // * total number of transactions between genesis and last checkpoint
+            1523419384, // * UNIX timestamp of last checkpoint block
+            27036,    // * total number of transactions between genesis and last checkpoint
                         //   (the tx=... number in the SetBestChain debug.log lines)
             500        // * estimated number of transactions per day after checkpoint
         };
