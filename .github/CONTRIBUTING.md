@@ -30,7 +30,7 @@ Please keep in mind that open source software is built by people like you, who s
 Don't have time to contribute? No worries, here are some other ways to show your support for AXE:
 
 - star the [project](https://github.com/AXErunners/axe)
-- tweet your support for AXE
+- tweet your support for AXE `#axerunners`
 
 ## Issues
 
