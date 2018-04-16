@@ -114,7 +114,8 @@ def gen_invalid_vectors():
                 yield val,
 
 if __name__ == '__main__':
-    import sys, json
+    import sys
+    import json
     iters = {'valid':gen_valid_vectors, 'invalid':gen_invalid_vectors}
     try:
         uiter = iters[sys.argv[1]]
