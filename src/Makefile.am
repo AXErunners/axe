@@ -216,7 +216,6 @@ BITCOIN_CORE_H = \
   rpc/client.h \
   rpc/mining.h \
   rpc/protocol.h \
-  rpc/safemode.h \
   rpc/server.h \
   rpc/register.h \
   rpc/util.h \
@@ -345,7 +344,6 @@ libaxe_server_a_SOURCES = \
   rpc/rawtransaction.cpp \
   rpc/rpcevo.cpp \
   rpc/rpcquorums.cpp \
-  rpc/safemode.cpp \
   rpc/server.cpp \
   rpc/privatesend.cpp \
   script/sigcache.cpp \
