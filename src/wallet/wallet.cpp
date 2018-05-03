@@ -13,6 +13,7 @@
 #include <consensus/consensus.h>
 #include <consensus/validation.h>
 #include <fs.h>
+#include <init.h>
 #include <key.h>
 #include <keystore.h>
 #include <validation.h>
@@ -2055,7 +2056,7 @@ CBlockIndex* CWallet::ScanForWalletTransactions(CBlockIndex* pindexStart, CBlock
             dProgressTip = GuessVerificationProgress(chainParams.TxData(), tip);
         }
         double gvp = dProgressStart;
-        while (pindex && !fAbortRescan)
+        while (pindex && !fAbortRescan && !ShutdownRequested())
         {
             if (pindex->nHeight % 100 == 0 && dProgressTip - dProgressStart > 0.0) {
                 m_scanning_progress = (gvp - dProgressStart) / (dProgressTip - dProgressStart);
@@ -2097,6 +2098,8 @@ CBlockIndex* CWallet::ScanForWalletTransactions(CBlockIndex* pindexStart, CBlock
         }
         if (pindex && fAbortRescan) {
             LogPrintf("Rescan aborted at block %d. Progress=%f\n", pindex->nHeight, gvp);
+        } else if (pindex && ShutdownRequested()) {
+            LogPrintf("Rescan interrupted by shutdown request at block %d. Progress=%f\n", pindex->nHeight, gvp);
         }
         ShowProgress(_("Rescanning..."), 100); // hide progress dialog in GUI
     }
