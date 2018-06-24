@@ -346,6 +346,7 @@ libaxe_server_a_SOURCES = \
   rpc/rpcquorums.cpp \
   rpc/server.cpp \
   rpc/privatesend.cpp \
+  rpc/util.cpp \
   script/sigcache.cpp \
   script/ismine.cpp \
   spork.cpp \
@@ -546,7 +547,6 @@ libaxe_util_a_SOURCES = \
   fs.cpp \
   random.cpp \
   rpc/protocol.cpp \
-  rpc/util.cpp \
   stacktraces.cpp \
   support/cleanse.cpp \
   sync.cpp \
