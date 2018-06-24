@@ -29,13 +29,11 @@ SignVerifyMessageDialog::SignVerifyMessageDialog(QWidget* parent) :
     pageButtons.addButton(ui->btnSignMessage, pageButtons.buttons().size());
     pageButtons.addButton(ui->btnVerifyMessage, pageButtons.buttons().size());
     connect(&pageButtons, SIGNAL(buttonClicked(int)), this, SLOT(showPage(int)));
-#if QT_VERSION >= 0x040700
     ui->messageIn_SM->setPlaceholderText(tr("Enter a message to be signed"));
     ui->signatureOut_SM->setPlaceholderText(tr("Click \"Sign Message\" to generate signature"));
 
     ui->messageIn_VM->setPlaceholderText(tr("Enter a message to be verified"));
     ui->signatureIn_VM->setPlaceholderText(tr("Enter a signature for the message to be verified"));
-#endif
 
     GUIUtil::setIcon(ui->addressBookButton_SM, "address-book");
     GUIUtil::setIcon(ui->pasteButton_SM, "editpaste");
