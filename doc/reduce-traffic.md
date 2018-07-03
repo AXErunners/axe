@@ -3,7 +3,7 @@ Reduce Traffic
 
 Some node operators need to deal with bandwidth caps imposed by their ISPs.
 
-By default, Axe Core allows up to 125 connections to different peers, 8 of
+By default, AXE Core allows up to 125 connections to different peers, 8 of
 which are outbound. You can therefore, have at most 117 inbound connections.
 
 The default settings can result in relatively significant traffic consumption.
@@ -19,8 +19,7 @@ This is *not* a hard limit; only a threshold to minimize the outbound
 traffic. When the limit is about to be reached, the uploaded data is cut by no
 longer serving historic blocks (blocks older than one week).
 Keep in mind that new nodes require other nodes that are willing to serve
-historic blocks. **The recommended minimum is 144 blocks per day (max. 144MB
-per day)**
+historic blocks.
 
 Whitelisted peers will never be disconnected, although their traffic counts for
 calculating the target.

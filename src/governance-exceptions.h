@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2017 The Dash Core developers
+// Copyright (c) 2014-2017 The AXE Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -76,7 +76,7 @@ public:
 
     virtual ~CGovernanceException() throw() {}
 
-    virtual const char* what() const throw()
+    virtual const char* what() const throw() override 
     {
         return strMessage.c_str();
     }

@@ -3,7 +3,7 @@
 <plist version="0.9">
 <dict>
   <key>LSMinimumSystemVersion</key>
-  <string>10.7.0</string>
+  <string>10.8.0</string>
 
   <key>LSArchitecturePriority</key>
   <array>
@@ -17,7 +17,7 @@
   <string>APPL</string>
 
   <key>CFBundleGetInfoString</key>
-  <string>@CLIENT_VERSION_MAJOR@.@CLIENT_VERSION_MINOR@.@CLIENT_VERSION_REVISION@, Copyright © 2009-@COPYRIGHT_YEAR@ The Bitcoin Core developers, 2014-@COPYRIGHT_YEAR@ The Dash Core developers, 2017-@COPYRIGHT_YEAR@ The Axe Core developers</string>
+  <string>@CLIENT_VERSION_MAJOR@.@CLIENT_VERSION_MINOR@.@CLIENT_VERSION_REVISION@, Copyright © 2009-@COPYRIGHT_YEAR@ The Bitcoin Core developers, 2014-@COPYRIGHT_YEAR@ @COPYRIGHT_HOLDERS_FINAL@</string>
 
   <key>CFBundleShortVersionString</key>
   <string>@CLIENT_VERSION_MAJOR@.@CLIENT_VERSION_MINOR@.@CLIENT_VERSION_REVISION@</string>
@@ -29,16 +29,16 @@
   <string>????</string>
 
   <key>CFBundleExecutable</key>
-  <string>Axe-Qt</string>
+  <string>AXE-Qt</string>
 
   <key>CFBundleName</key>
-  <string>Axe-Qt</string>
+  <string>AXE-Qt</string>
 
   <key>LSHasLocalizedDisplayName</key>
   <true/>
 
   <key>CFBundleIdentifier</key>
-  <string>org.axe.Axe-Qt</string>
+  <string>org.axe.AXE-Qt</string>
 
   <key>CFBundleURLTypes</key>
   <array>
@@ -46,7 +46,7 @@
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>CFBundleURLName</key>
-      <string>org.axe.AxePayment</string>
+      <string>org.axe.payment</string>
       <key>CFBundleURLSchemes</key>
       <array>
         <string>axe</string>
@@ -60,7 +60,7 @@
       <key>UTTypeIdentifier</key>
       <string>org.axe.paymentrequest</string>
       <key>UTTypeDescription</key>
-      <string>Axe payment request</string>
+      <string>AXE payment request</string>
       <key>UTTypeConformsTo</key>
       <array>
         <string>public.data</string>
@@ -71,7 +71,7 @@
         <string>application/x-axe-payment-request</string>
         <key>public.filename-extension</key>
         <array>
-          <string>AXErunnersmentrequest</string>
+          <string>axerunnersmentrequest</string>
         </array>
       </dict>
     </dict>

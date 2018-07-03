@@ -25,12 +25,12 @@ the bad alert.
 
 void ThreadSendAlert(CConnman& connman)
 {
-    if (!mapArgs.count("-sendalert") && !mapArgs.count("-printalert"))
+    if (!IsArgSet("-sendalert") && !IsArgSet("-printalert"))
         return;
 
     // Wait one minute so we get well connected. If we only need to print
     // but not to broadcast - do this right away.
-    if (mapArgs.count("-sendalert"))
+    if (IsArgSet("-sendalert"))
         MilliSleep(60*1000);
 
     //
@@ -60,7 +60,7 @@ void ThreadSendAlert(CConnman& connman)
     alert.strStatusBar  = "URGENT: Upgrade required: see https://www.axe.org";
 
     // Set specific client version/versions here. If setSubVer is empty, no filtering on subver is done:
-    // alert.setSubVer.insert(std::string("/Axe Core:0.12.0.58/"));
+    // alert.setSubVer.insert(std::string("/AXE Core:0.12.0.58/"));
 
     // Sign
     if(!alert.Sign())
@@ -89,7 +89,7 @@ void ThreadSendAlert(CConnman& connman)
     printf("vchSig=%s\n", HexStr(alert2.vchSig).c_str());
 
     // Confirm
-    if (!mapArgs.count("-sendalert"))
+    if (!IsArgSet("-sendalert"))
         return;
     while (connman.GetNodeCount(CConnman::CONNECTIONS_ALL) == 0 && !ShutdownRequested())
         MilliSleep(500);

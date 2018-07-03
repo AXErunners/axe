@@ -1,1 +1,1 @@
-The list of assets used in the Axe Core source and their attribution can now be found in [contrib/debian/copyright](../contrib/debian/copyright).
+The list of assets used in the AXE Core source and their attribution can now be found in [contrib/debian/copyright](../contrib/debian/copyright).

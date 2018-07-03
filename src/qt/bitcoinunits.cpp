@@ -1,5 +1,5 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
-// Copyright (c) 2014-2017 The Dash Core developers
+// Copyright (c) 2014-2017 The AXE Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -72,10 +72,10 @@ QString BitcoinUnits::description(int unit)
     {
         switch(unit)
         {
-            case AXE: return QString("Axe");
-            case mAXE: return QString("Milli-Axe (1 / 1" THIN_SP_UTF8 "000)");
-            case uAXE: return QString("Micro-Axe (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-            case haks: return QString("Ten Nano-Axe (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case AXE: return QString("AXE");
+            case mAXE: return QString("Milli-AXE (1 / 1" THIN_SP_UTF8 "000)");
+            case uAXE: return QString("Micro-AXE (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case haks: return QString("Ten Nano-AXE (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
             default: return QString("???");
         }
     }
@@ -83,10 +83,10 @@ QString BitcoinUnits::description(int unit)
     {
         switch(unit)
         {
-            case AXE: return QString("TestAxes");
-            case mAXE: return QString("Milli-TestAxe (1 / 1" THIN_SP_UTF8 "000)");
-            case uAXE: return QString("Micro-TestAxe (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-            case haks: return QString("Ten Nano-TestAxe (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case AXE: return QString("TestAXEs");
+            case mAXE: return QString("Milli-TestAXE (1 / 1" THIN_SP_UTF8 "000)");
+            case uAXE: return QString("Micro-TestAXE (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            case haks: return QString("Ten Nano-TestAXE (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
             default: return QString("???");
         }
     }

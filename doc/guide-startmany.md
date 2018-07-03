@@ -89,7 +89,7 @@ You can confirm that remote server is on the correct block by issuing
 
 ```axe-cli getinfo```
 
-and comparing with the official explorer at https://explorer.axe.org/chain/Axe
+and comparing with the official explorer at http://207.246.65.114:3001
 
 ### Local
 
@@ -130,4 +130,4 @@ Command output should have "_Masternode successfully started_" in its `status` f
 
 Search your Masternodes on https://axeninja.pl/masternodes.html
 
-_https://github.com/AXErunners/axe/wiki_
+_Hint: Bookmark it, you definitely will be using this site a lot._

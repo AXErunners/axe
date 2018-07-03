@@ -3,7 +3,7 @@ Shared Libraries
 
 ## axeconsensus
 
-The purpose of this library is to make the verification functionality that is critical to Axe's consensus available to other applications, e.g. to language bindings.
+The purpose of this library is to make the verification functionality that is critical to AXE's consensus available to other applications, e.g. to language bindings.
 
 ### API
 
@@ -11,7 +11,7 @@ The interface is defined in the C header `axeconsensus.h` located in  `src/scrip
 
 #### Version
 
-`axeconsensus_version` returns an `unsigned int` with the the API version *(currently at an experimental `0`)*.
+`axeconsensus_version` returns an `unsigned int` with the API version *(currently at an experimental `0`)*.
 
 #### Script Validation
 
@@ -30,6 +30,9 @@ The interface is defined in the C header `axeconsensus.h` located in  `src/scrip
 - `axeconsensus_SCRIPT_FLAGS_VERIFY_NONE`
 - `axeconsensus_SCRIPT_FLAGS_VERIFY_P2SH` - Evaluate P2SH ([BIP16](https://github.com/bitcoin/bips/blob/master/bip-0016.mediawiki)) subscripts
 - `axeconsensus_SCRIPT_FLAGS_VERIFY_DERSIG` - Enforce strict DER ([BIP66](https://github.com/bitcoin/bips/blob/master/bip-0066.mediawiki)) compliance
+- `axeconsensus_SCRIPT_FLAGS_VERIFY_NULLDUMMY` - Enforce NULLDUMMY ([BIP147](https://github.com/bitcoin/bips/blob/master/bip-0147.mediawiki))
+- `axeconsensus_SCRIPT_FLAGS_VERIFY_CHECKLOCKTIMEVERIFY` - Enable CHECKLOCKTIMEVERIFY ([BIP65](https://github.com/bitcoin/bips/blob/master/bip-0065.mediawiki))
+- `axeconsensus_SCRIPT_FLAGS_VERIFY_CHECKSEQUENCEVERIFY` - Enable CHECKSEQUENCEVERIFY ([BIP112](https://github.com/bitcoin/bips/blob/master/bip-0112.mediawiki))
 
 ##### Errors
 - `axeconsensus_ERR_OK` - No errors with input parameters *(see the return value of `axeconsensus_verify_script` for the verification status)*

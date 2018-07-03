@@ -1,5 +1,5 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
-// Copyright (c) 2014-2017 The Dash Core developers
+// Copyright (c) 2014-2017 The AXE Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -38,7 +38,7 @@ enum NumConnections {
     CONNECTIONS_ALL  = (CONNECTIONS_IN | CONNECTIONS_OUT),
 };
 
-/** Model for Axe network client. */
+/** Model for AXE network client. */
 class ClientModel : public QObject
 {
     Q_OBJECT
@@ -61,7 +61,7 @@ public:
     long getMempoolSize() const;
     //! Return the dynamic memory usage of the mempool
     size_t getMempoolDynamicUsage() const;
-
+    
     quint64 getTotalBytesRecv() const;
     quint64 getTotalBytesSent() const;
 
@@ -82,7 +82,6 @@ public:
     QString formatFullVersion() const;
     QString formatSubVersion() const;
     bool isReleaseVersion() const;
-    QString clientName() const;
     QString formatClientStartupTime() const;
     QString dataDir() const;
 
