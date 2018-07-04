@@ -1,8 +1,8 @@
 Source: axe
 Section: utils
 Priority: optional
-Maintainer: Holger Schinzel <holger@axe.org>
-Uploaders: Holger Schinzel <holger@axe.org>
+Maintainer: AXErunners <info@axerunners.com>
+Uploaders: AXErunners <info@axerunners.com>
 Build-Depends: debhelper,
  devscripts,
  automake,
