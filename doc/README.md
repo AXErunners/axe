@@ -56,8 +56,9 @@ The AXE Core repo's [root README](/README.md) contains relevant information on t
 - [Benchmarking](benchmarking.md)
 
 ### Resources
-* Discuss on the [AXE Forum](https://axe.org/forum), in the Development & Technical Discussion board.
-* Discuss on [AXE Nation Discord](http://axechat.org)
+* Discuss on [Reddit](https://www.reddit.com/r/AXErunners/)
+* Discuss on [Discord](https://discordapp.com/invite/BqhteaU)
+* Discuss on [Slack](https://axe-slack.herokuapp.com/)
 
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)
