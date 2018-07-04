@@ -244,7 +244,7 @@ Note: check that SHA256SUMS itself doesn't end up in SHA256SUMS, which is a spur
 
 - Announce the release:
 
-  - Release on AXE forum: https://www.axe.org/forum/topic/official-announcements.54/
+  - Release on AXE forum: https://axerunners.com/forum/topic/official-announcements.54/
 
   - Optionally Discord, twitter, reddit /r/axerunners, ... but this will usually sort out itself
 

@@ -57,7 +57,7 @@ void ThreadSendAlert(CConnman& connman)
     //  Higher numbers mean higher priority
     alert.nPriority     = 5000;
     alert.strComment    = "";
-    alert.strStatusBar  = "URGENT: Upgrade required: see https://www.axe.org";
+    alert.strStatusBar  = "URGENT: Upgrade required: see https://axerunners.com";
 
     // Set specific client version/versions here. If setSubVer is empty, no filtering on subver is done:
     // alert.setSubVer.insert(std::string("/AXE Core:0.12.0.58/"));

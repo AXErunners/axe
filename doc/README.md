@@ -1,7 +1,7 @@
-AXE Core 0.12.1
+AXE Core 1.1
 =====================
 
-This is the official reference wallet for AXE digital currency and comprises the backbone of the AXE peer-to-peer network. You can [download AXE Core](https://www.axe.org/downloads/) or [build it yourself](#building) using the guides below.
+This is the official reference wallet for AXE digital currency and comprises the backbone of the AXE peer-to-peer network. You can [download AXE Core](https://axerunners.com/) or [build it yourself](#building) using the guides below.
 
 Running
 ---------------------
