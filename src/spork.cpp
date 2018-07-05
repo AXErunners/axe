@@ -21,7 +21,7 @@ std::map<int, int64_t> mapSporkDefaults = {
     {SPORK_3_INSTANTSEND_BLOCK_FILTERING,    0},              // ON
     {SPORK_5_INSTANTSEND_MAX_VALUE,          1000},           // 1000 AXE
     {SPORK_6_NEW_SIGS,                       4070908800ULL},  // OFF
-    {SPORK_8_MASTERNODE_PAYMENT_ENFORCEMENT, 0},              // ON
+    {SPORK_8_MASTERNODE_PAYMENT_ENFORCEMENT, 4070908800ULL},  // OFF
     {SPORK_9_SUPERBLOCKS_ENABLED,            4070908800ULL},  // OFF
     {SPORK_10_MASTERNODE_PAY_UPDATED_NODES,  4070908800ULL},  // OFF
     {SPORK_12_RECONSIDER_BLOCKS,             0},              // 0 BLOCKS
