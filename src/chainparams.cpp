@@ -377,7 +377,7 @@ public:
         nPoolMaxTransactions = 3;
         nFulfilledRequestExpireTime = 5*60; // fulfilled requests expire in 5 minutes
 
-        strSporkAddress = "PR8VqUyRm1Dm9tii6uv9D7gidWyA56SvqZ"; /* burnt swap dummy */
+        strSporkAddress = "yc6v3PwpAQmKq4jw5JV35XpifUhxNe2JDp"; /* burnt swap dummy */
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
@@ -503,7 +503,7 @@ public:
         nPoolMaxTransactions = 3;
         nFulfilledRequestExpireTime = 5*60; // fulfilled requests expire in 5 minutes
 
-        strSporkAddress = "yR8VqUyRm1Dm9tii6uv9D7gidWyA56SvqZ"; /* burnt swap dummy */
+        strSporkAddress = "yc6v3PwpAQmKq4jw5JV35XpifUhxNe2JDp"; /* burnt swap dummy */
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
@@ -601,7 +601,7 @@ public:
         nFulfilledRequestExpireTime = 5*60; // fulfilled requests expire in 5 minutes
 
 
-        strSporkAddress = "yR8VqUyRm1Dm9tii6uv9D7gidWyA56SvqZ"; /* burnt swap dummy */
+        strSporkAddress = "yc6v3PwpAQmKq4jw5JV35XpifUhxNe2JDp"; /* burnt swap dummy */
 
         checkpointData = (CCheckpointData){
             boost::assign::map_list_of
