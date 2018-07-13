@@ -15,7 +15,7 @@ Please report bugs using the issue tracker at github:
 Notable changes
 ===============
 
-Improve initial sync
+Improved initial sync
 --------------------
 
 Some users had problems getting their nodes synced. The issue occurred due to nodes trying to
