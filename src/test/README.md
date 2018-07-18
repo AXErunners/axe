@@ -23,9 +23,9 @@ example, to run just the getarg_tests verbosely:
 
     test_axe --log_level=all --run_test=getarg_tests
 
-... or to run just the doubleaxe test:
+... or to run just the doubledash test:
 
-    test_axe --run_test=getarg_tests/doubleaxe
+    test_axe --run_test=getarg_tests/doubledash
 
 Run `test_axe --help` for the full list.
 
@@ -39,12 +39,12 @@ unit tests as possible).
 
 The build system is setup to compile an executable called `test_axe`
 that runs all of the unit tests.  The main source file is called
-test_axe.cpp. To add a new unit test file to our test suite you need 
-to add the file to `src/Makefile.test.include`. The pattern is to create 
-one test file for each class or source file for which you want to create 
-unit tests.  The file naming convention is `<source_filename>_tests.cpp` 
-and such files should wrap their tests in a test suite 
-called `<source_filename>_tests`. For an example of this pattern, 
+test_axe.cpp. To add a new unit test file to our test suite you need
+to add the file to `src/Makefile.test.include`. The pattern is to create
+one test file for each class or source file for which you want to create
+unit tests.  The file naming convention is `<source_filename>_tests.cpp`
+and such files should wrap their tests in a test suite
+called `<source_filename>_tests`. For an example of this pattern,
 examine `uint256_tests.cpp`.
 
 For further reading, I found the following website to be helpful in
