@@ -41,14 +41,14 @@ BOOST_AUTO_TEST_CASE(bip39_vectors)
         std::string strMnemonic = test[1].get_str();
         SecureString mnemonic(strMnemonic.begin(), strMnemonic.end());
 
-         printf("%s\n%s\n", m.c_str(), mnemonic.c_str());
+        // printf("%s\n%s\n", m.c_str(), mnemonic.c_str());
         BOOST_CHECK(m == mnemonic);
         BOOST_CHECK(CMnemonic::Check(mnemonic));
 
         SecureVector seed;
         SecureString passphrase("TREZOR");
         CMnemonic::ToSeed(mnemonic, passphrase, seed);
-         printf("seed: %s\n", HexStr(seed).c_str());
+        // printf("seed: %s\n", HexStr(seed).c_str());
         BOOST_CHECK(HexStr(seed) == test[2].get_str());
 
         CExtKey key;
@@ -59,7 +59,7 @@ BOOST_AUTO_TEST_CASE(bip39_vectors)
 
         CBitcoinExtKey b58key;
         b58key.SetKey(key);
-         printf("CBitcoinExtKey: %s\n", b58key.ToString().c_str());
+        // printf("CBitcoinExtKey: %s\n", b58key.ToString().c_str());
         BOOST_CHECK(b58key.ToString() == test[3].get_str());
     }
 }
