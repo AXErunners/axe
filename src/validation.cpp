@@ -3313,7 +3313,7 @@ bool CheckBlock(const CBlock& block, CValidationState& state, const Consensus::P
         if (block.hashMerkleRoot != hashMerkleRoot2)
             return state.DoS(100, false, REJECT_INVALID, "bad-txnmrklroot", true, "hashMerkleRoot mismatch");
 
-         print("Merkeroot check passed %s\n",block.hashMerkleRoot,hashMerkleRoot2);
+         print("Merkeroot check passed %s%s\n",block.hashMerkleRoot,hashMerkleRoot2);
         // Check for merkle tree malleability (CVE-2012-2459): repeating sequences
         // of transactions in a block without affecting the merkle root of a block,
         // while still invalidating it.
