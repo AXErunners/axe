@@ -249,7 +249,7 @@
     ["-json",
      "-create", "nversion=1",
      "in=5897de6bd6027a475eadd57019d4e6872c396d0716c4875a5f1a6fcfdf385c1f:0",
-     "outaddr=0.18:Xdak8YsJz8tm1iHFmycfTyKeUvHgfbdpyw",
+     "outaddr=0.18:PEtyWpDbdeSbu93uA4dH25maE1d8j4U6rR",
      "outdata=4:54686973204f505f52455455524e207472616e73616374696f6e206f7574707574207761732063726561746564206279206d6f646966696564206372656174657261777472616e73616374696f6e2e"],
     "output_cmp": "txcreatedata1.json",
     "description": "Creates a new v1 transaction with one input, one address output and one data output (output in json)"
@@ -268,7 +268,7 @@
     ["-json",
      "-create",
      "in=5897de6bd6027a475eadd57019d4e6872c396d0716c4875a5f1a6fcfdf385c1f:0",
-     "outaddr=0.18:Xdak8YsJz8tm1iHFmycfTyKeUvHgfbdpyw",
+     "outaddr=0.18:PEtyWpDbdeSbu93uA4dH25maE1d8j4U6rR",
      "outdata=54686973204f505f52455455524e207472616e73616374696f6e206f7574707574207761732063726561746564206279206d6f646966696564206372656174657261777472616e73616374696f6e2e"],
     "output_cmp": "txcreatedata2.json",
     "description": "Creates a new transaction with one input, one address output and one data (zero value) output (output in json)"
@@ -286,7 +286,7 @@
     ["-json",
      "-create",
      "in=5897de6bd6027a475eadd57019d4e6872c396d0716c4875a5f1a6fcfdf385c1f:0:4294967293",
-     "outaddr=0.18:Xdak8YsJz8tm1iHFmycfTyKeUvHgfbdpyw"],
+     "outaddr=0.18:PEtyWpDbdeSbu93uA4dH25maE1d8j4U6rR"],
     "output_cmp": "txcreatedata_seq0.json",
     "description": "Creates a new transaction with one input with sequence number and one address output (output in json)"
   },
