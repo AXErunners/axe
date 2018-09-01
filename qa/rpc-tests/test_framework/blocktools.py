@@ -16,7 +16,7 @@ def create_block(hashprev, coinbase, nTime=None):
     else:
         block.nTime = nTime
     block.hashPrevBlock = hashprev
-    block.nBits = 0x207fffff # Will break after a difficulty adjustment...
+    block.nBits = 0x1e0ffff0 # Will break after a difficulty adjustment...
     block.vtx.append(coinbase)
     block.hashMerkleRoot = block.calc_merkle_root()
     block.calc_sha256()
@@ -42,7 +42,7 @@ def serialize_script_num(value):
 # otherwise an anyone-can-spend output.
 def create_coinbase(height, pubkey = None):
     coinbase = CTransaction()
-    coinbase.vin.append(CTxIn(COutPoint(0, 0xffffffff), 
+    coinbase.vin.append(CTxIn(COutPoint(0, 0xffffffff),
                 ser_string(serialize_script_num(height)), 0xffffffff))
     coinbaseoutput = CTxOut()
     coinbaseoutput.nValue = 500 * COIN
