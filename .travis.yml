@@ -40,7 +40,6 @@ env:
     - PYTHON_DEBUG=1
     - WINEDEBUG=fixme-all
     - DOCKER_BUILD=false
-    - DENABLE_DASH_DEBUG
 
   matrix:
 # ARM
