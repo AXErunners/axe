@@ -176,10 +176,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nThreshold = 3226; //
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000aa77a162e8d9f12"); // 86666
+        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000b810bc312cce86a"); // 100313
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x00000000000883e2e7c7bda87280205548b495370556e55113e5a919cd6d1a9f"); // 86666
+        consensus.defaultAssumeValid = uint256S("0x0000000000394e99a05f3cb7d5a9c30a618613762436d4d908245625d3d1e622"); // 100313
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -256,11 +256,12 @@ public:
             ( 71723, uint256S("0x000000000021d50c7f8d564aa446e56c9ca63dacebdca74218c78dad73a1ea53"))
             ( 86382, uint256S("0x00000000003badda6d1a8eeed581ccb67d6b556be55c5ec85e9a0329dfc56f74"))
             ( 93105, uint256S("0x0000000000069b605e286b9c195bd400df907bd2fcf87398c2a0dfff5df0fbf3"))
+            ( 100315, uint256S("0x0000000000002f905a48b6b6e26d77ea86483d07f02081d2ab1de5f6279a0311"))
         };
 
         chainTxData = ChainTxData{
-            1531774302, // * UNIX timestamp of last known number of transactions
-            71254,    // * total number of transactions between genesis and that timestamp
+            1532912841, // * UNIX timestamp of last known number of transactions
+            77570,    // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the SetBestChain debug.log lines)
             0.1         // * estimated number of transactions per second after that timestamp
         };
@@ -290,11 +291,11 @@ public:
         consensus.nGovernanceMinQuorum = 1;
         consensus.nGovernanceFilterElements = 500;
         consensus.nMasternodeMinimumConfirmations = 1;
-        consensus.BIP34Height = 1;
+        consensus.BIP34Height = 76;
         consensus.BIP34Hash = uint256S("");
-        consensus.BIP65Height = 1;
-        consensus.BIP66Height = 1;
-        consensus.DIP0001Height = 1;
+        consensus.BIP65Height = 2431;
+        consensus.BIP66Height = 2075;
+        consensus.DIP0001Height = 5500;
         consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20
         consensus.nPowTargetTimespan = 24 * 60 * 60; // AXE: 1 day
         consensus.nPowTargetSpacing = 2.5 * 60; // AXE: 2.5 minutes
@@ -403,15 +404,15 @@ public:
     CDevNetParams() {
         strNetworkID = "dev";
         consensus.nSubsidyHalvingInterval = 210240;
-        consensus.nMasternodePaymentsStartBlock = 999999; // not true, but it's ok as long as it's less then nMasternodePaymentsIncreaseBlock
+        consensus.nMasternodePaymentsStartBlock = 4010; // not true, but it's ok as long as it's less then nMasternodePaymentsIncreaseBlock
         consensus.nMasternodePaymentsIncreaseBlock = 4030;
         consensus.nMasternodePaymentsIncreasePeriod = 10;
         consensus.nInstantSendConfirmationsRequired = 2;
         consensus.nInstantSendKeepLock = 6;
-        consensus.nBudgetPaymentsStartBlock = 999999;
+        consensus.nBudgetPaymentsStartBlock = 4100;
         consensus.nBudgetPaymentsCycleBlocks = 50;
         consensus.nBudgetPaymentsWindowBlocks = 10;
-        consensus.nSuperblockStartBlock = 999999; // NOTE: Should satisfy nSuperblockStartBlock > nBudgetPeymentsStartBlock
+        consensus.nSuperblockStartBlock = 4200; // NOTE: Should satisfy nSuperblockStartBlock > nBudgetPeymentsStartBlock
         consensus.nSuperblockStartHash = uint256(); // do not check this on devnet
         consensus.nSuperblockCycle = 24; // Superblocks can be issued hourly on devnet
         consensus.nGovernanceMinQuorum = 1;
@@ -571,10 +572,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nTimeout = 999999999999ULL;
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("");
+        consensus.nMinimumChainWork = uint256S("0x00");
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("");
+        consensus.defaultAssumeValid = uint256S("0x00");
 
         pchMessageStart[0] = 0xfc;
         pchMessageStart[1] = 0xc1;
@@ -605,7 +606,7 @@ public:
 
         checkpointData = (CCheckpointData){
             boost::assign::map_list_of
-            ( 0, uint256S(""))
+            ( 0, uint256S("0x0000069b8c1508fe7cd7fdad59d2e605de768b1e8f3824b11980cb369b0eb076"))
         };
 
         chainTxData = ChainTxData{
