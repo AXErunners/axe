@@ -3291,7 +3291,7 @@ bool CheckBlockHeader(const CBlockHeader& block, CValidationState& state, const 
         return state.DoS(100, error("CheckBlockHeader(): wrong devnet genesis"),
                          REJECT_INVALID, "devnet-genesis");
     }
-    printf("BlockHeaderCheck passed\n");
+    
     return true;
 }
 
@@ -3314,7 +3314,6 @@ bool CheckBlock(const CBlock& block, CValidationState& state, const Consensus::P
         if (block.hashMerkleRoot != hashMerkleRoot2)
             return state.DoS(100, false, REJECT_INVALID, "bad-txnmrklroot", true, "hashMerkleRoot mismatch");
 
-         printf("Merkeroot check passed \n");
         // Check for merkle tree malleability (CVE-2012-2459): repeating sequences
         // of transactions in a block without affecting the merkle root of a block,
         // while still invalidating it.
@@ -3330,8 +3329,6 @@ bool CheckBlock(const CBlock& block, CValidationState& state, const Consensus::P
     if (block.vtx.empty() || block.vtx.size() > MaxBlockSize(true) || ::GetSerializeSize(block, SER_NETWORK, PROTOCOL_VERSION) > MaxBlockSize(true))
         return state.DoS(100, false, REJECT_INVALID, "bad-blk-length", false, "size limits failed");
 
-    printf("Size limit check passed");
-
     // First transaction must be coinbase, the rest must not be
     if (block.vtx.empty() || !block.vtx[0]->IsCoinBase())
         return state.DoS(100, false, REJECT_INVALID, "bad-cb-missing", false, "first tx is not coinbase");
@@ -3346,7 +3343,6 @@ bool CheckBlock(const CBlock& block, CValidationState& state, const Consensus::P
         // We should never accept block which conflicts with completed transaction lock,
         // that's why this is in CheckBlock unlike coinbase payee/amount.
         // Require other nodes to comply, send them some data in case they are missing it.
-        printf("instased test");
         for(const auto& tx : block.vtx) {
             // skip coinbase, it has no inputs
             if (tx->IsCoinBase()) continue;
@@ -3653,7 +3649,6 @@ bool ProcessNewBlock(const CChainParams& chainparams, const std::shared_ptr<cons
         // Ensure that CheckBlock() passes before calling AcceptBlock, as
         // belt-and-suspenders.
         bool ret = CheckBlock(*pblock, state, chainparams.GetConsensus());
-        printf("CheckBlokc return %s\n",ret);
 
         LOCK(cs_main);
 
