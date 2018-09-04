@@ -1,5 +1,5 @@
-#!/usr/bin/python
-# Copyright (c) 2014 Wladimir J. van der Laan
+#!/usr/bin/env python3
+# Copyright (c) 2014-2017 Wladimir J. van der Laan
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 '''
@@ -31,7 +31,7 @@ The output will be two data structures with the peers in binary format:
 
 These should be pasted into `src/chainparamsseeds.h`.
 '''
-from __future__ import print_function, division
+
 from base64 import b32decode
 from binascii import a2b_hex
 import sys, os
@@ -130,7 +130,7 @@ def main():
         process_nodes(g, f, 'pnSeed6_main', 9937)
     g.write('\n')
     with open(os.path.join(indir,'nodes_test.txt'),'r') as f:
-        process_nodes(g, f, 'pnSeed6_test', 9936)
+        process_nodes(g, f, 'pnSeed6_test', 19937)
     g.write('#endif // AXE_CHAINPARAMSSEEDS_H\n')
 
 if __name__ == '__main__':

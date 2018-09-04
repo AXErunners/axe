@@ -1,4 +1,7 @@
 #!/bin/bash
+# Copyright (c) 2013 The Bitcoin Core developers
+# Distributed under the MIT software license, see the accompanying
+# file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 if [ -d "$1" ]; then
   cd "$1"
@@ -16,22 +19,22 @@ if [ -f wallet.dat -a -f peers.dat -a -f chainstate/CURRENT -a -f blocks/index/C
 
 case $LEVEL in
   0)
-    echo "Error: no Axe datadir detected."
+    echo "Error: no AXE datadir detected."
     exit 1
     ;;
   1)
-    echo "Detected old Axe datadir (before 0.7)."
+    echo "Detected old AXE datadir (before 0.7)."
     echo "Nothing to do."
     exit 0
     ;;
   2)
-    echo "Detected Axe 0.7 datadir."
+    echo "Detected AXE 0.7 datadir."
     ;;
   3)
-    echo "Detected Axe pre-0.8 datadir."
+    echo "Detected AXE pre-0.8 datadir."
     ;;
   4)
-    echo "Detected Axe 0.8 datadir."
+    echo "Detected AXE 0.8 datadir."
     ;;
 esac
 

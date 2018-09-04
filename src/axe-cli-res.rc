@@ -16,8 +16,8 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "Axe"
-            VALUE "FileDescription",    "axe-cli (JSON-RPC client for Axe Core)"
+            VALUE "CompanyName",        "AXE"
+            VALUE "FileDescription",    "axe-cli (JSON-RPC client for " PACKAGE_NAME ")"
             VALUE "FileVersion",        VER_FILEVERSION_STR
             VALUE "InternalName",       "axe-cli"
             VALUE "LegalCopyright",     COPYRIGHT_STR

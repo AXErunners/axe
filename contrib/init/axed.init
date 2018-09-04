@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#  axed The Axe Core server.
+#  axed The AXE Core server.
 #
 #
 # chkconfig: 345 80 20

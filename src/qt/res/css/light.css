@@ -84,7 +84,7 @@ background-color:transparent;
 }
 
 .QValidatedLineEdit, .QLineEdit { /* Text Entry Fields */
-border: 1px solid #ff6666;
+border: 1px solid #82C3E6;
 font-size:11px;
 min-height:25px;
 outline:0;
@@ -103,7 +103,7 @@ background-color:#f2f2f2;
 /*******************************************************/
 
 QPushButton { /* Global Button Style */
-background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: .01 #ff4d4d, stop: .1 #ff1a1a, stop: .95 #ff1a1a, stop: 1 #e60000);
+background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: .01 #ff6363, stop: .1 #ff2424, stop: .95 #ff2424, stop: 1 #1D80B5);
 border:0;
 border-radius:3px;
 color:#ffffff;
@@ -117,7 +117,7 @@ padding-bottom:5px;
 }
 
 QPushButton:hover {
-background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: .01 #ff4d4d, stop: .1 #ff4d4d, stop: .95 #ff4d4d, stop: 1 #e60000);
+background-color:qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: .01 #ff6363, stop: .1 #ff6363, stop: .95 #ff6363, stop: 1 #1D80B5);
 }
 
 QPushButton:focus {
@@ -130,7 +130,7 @@ border:1px solid #333;
 }
 
 QComboBox { /* Dropdown Menus */
-border:1px solid #ff6666;
+border:1px solid #82C3E6;
 padding: 3px 5px 3px 5px;
 background:#fcfcfc;
 min-height:25px;
@@ -186,7 +186,7 @@ selection-color:transparent;
 }
 
 QAbstractSpinBox {
-border:1px solid #ff6666;
+border:1px solid #82C3E6;
 padding: 3px 5px 3px 5px;
 background:#fcfcfc;
 min-height:25px;
@@ -199,8 +199,8 @@ subcontrol-position: top right;
 width:21px;
 background:#fcfcfc;
 border-left:0px;
-border-right:1px solid #ff6666;
-border-top:1px solid #ff6666;
+border-right:1px solid #82C3E6;
+border-top:1px solid #82C3E6;
 border-bottom:0px;
 padding-right:1px;
 padding-left:5px;
@@ -218,8 +218,8 @@ width:21px;
 background:#fcfcfc;
 border-top:0px;
 border-left:0px;
-border-right:1px solid #ff6666;
-border-bottom:1px solid #ff6666;
+border-right:1px solid #82C3E6;
+border-bottom:1px solid #82C3E6;
 padding-right:1px;
 padding-left:5px;
 padding-bottom:2px;
@@ -503,7 +503,7 @@ padding-right:10px;
 }
 
 QDialog#SignVerifyMessageDialog QPlainTextEdit { /* Message Signing Text */
-border:1px solid #ff6666;
+border:1px solid #82C3E6;
 background-color:#fff;
 }
 
@@ -743,16 +743,16 @@ QDialog#HelpMessageDialog QScrollBar:vertical, QDialog#HelpMessageDialog QScroll
 border:0;
 }
 
-/* About Axe Dialog */
+/* About AXE Dialog */
 QDialog#AboutDialog {
 background-color:#F8F6F6;
 }
 
-QDialog#AboutDialog QLabel#label, QDialog#AboutDialog QLabel#copyrightLabel, QDialog#AboutDialog QLabel#label_2 { /* About Axe Contents */
+QDialog#AboutDialog QLabel#label, QDialog#AboutDialog QLabel#copyrightLabel, QDialog#AboutDialog QLabel#label_2 { /* About AXE Contents */
 margin-left:10px;
 }
 
-QDialog#AboutDialog QLabel#label_2 { /* Margin for About Axe text */
+QDialog#AboutDialog QLabel#label_2 { /* Margin for About AXE text */
 margin-right:10px;
 }
 
@@ -1591,6 +1591,16 @@ background-color:#F8F6F6;
 }
 
 QDialog#ReceiveRequestDialog QTextEdit { /* Contents of Receive Coin Dialog */
+border:1px solid #d7d7d7;
+}
+
+/* General QR-code DIALOG */
+
+QDialog#QRDialog {
+background-color:#F8F6F6;
+}
+
+QDialog#QRDialog QTextEdit { /* Contents of QR-code Dialog */
 border:1px solid #d7d7d7;
 }
 

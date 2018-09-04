@@ -8,6 +8,7 @@
         <file alias="fr">locale/axe_fr.qm</file>
         <file alias="it">locale/axe_it.qm</file>
         <file alias="ja">locale/axe_ja.qm</file>
+        <file alias="nl">locale/axe_nl.qm</file>
         <file alias="pl">locale/axe_pl.qm</file>
         <file alias="pt">locale/axe_pt.qm</file>
         <file alias="ru">locale/axe_ru.qm</file>

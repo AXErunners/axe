@@ -1,5 +1,5 @@
-#!/usr/bin/env python2
-# Copyright (c) 2014-2015 The Bitcoin Core developers
+#!/usr/bin/env python3
+# Copyright (c) 2014-2016 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -17,11 +17,10 @@ def txFromHex(hexstring):
     return tx
 
 class ListTransactionsTest(BitcoinTestFramework):
-
-    def setup_nodes(self):
-        #This test requires mocktime
-        enable_mocktime()
-        return start_nodes(4, self.options.tmpdir)
+    def __init__(self):
+        super().__init__()
+        self.num_nodes = 4
+        self.setup_clean_chain = False
 
     def run_test(self):
         # Simple send, 0 to 1:
@@ -94,7 +93,7 @@ class ListTransactionsTest(BitcoinTestFramework):
                            {"category":"receive","amount":Decimal("0.1")},
                            {"txid":txid, "account" : "watchonly"} )
 
-        # rbf is disabled in Axe Core
+        # rbf is disabled in AXE Core
         # self.run_rbf_opt_in_test()
 
     # Check that the opt-in-rbf flag works properly, for sent and received
