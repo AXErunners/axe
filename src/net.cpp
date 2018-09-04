@@ -1402,7 +1402,7 @@ void CConnman::NotifyNumConnectionsChanged()
     if(vNodesSize != nPrevNodeCount) {
         nPrevNodeCount = vNodesSize;
         if(clientInterface)
-            clientInterface->NotifyNumConnectionsChanged(nPrevNodeCount);
+            clientInterface->NotifyNumConnectionsChanged(vNodesSize);
     }
 }
 
