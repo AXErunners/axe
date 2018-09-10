@@ -29,7 +29,7 @@ cat << "EOF"
       \/__/            \/__/            \|__|            \/__/
 
 EOF
-printf "\033[33;3mWelcome to\033[0m \033[1m\033[31mAXE\033[0m\n\033[33;2mGenerating configure scripts...\033[0m\n"
+printf "\033[1m\033[31mAXE\033[0m\n\033[33;2mWarming up...\033[0m\n"
 set -e
 srcdir="$(dirname $0)"
 cd "$srcdir"
