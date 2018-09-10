@@ -1,5 +1,5 @@
 ---
-name: "axe-win-0.12"
+name: "axe-win-1.1"
 enable_cache: true
 suites:
 - "trusty"
