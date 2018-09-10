@@ -1,7 +1,7 @@
 # Masternode - Detailed setup
 To start AXE masternode on a dedicated server you will need:
 * 1000 AXE collateral
-* server with Ubuntu (16.04) and static IP ([Vultr](https://www.vultr.com/?ref=7231821))
+* server with Ubuntu (18.04) and static IP ([Vultr](https://www.vultr.com/?ref=7231821))
 * Axe Core on local machine
 * basic Linux skills
 
@@ -32,11 +32,11 @@ sudo ufw allow 9337/tcp
 sudo ufw logging on
 sudo ufw disable
 sudo ufw enable
-fallocate -l 4G /swapfile
-chmod 600 /swapfile
-mkswap /swapfile
-swapon /swapfile
-nano /etc/fstab
+sudo fallocate -l 4G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+sudo nano /etc/fstab
 ```
 enter the following file at the end: <br />
 `/swapfile none swap sw 0 0`
