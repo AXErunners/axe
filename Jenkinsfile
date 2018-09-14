@@ -25,28 +25,8 @@ for(int i = 0; i < targets.size(); i++) {
       def UID = sh(returnStdout: true, script: 'id -u').trim()
       def HOME = sh(returnStdout: true, script: 'echo $HOME').trim()
       def pwd = sh(returnStdout: true, script: 'pwd').trim()
-      def hasCache = false
 
       checkout scm
-
-      // restore cache
-      try {
-        copyArtifacts(projectName: "axerunners-axe/${BRANCH_NAME}", optional: true, selector: lastSuccessful(), filter: "ci-cache-${target}.tar.gz")
-      } catch (Exception e) {
-      }
-      if (fileExists("ci-cache-${target}.tar.gz")) {
-        hasCache = true
-        echo "Using cache from axerunners-axe/${BRANCH_NAME}"
-      } else {
-        try {
-          copyArtifacts(projectName: 'axerunners-axe/develop', optional: true, selector: lastSuccessful(), filter: "ci-cache-${target}.tar.gz");
-        } catch (Exception e) {
-        }
-        if (fileExists("ci-cache-${target}.tar.gz")) {
-          hasCache = true
-          echo "Using cache from axerunners-axe/develop"
-        }
-      }
 
       def env = [
         "BUILD_TARGET=${target}",
@@ -61,29 +41,55 @@ for(int i = 0; i < targets.size(); i++) {
           builderImage = docker.build("${builderImageName}", "--build-arg BUILD_TARGET=${target} ci -f ci/Dockerfile.builder")
         }
 
-        if (hasCache) {
-          sh "cd ${pwd} && tar xzfv ci-cache-${target}.tar.gz"
-        } else {
-          sh "mkdir -p ${pwd}/ci-cache-${target}"
-        }
-
         builderImage.inside("-t") {
+          // copy source into fixed path
+          // we must build under the same path everytime as otherwise caches won't work properly
+          sh "cp -ra ${pwd}/. /axe-src/"
+
+          // restore cache
+          def hasCache = false
+          try {
+            copyArtifacts(projectName: "axerunners-axe/${BRANCH_NAME}", optional: true, selector: lastSuccessful(), filter: "ci-cache-${target}.tar.gz")
+          } catch (Exception e) {
+          }
+          if (fileExists("ci-cache-${target}.tar.gz")) {
+            hasCache = true
+            echo "Using cache from axerunners-axe/${BRANCH_NAME}"
+          } else {
+            try {
+              copyArtifacts(projectName: 'axerunners-axe/develop', optional: true, selector: lastSuccessful(), filter: "ci-cache-${target}.tar.gz");
+            } catch (Exception e) {
+            }
+            if (fileExists("ci-cache-${target}.tar.gz")) {
+              hasCache = true
+              echo "Using cache from axerunners-axe/develop"
+            }
+          }
+
+          if (hasCache) {
+            sh "cd /axe-src && tar xzf ${pwd}/ci-cache-${target}.tar.gz"
+          } else {
+            sh "mkdir -p /axe-src/ci-cache-${target}"
+          }
+
           stage("${target}/depends") {
-            sh './ci/build_depends.sh'
+            sh 'cd /axe-src && ./ci/build_depends.sh'
           }
           stage("${target}/build") {
-            sh './ci/build_src.sh'
+            sh 'cd /axe-src && ./ci/build_src.sh'
           }
           stage("${target}/test") {
-            sh './ci/test_unittests.sh'
+            sh 'cd /axe-src && ./ci/test_unittests.sh'
           }
           stage("${target}/test") {
-            sh './ci/test_integrationtests.sh'
+            sh 'cd /axe-src && ./ci/test_integrationtests.sh'
           }
+
+          // archive cache and copy it into the jenkins workspace
+          sh "cd /axe-src && tar czfv ci-cache-${target}.tar.gz ci-cache-${target} && cp ci-cache-${target}.tar.gz ${pwd}/"
         }
 
-        // archive cache
-        sh "tar czfv ci-cache-${target}.tar.gz ci-cache-${target}"
+        // upload cache
         archiveArtifacts artifacts: "ci-cache-${target}.tar.gz", fingerprint: true
       }
     }
