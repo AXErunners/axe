@@ -15,4 +15,4 @@ export LD_LIBRARY_PATH=$BUILD_DIR/depends/$HOST/lib
 
 cd build-ci/axecore-$BUILD_TARGET
 
-./qa/pull-tester/rpc-tests.py --coverage
+#./qa/pull-tester/rpc-tests.py --coverage
