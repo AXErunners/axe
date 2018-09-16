@@ -57,12 +57,12 @@ for(int i = 0; i < targets.size(); i++) {
             echo "Using cache from axerunners-axe/${BRANCH_NAME}"
           } else {
             try {
-              copyArtifacts(projectName: 'axerunners-axe/develop', optional: true, selector: lastSuccessful(), filter: "ci-cache-${target}.tar.gz");
+              copyArtifacts(projectName: 'axerunners-axe/development', optional: true, selector: lastSuccessful(), filter: "ci-cache-${target}.tar.gz");
             } catch (Exception e) {
             }
             if (fileExists("ci-cache-${target}.tar.gz")) {
               hasCache = true
-              echo "Using cache from axerunners-axe/develop"
+              echo "Using cache from axerunners-axe/development"
             }
           }
 
