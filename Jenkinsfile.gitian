@@ -12,7 +12,7 @@ def proc = 4
 def mem = 2000
 
 def repositoryUrl = "https://github.com/axerunners/axe.git"
-def commit = "develop"
+def commit = "development"
 
 def tasks = [:]
 for(int i = 0; i < targets.size(); i++) {
@@ -56,12 +56,12 @@ for(int i = 0; i < targets.size(); i++) {
           echo "Using cache from axerunners-axe-gitian-nightly/${BRANCH_NAME}"
         } else {
           try {
-            copyArtifacts(projectName: 'axerunners-axe-gitian-nightly/develop', optional: true, selector: lastSuccessful(), filter: "cache-${gitianDescriptor.name}.tar.gz");
+            copyArtifacts(projectName: 'axerunners-axe-gitian-nightly/development', optional: true, selector: lastSuccessful(), filter: "cache-${gitianDescriptor.name}.tar.gz");
           } catch (Exception e) {
           }
           if (fileExists("cache-${gitianDescriptor.name}.tar.gz")) {
             hasCache = true
-            echo "Using cache from axerunners-axe-gitian-nightly/develop"
+            echo "Using cache from axerunners-axe-gitian-nightly/development"
           }
         }
       }
