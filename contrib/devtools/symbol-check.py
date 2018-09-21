@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # Copyright (c) 2014 Wladimir J. van der Laan
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -11,7 +11,6 @@ Example usage:
 
     find ../gitian-builder/build -type f -executable | xargs python contrib/devtools/symbol-check.py
 '''
-from __future__ import division, print_function, unicode_literals
 import subprocess
 import re
 import sys
@@ -47,7 +46,7 @@ MAX_VERSIONS = {
 
 # Ignore symbols that are exported as part of every executable
 IGNORE_EXPORTS = {
-b'_edata', b'_end', b'_init', b'__bss_start', b'_fini', b'_IO_stdin_used', 'stdin', 'stdout', 'stderr'
+b'_edata', b'_end', b'_init', b'__bss_start', b'_fini', b'_IO_stdin_used'
 }
 READELF_CMD = os.getenv('READELF', '/usr/bin/readelf')
 CPPFILT_CMD = os.getenv('CPPFILT', '/usr/bin/c++filt')

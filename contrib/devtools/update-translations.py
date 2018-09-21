@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # Copyright (c) 2014 Wladimir J. van der Laan
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -15,7 +15,6 @@ It will do the following automatically:
 TODO:
 - auto-add new translations to the build system according to the translation process
 '''
-from __future__ import division, print_function
 import subprocess
 import re
 import sys
@@ -26,7 +25,7 @@ import xml.etree.ElementTree as ET
 # Name of transifex tool
 TX = 'tx'
 # Name of source language file
-SOURCE_LANG = 'axe_en.ts'
+SOURCE_LANG = 'dash_en.ts'
 # Directory with locale files
 LOCALE_DIR = 'src/qt/locale'
 # Minimum number of messages for translation to be considered at all
@@ -208,4 +207,3 @@ if __name__ == '__main__':
     check_at_repository_root()
     # fetch_all_translations()
     postprocess_translations()
-
