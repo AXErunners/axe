@@ -1,5 +1,5 @@
 ---
-name: "axe-raspberry-1.1"
+name: "axe-raspberry-0.12"
 enable_cache: true
 suites:
 - "precise"
@@ -27,7 +27,7 @@ script: |
   CONFIGFLAGS="--enable-upnp-default --enable-glibc-back-compat"
   FAKETIME_HOST_PROGS=""
   FAKETIME_PROGS="date ar ranlib nm strip"
-
+  
   tar --warning=no-timestamp -xzf raspberrypi-tools.tar.gz
   export TOOLCHAIN_BIN=$(pwd)/raspberrypi-tools/arm-bcm2708/gcc-linaro-arm-linux-gnueabihf-raspbian-x64/bin
   export PATH=$PATH:$TOOLCHAIN_BIN
