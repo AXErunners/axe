@@ -1,4 +1,5 @@
-// Copyright (c) 2014-2017 The AXE Core developers
+// Copyright (c) 2014-2017 The Dash Core developers
+// Copyright (c) 2017-2018 The AXE Core developers
 
 #include "governance-validators.h"
 #include "utilstrencodings.h"
@@ -28,7 +29,7 @@ std::string CreateEncodedProposalObject(const UniValue& objJSON)
 
     UniValue outerArray(UniValue::VARR);
     outerArray.push_back(innerArray);
-    
+
     std::string strData = outerArray.write();
     std::string strHex = HexStr(strData);
     return strHex;

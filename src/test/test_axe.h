@@ -1,5 +1,6 @@
 // Copyright (c) 2015 The Bitcoin Core developers
-// Copyright (c) 2014-2017 The AXE Core developers
+// Copyright (c) 2014-2017 The Dash Core developers
+// Copyright (c) 2017-2018 The AXE Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -78,7 +79,7 @@ struct TestMemPoolEntryHelper
     TestMemPoolEntryHelper() :
         nFee(0), nTime(0), dPriority(0.0), nHeight(1),
         spendsCoinbase(false), sigOpCount(4) { }
-    
+
     CTxMemPoolEntry FromTx(const CMutableTransaction &tx, CTxMemPool *pool = NULL);
     CTxMemPoolEntry FromTx(const CTransaction &tx, CTxMemPool *pool = NULL);
 
