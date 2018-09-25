@@ -579,7 +579,7 @@
 - [`d16b2e5ec`](https://github.com/axerunners/axe/commit/d16b2e5ec) Merge #8621: [contrib] python: Don't use shell=True
 - [`3b45caeeb`](https://github.com/axerunners/axe/commit/3b45caeeb) Merge #8626: Berkeley DB v6 compatibility fix
 - [`f6658c07f`](https://github.com/axerunners/axe/commit/f6658c07f) Merge #8611: Reduce default number of blocks to check at startup
-- [`40202ef81`](https://github.com/axerunners/axe/commit/40202ef81) AXEify gitian-build.sh
+- [`40202ef81`](https://github.com/axerunners/axe/commit/40202ef81) AXEify gitian-build.py
 - [`fc34ec4b3`](https://github.com/axerunners/axe/commit/fc34ec4b3) Merge #8566: Easy to use gitian building script
 - [`e8e95994b`](https://github.com/axerunners/axe/commit/e8e95994b) Merge #8625: [doc] - clarify statement about parallel jobs in rpc-tests.py
 - [`2da811bec`](https://github.com/axerunners/axe/commit/2da811bec) Merge #8624: [doc] build: Mention curl
