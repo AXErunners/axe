@@ -1,5 +1,6 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
-// Copyright (c) 2014-2017 The AXE Core developers
+// Copyright (c) 2014-2017 The Dash Core developers
+// Copyright (c) 2017-2018 The AXE Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -420,7 +421,7 @@ void BitcoinGUI::createActions()
     openConfEditorAction = new QAction(QIcon(":/icons/" + theme + "/edit"), tr("Open Wallet &Configuration File"), this);
     openConfEditorAction->setStatusTip(tr("Open configuration file"));
     openMNConfEditorAction = new QAction(QIcon(":/icons/" + theme + "/edit"), tr("Open &Masternode Configuration File"), this);
-    openMNConfEditorAction->setStatusTip(tr("Open Masternode configuration file"));    
+    openMNConfEditorAction->setStatusTip(tr("Open Masternode configuration file"));
     showBackupsAction = new QAction(QIcon(":/icons/" + theme + "/browse"), tr("Show Automatic &Backups"), this);
     showBackupsAction->setStatusTip(tr("Show automatically created wallet backups"));
     // initially disable the debug window menu items
@@ -468,7 +469,7 @@ void BitcoinGUI::createActions()
 
     // Get restart command-line parameters and handle restart
     connect(rpcConsole, SIGNAL(handleRestart(QStringList)), this, SLOT(handleRestart(QStringList)));
-    
+
     // prevents an open debug window from becoming stuck/unusable on client shutdown
     connect(quitAction, SIGNAL(triggered()), rpcConsole, SLOT(hide()));
 
@@ -611,7 +612,7 @@ void BitcoinGUI::setClientModel(ClientModel *_clientModel)
             MacDockIconHandler *dockIconHandler = MacDockIconHandler::instance();
             dockIconHandler->setMainWindow((QMainWindow *)this);
             dockIconMenu = dockIconHandler->dockMenu();
- 
+
             createIconMenu(dockIconMenu);
 #endif
         }
@@ -642,13 +643,13 @@ void BitcoinGUI::setClientModel(ClientModel *_clientModel)
         }
 #endif // ENABLE_WALLET
         unitDisplayControl->setOptionsModel(_clientModel->getOptionsModel());
-        
+
         OptionsModel* optionsModel = _clientModel->getOptionsModel();
         if(optionsModel)
         {
             // be aware of the tray icon disable state change reported by the OptionsModel object.
             connect(optionsModel,SIGNAL(hideTrayIconChanged(bool)),this,SLOT(setTrayIconVisible(bool)));
-        
+
             // initialize the disable state of the tray icon with the current value in the model.
             setTrayIconVisible(optionsModel->getHideTrayIcon());
         }
