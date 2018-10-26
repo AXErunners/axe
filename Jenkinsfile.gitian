@@ -12,7 +12,6 @@ def proc = 4
 def mem = 2000
 
 def repositoryUrl = "https://github.com/axerunners/axe.git"
-def commit = "development"
 
 def tasks = [:]
 for(int i = 0; i < targets.size(); i++) {
@@ -103,6 +102,10 @@ for(int i = 0; i < targets.size(); i++) {
                 tail -F var/install.log &
                 tail -F var/build.log &
                 USE_DOCKER=1 ./bin/gbuild -j ${proc} -m ${mem} --commit axe=${commit} --url axe=${repositoryUrl} ../axe/contrib/gitian-descriptors/gitian-${target}.yml
+                RET=$?
+                # give the above tail calls enough time to print everything on failure
+                sleep 2s
+                exit $RET
               """
             } finally {
               // make sure it doesn't run forever
