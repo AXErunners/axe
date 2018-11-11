@@ -1,5 +1,5 @@
 ---
-name: "axe-osx-1.1"
+name: "axe-osx-1.2"
 enable_cache: true
 suites:
 - "bionic"
