@@ -54,6 +54,8 @@
 #include <QDoubleValidator>
 #include <QFileDialog>
 #include <QFont>
+#include <QFontDatabase>
+#include <QKeyEvent>
 #include <QLineEdit>
 #include <QPointer>
 #include <QSettings>
@@ -63,11 +65,6 @@
 #include <QUrlQuery>
 #include <QMouseEvent>
 #include <QVBoxLayout>
-
-
-#if QT_VERSION >= 0x50200
-#include <QFontDatabase>
-#endif
 
 static fs::detail::utf8_codecvt_facet utf8;
 
