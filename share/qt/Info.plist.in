@@ -46,7 +46,7 @@
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>CFBundleURLName</key>
-      <string>org.axe.payment</string>
+      <string>org.axe.AxePayment</string>
       <key>CFBundleURLSchemes</key>
       <array>
         <string>axe</string>
@@ -71,7 +71,7 @@
         <string>application/x-axe-payment-request</string>
         <key>public.filename-extension</key>
         <array>
-          <string>axerunnersmentrequest</string>
+          <string>axepaymentrequest</string>
         </array>
       </dict>
     </dict>
