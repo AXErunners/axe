@@ -137,6 +137,7 @@ BASE_SCRIPTS= [
     'resendwallettransactions.py',
     'minchainwork.py',
     'p2p-acceptblock.py', # NOTE: needs axe_hash to pass
+    'feature_shutdown.py',
 ]
 
 EXTENDED_SCRIPTS = [
