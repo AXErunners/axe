@@ -173,7 +173,7 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nStartTime = 1531094400;
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nTimeout = 1562630400;
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nWindowSize = 4032;
-        consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nThreshold = 3226; //
+        consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nThreshold = 3226;
 
         // The best chain should have at least this much work.
         consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000000182e9e91a0148568"); // 154865
