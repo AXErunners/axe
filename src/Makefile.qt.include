@@ -8,6 +8,7 @@ EXTRA_LIBRARIES += qt/libaxeqt.a
 
 # axe qt core #
 QT_TS = \
+  qt/locale/axe_ar.ts \
   qt/locale/axe_bg.ts \
   qt/locale/axe_de.ts \
   qt/locale/axe_en.ts \
@@ -16,13 +17,15 @@ QT_TS = \
   qt/locale/axe_fr.ts \
   qt/locale/axe_it.ts \
   qt/locale/axe_ja.ts \
+  qt/locale/axe_ko.ts \
   qt/locale/axe_nl.ts \
   qt/locale/axe_pl.ts \
   qt/locale/axe_pt.ts \
-  qt/locale/axe_pt_BR.ts \
   qt/locale/axe_ru.ts \
   qt/locale/axe_sk.ts \
   qt/locale/axe_sv.ts \
+  qt/locale/axe_th.ts \
+  qt/locale/axe_tr.ts \
   qt/locale/axe_vi.ts \
   qt/locale/axe_zh_CN.ts \
   qt/locale/axe_zh_TW.ts
@@ -31,7 +34,6 @@ QT_FORMS_UI = \
   qt/forms/addressbookpage.ui \
   qt/forms/askpassphrasedialog.ui \
   qt/forms/coincontroldialog.ui \
-  qt/forms/darksendconfig.ui \
   qt/forms/editaddressdialog.ui \
   qt/forms/helpmessagedialog.ui \
   qt/forms/intro.ui \
@@ -62,7 +64,6 @@ QT_MOC_CPP = \
   qt/moc_coincontroldialog.cpp \
   qt/moc_coincontroltreewidget.cpp \
   qt/moc_csvmodelwriter.cpp \
-  qt/moc_darksendconfig.cpp \
   qt/moc_editaddressdialog.cpp \
   qt/moc_guiutil.cpp \
   qt/moc_intro.cpp \
@@ -132,7 +133,6 @@ BITCOIN_QT_H = \
   qt/coincontroldialog.h \
   qt/coincontroltreewidget.h \
   qt/csvmodelwriter.h \
-  qt/darksendconfig.h \
   qt/editaddressdialog.h \
   qt/guiconstants.h \
   qt/guiutil.h \
@@ -487,7 +487,6 @@ BITCOIN_QT_WALLET_CPP = \
   qt/askpassphrasedialog.cpp \
   qt/coincontroldialog.cpp \
   qt/coincontroltreewidget.cpp \
-  qt/darksendconfig.cpp \
   qt/editaddressdialog.cpp \
   qt/masternodelist.cpp \
   qt/openuridialog.cpp \
@@ -645,7 +644,7 @@ qt_axe_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
 endif
 qt_axe_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CONSENSUS) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBLEVELDB) $(LIBMEMENV) \
   $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) \
-  $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
+  $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(BLS_LIBS)
 qt_axe_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 qt_axe_qt_LIBTOOLFLAGS = --tag CXX
 
