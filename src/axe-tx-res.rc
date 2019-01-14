@@ -16,8 +16,8 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "AXE"
-            VALUE "FileDescription",    "axe-tx (CLI AXE transaction editor utility)"
+            VALUE "CompanyName",        "Axe"
+            VALUE "FileDescription",    "axe-tx (CLI Axe transaction editor utility)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
             VALUE "InternalName",       "axe-tx"
             VALUE "LegalCopyright",     COPYRIGHT_STR

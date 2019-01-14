@@ -10,7 +10,7 @@
 
 /**
  * CBaseChainParams defines the base parameters (shared between axe-cli and axed)
- * of a given instance of the AXE system.
+ * of a given instance of the Axe system.
  */
 class CBaseChainParams
 {
