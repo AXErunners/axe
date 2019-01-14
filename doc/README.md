@@ -1,11 +1,11 @@
-AXE Core 1.1
+Axe Core 1.2.0
 =====================
 
 This is the official reference wallet for AXE digital currency and comprises the backbone of the AXE peer-to-peer network. You can [download AXE Core](https://axerunners.com/) or [build it yourself](#building) using the guides below.
 
 Running
 ---------------------
-The following are some helpful notes on how to run AXE on your native platform.
+The following are some helpful notes on how to run Axe on your native platform.
 
 ### Unix
 
@@ -20,7 +20,7 @@ Unpack the files into a directory, and then run axe-qt.exe.
 
 ### OS X
 
-Drag AXE-Qt to your applications folder, and then run AXE-Qt.
+Drag Axe-Qt to your applications folder, and then run Axe-Qt.
 
 ### Need Help?
 
@@ -30,7 +30,7 @@ for help and more information.
 
 Building
 ---------------------
-The following are developer notes on how to build AXE Core on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
+The following are developer notes on how to build Axe Core on your native platform. They are not complete guides, but include notes on the necessary libraries, compile flags, etc.
 
 - [OS X Build Notes](build-osx.md)
 - [Unix Build Notes](build-unix.md)
@@ -40,7 +40,7 @@ The following are developer notes on how to build AXE Core on your native platfo
 
 Development
 ---------------------
-The AXE Core repo's [root README](/README.md) contains relevant information on the development process and automated testing.
+The Axe Core repo's [root README](/README.md) contains relevant information on the development process and automated testing.
 
 - [Developer Notes](developer-notes.md)
 - [Release Notes](release-notes.md)
