@@ -16,8 +16,11 @@ bench_bench_axe_SOURCES = \
   bench/bench_axe.cpp \
   bench/bench.cpp \
   bench/bench.h \
+  bench/bls.cpp \
+  bench/bls_dkg.cpp \
   bench/checkblock.cpp \
   bench/checkqueue.cpp \
+  bench/ecdsa.cpp \
   bench/Examples.cpp \
   bench/rollingbloom.cpp \
   bench/crypto_hash.cpp \
@@ -53,7 +56,7 @@ bench_bench_axe_SOURCES += bench/coin_selection.cpp
 bench_bench_axe_LDADD += $(LIBBITCOIN_WALLET) $(LIBBITCOIN_CRYPTO)
 endif
 
-bench_bench_axe_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
+bench_bench_axe_LDADD += $(BOOST_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(BLS_LIBS)
 bench_bench_axe_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 
 CLEAN_BITCOIN_BENCH = bench/*.gcda bench/*.gcno $(GENERATED_TEST_FILES)
