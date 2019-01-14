@@ -1,7 +1,7 @@
-// Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2017-2018 The AXE Core developers
+// Copyright (c) 2014-2018 The Dash Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #include "privatesend-util.h"
 
 CKeyHolder::CKeyHolder(CWallet* pwallet) :
@@ -39,7 +39,7 @@ CScript CKeyHolderStorage::AddKey(CWallet* pwallet)
 
 void CKeyHolderStorage::KeepAll()
 {
-    std::vector<std::unique_ptr<CKeyHolder>> tmp;
+    std::vector<std::unique_ptr<CKeyHolder> > tmp;
     {
         // don't hold cs_storage while calling KeepKey(), which might lock cs_wallet
         LOCK(cs_storage);
@@ -47,7 +47,7 @@ void CKeyHolderStorage::KeepAll()
     }
 
     if (tmp.size() > 0) {
-        for (auto &key : tmp) {
+        for (auto& key : tmp) {
             key->KeepKey();
         }
         LogPrintf("CKeyHolderStorage::%s -- %lld keys kept\n", __func__, tmp.size());
@@ -56,7 +56,7 @@ void CKeyHolderStorage::KeepAll()
 
 void CKeyHolderStorage::ReturnAll()
 {
-    std::vector<std::unique_ptr<CKeyHolder>> tmp;
+    std::vector<std::unique_ptr<CKeyHolder> > tmp;
     {
         // don't hold cs_storage while calling ReturnKey(), which might lock cs_wallet
         LOCK(cs_storage);
@@ -64,7 +64,7 @@ void CKeyHolderStorage::ReturnAll()
     }
 
     if (tmp.size() > 0) {
-        for (auto &key : tmp) {
+        for (auto& key : tmp) {
             key->ReturnKey();
         }
         LogPrintf("CKeyHolderStorage::%s -- %lld keys returned\n", __func__, tmp.size());
