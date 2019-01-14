@@ -13,7 +13,7 @@
  * for both axed and axe-qt, to make it harder for attackers to
  * target servers or GUI users specifically.
  */
-const std::string CLIENT_NAME("AXE Core");
+const std::string CLIENT_NAME("Axe Core");
 
 /**
  * Client version number
