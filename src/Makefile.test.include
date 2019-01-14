@@ -89,6 +89,8 @@ BITCOIN_TESTS =\
   test/crypto_tests.cpp \
   test/cuckoocache_tests.cpp \
   test/DoS_tests.cpp \
+  test/evo_deterministicmns_tests.cpp \
+  test/evo_simplifiedmns_tests.cpp \
   test/getarg_tests.cpp \
   test/governance_validators_tests.cpp \
   test/hash_tests.cpp \
@@ -151,7 +153,7 @@ if ENABLE_WALLET
 test_test_axe_LDADD += $(LIBBITCOIN_WALLET)
 endif
 
-test_test_axe_LDADD += $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
+test_test_axe_LDADD += $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(BLS_LIBS)
 test_test_axe_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS) -static
 
 if ENABLE_ZMQ
