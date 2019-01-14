@@ -1,9 +1,9 @@
-AXE Core version 1.1.5
+Axe Core version 0.12.3.1
 ==========================
 
 Release is now available from:
 
-  <https://axerunners.com>
+  <https://www.axerunners.com/downloads/#wallets>
 
 This is a new major version release, bringing new features, various bugfixes and other
 improvements.
@@ -21,8 +21,24 @@ How to Upgrade
 
 If you are running an older version, shut it down. Wait until it has completely
 shut down (which might take a few minutes for older versions), then run the
-installer (on Windows) or just copy over /Applications/AXE-Qt (on Mac) or
+installer (on Windows) or just copy over /Applications/Axe-Qt (on Mac) or
 axed/axe-qt (on Linux).
+
+Downgrade warning
+-----------------
+
+### Downgrade to a version < 0.12.2.2
+
+Because release 0.12.2.2 included the [per-UTXO fix](release-notes/axe/release-notes-0.12.2.2.md#per-utxo-fix)
+which changed the structure of the internal database, you will have to reindex
+the database if you decide to use any pre-0.12.2.2 version.
+
+Wallet forward or backward compatibility was not affected.
+
+### Downgrade to 0.12.2.2/3
+
+Downgrading to these versions does not require any additional actions, should be
+fully compatible.
 
 Notable changes
 ===============
@@ -30,7 +46,7 @@ Notable changes
 Introducing Named Devnets
 -------------------------
 
-We introduce a new feature called Named Devnets.
+We introduce a new feature called [Named Devnets](https://github.com/axerunners/axe/pull/1791).
 This feature allows the creation of multiple independent devnets. Each one is
 identified by a name which is hardened into a "devnet genesis" block,
 which is automatically positioned at height 1. Validation rules will
@@ -48,7 +64,7 @@ If a node connects to the wrong network, it will immediately be disconnected.
 New format of network message signatures
 ----------------------------------------
 
-We introduced a new signature format for AXE-specific network messages,
+We introduced a new signature format for Axe-specific network messages,
 read more [here](https://github.com/axerunners/axe/pull/1936) and [here](https://github.com/axerunners/axe/pull/1937).
 We also introduced a new spork `SPORK_6_NEW_SIGS` which is going to be used to activate the new format after the network has finished the upgrade.
 Note that old pre-12.3 nodes won't be able to recognize and verify new signatures after `SPORK_6_NEW_SIGS` activates.
@@ -94,7 +110,7 @@ Support for pruned nodes in Lite Mode
 -------------------------------------
 
 It is now possible to run a pruned node which stores only some recent blocks and not the whole blockchain.
-However this option is only available in so called Lite Mode. In this mode, AXE specific features are disabled, meaning
+However this option is only available in so called Lite Mode. In this mode, Axe specific features are disabled, meaning
 that such nodes won't fully validate the blockchain (masternode payments and superblocks).
 PrivateSend and InstantSend functions are also disabled on such nodes. Such nodes are comparable to SPV-like nodes
 in terms of security and validation - it relies a lot on surrounding nodes, so please keep this in mind if you decide to
@@ -123,11 +139,16 @@ If you rely on the old output format, you can still specify an additional parame
 
 There is also a new RPC command `listaddressbalances`.
 
+You can read about RPC changes brought by backporting from Bitcoin Core in following docs:
+- https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-1.2.0.md#low-level-rpc-changes
+- https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-0.13.1.md#low-level-rpc-changes
+- https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-0.14.0.md#low-level-rpc-changes
+
 Command-line options
 --------------------
 
 New cmd-line options:
-- introduced in AXE Core 0.12.3.1: `allowprivatenet`, `bip9params`, `sporkaddr`, `devnet`;
+- introduced in Axe Core 0.12.3.1: `allowprivatenet`, `bip9params`, `sporkaddr`, `devnet`;
 - backported from Bitcoin Core 0.13/0.14: `blockreconstructionextratxn`, `maxtimeadjustment`, `maxtipage`,
 `incrementalrelayfee`, `dustrelayfee`, `blockmintxfee`.
 
@@ -154,7 +175,7 @@ case of future ASIC uses on testnet.
 Using masternode lists for initial peers discovery
 --------------------------------------------------
 
-We now use a recent masternode list to feed the hardcoded seed nodes list in AXE Core. This list was previously
+We now use a recent masternode list to feed the hardcoded seed nodes list in Axe Core. This list was previously
 unmaintained as we fully relied on DNS based discovery on startup. DNS discovery is still used as the main discovery
 method, but the hardcoded seed list should now be able to serve as a proper backup in case DNS fails for some reason.
 
@@ -163,14 +184,14 @@ Lots of backports, refactoring and bug fixes
 
 We backported many performance improvements and refactoring from Bitcoin Core and aligned most of our codebase with version 0.14.
 Most notable ones besides various performance and stability improvements probably are
-[Compact Block support (BIP 152)](https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-0.13.0.md#compact-block-support-bip-152),
-[Mining transaction selection ("Child Pays For Parent")](https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-0.13.0.md#mining-transaction-selection-child-pays-for-parent),
+[Compact Block support (BIP 152)](https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-1.2.0.md#compact-block-support-bip-152),
+[Mining transaction selection ("Child Pays For Parent")](https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-1.2.0.md#mining-transaction-selection-child-pays-for-parent),
 [Null dummy soft fork (BIP 147, without SegWit)](https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-0.13.1.md#null-dummy-soft-fork),
 [Nested RPC Commands in Debug Console](https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-0.14.0.md#nested-rpc-commands-in-debug-console) and
 [Support for JSON-RPC Named Arguments](https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-0.14.0.md#support-for-json-rpc-named-arguments).
 
 You can read more about all changes in Bitcoin Core 0.13 and 0.14 in following documents:
-- [release-notes-0.13.0.md](https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-0.13.0.md);
+- [release-notes-1.2.0.md](https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-1.2.0.md);
 - [release-notes-0.13.1.md](https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-0.13.1.md);
 - [release-notes-0.13.2.md](https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-0.13.2.md);
 - [release-notes-0.14.0.md](https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-0.14.0.md);
@@ -178,11 +199,16 @@ You can read more about all changes in Bitcoin Core 0.13 and 0.14 in following d
 - [release-notes-0.14.2.md](https://github.com/bitcoin/bitcoin/blob/master/doc/release-notes/release-notes-0.14.2.md).
 
 Note that some features were already backported earlier (per-UTXO fix, -assumevalid, GUI overlay etc.) and some were not backported at all
-(SegWit and feefilter, you can read more about why we did so [here](https://blog.axe.org/segwit-lighting-rbf-in-axe-9536868ca861) and [here](https://github.com/axerunners/axe/pull/2025)).
+(SegWit and feefilter, you can read more about why we did so [here](https://blog.axerunners.com/segwit-lighting-rbf-in-axe-9536868ca861) and [here](https://github.com/axerunners/axe/pull/2025)).
 The alert system was also kept in place for now. We are going to continue backporting the most notable fixes and improvements from Bitcoin Core versions 0.15 and 0.16 in future releases.
 
 A lot of refactoring, code cleanups and other small fixes were done in this release again. We are going to continue making code more reliable and easier to review in future releases as well.
 
+
+0.12.3.1 Change log
+===================
+
+See detailed [change log](https://github.com/axerunners/axe/compare/v0.12.2.3...axerunners:v0.12.3.1) below.
 
 ### Governance:
 - [`6c79c348e`](https://github.com/axerunners/axe/commit/6c79c348e) Drop "MAY, 2018" clause for proposal validation on mainnet (#2101)
@@ -207,7 +233,7 @@ A lot of refactoring, code cleanups and other small fixes were done in this rele
 ### InstantSend:
 - [`8c2d16f5f`](https://github.com/axerunners/axe/commit/8c2d16f5f) Limit IS quorums by updated MNs only (#2107)
 - [`ef85d5144`](https://github.com/axerunners/axe/commit/ef85d5144) Comment updates - InstantSend (#2062)
-- [`c0a109998`](https://github.com/axerunners/axe/commit/c0a109998) Fix instantsend in testnet and regtest (#2016)
+- [`c0a109337`](https://github.com/axerunners/axe/commit/c0a109337) Fix instantsend in testnet and regtest (#2016)
 - [`2f1661678`](https://github.com/axerunners/axe/commit/2f1661678) Locked txes should not expire until mined and have sufficient confirmations (#2011)
 - [`846f1d217`](https://github.com/axerunners/axe/commit/846f1d217) Avoid processing tx lock request twice in the wallet it was sent from (#2007)
 - [`c0c998da3`](https://github.com/axerunners/axe/commit/c0c998da3) Fix CInstantSend::GetTxLockRequest() (#2006)
@@ -242,7 +268,7 @@ A lot of refactoring, code cleanups and other small fixes were done in this rele
 - [`a648d6eff`](https://github.com/axerunners/axe/commit/a648d6eff) Drop delayed headers logic and fix duplicate initial headers sync by handling block inv correctly (#2032)
 - [`99085c5b6`](https://github.com/axerunners/axe/commit/99085c5b6) swap devnet magic bytes around (#2028)
 - [`a37dbd6d2`](https://github.com/axerunners/axe/commit/a37dbd6d2) Fix netfulfilledman usage (#2033)
-- [`08033ffe4`](https://github.com/axerunners/axe/commit/08033ffe4) Reject AXE-specific messages from obsolete peers (#1983)
+- [`08033ffe4`](https://github.com/axerunners/axe/commit/08033ffe4) Reject Axe-specific messages from obsolete peers (#1983)
 - [`43671a39d`](https://github.com/axerunners/axe/commit/43671a39d) Deprecate nMnCount in mnget (#1942)
 - [`451f7f071`](https://github.com/axerunners/axe/commit/451f7f071) Fix issues with mnp, mnw and dsq signatures via new spork (SPORK_6_NEW_SIGS) (#1936)
 - [`048062641`](https://github.com/axerunners/axe/commit/048062641) Force masternodes to have listen=1 and maxconnections to be at least DEFAULT_MAX_PEER_CONNECTIONS (#1935)
@@ -257,7 +283,7 @@ A lot of refactoring, code cleanups and other small fixes were done in this rele
 - [`1b1a440f4`](https://github.com/axerunners/axe/commit/1b1a440f4) Do not send axe-specific requests to masternodes before we are fully connected (#1882)
 - [`1ca270ed8`](https://github.com/axerunners/axe/commit/1ca270ed8) No need for msgMakerInitProto for sporks because we loop by fully connected nodes only now (#1877)
 - [`b84afb251`](https://github.com/axerunners/axe/commit/b84afb251) Allow to filter for fully connected nodes when calling CopyNodeVector (#1864)
-- [`532b9fa3d`](https://github.com/axerunners/axe/commit/532b9fa3d) Use OpenNetworkConnection instead of calling ConnectNode directly in AXE code (#1857)
+- [`532b9fa3d`](https://github.com/axerunners/axe/commit/532b9fa3d) Use OpenNetworkConnection instead of calling ConnectNode directly in Axe code (#1857)
 - [`3aad9d908`](https://github.com/axerunners/axe/commit/3aad9d908) Fix logging in PushInventory (#1847)
 - [`81fb931fb`](https://github.com/axerunners/axe/commit/81fb931fb) Don't delay GETHEADERS when no blocks have arrived yet in devnet (#1807)
 
@@ -356,7 +382,7 @@ A lot of refactoring, code cleanups and other small fixes were done in this rele
 - [`b07503f01`](https://github.com/axerunners/axe/commit/b07503f01) Some cleanup (mostly trivial) (#2038)
 - [`f8e5c5d56`](https://github.com/axerunners/axe/commit/f8e5c5d56) Simplify spork defaults by using a map (#2037)
 - [`6dd8304a5`](https://github.com/axerunners/axe/commit/6dd8304a5) Remove duplication of "class CBlockIndex;" (#2036)
-- [`4ea790377`](https://github.com/axerunners/axe/commit/4ea790377) AXEify lib names (#2035)
+- [`4ea790377`](https://github.com/axerunners/axe/commit/4ea790377) Axeify lib names (#2035)
 - [`53093c65b`](https://github.com/axerunners/axe/commit/53093c65b) Run tests in mocked time (#2031)
 - [`f7b9aae27`](https://github.com/axerunners/axe/commit/f7b9aae27) Correctly update pindexBestHeader and pindexBestInvalid in InvalidateBlock (#2029)
 - [`8b09e779b`](https://github.com/axerunners/axe/commit/8b09e779b) Bump testnet checkpoint and nMinimumChainWork/defaultAssumeValid params (#2026)
@@ -385,7 +411,7 @@ A lot of refactoring, code cleanups and other small fixes were done in this rele
 - [`e23f61822`](https://github.com/axerunners/axe/commit/e23f61822) Make TrafficGraphDataTests more general (#1943)
 - [`5b1c4d8a1`](https://github.com/axerunners/axe/commit/5b1c4d8a1) Few (mostly trivial) cleanups and fixes (#1940)
 - [`99273f63a`](https://github.com/axerunners/axe/commit/99273f63a) Use SPORK_6_NEW_SIGS to switch from signing string messages to hashes (#1937)
-- [`c65613350`](https://github.com/axerunners/axe/commit/c65613350) Switch masternode id in AXE data structures from CTxIn to COutPoint (#1933)
+- [`c65613350`](https://github.com/axerunners/axe/commit/c65613350) Switch masternode id in Axe data structures from CTxIn to COutPoint (#1933)
 - [`2ea6f7d82`](https://github.com/axerunners/axe/commit/2ea6f7d82) Use `override` keyword for overriden class member functions (#1644)
 - [`d5ef77ba9`](https://github.com/axerunners/axe/commit/d5ef77ba9) Refactor: use constant refs and `Ret` suffix (#1928)
 - [`2e04864b2`](https://github.com/axerunners/axe/commit/2e04864b2) Replace boost::lexical_cast<int> with atoi (#1926)
@@ -393,7 +419,7 @@ A lot of refactoring, code cleanups and other small fixes were done in this rele
 - [`4528c735f`](https://github.com/axerunners/axe/commit/4528c735f) Replace some instantsend/privatesend magic numbers with constants (#1924)
 - [`120893c63`](https://github.com/axerunners/axe/commit/120893c63) Update timeLastMempoolReq when responding to MEMPOOL request (#1904)
 - [`bb20b4e7b`](https://github.com/axerunners/axe/commit/bb20b4e7b) Few cleanups after backporting (#1903)
-- [`a7fa07a30`](https://github.com/axerunners/axe/commit/a7fa07a30) Drop BOOST_FOREACH and use references in loops (const ref where applicable, AXE code only) (#1899)
+- [`a7fa07a30`](https://github.com/axerunners/axe/commit/a7fa07a30) Drop BOOST_FOREACH and use references in loops (const ref where applicable, Axe code only) (#1899)
 - [`e0b6988a4`](https://github.com/axerunners/axe/commit/e0b6988a4) Various fixes and refactoring for Cache*Map classes (#1896)
 - [`99b2789a7`](https://github.com/axerunners/axe/commit/99b2789a7) Fix DeserializeAndCheckBlockTest benchmark and store hashDevnetGenesisBlock in `consensus` (#1888)
 - [`88646bd0d`](https://github.com/axerunners/axe/commit/88646bd0d) Rename `fMasterNode` to `fMasternodeMode` to clarify its meaning and to avoid confusion with `CNode::fMasternode` (#1874)
@@ -411,3 +437,64 @@ A lot of refactoring, code cleanups and other small fixes were done in this rele
 
 ### Backports and related fixes:
 - See commit list [here](https://github.com/axerunners/axe/blob/master/doc/release-notes/axe/release-notes-0.12.3-backports.md)
+
+
+Credits
+=======
+
+Thanks to everyone who directly contributed to this release:
+
+- Alexander Block
+- Chris Adam
+- Codarren Velvindron
+- crowning-
+- gladcow
+- InhumanPerfection
+- Kamil Woźniak
+- Nathan Marley
+- Oleg Girko
+- PaulieD
+- Semen Martynov
+- Spencer Lievens
+- thephez
+- UdjinM6
+
+As well as Bitcoin Core Developers and everyone who submitted issues,
+reviewed pull requests or helped translating on
+[Transifex](https://www.transifex.com/projects/p/axe/).
+
+
+Older releases
+==============
+
+Axe was previously known as Darkcoin.
+
+Darkcoin tree 0.8.x was a fork of Litecoin tree 0.8, original name was XCoin
+which was first released on Jan/18/2014.
+
+Darkcoin tree 0.9.x was the open source implementation of masternodes based on
+the 0.8.x tree and was first released on Mar/13/2014.
+
+Darkcoin tree 0.10.x used to be the closed source implementation of Darksend
+which was released open source on Sep/25/2014.
+
+Axe Core tree 0.11.x was a fork of Bitcoin Core tree 0.9,
+Darkcoin was rebranded to Axe.
+
+Axe Core tree 0.12.0.x was a fork of Bitcoin Core tree 0.10.
+
+Axe Core tree 0.12.1.x was a fork of Bitcoin Core tree 0.12.
+
+These release are considered obsolete. Old release notes can be found here:
+
+- [v0.12.2.3](https://github.com/axerunners/axe/blob/master/doc/release-notes/axe/release-notes-0.12.2.3.md) released Jan/12/2018
+- [v0.12.2.2](https://github.com/axerunners/axe/blob/master/doc/release-notes/axe/release-notes-0.12.2.2.md) released Dec/17/2017
+- [v0.12.2](https://github.com/axerunners/axe/blob/master/doc/release-notes/axe/release-notes-0.12.2.md) released Nov/08/2017
+- [v0.12.1](https://github.com/axerunners/axe/blob/master/doc/release-notes/axe/release-notes-0.12.1.md) released Feb/06/2017
+- [v0.12.0](https://github.com/axerunners/axe/blob/master/doc/release-notes/axe/release-notes-0.12.0.md) released Jun/15/2015
+- [v0.11.2](https://github.com/axerunners/axe/blob/master/doc/release-notes/axe/release-notes-0.11.2.md) released Mar/04/2015
+- [v0.11.1](https://github.com/axerunners/axe/blob/master/doc/release-notes/axe/release-notes-0.11.1.md) released Feb/10/2015
+- [v0.11.0](https://github.com/axerunners/axe/blob/master/doc/release-notes/axe/release-notes-0.11.0.md) released Jan/15/2015
+- [v0.10.x](https://github.com/axerunners/axe/blob/master/doc/release-notes/axe/release-notes-0.10.0.md) released Sep/25/2014
+- [v0.9.x](https://github.com/axerunners/axe/blob/master/doc/release-notes/axe/release-notes-0.9.0.md) released Mar/13/2014
+

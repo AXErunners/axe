@@ -19,7 +19,7 @@ Before every minor and major release:
 
 Before every major release:
 
-* Update hardcoded [seeds](/contrib/seeds/README.md). TODO: Give example PR for AXE
+* Update hardcoded [seeds](/contrib/seeds/README.md). TODO: Give example PR for Axe
 * Update [`BLOCK_CHAIN_SIZE`](/src/qt/intro.cpp) to the current size plus some overhead.
 
 ### First time / New builders
@@ -34,7 +34,7 @@ Check out the source code in the following directory hierarchy.
 	git clone https://github.com/devrandom/gitian-builder.git
 	git clone https://github.com/axerunners/axe.git
 
-### AXE Core maintainers/release engineers, update (commit) version in sources
+### Axe Core maintainers/release engineers, update (commit) version in sources
 
 - `configure.ac`:
     - `_CLIENT_VERSION_MAJOR`
@@ -52,7 +52,7 @@ Check out the source code in the following directory hierarchy.
 
 Write release notes. git shortlog helps a lot, for example:
 
-    git shortlog --no-merges v(current version, e.g. 0.12.2)..v(new version, e.g. 1.1.5)
+    git shortlog --no-merges v(current version, e.g. 0.12.2)..v(new version, e.g. 0.12.3)
 
 Generate list of authors:
 
@@ -60,7 +60,7 @@ Generate list of authors:
 
 Tag version (or release candidate) in git
 
-    git tag -s v(new version, e.g. 1.1.5)
+    git tag -s v(new version, e.g. 0.12.3)
 
 ### Setup and perform Gitian builds
 
@@ -70,7 +70,7 @@ Setup Gitian descriptors:
 
     pushd ./axe
     export SIGNER=(your Gitian key, ie bluematt, sipa, etc)
-    export VERSION=(new version, e.g. 1.1.5)
+    export VERSION=(new version, e.g. 0.12.3)
     git fetch
     git checkout v${VERSION}
     popd
@@ -116,7 +116,7 @@ NOTE: Offline builds must use the --url flag to ensure Gitian fetches only from 
 
 The gbuild invocations below <b>DO NOT DO THIS</b> by default.
 
-### Build and sign AXE Core for Linux, Windows, and OS X:
+### Build and sign Axe Core for Linux, Windows, and OS X:
 
     pushd ./gitian-builder
     ./bin/gbuild --memory 3000 --commit axe=v${VERSION} ../axe/contrib/gitian-descriptors/gitian-linux.yml
@@ -244,9 +244,11 @@ Note: check that SHA256SUMS itself doesn't end up in SHA256SUMS, which is a spur
 
 - Announce the release:
 
-  - Release on AXE Discord/Slack
+  - Release on Axe forum: https://www.axerunners.com/forum/topic/official-announcements.54/
 
-  - Optionally Twitter, reddit /r/axerunners, ... but this will usually sort out itself
+  - Optionally Discord, twitter, reddit /r/Axepay, ... but this will usually sort out itself
+
+  - Notify flare so that he can start building [the PPAs](https://launchpad.net/~axerunners.com/+archive/ubuntu/axe)
 
   - Archive release notes for the new version to `doc/release-notes/` (branch `master` and branch of the release)
 
