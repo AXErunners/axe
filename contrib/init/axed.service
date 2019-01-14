@@ -1,5 +1,5 @@
 [Unit]
-Description=AXE's distributed currency daemon
+Description=Axe's distributed currency daemon
 After=network.target
 
 [Service]

@@ -1,5 +1,5 @@
 # Linearize
-Construct a linear, no-fork, best version of the AXE blockchain. The scripts
+Construct a linear, no-fork, best version of the Axe blockchain. The scripts
 run using Python 3 but are compatible with Python 2.
 
 ## Step 0: Install axe_hash
