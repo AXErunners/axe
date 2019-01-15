@@ -1,7 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2017-2018 The AXE Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -13,6 +12,7 @@
 
 #include "support/allocators/secure.h"
 #include "chainparamsbase.h"
+#include "ctpl.h"
 #include "random.h"
 #include "serialize.h"
 #include "sync.h"
@@ -109,7 +109,7 @@ namespace boost {
 
 
 
-//AXE only features
+//Axe only features
 bool fMasternodeMode = false;
 bool fLiteMode = false;
 /**
@@ -278,7 +278,7 @@ bool LogAcceptCategory(const char* category)
                 const std::vector<std::string>& categories = mapMultiArgs.at("-debug");
                 ptrCategory.reset(new std::set<std::string>(categories.begin(), categories.end()));
                 // thread_specific_ptr automatically deletes the set when the thread ends.
-                // "axe" is a composite category enabling all AXE-related debug output
+                // "axe" is a composite category enabling all Axe-related debug output
                 if(ptrCategory->count(std::string("axe"))) {
                     ptrCategory->insert(std::string("privatesend"));
                     ptrCategory->insert(std::string("instantsend"));
@@ -556,13 +556,13 @@ void PrintExceptionContinue(const std::exception* pex, const char* pszThread)
 boost::filesystem::path GetDefaultDataDir()
 {
     namespace fs = boost::filesystem;
-    // Windows < Vista: C:\Documents and Settings\Username\Application Data\AXECore
-    // Windows >= Vista: C:\Users\Username\AppData\Roaming\AXECore
-    // Mac: ~/Library/Application Support/AXECore
+    // Windows < Vista: C:\Documents and Settings\Username\Application Data\AxeCore
+    // Windows >= Vista: C:\Users\Username\AppData\Roaming\AxeCore
+    // Mac: ~/Library/Application Support/AxeCore
     // Unix: ~/.axecore
 #ifdef WIN32
     // Windows
-    return GetSpecialFolderPath(CSIDL_APPDATA) / "AXECore";
+    return GetSpecialFolderPath(CSIDL_APPDATA) / "AxeCore";
 #else
     fs::path pathRet;
     char* pszHome = getenv("HOME");
@@ -572,7 +572,7 @@ boost::filesystem::path GetDefaultDataDir()
         pathRet = fs::path(pszHome);
 #ifdef MAC_OSX
     // Mac
-    return pathRet / "Library/Application Support/AXECore";
+    return pathRet / "Library/Application Support/AxeCore";
 #else
     // Unix
     return pathRet / ".axecore";
@@ -906,6 +906,25 @@ std::string GetThreadName()
     return std::string(name);
 }
 
+void RenameThreadPool(ctpl::thread_pool& tp, const char* baseName)
+{
+    auto cond = std::make_shared<std::condition_variable>();
+    auto mutex = std::make_shared<std::mutex>();
+    std::atomic<int> doneCnt(0);
+    for (size_t i = 0; i < tp.size(); i++) {
+        tp.push([baseName, i, cond, mutex, &doneCnt](int threadId) {
+            RenameThread(strprintf("%s-%d", baseName, i).c_str());
+            doneCnt++;
+            std::unique_lock<std::mutex> l(*mutex);
+            cond->wait(l);
+        });
+    }
+    while (doneCnt != tp.size()) {
+        MilliSleep(10);
+    }
+    cond->notify_all();
+}
+
 void SetupEnvironment()
 {
 #ifdef HAVE_MALLOPT_ARENA_MAX
@@ -1014,3 +1033,4 @@ std::string SafeIntVersionToString(uint32_t nVersion)
         return "invalid_version";
     }
 }
+

@@ -1,7 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2017-2018 The AXE Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -40,10 +39,10 @@
 #ifdef ENABLE_AXE_DEBUG
 #define DBG( x ) x
 #else
-#define DBG( x )
+#define DBG( x ) 
 #endif
 
-//AXE only features
+//Axe only features
 
 extern bool fMasternodeMode;
 extern bool fLiteMode;
@@ -95,20 +94,33 @@ bool LogAcceptCategory(const char* category);
 /** Send a string to the log output */
 int LogPrintStr(const std::string &str);
 
+/** Formats a string without throwing exceptions. Instead, it'll return an error string instead of formatted string. */
+template<typename... Args>
+std::string SafeStringFormat(const std::string& fmt, const Args&... args)
+{
+    try {
+        return tinyformat::format(fmt, args...);
+    } catch (std::runtime_error& e) {
+        std::string message = tinyformat::format("\n****TINYFORMAT ERROR****\n    err=\"%s\"\n    fmt=\"%s\"\n", e.what(), fmt);
+        fprintf(stderr, "%s", message.c_str());
+        return message;
+    }
+}
+
 #define LogPrint(category, ...) do { \
     if (LogAcceptCategory((category))) { \
-        LogPrintStr(tinyformat::format(__VA_ARGS__)); \
+        LogPrintStr(SafeStringFormat(__VA_ARGS__)); \
     } \
 } while(0)
 
 #define LogPrintf(...) do { \
-    LogPrintStr(tinyformat::format(__VA_ARGS__)); \
+    LogPrintStr(SafeStringFormat(__VA_ARGS__)); \
 } while(0)
 
 template<typename... Args>
 bool error(const char* fmt, const Args&... args)
 {
-    LogPrintStr("ERROR: " + tinyformat::format(fmt, args...) + "\n");
+    LogPrintStr("ERROR: " + SafeStringFormat(fmt, args...) + "\n");
     return false;
 }
 
@@ -231,6 +243,11 @@ int GetNumCores();
 
 void RenameThread(const char* name);
 std::string GetThreadName();
+
+namespace ctpl {
+    class thread_pool;
+}
+void RenameThreadPool(ctpl::thread_pool& tp, const char* baseName);
 
 /**
  * .. and a wrapper that just calls func once
