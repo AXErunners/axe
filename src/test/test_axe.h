@@ -1,6 +1,5 @@
 // Copyright (c) 2015 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2017-2018 The AXE Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -44,22 +43,42 @@ class CBlock;
 struct CMutableTransaction;
 class CScript;
 
-//
-// Testing fixture that pre-creates a
-// 100-block REGTEST-mode block chain
-//
-struct TestChain100Setup : public TestingSetup {
-    TestChain100Setup();
+struct TestChainSetup : public TestingSetup
+{
+    TestChainSetup(int blockCount);
+    ~TestChainSetup();
 
     // Create a new block with just given transactions, coinbase paying to
     // scriptPubKey, and try to add it to the current chain.
     CBlock CreateAndProcessBlock(const std::vector<CMutableTransaction>& txns,
                                  const CScript& scriptPubKey);
-
-    ~TestChain100Setup();
+    CBlock CreateAndProcessBlock(const std::vector<CMutableTransaction>& txns,
+                                 const CKey& scriptKey);
+    CBlock CreateBlock(const std::vector<CMutableTransaction>& txns,
+                       const CScript& scriptPubKey);
+    CBlock CreateBlock(const std::vector<CMutableTransaction>& txns,
+                       const CKey& scriptKey);
 
     std::vector<CTransaction> coinbaseTxns; // For convenience, coinbase transactions
     CKey coinbaseKey; // private/public key needed to spend coinbase transactions
+};
+
+//
+// Testing fixture that pre-creates a
+// 100-block REGTEST-mode block chain
+//
+struct TestChain100Setup : public TestChainSetup {
+    TestChain100Setup() : TestChainSetup(100) {}
+};
+
+struct TestChainDIP3Setup : public TestChainSetup
+{
+    TestChainDIP3Setup() : TestChainSetup(431) {}
+};
+
+struct TestChainDIP3BeforeActivationSetup : public TestChainSetup
+{
+    TestChainDIP3BeforeActivationSetup() : TestChainSetup(430) {}
 };
 
 class CTxMemPoolEntry;
@@ -79,7 +98,7 @@ struct TestMemPoolEntryHelper
     TestMemPoolEntryHelper() :
         nFee(0), nTime(0), dPriority(0.0), nHeight(1),
         spendsCoinbase(false), sigOpCount(4) { }
-
+    
     CTxMemPoolEntry FromTx(const CMutableTransaction &tx, CTxMemPool *pool = NULL);
     CTxMemPoolEntry FromTx(const CTransaction &tx, CTxMemPool *pool = NULL);
 

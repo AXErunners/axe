@@ -26,6 +26,11 @@ const struct BIP9DeploymentInfo VersionBitsDeploymentInfo[Consensus::MAX_VERSION
         /*.name =*/ "bip147",
         /*.gbt_force =*/ true,
         /*.check_mn_protocol =*/ false,
+    },
+    {
+        /*.name =*/ "dip0003",
+        /*.gbt_force =*/ true,
+        /*.check_mn_protocol =*/ true,
     }
 };
 
@@ -143,6 +148,21 @@ int AbstractThresholdConditionChecker::GetStateSinceHeightFor(const CBlockIndex*
     return pindexPrev->nHeight + 1;
 }
 
+int AbstractThresholdConditionChecker::CountBlocksInWindow(const CBlockIndex* pindex, const Consensus::Params& params) const
+{
+    int nPeriod = Period(params);
+    int nStopHeight = pindex->nHeight - (pindex->nHeight % nPeriod) - 1;
+    const CBlockIndex* pindexCount = pindex;
+    int count = 0;
+    while (pindexCount && pindexCount->nHeight != nStopHeight) {
+        if (Condition(pindexCount, params)) {
+            count++;
+        }
+        pindexCount = pindexCount->pprev;
+    }
+    return count;
+}
+
 namespace
 {
 /**
@@ -178,6 +198,11 @@ ThresholdState VersionBitsState(const CBlockIndex* pindexPrev, const Consensus::
 int VersionBitsStateSinceHeight(const CBlockIndex* pindexPrev, const Consensus::Params& params, Consensus::DeploymentPos pos, VersionBitsCache& cache)
 {
     return VersionBitsConditionChecker(pos).GetStateSinceHeightFor(pindexPrev, params, cache.caches[pos]);
+}
+
+int VersionBitsCountBlocksInWindow(const CBlockIndex* pindex, const Consensus::Params& params, Consensus::DeploymentPos pos)
+{
+    return VersionBitsConditionChecker(pos).CountBlocksInWindow(pindex, params);
 }
 
 uint32_t VersionBitsMask(const Consensus::Params& params, Consensus::DeploymentPos pos)

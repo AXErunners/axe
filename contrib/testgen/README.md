@@ -1,6 +1,6 @@
 ### TestGen ###
 
-Utilities to generate test vectors for the data-driven AXE tests.
+Utilities to generate test vectors for the data-driven Axe tests.
 
 Usage: 
 

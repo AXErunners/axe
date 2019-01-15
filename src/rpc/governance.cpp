@@ -1,5 +1,4 @@
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2017-2018 The AXE Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -27,839 +26,1064 @@
 
 bool EnsureWalletIsAvailable(bool avoidException);
 
+void gobject_count_help()
+{
+    throw std::runtime_error(
+                "gobject count (\"mode\")\n"
+                "Count governance objects and votes\n"
+                "\nArguments:\n"
+                "1. \"mode\"   (string, optional, default: \"json\") Output format: json (\"json\") or string in free form (\"all\")\n"
+                );
+}
+
+UniValue gobject_count(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() > 2)
+        gobject_count_help();
+
+    std::string strMode{"json"};
+
+    if (request.params.size() == 2) {
+        strMode = request.params[1].get_str();
+    }
+
+    if (strMode != "json" && strMode != "all")
+        gobject_count_help();
+
+    return strMode == "json" ? governance.ToJson() : governance.ToString();
+}
+
+void gobject_deserialize_help()
+{
+    throw std::runtime_error(
+                "gobject deserialize \"hex_data\"\n"
+                "Deserialize governance object from hex string to JSON\n"
+                "\nArguments:\n"
+                "1. \"hex_data\"   (string, required) data in hex string form\n"
+                );
+}
+
+UniValue gobject_deserialize(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() != 2)
+        gobject_deserialize_help();
+
+    std::string strHex = request.params[1].get_str();
+
+    std::vector<unsigned char> v = ParseHex(strHex);
+    std::string s(v.begin(), v.end());
+
+    UniValue u(UniValue::VOBJ);
+    u.read(s);
+
+    return u.write().c_str();
+}
+
+void gobject_check_help()
+{
+    throw std::runtime_error(
+                "gobject check \"hex_data\"\n"
+                "Validate governance object data (proposal only)\n"
+                "\nArguments:\n"
+                "1. \"hex_data\"   (string, required) data in hex string form\n"
+                );
+}
+
+UniValue gobject_check(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() != 2)
+        gobject_check_help();
+
+    // ASSEMBLE NEW GOVERNANCE OBJECT FROM USER PARAMETERS
+
+    uint256 hashParent;
+
+    int nRevision = 1;
+
+    int64_t nTime = GetAdjustedTime();
+    std::string strDataHex = request.params[1].get_str();
+
+    CGovernanceObject govobj(hashParent, nRevision, nTime, uint256(), strDataHex);
+
+    if (govobj.GetObjectType() == GOVERNANCE_OBJECT_PROPOSAL) {
+        CProposalValidator validator(strDataHex);
+        if (!validator.Validate())  {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid proposal data, error messages:" + validator.GetErrorMessages());
+        }
+    } else {
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid object type, only proposals can be validated");
+    }
+
+    UniValue objResult(UniValue::VOBJ);
+
+    objResult.push_back(Pair("Object status", "OK"));
+
+    return objResult;
+}
+
+#ifdef ENABLE_WALLET
+void gobject_prepare_help()
+{
+    throw std::runtime_error(
+                "gobject prepare <parent-hash> <revision> <time> <data-hex>\n"
+                "Prepare governance object by signing and creating tx\n"
+                "\nArguments:\n"
+                "1. parent-hash   (string, required) hash of the parent object, \"0\" is root\n"
+                "2. revision      (numeric, required) object revision in the system\n"
+                "3. time          (numeric, required) time this object was created\n"
+                "4. data-hex      (string, required)  data in hex string form\n"
+                "5. use-IS        (boolean, optional, default=false) InstantSend lock the collateral, only requiring one chain confirmation\n"
+                "6. outputHash    (string, optional) the single output to submit the proposal fee from\n"
+                "7. outputIndex   (numeric, optional) The output index.\n"
+                );
+}
+
+UniValue gobject_prepare(const JSONRPCRequest& request)
+{
+    if (request.fHelp || (request.params.size() != 5 && request.params.size() != 6 && request.params.size() != 8)) 
+        gobject_prepare_help();
+
+    if (!EnsureWalletIsAvailable(request.fHelp))
+        return NullUniValue;
+
+    // ASSEMBLE NEW GOVERNANCE OBJECT FROM USER PARAMETERS
+
+    uint256 hashParent;
+
+    // -- attach to root node (root node doesn't really exist, but has a hash of zero)
+    if (request.params[1].get_str() == "0") {
+        hashParent = uint256();
+    } else {
+        hashParent = ParseHashV(request.params[1], "fee-txid, parameter 1");
+    }
+
+    std::string strRevision = request.params[2].get_str();
+    std::string strTime = request.params[3].get_str();
+    int nRevision = atoi(strRevision);
+    int64_t nTime = atoi64(strTime);
+    std::string strDataHex = request.params[4].get_str();
+    bool useIS = false;
+    if (request.params.size() > 5) useIS = request.params[5].getBool();
+
+    // CREATE A NEW COLLATERAL TRANSACTION FOR THIS SPECIFIC OBJECT
+
+    CGovernanceObject govobj(hashParent, nRevision, nTime, uint256(), strDataHex);
+
+    // This command is dangerous because it consumes 5 AXE irreversibly.
+    // If params are lost, it's very hard to bruteforce them and yet
+    // users ignore all instructions on axecentral etc. and do not save them...
+    // Let's log them here and hope users do not mess with debug.log
+    LogPrintf("gobject_prepare -- params: %s %s %s %s, data: %s, hash: %s\n",
+                request.params[1].get_str(), request.params[2].get_str(),
+                request.params[3].get_str(), request.params[4].get_str(),
+                govobj.GetDataAsPlainString(), govobj.GetHash().ToString());
+
+    if (govobj.GetObjectType() == GOVERNANCE_OBJECT_PROPOSAL) {
+        CProposalValidator validator(strDataHex);
+        if (!validator.Validate()) {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid proposal data, error messages:" + validator.GetErrorMessages());
+        }
+    }
+
+    if (govobj.GetObjectType() == GOVERNANCE_OBJECT_TRIGGER) {
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Trigger objects need not be prepared (however only masternodes can create them)");
+    }
+
+    if (govobj.GetObjectType() == GOVERNANCE_OBJECT_WATCHDOG) {
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Watchdogs are deprecated");
+    }
+
+    LOCK2(cs_main, pwalletMain->cs_wallet);
+
+    std::string strError = "";
+    if (!govobj.IsValidLocally(strError, false))
+        throw JSONRPCError(RPC_INTERNAL_ERROR, "Governance object is not valid - " + govobj.GetHash().ToString() + " - " + strError);
+
+    EnsureWalletIsUnlocked();
+
+    // If specified, spend this outpoint as the proposal fee
+    COutPoint outpoint;
+    outpoint.SetNull();
+    if (request.params.size() == 8) {
+        uint256 collateralHash = ParseHashV(request.params[6], "outputHash");
+        int32_t collateralIndex = ParseInt32V(request.params[7], "outputIndex");
+        if (collateralHash.IsNull() || collateralIndex < 0) {
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, strprintf("invalid hash or index: %s-%d", collateralHash.ToString(), collateralIndex));
+        }
+        outpoint = COutPoint(collateralHash, (uint32_t)collateralIndex);
+    }
+
+    CWalletTx wtx;
+    if (!pwalletMain->GetBudgetSystemCollateralTX(wtx, govobj.GetHash(), govobj.GetMinCollateralFee(), useIS, outpoint)) {
+        std::string err = "Error making collateral transaction for governance object. Please check your wallet balance and make sure your wallet is unlocked.";
+        if (request.params.size() == 8) err += "Please verify your specified output is valid and is enough for the combined proposal fee and transaction fee.";
+        throw JSONRPCError(RPC_INTERNAL_ERROR, err);
+    }
+
+    // -- make our change address
+    CReserveKey reservekey(pwalletMain);
+    // -- send the tx to the network
+    CValidationState state;
+    if (!pwalletMain->CommitTransaction(wtx, reservekey, g_connman.get(), state, NetMsgType::TX)) {
+        throw JSONRPCError(RPC_INTERNAL_ERROR, "CommitTransaction failed! Reason given: " + state.GetRejectReason());
+    }
+
+    DBG( std::cout << "gobject: prepare "
+         << " GetDataAsPlainString = " << govobj.GetDataAsPlainString()
+         << ", hash = " << govobj.GetHash().GetHex()
+         << ", txidFee = " << wtx.GetHash().GetHex()
+         << std::endl; );
+
+    return wtx.GetHash().ToString();
+}
+#endif // ENABLE_WALLET
+
+void gobject_submit_help()
+{
+    throw std::runtime_error(
+                "gobject submit <parent-hash> <revision> <time> <data-hex> <fee-txid>\n"
+                "Submit governance object to network\n"
+                "\nArguments:\n"
+                "1. parent-hash   (string, required) hash of the parent object, \"0\" is root\n"
+                "2. revision      (numeric, required) object revision in the system\n"
+                "3. time          (numeric, required) time this object was created\n"
+                "4. data-hex      (string, required) data in hex string form\n"
+                "5. fee-txid      (string, optional) fee-tx id, required for all objects except triggers"
+                );
+}
+
+UniValue gobject_submit(const JSONRPCRequest& request)
+{
+    if (request.fHelp || ((request.params.size() < 5) || (request.params.size() > 6)))
+        gobject_submit_help();
+
+    if(!masternodeSync.IsBlockchainSynced()) {
+        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Must wait for client to sync with masternode network. Try again in a minute or so.");
+    }
+
+    bool fMnFound = mnodeman.Has(activeMasternodeInfo.outpoint);
+
+    DBG( std::cout << "gobject: submit activeMasternodeInfo.keyIDOperator = " << activeMasternodeInfo.legacyKeyIDOperator.ToString()
+         << ", outpoint = " << activeMasternodeInfo.outpoint.ToStringShort()
+         << ", params.size() = " << request.params.size()
+         << ", fMnFound = " << fMnFound << std::endl; );
+
+    // ASSEMBLE NEW GOVERNANCE OBJECT FROM USER PARAMETERS
+
+    uint256 txidFee;
+
+    if (request.params.size() == 6) {
+        txidFee = ParseHashV(request.params[5], "fee-txid, parameter 6");
+    }
+    uint256 hashParent;
+    if (request.params[1].get_str() == "0") { // attach to root node (root node doesn't really exist, but has a hash of zero)
+        hashParent = uint256();
+    } else {
+        hashParent = ParseHashV(request.params[1], "parent object hash, parameter 2");
+    }
+
+    // GET THE PARAMETERS FROM USER
+
+    std::string strRevision = request.params[2].get_str();
+    std::string strTime = request.params[3].get_str();
+    int nRevision = atoi(strRevision);
+    int64_t nTime = atoi64(strTime);
+    std::string strDataHex = request.params[4].get_str();
+
+    CGovernanceObject govobj(hashParent, nRevision, nTime, txidFee, strDataHex);
+
+    DBG( std::cout << "gobject: submit "
+         << " GetDataAsPlainString = " << govobj.GetDataAsPlainString()
+         << ", hash = " << govobj.GetHash().GetHex()
+         << ", txidFee = " << txidFee.GetHex()
+         << std::endl; );
+
+    if (govobj.GetObjectType() == GOVERNANCE_OBJECT_PROPOSAL) {
+        CProposalValidator validator(strDataHex);
+        if (!validator.Validate()) {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid proposal data, error messages:" + validator.GetErrorMessages());
+        }
+    }
+
+    if (govobj.GetObjectType() == GOVERNANCE_OBJECT_WATCHDOG) {
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Watchdogs are deprecated");
+    }
+
+    // Attempt to sign triggers if we are a MN
+    if (govobj.GetObjectType() == GOVERNANCE_OBJECT_TRIGGER) {
+        if (fMnFound) {
+            govobj.SetMasternodeOutpoint(activeMasternodeInfo.outpoint);
+            if (deterministicMNManager->IsDeterministicMNsSporkActive()) {
+                govobj.Sign(*activeMasternodeInfo.blsKeyOperator);
+            } else {
+                govobj.Sign(activeMasternodeInfo.legacyKeyOperator, activeMasternodeInfo.legacyKeyIDOperator);
+            }
+        } else {
+            LogPrintf("gobject(submit) -- Object submission rejected because node is not a masternode\n");
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Only valid masternodes can submit this type of object");
+        }
+    } else if (request.params.size() != 6) {
+        LogPrintf("gobject(submit) -- Object submission rejected because fee tx not provided\n");
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "The fee-txid parameter must be included to submit this type of object");
+    }
+
+    std::string strHash = govobj.GetHash().ToString();
+
+    std::string strError = "";
+    bool fMissingMasternode;
+    bool fMissingConfirmations;
+    {
+        LOCK(cs_main);
+        if (!govobj.IsValidLocally(strError, fMissingMasternode, fMissingConfirmations, true) && !fMissingConfirmations) {
+            LogPrintf("gobject(submit) -- Object submission rejected because object is not valid - hash = %s, strError = %s\n", strHash, strError);
+            throw JSONRPCError(RPC_INTERNAL_ERROR, "Governance object is not valid - " + strHash + " - " + strError);
+        }
+    }
+
+    // RELAY THIS OBJECT
+    // Reject if rate check fails but don't update buffer
+    if (!governance.MasternodeRateCheck(govobj)) {
+        LogPrintf("gobject(submit) -- Object submission rejected because of rate check failure - hash = %s\n", strHash);
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Object creation rate limit exceeded");
+    }
+
+    LogPrintf("gobject(submit) -- Adding locally created governance object - %s\n", strHash);
+
+    if (fMissingConfirmations) {
+        governance.AddPostponedObject(govobj);
+        govobj.Relay(*g_connman);
+    } else {
+        governance.AddGovernanceObject(govobj, *g_connman);
+    }
+
+    return govobj.GetHash().ToString();
+}
+
+void gobject_vote_conf_help()
+{
+    throw std::runtime_error(
+                "gobject vote-conf <governance-hash> <vote> <vote-outcome>\n"
+                "Vote on a governance object by masternode configured in axe.conf\n"
+                "\nArguments:\n"
+                "1. governance-hash   (string, required) hash of the governance object\n"
+                "2. vote              (string, required) vote, possible values: [funding|valid|delete|endorsed]\n"
+                "3. vote-outcome      (string, required) vote outcome, possible values: [yes|no|abstain]\n"
+                );
+}
+
+UniValue gobject_vote_conf(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() != 4)
+        gobject_vote_conf_help();
+
+    uint256 hash;
+
+    hash = ParseHashV(request.params[1], "Object hash");
+    std::string strVoteSignal = request.params[2].get_str();
+    std::string strVoteOutcome = request.params[3].get_str();
+
+    vote_signal_enum_t eVoteSignal = CGovernanceVoting::ConvertVoteSignal(strVoteSignal);
+    if (eVoteSignal == VOTE_SIGNAL_NONE) {
+        throw JSONRPCError(RPC_INVALID_PARAMETER,
+                           "Invalid vote signal. Please using one of the following: "
+                           "(funding|valid|delete|endorsed)");
+    }
+
+    vote_outcome_enum_t eVoteOutcome = CGovernanceVoting::ConvertVoteOutcome(strVoteOutcome);
+    if (eVoteOutcome == VOTE_OUTCOME_NONE) {
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid vote outcome. Please use one of the following: 'yes', 'no' or 'abstain'");
+    }
+
+    int govObjType;
+    {
+        LOCK(governance.cs);
+        CGovernanceObject *pGovObj = governance.FindGovernanceObject(hash);
+        if (!pGovObj) {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Governance object not found");
+        }
+        govObjType = pGovObj->GetObjectType();
+    }
+
+    int nSuccessful = 0;
+    int nFailed = 0;
+
+    UniValue resultsObj(UniValue::VOBJ);
+
+    UniValue statusObj(UniValue::VOBJ);
+    UniValue returnObj(UniValue::VOBJ);
+
+    CMasternode mn;
+    bool fMnFound = mnodeman.Get(activeMasternodeInfo.outpoint, mn);
+
+    if (!fMnFound) {
+        nFailed++;
+        statusObj.push_back(Pair("result", "failed"));
+        statusObj.push_back(Pair("errorMessage", "Can't find masternode by collateral output"));
+        resultsObj.push_back(Pair("axe.conf", statusObj));
+        returnObj.push_back(Pair("overall", strprintf("Voted successfully %d time(s) and failed %d time(s).", nSuccessful, nFailed)));
+        returnObj.push_back(Pair("detail", resultsObj));
+        return returnObj;
+    }
+
+    CGovernanceVote vote(mn.outpoint, hash, eVoteSignal, eVoteOutcome);
+
+    bool signSuccess = false;
+    if (deterministicMNManager->IsDeterministicMNsSporkActive()) {
+        if (govObjType == GOVERNANCE_OBJECT_PROPOSAL && eVoteSignal == VOTE_SIGNAL_FUNDING) {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Can't use vote-conf for proposals when deterministic masternodes are active");
+        }
+        if (activeMasternodeInfo.blsKeyOperator) {
+            signSuccess = vote.Sign(*activeMasternodeInfo.blsKeyOperator);
+        }
+    } else {
+        signSuccess = vote.Sign(activeMasternodeInfo.legacyKeyOperator, activeMasternodeInfo.legacyKeyIDOperator);
+    }
+    if (!signSuccess) {
+        nFailed++;
+        statusObj.push_back(Pair("result", "failed"));
+        statusObj.push_back(Pair("errorMessage", "Failure to sign."));
+        resultsObj.push_back(Pair("axe.conf", statusObj));
+        returnObj.push_back(Pair("overall", strprintf("Voted successfully %d time(s) and failed %d time(s).", nSuccessful, nFailed)));
+        returnObj.push_back(Pair("detail", resultsObj));
+        return returnObj;
+    }
+
+    CGovernanceException exception;
+    if (governance.ProcessVoteAndRelay(vote, exception, *g_connman)) {
+        nSuccessful++;
+        statusObj.push_back(Pair("result", "success"));
+    } else {
+        nFailed++;
+        statusObj.push_back(Pair("result", "failed"));
+        statusObj.push_back(Pair("errorMessage", exception.GetMessage()));
+    }
+
+    resultsObj.push_back(Pair("axe.conf", statusObj));
+
+    returnObj.push_back(Pair("overall", strprintf("Voted successfully %d time(s) and failed %d time(s).", nSuccessful, nFailed)));
+    returnObj.push_back(Pair("detail", resultsObj));
+
+    return returnObj;
+}
+
+UniValue VoteWithMasternodeList(const std::vector<CMasternodeConfig::CMasternodeEntry>& entries,
+                                const uint256& hash, vote_signal_enum_t eVoteSignal,
+                                vote_outcome_enum_t eVoteOutcome)
+{
+    int govObjType;
+    {
+        LOCK(governance.cs);
+        CGovernanceObject *pGovObj = governance.FindGovernanceObject(hash);
+        if (!pGovObj) {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Governance object not found");
+        }
+        govObjType = pGovObj->GetObjectType();
+    }
+
+    int nSuccessful = 0;
+    int nFailed = 0;
+
+    UniValue resultsObj(UniValue::VOBJ);
+
+    for (const auto& mne : entries) {
+        CPubKey pubKeyOperator;
+        CKey keyOperator;
+
+        UniValue statusObj(UniValue::VOBJ);
+
+        if (!CMessageSigner::GetKeysFromSecret(mne.getPrivKey(), keyOperator, pubKeyOperator)) {
+            nFailed++;
+            statusObj.push_back(Pair("result", "failed"));
+            statusObj.push_back(Pair("errorMessage", "Masternode signing error, could not set key correctly"));
+            resultsObj.push_back(Pair(mne.getAlias(), statusObj));
+            continue;
+        }
+
+        uint256 nTxHash;
+        nTxHash.SetHex(mne.getTxHash());
+
+        int nOutputIndex = 0;
+        if (!ParseInt32(mne.getOutputIndex(), &nOutputIndex)) {
+            continue;
+        }
+
+        COutPoint outpoint(nTxHash, nOutputIndex);
+
+        CMasternode mn;
+        bool fMnFound = mnodeman.Get(outpoint, mn);
+
+        if (!fMnFound) {
+            nFailed++;
+            statusObj.push_back(Pair("result", "failed"));
+            statusObj.push_back(Pair("errorMessage", "Can't find masternode by collateral output"));
+            resultsObj.push_back(Pair(mne.getAlias(), statusObj));
+            continue;
+        }
+
+        if (deterministicMNManager->IsDeterministicMNsSporkActive()) {
+            if (govObjType == GOVERNANCE_OBJECT_PROPOSAL && mn.keyIDVoting != pubKeyOperator.GetID()) {
+                nFailed++;
+                statusObj.push_back(Pair("result", "failed"));
+                statusObj.push_back(Pair("errorMessage", "Can't vote on proposal when key does not match voting key"));
+                resultsObj.push_back(Pair(mne.getAlias(), statusObj));
+                continue;
+            }
+        }
+
+        CGovernanceVote vote(mn.outpoint, hash, eVoteSignal, eVoteOutcome);
+        if (!vote.Sign(keyOperator, pubKeyOperator.GetID())) {
+            nFailed++;
+            statusObj.push_back(Pair("result", "failed"));
+            statusObj.push_back(Pair("errorMessage", "Failure to sign."));
+            resultsObj.push_back(Pair(mne.getAlias(), statusObj));
+            continue;
+        }
+
+        CGovernanceException exception;
+        if (governance.ProcessVoteAndRelay(vote, exception, *g_connman)) {
+            nSuccessful++;
+            statusObj.push_back(Pair("result", "success"));
+        } else {
+            nFailed++;
+            statusObj.push_back(Pair("result", "failed"));
+            statusObj.push_back(Pair("errorMessage", exception.GetMessage()));
+        }
+
+        resultsObj.push_back(Pair(mne.getAlias(), statusObj));
+    }
+
+    UniValue returnObj(UniValue::VOBJ);
+    returnObj.push_back(Pair("overall", strprintf("Voted successfully %d time(s) and failed %d time(s).", nSuccessful, nFailed)));
+    returnObj.push_back(Pair("detail", resultsObj));
+
+    return returnObj;
+}
+
+void gobject_vote_many_help()
+{
+    throw std::runtime_error(
+                "gobject vote-many <governance-hash> <vote> <vote-outcome>\n"
+                "Vote on a governance object by all masternodes (using masternode.conf setup)\n"
+                "\nArguments:\n"
+                "1. governance-hash   (string, required) hash of the governance object\n"
+                "2. vote              (string, required) vote, possible values: [funding|valid|delete|endorsed]\n"
+                "3. vote-outcome      (string, required) vote outcome, possible values: [yes|no|abstain]\n"
+                );
+}
+
+UniValue gobject_vote_many(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() != 4)
+        gobject_vote_many_help();
+
+    uint256 hash = ParseHashV(request.params[1], "Object hash");
+    std::string strVoteSignal = request.params[2].get_str();
+    std::string strVoteOutcome = request.params[3].get_str();
+
+    vote_signal_enum_t eVoteSignal = CGovernanceVoting::ConvertVoteSignal(strVoteSignal);
+    if (eVoteSignal == VOTE_SIGNAL_NONE) {
+        throw JSONRPCError(RPC_INVALID_PARAMETER,
+                           "Invalid vote signal. Please using one of the following: "
+                           "(funding|valid|delete|endorsed)");
+    }
+
+    vote_outcome_enum_t eVoteOutcome = CGovernanceVoting::ConvertVoteOutcome(strVoteOutcome);
+    if (eVoteOutcome == VOTE_OUTCOME_NONE) {
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid vote outcome. Please use one of the following: 'yes', 'no' or 'abstain'");
+    }
+
+    std::vector<CMasternodeConfig::CMasternodeEntry> entries = masternodeConfig.getEntries();
+
+#ifdef ENABLE_WALLET
+    // This is a hack to maintain code-level backwards compatibility with masternode.conf and the deterministic masternodes.
+    // Deterministic masternode keys are managed inside the wallet instead of masternode.conf
+    // This allows voting on proposals when you have the MN voting key in your wallet
+    // We can remove this when we remove support for masternode.conf and only support wallet based masternode
+    // management
+    if (deterministicMNManager->IsDeterministicMNsSporkActive()) {
+        if (!pwalletMain) {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "vote-many not supported when wallet is disabled.");
+        }
+        entries.clear();
+
+        auto mnList = deterministicMNManager->GetListAtChainTip();
+        mnList.ForEachMN(true, [&](const CDeterministicMNCPtr& dmn) {
+            bool found = false;
+            for (const auto &mne : entries) {
+                uint256 nTxHash;
+                nTxHash.SetHex(mne.getTxHash());
+
+                int nOutputIndex = 0;
+                if(!ParseInt32(mne.getOutputIndex(), &nOutputIndex)) {
+                    continue;
+                }
+
+                if (nTxHash == dmn->collateralOutpoint.hash && (uint32_t)nOutputIndex == dmn->collateralOutpoint.n) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                CKey ownerKey;
+                if (pwalletMain->GetKey(dmn->pdmnState->keyIDVoting, ownerKey)) {
+                    CBitcoinSecret secret(ownerKey);
+                    CMasternodeConfig::CMasternodeEntry mne(dmn->proTxHash.ToString(), dmn->pdmnState->addr.ToStringIPPort(false), secret.ToString(), dmn->collateralOutpoint.hash.ToString(), itostr(dmn->collateralOutpoint.n));
+                    entries.push_back(mne);
+                }
+            }
+        });
+    }
+#else
+    if (deterministicMNManager->IsDeterministicMNsSporkActive()) {
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "vote-many not supported when wallet is disabled.");
+    }
+#endif
+
+    return VoteWithMasternodeList(entries, hash, eVoteSignal, eVoteOutcome);
+}
+
+void gobject_vote_alias_help()
+{
+    throw std::runtime_error(
+                "gobject vote-alias <governance-hash> <vote> <vote-outcome> <alias-name>\n"
+                "Vote on a governance object by masternode alias (using masternode.conf setup)\n"
+                "\nArguments:\n"
+                "1. governance-hash   (string, required) hash of the governance object\n"
+                "2. vote              (string, required) vote, possible values: [funding|valid|delete|endorsed]\n"
+                "3. vote-outcome      (string, required) vote outcome, possible values: [yes|no|abstain]\n"
+                "4. alias-name        (string, required) masternode alias or proTxHash after DIP3 activation"
+                );
+}
+
+UniValue gobject_vote_alias(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() != 5)
+        gobject_vote_alias_help();
+
+    uint256 hash = ParseHashV(request.params[1], "Object hash");
+    std::string strVoteSignal = request.params[2].get_str();
+    std::string strVoteOutcome = request.params[3].get_str();
+
+    vote_signal_enum_t eVoteSignal = CGovernanceVoting::ConvertVoteSignal(strVoteSignal);
+    if (eVoteSignal == VOTE_SIGNAL_NONE) {
+        throw JSONRPCError(RPC_INVALID_PARAMETER,
+                           "Invalid vote signal. Please using one of the following: "
+                           "(funding|valid|delete|endorsed)");
+    }
+
+    vote_outcome_enum_t eVoteOutcome = CGovernanceVoting::ConvertVoteOutcome(strVoteOutcome);
+    if (eVoteOutcome == VOTE_OUTCOME_NONE) {
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid vote outcome. Please use one of the following: 'yes', 'no' or 'abstain'");
+    }
+
+    std::vector<CMasternodeConfig::CMasternodeEntry> entries;
+
+    if (deterministicMNManager->IsDeterministicMNsSporkActive()) {
+#ifdef ENABLE_WALLET
+        if (!pwalletMain) {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "vote-alias not supported when wallet is disabled");
+        }
+
+        uint256 proTxHash = ParseHashV(request.params[4], "alias-name");
+        auto dmn = deterministicMNManager->GetListAtChainTip().GetValidMN(proTxHash);
+        if (!dmn) {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid or unknown proTxHash");
+        }
+
+        CKey votingKey;
+        if (!pwalletMain->GetKey(dmn->pdmnState->keyIDVoting, votingKey)) {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("Private key for voting address %s not known by wallet", CBitcoinAddress(dmn->pdmnState->keyIDVoting).ToString()));
+        }
+
+        CBitcoinSecret secret(votingKey);
+        CMasternodeConfig::CMasternodeEntry mne(dmn->proTxHash.ToString(), dmn->pdmnState->addr.ToStringIPPort(false), secret.ToString(), dmn->collateralOutpoint.hash.ToString(), itostr(dmn->collateralOutpoint.n));
+        entries.push_back(mne);
+#else
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "vote-alias not supported when wallet is disabled");
+#endif
+    } else {
+        std::string strAlias = request.params[4].get_str();
+        for (const auto& mne : masternodeConfig.getEntries()) {
+            if (strAlias == mne.getAlias())
+                entries.push_back(mne);
+        }
+    }
+
+    return VoteWithMasternodeList(entries, hash, eVoteSignal, eVoteOutcome);
+}
+
+UniValue ListObjects(const std::string& strCachedSignal, const std::string& strType, int nStartTime)
+{
+    UniValue objResult(UniValue::VOBJ);
+
+    // GET MATCHING GOVERNANCE OBJECTS
+
+    LOCK2(cs_main, governance.cs);
+
+    std::vector<const CGovernanceObject*> objs = governance.GetAllNewerThan(nStartTime);
+    governance.UpdateLastDiffTime(GetTime());
+
+    // CREATE RESULTS FOR USER
+
+    for (const auto& pGovObj : objs) {
+        if (strCachedSignal == "valid" && !pGovObj->IsSetCachedValid()) continue;
+        if (strCachedSignal == "funding" && !pGovObj->IsSetCachedFunding()) continue;
+        if (strCachedSignal == "delete" && !pGovObj->IsSetCachedDelete()) continue;
+        if (strCachedSignal == "endorsed" && !pGovObj->IsSetCachedEndorsed()) continue;
+
+        if (strType == "proposals" && pGovObj->GetObjectType() != GOVERNANCE_OBJECT_PROPOSAL) continue;
+        if (strType == "triggers" && pGovObj->GetObjectType() != GOVERNANCE_OBJECT_TRIGGER) continue;
+
+        UniValue bObj(UniValue::VOBJ);
+        bObj.push_back(Pair("DataHex",  pGovObj->GetDataAsHexString()));
+        bObj.push_back(Pair("DataString",  pGovObj->GetDataAsPlainString()));
+        bObj.push_back(Pair("Hash",  pGovObj->GetHash().ToString()));
+        bObj.push_back(Pair("CollateralHash",  pGovObj->GetCollateralHash().ToString()));
+        bObj.push_back(Pair("ObjectType", pGovObj->GetObjectType()));
+        bObj.push_back(Pair("CreationTime", pGovObj->GetCreationTime()));
+        const COutPoint& masternodeOutpoint = pGovObj->GetMasternodeOutpoint();
+        if (masternodeOutpoint != COutPoint()) {
+            bObj.push_back(Pair("SigningMasternode", masternodeOutpoint.ToStringShort()));
+        }
+
+        // REPORT STATUS FOR FUNDING VOTES SPECIFICALLY
+        bObj.push_back(Pair("AbsoluteYesCount",  pGovObj->GetAbsoluteYesCount(VOTE_SIGNAL_FUNDING)));
+        bObj.push_back(Pair("YesCount",  pGovObj->GetYesCount(VOTE_SIGNAL_FUNDING)));
+        bObj.push_back(Pair("NoCount",  pGovObj->GetNoCount(VOTE_SIGNAL_FUNDING)));
+        bObj.push_back(Pair("AbstainCount",  pGovObj->GetAbstainCount(VOTE_SIGNAL_FUNDING)));
+
+        // REPORT VALIDITY AND CACHING FLAGS FOR VARIOUS SETTINGS
+        std::string strError = "";
+        bObj.push_back(Pair("fBlockchainValidity",  pGovObj->IsValidLocally(strError, false)));
+        bObj.push_back(Pair("IsValidReason",  strError.c_str()));
+        bObj.push_back(Pair("fCachedValid",  pGovObj->IsSetCachedValid()));
+        bObj.push_back(Pair("fCachedFunding",  pGovObj->IsSetCachedFunding()));
+        bObj.push_back(Pair("fCachedDelete",  pGovObj->IsSetCachedDelete()));
+        bObj.push_back(Pair("fCachedEndorsed",  pGovObj->IsSetCachedEndorsed()));
+
+        objResult.push_back(Pair(pGovObj->GetHash().ToString(), bObj));
+    }
+
+    return objResult;
+}
+
+void gobject_list_help()
+{
+    throw std::runtime_error(
+                "gobject list ( <signal> <type> )\n"
+                "List governance objects (can be filtered by signal and/or object type)\n"
+                "\nArguments:\n"
+                "1. signal   (string, optional, default=valid) cached signal, possible values: [valid|funding|delete|endorsed|all]\n"
+                "2. type     (string, optional, default=all) object type, possible values: [proposals|triggers|all]\n"
+                );
+}
+
+UniValue gobject_list(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() > 3)
+        gobject_list_help();
+
+    std::string strCachedSignal = "valid";
+    if (request.params.size() >= 2) strCachedSignal = request.params[1].get_str();
+    if (strCachedSignal != "valid" && strCachedSignal != "funding" && strCachedSignal != "delete" && strCachedSignal != "endorsed" && strCachedSignal != "all")
+        return "Invalid signal, should be 'valid', 'funding', 'delete', 'endorsed' or 'all'";
+
+    std::string strType = "all";
+    if (request.params.size() == 3) strType = request.params[2].get_str();
+    if (strType != "proposals" && strType != "triggers" && strType != "all")
+        return "Invalid type, should be 'proposals', 'triggers' or 'all'";
+
+    return ListObjects(strCachedSignal, strType, 0);
+}
+
+void gobject_diff_help()
+{
+    throw std::runtime_error(
+                "gobject diff ( <signal> <type> )\n"
+                "List differences since last diff or list\n"
+                "\nArguments:\n"
+                "1. signal   (string, optional, default=valid) cached signal, possible values: [valid|funding|delete|endorsed|all]\n"
+                "2. type     (string, optional, default=all) object type, possible values: [proposals|triggers|all]\n"
+                );
+}
+
+UniValue gobject_diff(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() > 3)
+        gobject_diff_help();
+
+    std::string strCachedSignal = "valid";
+    if (request.params.size() >= 2) strCachedSignal = request.params[1].get_str();
+    if (strCachedSignal != "valid" && strCachedSignal != "funding" && strCachedSignal != "delete" && strCachedSignal != "endorsed" && strCachedSignal != "all")
+        return "Invalid signal, should be 'valid', 'funding', 'delete', 'endorsed' or 'all'";
+
+    std::string strType = "all";
+    if (request.params.size() == 3) strType = request.params[2].get_str();
+    if (strType != "proposals" && strType != "triggers" && strType != "all")
+        return "Invalid type, should be 'proposals', 'triggers' or 'all'";
+
+    return ListObjects(strCachedSignal, strType, governance.GetLastDiffTime());
+}
+
+void gobject_get_help()
+{
+    throw std::runtime_error(
+                "gobject get <governance-hash>\n"
+                "Get governance object by hash\n"
+                "\nArguments:\n"
+                "1. governance-hash   (string, required) object id\n"
+                );
+}
+
+UniValue gobject_get(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() != 2)
+        gobject_get_help();
+
+    // COLLECT VARIABLES FROM OUR USER
+    uint256 hash = ParseHashV(request.params[1], "GovObj hash");
+
+    LOCK2(cs_main, governance.cs);
+
+    // FIND THE GOVERNANCE OBJECT THE USER IS LOOKING FOR
+    CGovernanceObject* pGovObj = governance.FindGovernanceObject(hash);
+
+    if (pGovObj == nullptr) {
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Unknown governance object");
+    }
+
+    // REPORT BASIC OBJECT STATS
+
+    UniValue objResult(UniValue::VOBJ);
+    objResult.push_back(Pair("DataHex",  pGovObj->GetDataAsHexString()));
+    objResult.push_back(Pair("DataString",  pGovObj->GetDataAsPlainString()));
+    objResult.push_back(Pair("Hash",  pGovObj->GetHash().ToString()));
+    objResult.push_back(Pair("CollateralHash",  pGovObj->GetCollateralHash().ToString()));
+    objResult.push_back(Pair("ObjectType", pGovObj->GetObjectType()));
+    objResult.push_back(Pair("CreationTime", pGovObj->GetCreationTime()));
+    const COutPoint& masternodeOutpoint = pGovObj->GetMasternodeOutpoint();
+    if (masternodeOutpoint != COutPoint()) {
+        objResult.push_back(Pair("SigningMasternode", masternodeOutpoint.ToStringShort()));
+    }
+
+    // SHOW (MUCH MORE) INFORMATION ABOUT VOTES FOR GOVERNANCE OBJECT (THAN LIST/DIFF ABOVE)
+    // -- FUNDING VOTING RESULTS
+
+    UniValue objFundingResult(UniValue::VOBJ);
+    objFundingResult.push_back(Pair("AbsoluteYesCount",  pGovObj->GetAbsoluteYesCount(VOTE_SIGNAL_FUNDING)));
+    objFundingResult.push_back(Pair("YesCount",  pGovObj->GetYesCount(VOTE_SIGNAL_FUNDING)));
+    objFundingResult.push_back(Pair("NoCount",  pGovObj->GetNoCount(VOTE_SIGNAL_FUNDING)));
+    objFundingResult.push_back(Pair("AbstainCount",  pGovObj->GetAbstainCount(VOTE_SIGNAL_FUNDING)));
+    objResult.push_back(Pair("FundingResult", objFundingResult));
+
+    // -- VALIDITY VOTING RESULTS
+    UniValue objValid(UniValue::VOBJ);
+    objValid.push_back(Pair("AbsoluteYesCount",  pGovObj->GetAbsoluteYesCount(VOTE_SIGNAL_VALID)));
+    objValid.push_back(Pair("YesCount",  pGovObj->GetYesCount(VOTE_SIGNAL_VALID)));
+    objValid.push_back(Pair("NoCount",  pGovObj->GetNoCount(VOTE_SIGNAL_VALID)));
+    objValid.push_back(Pair("AbstainCount",  pGovObj->GetAbstainCount(VOTE_SIGNAL_VALID)));
+    objResult.push_back(Pair("ValidResult", objValid));
+
+    // -- DELETION CRITERION VOTING RESULTS
+    UniValue objDelete(UniValue::VOBJ);
+    objDelete.push_back(Pair("AbsoluteYesCount",  pGovObj->GetAbsoluteYesCount(VOTE_SIGNAL_DELETE)));
+    objDelete.push_back(Pair("YesCount",  pGovObj->GetYesCount(VOTE_SIGNAL_DELETE)));
+    objDelete.push_back(Pair("NoCount",  pGovObj->GetNoCount(VOTE_SIGNAL_DELETE)));
+    objDelete.push_back(Pair("AbstainCount",  pGovObj->GetAbstainCount(VOTE_SIGNAL_DELETE)));
+    objResult.push_back(Pair("DeleteResult", objDelete));
+
+    // -- ENDORSED VIA MASTERNODE-ELECTED BOARD
+    UniValue objEndorsed(UniValue::VOBJ);
+    objEndorsed.push_back(Pair("AbsoluteYesCount",  pGovObj->GetAbsoluteYesCount(VOTE_SIGNAL_ENDORSED)));
+    objEndorsed.push_back(Pair("YesCount",  pGovObj->GetYesCount(VOTE_SIGNAL_ENDORSED)));
+    objEndorsed.push_back(Pair("NoCount",  pGovObj->GetNoCount(VOTE_SIGNAL_ENDORSED)));
+    objEndorsed.push_back(Pair("AbstainCount",  pGovObj->GetAbstainCount(VOTE_SIGNAL_ENDORSED)));
+    objResult.push_back(Pair("EndorsedResult", objEndorsed));
+
+    // --
+    std::string strError = "";
+    objResult.push_back(Pair("fLocalValidity",  pGovObj->IsValidLocally(strError, false)));
+    objResult.push_back(Pair("IsValidReason",  strError.c_str()));
+    objResult.push_back(Pair("fCachedValid",  pGovObj->IsSetCachedValid()));
+    objResult.push_back(Pair("fCachedFunding",  pGovObj->IsSetCachedFunding()));
+    objResult.push_back(Pair("fCachedDelete",  pGovObj->IsSetCachedDelete()));
+    objResult.push_back(Pair("fCachedEndorsed",  pGovObj->IsSetCachedEndorsed()));
+    return objResult;
+}
+
+void gobject_getvotes_help()
+{
+    throw std::runtime_error(
+                "gobject getvotes <governance-hash>\n"
+                "Get all votes for a governance object hash (including old votes)\n"
+                "\nArguments:\n"
+                "1. governance-hash   (string, required) object id\n"
+                );
+}
+
+UniValue gobject_getvotes(const JSONRPCRequest& request)
+{
+    if (request.fHelp || request.params.size() != 2)
+        gobject_getvotes_help();
+
+    // COLLECT PARAMETERS FROM USER
+
+    uint256 hash = ParseHashV(request.params[1], "Governance hash");
+
+    // FIND OBJECT USER IS LOOKING FOR
+
+    LOCK(governance.cs);
+
+    CGovernanceObject* pGovObj = governance.FindGovernanceObject(hash);
+
+    if (pGovObj == nullptr) {
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Unknown governance-hash");
+    }
+
+    // REPORT RESULTS TO USER
+
+    UniValue bResult(UniValue::VOBJ);
+
+    // GET MATCHING VOTES BY HASH, THEN SHOW USERS VOTE INFORMATION
+
+    std::vector<CGovernanceVote> vecVotes = governance.GetMatchingVotes(hash);
+    for (const auto& vote : vecVotes) {
+        bResult.push_back(Pair(vote.GetHash().ToString(),  vote.ToString()));
+    }
+
+    return bResult;
+}
+
+void gobject_getcurrentvotes_help()
+{
+    throw std::runtime_error(
+                "gobject getcurrentvotes <governance-hash> (<txid> <vout>)\n"
+                "Get only current (tallying) votes for a governance object hash (does not include old votes)\n"
+                "\nArguments:\n"
+                "1. governance-hash   (string, required) object id\n"
+                "2. txid              (string, optional) masternode collateral txid\n"
+                "3. vout              (string, optional) masternode collateral output index, required if <txid> presents\n"
+                );
+}
+
+UniValue gobject_getcurrentvotes(const JSONRPCRequest& request)
+{
+    if (request.fHelp || (request.params.size() != 2 && request.params.size() != 4))
+        gobject_getcurrentvotes_help();
+
+    // COLLECT PARAMETERS FROM USER
+
+    uint256 hash = ParseHashV(request.params[1], "Governance hash");
+
+    COutPoint mnCollateralOutpoint;
+    if (request.params.size() == 4) {
+        uint256 txid = ParseHashV(request.params[2], "Masternode Collateral hash");
+        std::string strVout = request.params[3].get_str();
+        mnCollateralOutpoint = COutPoint(txid, (uint32_t)atoi(strVout));
+    }
+
+    // FIND OBJECT USER IS LOOKING FOR
+
+    LOCK(governance.cs);
+
+    CGovernanceObject* pGovObj = governance.FindGovernanceObject(hash);
+
+    if (pGovObj == nullptr) {
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Unknown governance-hash");
+    }
+
+    // REPORT RESULTS TO USER
+
+    UniValue bResult(UniValue::VOBJ);
+
+    // GET MATCHING VOTES BY HASH, THEN SHOW USERS VOTE INFORMATION
+
+    std::vector<CGovernanceVote> vecVotes = governance.GetCurrentVotes(hash, mnCollateralOutpoint);
+    for (const auto& vote : vecVotes) {
+        bResult.push_back(Pair(vote.GetHash().ToString(),  vote.ToString()));
+    }
+
+    return bResult;
+}
+
+[[ noreturn ]] void gobject_help()
+{
+    throw std::runtime_error(
+            "gobject \"command\"...\n"
+            "Manage governance objects\n"
+            "\nAvailable commands:\n"
+            "  check              - Validate governance object data (proposal only)\n"
+#ifdef ENABLE_WALLET
+            "  prepare            - Prepare governance object by signing and creating tx\n"
+#endif // ENABLE_WALLET
+            "  submit             - Submit governance object to network\n"
+            "  deserialize        - Deserialize governance object from hex string to JSON\n"
+            "  count              - Count governance objects and votes (additional param: 'json' or 'all', default: 'json')\n"
+            "  get                - Get governance object by hash\n"
+            "  getvotes           - Get all votes for a governance object hash (including old votes)\n"
+            "  getcurrentvotes    - Get only current (tallying) votes for a governance object hash (does not include old votes)\n"
+            "  list               - List governance objects (can be filtered by signal and/or object type)\n"
+            "  diff               - List differences since last diff\n"
+            "  vote-alias         - Vote on a governance object by masternode alias (using masternode.conf setup)\n"
+            "  vote-conf          - Vote on a governance object by masternode configured in axe.conf\n"
+            "  vote-many          - Vote on a governance object by all masternodes (using masternode.conf setup)\n"
+            );
+}
+
 UniValue gobject(const JSONRPCRequest& request)
 {
     std::string strCommand;
     if (request.params.size() >= 1)
         strCommand = request.params[0].get_str();
 
-    if (request.fHelp  ||
-        (
+    if (request.fHelp && strCommand.empty()) {
+        gobject_help();
+    }
+
+    if (strCommand == "count") {
+        return gobject_count(request);
+    } else if (strCommand == "deserialize") {
+        // DEBUG : TEST DESERIALIZATION OF GOVERNANCE META DATA
+        return gobject_deserialize(request);
+    } else if (strCommand == "check") {
+        // VALIDATE A GOVERNANCE OBJECT PRIOR TO SUBMISSION
+        return gobject_check(request);
 #ifdef ENABLE_WALLET
-         strCommand != "prepare" &&
+    } else if (strCommand == "prepare") {
+        // PREPARE THE GOVERNANCE OBJECT BY CREATING A COLLATERAL TRANSACTION
+        return gobject_prepare(request);
 #endif // ENABLE_WALLET
-         strCommand != "vote-many" && strCommand != "vote-conf" && strCommand != "vote-alias" && strCommand != "submit" && strCommand != "count" &&
-         strCommand != "deserialize" && strCommand != "get" && strCommand != "getvotes" && strCommand != "getcurrentvotes" && strCommand != "list" && strCommand != "diff" &&
-         strCommand != "check" ))
-        throw std::runtime_error(
-                "gobject \"command\"...\n"
-                "Manage governance objects\n"
-                "\nAvailable commands:\n"
-                "  check              - Validate governance object data (proposal only)\n"
-#ifdef ENABLE_WALLET
-                "  prepare            - Prepare governance object by signing and creating tx\n"
-#endif // ENABLE_WALLET
-                "  submit             - Submit governance object to network\n"
-                "  deserialize        - Deserialize governance object from hex string to JSON\n"
-                "  count              - Count governance objects and votes (additional param: 'json' or 'all', default: 'json')\n"
-                "  get                - Get governance object by hash\n"
-                "  getvotes           - Get all votes for a governance object hash (including old votes)\n"
-                "  getcurrentvotes    - Get only current (tallying) votes for a governance object hash (does not include old votes)\n"
-                "  list               - List governance objects (can be filtered by signal and/or object type)\n"
-                "  diff               - List differences since last diff\n"
-                "  vote-alias         - Vote on a governance object by masternode alias (using masternode.conf setup)\n"
-                "  vote-conf          - Vote on a governance object by masternode configured in axe.conf\n"
-                "  vote-many          - Vote on a governance object by all masternodes (using masternode.conf setup)\n"
-                );
+    } else if (strCommand == "submit") {
+        // AFTER COLLATERAL TRANSACTION HAS MATURED USER CAN SUBMIT GOVERNANCE OBJECT TO PROPAGATE NETWORK
+        /*
+            ------ Example Governance Item ------
 
-
-    if(strCommand == "count") {
-        std::string strMode{"json"};
-
-        if (request.params.size() == 2) {
-            strMode = request.params[1].get_str();
-        }
-
-        if (request.params.size() > 2 || (strMode != "json" && strMode != "all")) {
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Correct usage is 'gobject count ( \"json\"|\"all\" )'");
-        }
-
-        return strMode == "json" ? governance.ToJson() : governance.ToString();
+            gobject submit 6e622bb41bad1fb18e7f23ae96770aeb33129e18bd9efe790522488e580a0a03 0 1 1464292854 "beer-reimbursement" 5b5b22636f6e7472616374222c207b2270726f6a6563745f6e616d65223a20225c22626565722d7265696d62757273656d656e745c22222c20227061796d656e745f61646472657373223a20225c225879324c4b4a4a64655178657948726e34744744514238626a6876464564615576375c22222c2022656e645f64617465223a202231343936333030343030222c20226465736372697074696f6e5f75726c223a20225c227777772e646173687768616c652e6f72672f702f626565722d7265696d62757273656d656e745c22222c2022636f6e74726163745f75726c223a20225c22626565722d7265696d62757273656d656e742e636f6d2f3030312e7064665c22222c20227061796d656e745f616d6f756e74223a20223233342e323334323232222c2022676f7665726e616e63655f6f626a6563745f6964223a2037342c202273746172745f64617465223a202231343833323534303030227d5d5d1
+        */
+        return gobject_submit(request);
+    } else if (strCommand == "vote-conf") {
+        return gobject_vote_conf(request);
+    } else if (strCommand == "vote-many") {
+        return gobject_vote_many(request);
+    } else if (strCommand == "vote-alias") {
+        return gobject_vote_alias(request);
+    } else if (strCommand == "list") {
+        // USERS CAN QUERY THE SYSTEM FOR A LIST OF VARIOUS GOVERNANCE ITEMS
+        return gobject_list(request);
+    } else if (strCommand == "diff") {
+        return gobject_diff(request);
+    } else if (strCommand == "get") {
+        // GET SPECIFIC GOVERNANCE ENTRY
+        return gobject_get(request);
+    } else if (strCommand == "getvotes") {
+        // GETVOTES FOR SPECIFIC GOVERNANCE OBJECT
+        return gobject_getvotes(request);
+    } else if (strCommand == "getcurrentvotes") {
+        // GETVOTES FOR SPECIFIC GOVERNANCE OBJECT
+        return gobject_getcurrentvotes(request);
+    } else {
+        gobject_help();
     }
-    /*
-        ------ Example Governance Item ------
-
-        gobject submit 6e622bb41bad1fb18e7f23ae96770aeb33129e18bd9efe790522488e580a0a03 0 1 1464292854 "beer-reimbursement" 5b5b22636f6e7472616374222c207b2270726f6a6563745f6e616d65223a20225c22626565722d7265696d62757273656d656e745c22222c20227061796d656e745f61646472657373223a20225c225879324c4b4a4a64655178657948726e34744744514238626a6876464564615576375c22222c2022656e645f64617465223a202231343936333030343030222c20226465736372697074696f6e5f75726c223a20225c227777772e646173687768616c652e6f72672f702f626565722d7265696d62757273656d656e745c22222c2022636f6e74726163745f75726c223a20225c22626565722d7265696d62757273656d656e742e636f6d2f3030312e7064665c22222c20227061796d656e745f616d6f756e74223a20223233342e323334323232222c2022676f7665726e616e63655f6f626a6563745f6964223a2037342c202273746172745f64617465223a202231343833323534303030227d5d5d1
-    */
-
-    // DEBUG : TEST DESERIALIZATION OF GOVERNANCE META DATA
-    if(strCommand == "deserialize")
-    {
-        if (request.params.size() != 2) {
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Correct usage is 'gobject deserialize <data-hex>'");
-        }
-
-        std::string strHex = request.params[1].get_str();
-
-        std::vector<unsigned char> v = ParseHex(strHex);
-        std::string s(v.begin(), v.end());
-
-        UniValue u(UniValue::VOBJ);
-        u.read(s);
-
-        return u.write().c_str();
-    }
-
-    // VALIDATE A GOVERNANCE OBJECT PRIOR TO SUBMISSION
-    if(strCommand == "check")
-    {
-        if (request.params.size() != 2) {
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Correct usage is 'gobject check <data-hex>'");
-        }
-
-        // ASSEMBLE NEW GOVERNANCE OBJECT FROM USER PARAMETERS
-
-        uint256 hashParent;
-
-        int nRevision = 1;
-
-        int64_t nTime = GetAdjustedTime();
-        std::string strDataHex = request.params[1].get_str();
-
-        CGovernanceObject govobj(hashParent, nRevision, nTime, uint256(), strDataHex);
-
-        if(govobj.GetObjectType() == GOVERNANCE_OBJECT_PROPOSAL) {
-            CProposalValidator validator(strDataHex);
-            if(!validator.Validate())  {
-                throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid proposal data, error messages:" + validator.GetErrorMessages());
-            }
-        }
-        else {
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid object type, only proposals can be validated");
-        }
-
-        UniValue objResult(UniValue::VOBJ);
-
-        objResult.push_back(Pair("Object status", "OK"));
-
-        return objResult;
-    }
-
-#ifdef ENABLE_WALLET
-    // PREPARE THE GOVERNANCE OBJECT BY CREATING A COLLATERAL TRANSACTION
-    if(strCommand == "prepare")
-    {
-        if (!EnsureWalletIsAvailable(request.fHelp))
-            return NullUniValue;
-
-        if (request.params.size() != 5) {
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Correct usage is 'gobject prepare <parent-hash> <revision> <time> <data-hex>'");
-        }
-
-        // ASSEMBLE NEW GOVERNANCE OBJECT FROM USER PARAMETERS
-
-        uint256 hashParent;
-
-        // -- attach to root node (root node doesn't really exist, but has a hash of zero)
-        if(request.params[1].get_str() == "0") {
-            hashParent = uint256();
-        } else {
-            hashParent = ParseHashV(request.params[1], "fee-txid, parameter 1");
-        }
-
-        std::string strRevision = request.params[2].get_str();
-        std::string strTime = request.params[3].get_str();
-        int nRevision = atoi(strRevision);
-        int64_t nTime = atoi64(strTime);
-        std::string strDataHex = request.params[4].get_str();
-
-        // CREATE A NEW COLLATERAL TRANSACTION FOR THIS SPECIFIC OBJECT
-
-        CGovernanceObject govobj(hashParent, nRevision, nTime, uint256(), strDataHex);
-
-        if(govobj.GetObjectType() == GOVERNANCE_OBJECT_PROPOSAL) {
-            CProposalValidator validator(strDataHex);
-            if(!validator.Validate())  {
-                throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid proposal data, error messages:" + validator.GetErrorMessages());
-            }
-        }
-
-        if(govobj.GetObjectType() == GOVERNANCE_OBJECT_TRIGGER) {
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Trigger objects need not be prepared (however only masternodes can create them)");
-        }
-
-        if(govobj.GetObjectType() == GOVERNANCE_OBJECT_WATCHDOG) {
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Watchdogs are deprecated");
-        }
-
-        LOCK2(cs_main, pwalletMain->cs_wallet);
-
-        std::string strError = "";
-        if(!govobj.IsValidLocally(strError, false))
-            throw JSONRPCError(RPC_INTERNAL_ERROR, "Governance object is not valid - " + govobj.GetHash().ToString() + " - " + strError);
-
-        EnsureWalletIsUnlocked();
-
-        CWalletTx wtx;
-        if(!pwalletMain->GetBudgetSystemCollateralTX(wtx, govobj.GetHash(), govobj.GetMinCollateralFee(), false)) {
-            throw JSONRPCError(RPC_INTERNAL_ERROR, "Error making collateral transaction for governance object. Please check your wallet balance and make sure your wallet is unlocked.");
-        }
-
-        // -- make our change address
-        CReserveKey reservekey(pwalletMain);
-        // -- send the tx to the network
-        CValidationState state;
-        if (!pwalletMain->CommitTransaction(wtx, reservekey, g_connman.get(), state, NetMsgType::TX)) {
-            throw JSONRPCError(RPC_INTERNAL_ERROR, "CommitTransaction failed! Reason given: " + state.GetRejectReason());
-        }
-
-        DBG( std::cout << "gobject: prepare "
-             << " GetDataAsPlainString = " << govobj.GetDataAsPlainString()
-             << ", hash = " << govobj.GetHash().GetHex()
-             << ", txidFee = " << wtx.GetHash().GetHex()
-             << std::endl; );
-
-        return wtx.GetHash().ToString();
-    }
-#endif // ENABLE_WALLET
-
-    // AFTER COLLATERAL TRANSACTION HAS MATURED USER CAN SUBMIT GOVERNANCE OBJECT TO PROPAGATE NETWORK
-    if(strCommand == "submit")
-    {
-        if ((request.params.size() < 5) || (request.params.size() > 6))  {
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Correct usage is 'gobject submit <parent-hash> <revision> <time> <data-hex> <fee-txid>'");
-        }
-
-        if(!masternodeSync.IsBlockchainSynced()) {
-            throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Must wait for client to sync with masternode network. Try again in a minute or so.");
-        }
-
-        bool fMnFound = mnodeman.Has(activeMasternode.outpoint);
-
-        DBG( std::cout << "gobject: submit activeMasternode.pubKeyMasternode = " << activeMasternode.pubKeyMasternode.GetHash().ToString()
-             << ", outpoint = " << activeMasternode.outpoint.ToStringShort()
-             << ", params.size() = " << request.params.size()
-             << ", fMnFound = " << fMnFound << std::endl; );
-
-        // ASSEMBLE NEW GOVERNANCE OBJECT FROM USER PARAMETERS
-
-        uint256 txidFee;
-
-        if(request.params.size() == 6) {
-            txidFee = ParseHashV(request.params[5], "fee-txid, parameter 6");
-        }
-        uint256 hashParent;
-        if(request.params[1].get_str() == "0") { // attach to root node (root node doesn't really exist, but has a hash of zero)
-            hashParent = uint256();
-        } else {
-            hashParent = ParseHashV(request.params[1], "parent object hash, parameter 2");
-        }
-
-        // GET THE PARAMETERS FROM USER
-
-        std::string strRevision = request.params[2].get_str();
-        std::string strTime = request.params[3].get_str();
-        int nRevision = atoi(strRevision);
-        int64_t nTime = atoi64(strTime);
-        std::string strDataHex = request.params[4].get_str();
-
-        CGovernanceObject govobj(hashParent, nRevision, nTime, txidFee, strDataHex);
-
-        DBG( std::cout << "gobject: submit "
-             << " GetDataAsPlainString = " << govobj.GetDataAsPlainString()
-             << ", hash = " << govobj.GetHash().GetHex()
-             << ", txidFee = " << txidFee.GetHex()
-             << std::endl; );
-
-        if(govobj.GetObjectType() == GOVERNANCE_OBJECT_PROPOSAL) {
-            CProposalValidator validator(strDataHex);
-            if(!validator.Validate())  {
-                throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid proposal data, error messages:" + validator.GetErrorMessages());
-            }
-        }
-
-        if(govobj.GetObjectType() == GOVERNANCE_OBJECT_WATCHDOG) {
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Watchdogs are deprecated");
-        }
-
-        // Attempt to sign triggers if we are a MN
-        if(govobj.GetObjectType() == GOVERNANCE_OBJECT_TRIGGER) {
-            if(fMnFound) {
-                govobj.SetMasternodeOutpoint(activeMasternode.outpoint);
-                govobj.Sign(activeMasternode.keyMasternode, activeMasternode.pubKeyMasternode);
-            }
-            else {
-                LogPrintf("gobject(submit) -- Object submission rejected because node is not a masternode\n");
-                throw JSONRPCError(RPC_INVALID_PARAMETER, "Only valid masternodes can submit this type of object");
-            }
-        }
-        else {
-            if(request.params.size() != 6) {
-                LogPrintf("gobject(submit) -- Object submission rejected because fee tx not provided\n");
-                throw JSONRPCError(RPC_INVALID_PARAMETER, "The fee-txid parameter must be included to submit this type of object");
-            }
-        }
-
-        std::string strHash = govobj.GetHash().ToString();
-
-        std::string strError = "";
-        bool fMissingMasternode;
-        bool fMissingConfirmations;
-        {
-            LOCK(cs_main);
-            if(!govobj.IsValidLocally(strError, fMissingMasternode, fMissingConfirmations, true) && !fMissingConfirmations) {
-                LogPrintf("gobject(submit) -- Object submission rejected because object is not valid - hash = %s, strError = %s\n", strHash, strError);
-                throw JSONRPCError(RPC_INTERNAL_ERROR, "Governance object is not valid - " + strHash + " - " + strError);
-            }
-        }
-
-        // RELAY THIS OBJECT
-        // Reject if rate check fails but don't update buffer
-        if(!governance.MasternodeRateCheck(govobj)) {
-            LogPrintf("gobject(submit) -- Object submission rejected because of rate check failure - hash = %s\n", strHash);
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Object creation rate limit exceeded");
-        }
-
-        LogPrintf("gobject(submit) -- Adding locally created governance object - %s\n", strHash);
-
-        if(fMissingConfirmations) {
-            governance.AddPostponedObject(govobj);
-            govobj.Relay(*g_connman);
-        } else {
-            governance.AddGovernanceObject(govobj, *g_connman);
-        }
-
-        return govobj.GetHash().ToString();
-    }
-
-    if(strCommand == "vote-conf")
-    {
-        if(request.params.size() != 4)
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Correct usage is 'gobject vote-conf <governance-hash> [funding|valid|delete] [yes|no|abstain]'");
-
-        uint256 hash;
-        std::string strVote;
-
-        hash = ParseHashV(request.params[1], "Object hash");
-        std::string strVoteSignal = request.params[2].get_str();
-        std::string strVoteOutcome = request.params[3].get_str();
-
-        vote_signal_enum_t eVoteSignal = CGovernanceVoting::ConvertVoteSignal(strVoteSignal);
-        if(eVoteSignal == VOTE_SIGNAL_NONE) {
-            throw JSONRPCError(RPC_INVALID_PARAMETER,
-                               "Invalid vote signal. Please using one of the following: "
-                               "(funding|valid|delete|endorsed)");
-        }
-
-        vote_outcome_enum_t eVoteOutcome = CGovernanceVoting::ConvertVoteOutcome(strVoteOutcome);
-        if(eVoteOutcome == VOTE_OUTCOME_NONE) {
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid vote outcome. Please use one of the following: 'yes', 'no' or 'abstain'");
-        }
-
-        int nSuccessful = 0;
-        int nFailed = 0;
-
-        UniValue resultsObj(UniValue::VOBJ);
-
-        std::vector<unsigned char> vchMasterNodeSignature;
-        std::string strMasterNodeSignMessage;
-
-        UniValue statusObj(UniValue::VOBJ);
-        UniValue returnObj(UniValue::VOBJ);
-
-        CMasternode mn;
-        bool fMnFound = mnodeman.Get(activeMasternode.outpoint, mn);
-
-        if(!fMnFound) {
-            nFailed++;
-            statusObj.push_back(Pair("result", "failed"));
-            statusObj.push_back(Pair("errorMessage", "Can't find masternode by collateral output"));
-            resultsObj.push_back(Pair("axe.conf", statusObj));
-            returnObj.push_back(Pair("overall", strprintf("Voted successfully %d time(s) and failed %d time(s).", nSuccessful, nFailed)));
-            returnObj.push_back(Pair("detail", resultsObj));
-            return returnObj;
-        }
-
-        CGovernanceVote vote(mn.outpoint, hash, eVoteSignal, eVoteOutcome);
-        if(!vote.Sign(activeMasternode.keyMasternode, activeMasternode.pubKeyMasternode)) {
-            nFailed++;
-            statusObj.push_back(Pair("result", "failed"));
-            statusObj.push_back(Pair("errorMessage", "Failure to sign."));
-            resultsObj.push_back(Pair("axe.conf", statusObj));
-            returnObj.push_back(Pair("overall", strprintf("Voted successfully %d time(s) and failed %d time(s).", nSuccessful, nFailed)));
-            returnObj.push_back(Pair("detail", resultsObj));
-            return returnObj;
-        }
-
-        CGovernanceException exception;
-        if(governance.ProcessVoteAndRelay(vote, exception, *g_connman)) {
-            nSuccessful++;
-            statusObj.push_back(Pair("result", "success"));
-        }
-        else {
-            nFailed++;
-            statusObj.push_back(Pair("result", "failed"));
-            statusObj.push_back(Pair("errorMessage", exception.GetMessage()));
-        }
-
-        resultsObj.push_back(Pair("axe.conf", statusObj));
-
-        returnObj.push_back(Pair("overall", strprintf("Voted successfully %d time(s) and failed %d time(s).", nSuccessful, nFailed)));
-        returnObj.push_back(Pair("detail", resultsObj));
-
-        return returnObj;
-    }
-
-    if(strCommand == "vote-many")
-    {
-        if(request.params.size() != 4)
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Correct usage is 'gobject vote-many <governance-hash> [funding|valid|delete] [yes|no|abstain]'");
-
-        uint256 hash;
-        std::string strVote;
-
-        hash = ParseHashV(request.params[1], "Object hash");
-        std::string strVoteSignal = request.params[2].get_str();
-        std::string strVoteOutcome = request.params[3].get_str();
-
-
-        vote_signal_enum_t eVoteSignal = CGovernanceVoting::ConvertVoteSignal(strVoteSignal);
-        if(eVoteSignal == VOTE_SIGNAL_NONE) {
-            throw JSONRPCError(RPC_INVALID_PARAMETER,
-                               "Invalid vote signal. Please using one of the following: "
-                               "(funding|valid|delete|endorsed)");
-        }
-
-        vote_outcome_enum_t eVoteOutcome = CGovernanceVoting::ConvertVoteOutcome(strVoteOutcome);
-        if(eVoteOutcome == VOTE_OUTCOME_NONE) {
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid vote outcome. Please use one of the following: 'yes', 'no' or 'abstain'");
-        }
-
-        int nSuccessful = 0;
-        int nFailed = 0;
-
-        UniValue resultsObj(UniValue::VOBJ);
-
-        for (const auto& mne : masternodeConfig.getEntries()) {
-            std::string strError;
-            std::vector<unsigned char> vchMasterNodeSignature;
-            std::string strMasterNodeSignMessage;
-
-            CPubKey pubKeyCollateralAddress;
-            CKey keyCollateralAddress;
-            CPubKey pubKeyMasternode;
-            CKey keyMasternode;
-
-            UniValue statusObj(UniValue::VOBJ);
-
-            if(!CMessageSigner::GetKeysFromSecret(mne.getPrivKey(), keyMasternode, pubKeyMasternode)){
-                nFailed++;
-                statusObj.push_back(Pair("result", "failed"));
-                statusObj.push_back(Pair("errorMessage", "Masternode signing error, could not set key correctly"));
-                resultsObj.push_back(Pair(mne.getAlias(), statusObj));
-                continue;
-            }
-
-            uint256 nTxHash;
-            nTxHash.SetHex(mne.getTxHash());
-
-            int nOutputIndex = 0;
-            if(!ParseInt32(mne.getOutputIndex(), &nOutputIndex)) {
-                continue;
-            }
-
-            COutPoint outpoint(nTxHash, nOutputIndex);
-
-            CMasternode mn;
-            bool fMnFound = mnodeman.Get(outpoint, mn);
-
-            if(!fMnFound) {
-                nFailed++;
-                statusObj.push_back(Pair("result", "failed"));
-                statusObj.push_back(Pair("errorMessage", "Can't find masternode by collateral output"));
-                resultsObj.push_back(Pair(mne.getAlias(), statusObj));
-                continue;
-            }
-
-            CGovernanceVote vote(mn.outpoint, hash, eVoteSignal, eVoteOutcome);
-            if(!vote.Sign(keyMasternode, pubKeyMasternode)){
-                nFailed++;
-                statusObj.push_back(Pair("result", "failed"));
-                statusObj.push_back(Pair("errorMessage", "Failure to sign."));
-                resultsObj.push_back(Pair(mne.getAlias(), statusObj));
-                continue;
-            }
-
-            CGovernanceException exception;
-            if(governance.ProcessVoteAndRelay(vote, exception, *g_connman)) {
-                nSuccessful++;
-                statusObj.push_back(Pair("result", "success"));
-            }
-            else {
-                nFailed++;
-                statusObj.push_back(Pair("result", "failed"));
-                statusObj.push_back(Pair("errorMessage", exception.GetMessage()));
-            }
-
-            resultsObj.push_back(Pair(mne.getAlias(), statusObj));
-        }
-
-        UniValue returnObj(UniValue::VOBJ);
-        returnObj.push_back(Pair("overall", strprintf("Voted successfully %d time(s) and failed %d time(s).", nSuccessful, nFailed)));
-        returnObj.push_back(Pair("detail", resultsObj));
-
-        return returnObj;
-    }
-
-
-    // MASTERNODES CAN VOTE ON GOVERNANCE OBJECTS ON THE NETWORK FOR VARIOUS SIGNALS AND OUTCOMES
-    if(strCommand == "vote-alias")
-    {
-        if(request.params.size() != 5)
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Correct usage is 'gobject vote-alias <governance-hash> [funding|valid|delete] [yes|no|abstain] <alias-name>'");
-
-        uint256 hash;
-        std::string strVote;
-
-        // COLLECT NEEDED PARAMETRS FROM USER
-
-        hash = ParseHashV(request.params[1], "Object hash");
-        std::string strVoteSignal = request.params[2].get_str();
-        std::string strVoteOutcome = request.params[3].get_str();
-        std::string strAlias = request.params[4].get_str();
-
-        // CONVERT NAMED SIGNAL/ACTION AND CONVERT
-
-        vote_signal_enum_t eVoteSignal = CGovernanceVoting::ConvertVoteSignal(strVoteSignal);
-        if(eVoteSignal == VOTE_SIGNAL_NONE) {
-            throw JSONRPCError(RPC_INVALID_PARAMETER,
-                               "Invalid vote signal. Please using one of the following: "
-                               "(funding|valid|delete|endorsed)");
-        }
-
-        vote_outcome_enum_t eVoteOutcome = CGovernanceVoting::ConvertVoteOutcome(strVoteOutcome);
-        if(eVoteOutcome == VOTE_OUTCOME_NONE) {
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid vote outcome. Please use one of the following: 'yes', 'no' or 'abstain'");
-        }
-
-        // EXECUTE VOTE FOR EACH MASTERNODE, COUNT SUCCESSES VS FAILURES
-
-        int nSuccessful = 0;
-        int nFailed = 0;
-
-        UniValue resultsObj(UniValue::VOBJ);
-
-        for (const auto& mne : masternodeConfig.getEntries())
-        {
-            // IF WE HAVE A SPECIFIC NODE REQUESTED TO VOTE, DO THAT
-            if(strAlias != mne.getAlias()) continue;
-
-            // INIT OUR NEEDED VARIABLES TO EXECUTE THE VOTE
-            std::string strError;
-            std::vector<unsigned char> vchMasterNodeSignature;
-            std::string strMasterNodeSignMessage;
-
-            CPubKey pubKeyCollateralAddress;
-            CKey keyCollateralAddress;
-            CPubKey pubKeyMasternode;
-            CKey keyMasternode;
-
-            // SETUP THE SIGNING KEY FROM MASTERNODE.CONF ENTRY
-
-            UniValue statusObj(UniValue::VOBJ);
-
-            if(!CMessageSigner::GetKeysFromSecret(mne.getPrivKey(), keyMasternode, pubKeyMasternode)) {
-                nFailed++;
-                statusObj.push_back(Pair("result", "failed"));
-                statusObj.push_back(Pair("errorMessage", strprintf("Invalid masternode key %s.", mne.getPrivKey())));
-                resultsObj.push_back(Pair(mne.getAlias(), statusObj));
-                continue;
-            }
-
-            // SEARCH FOR THIS MASTERNODE ON THE NETWORK, THE NODE MUST BE ACTIVE TO VOTE
-
-            uint256 nTxHash;
-            nTxHash.SetHex(mne.getTxHash());
-
-            int nOutputIndex = 0;
-            if(!ParseInt32(mne.getOutputIndex(), &nOutputIndex)) {
-                continue;
-            }
-
-            COutPoint outpoint(nTxHash, nOutputIndex);
-
-            CMasternode mn;
-            bool fMnFound = mnodeman.Get(outpoint, mn);
-
-            if(!fMnFound) {
-                nFailed++;
-                statusObj.push_back(Pair("result", "failed"));
-                statusObj.push_back(Pair("errorMessage", "Masternode must be publicly available on network to vote. Masternode not found."));
-                resultsObj.push_back(Pair(mne.getAlias(), statusObj));
-                continue;
-            }
-
-            // CREATE NEW GOVERNANCE OBJECT VOTE WITH OUTCOME/SIGNAL
-
-            CGovernanceVote vote(outpoint, hash, eVoteSignal, eVoteOutcome);
-            if(!vote.Sign(keyMasternode, pubKeyMasternode)) {
-                nFailed++;
-                statusObj.push_back(Pair("result", "failed"));
-                statusObj.push_back(Pair("errorMessage", "Failure to sign."));
-                resultsObj.push_back(Pair(mne.getAlias(), statusObj));
-                continue;
-            }
-
-            // UPDATE LOCAL DATABASE WITH NEW OBJECT SETTINGS
-
-            CGovernanceException exception;
-            if(governance.ProcessVoteAndRelay(vote, exception, *g_connman)) {
-                nSuccessful++;
-                statusObj.push_back(Pair("result", "success"));
-            }
-            else {
-                nFailed++;
-                statusObj.push_back(Pair("result", "failed"));
-                statusObj.push_back(Pair("errorMessage", exception.GetMessage()));
-            }
-
-            resultsObj.push_back(Pair(mne.getAlias(), statusObj));
-        }
-
-        // REPORT STATS TO THE USER
-
-        UniValue returnObj(UniValue::VOBJ);
-        returnObj.push_back(Pair("overall", strprintf("Voted successfully %d time(s) and failed %d time(s).", nSuccessful, nFailed)));
-        returnObj.push_back(Pair("detail", resultsObj));
-
-        return returnObj;
-    }
-
-    // USERS CAN QUERY THE SYSTEM FOR A LIST OF VARIOUS GOVERNANCE ITEMS
-    if(strCommand == "list" || strCommand == "diff")
-    {
-        if (request.params.size() > 3)
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Correct usage is 'gobject [list|diff] ( signal type )'");
-
-        // GET MAIN PARAMETER FOR THIS MODE, VALID OR ALL?
-
-        std::string strCachedSignal = "valid";
-        if (request.params.size() >= 2) strCachedSignal = request.params[1].get_str();
-        if (strCachedSignal != "valid" && strCachedSignal != "funding" && strCachedSignal != "delete" && strCachedSignal != "endorsed" && strCachedSignal != "all")
-            return "Invalid signal, should be 'valid', 'funding', 'delete', 'endorsed' or 'all'";
-
-        std::string strType = "all";
-        if (request.params.size() == 3) strType = request.params[2].get_str();
-        if (strType != "proposals" && strType != "triggers" && strType != "all")
-            return "Invalid type, should be 'proposals', 'triggers' or 'all'";
-
-        // GET STARTING TIME TO QUERY SYSTEM WITH
-
-        int nStartTime = 0; //list
-        if(strCommand == "diff") nStartTime = governance.GetLastDiffTime();
-
-        // SETUP BLOCK INDEX VARIABLE / RESULTS VARIABLE
-
-        UniValue objResult(UniValue::VOBJ);
-
-        // GET MATCHING GOVERNANCE OBJECTS
-
-        LOCK2(cs_main, governance.cs);
-
-        std::vector<const CGovernanceObject*> objs = governance.GetAllNewerThan(nStartTime);
-        governance.UpdateLastDiffTime(GetTime());
-
-        // CREATE RESULTS FOR USER
-
-        for (const auto& pGovObj : objs)
-        {
-            if(strCachedSignal == "valid" && !pGovObj->IsSetCachedValid()) continue;
-            if(strCachedSignal == "funding" && !pGovObj->IsSetCachedFunding()) continue;
-            if(strCachedSignal == "delete" && !pGovObj->IsSetCachedDelete()) continue;
-            if(strCachedSignal == "endorsed" && !pGovObj->IsSetCachedEndorsed()) continue;
-
-            if(strType == "proposals" && pGovObj->GetObjectType() != GOVERNANCE_OBJECT_PROPOSAL) continue;
-            if(strType == "triggers" && pGovObj->GetObjectType() != GOVERNANCE_OBJECT_TRIGGER) continue;
-
-            UniValue bObj(UniValue::VOBJ);
-            bObj.push_back(Pair("DataHex",  pGovObj->GetDataAsHexString()));
-            bObj.push_back(Pair("DataString",  pGovObj->GetDataAsPlainString()));
-            bObj.push_back(Pair("Hash",  pGovObj->GetHash().ToString()));
-            bObj.push_back(Pair("CollateralHash",  pGovObj->GetCollateralHash().ToString()));
-            bObj.push_back(Pair("ObjectType", pGovObj->GetObjectType()));
-            bObj.push_back(Pair("CreationTime", pGovObj->GetCreationTime()));
-            const COutPoint& masternodeOutpoint = pGovObj->GetMasternodeOutpoint();
-            if(masternodeOutpoint != COutPoint()) {
-                bObj.push_back(Pair("SigningMasternode", masternodeOutpoint.ToStringShort()));
-            }
-
-            // REPORT STATUS FOR FUNDING VOTES SPECIFICALLY
-            bObj.push_back(Pair("AbsoluteYesCount",  pGovObj->GetAbsoluteYesCount(VOTE_SIGNAL_FUNDING)));
-            bObj.push_back(Pair("YesCount",  pGovObj->GetYesCount(VOTE_SIGNAL_FUNDING)));
-            bObj.push_back(Pair("NoCount",  pGovObj->GetNoCount(VOTE_SIGNAL_FUNDING)));
-            bObj.push_back(Pair("AbstainCount",  pGovObj->GetAbstainCount(VOTE_SIGNAL_FUNDING)));
-
-            // REPORT VALIDITY AND CACHING FLAGS FOR VARIOUS SETTINGS
-            std::string strError = "";
-            bObj.push_back(Pair("fBlockchainValidity",  pGovObj->IsValidLocally(strError, false)));
-            bObj.push_back(Pair("IsValidReason",  strError.c_str()));
-            bObj.push_back(Pair("fCachedValid",  pGovObj->IsSetCachedValid()));
-            bObj.push_back(Pair("fCachedFunding",  pGovObj->IsSetCachedFunding()));
-            bObj.push_back(Pair("fCachedDelete",  pGovObj->IsSetCachedDelete()));
-            bObj.push_back(Pair("fCachedEndorsed",  pGovObj->IsSetCachedEndorsed()));
-
-            objResult.push_back(Pair(pGovObj->GetHash().ToString(), bObj));
-        }
-
-        return objResult;
-    }
-
-    // GET SPECIFIC GOVERNANCE ENTRY
-    if(strCommand == "get")
-    {
-        if (request.params.size() != 2)
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Correct usage is 'gobject get <governance-hash>'");
-
-        // COLLECT VARIABLES FROM OUR USER
-        uint256 hash = ParseHashV(request.params[1], "GovObj hash");
-
-        LOCK2(cs_main, governance.cs);
-
-        // FIND THE GOVERNANCE OBJECT THE USER IS LOOKING FOR
-        CGovernanceObject* pGovObj = governance.FindGovernanceObject(hash);
-
-        if(pGovObj == NULL)
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Unknown governance object");
-
-        // REPORT BASIC OBJECT STATS
-
-        UniValue objResult(UniValue::VOBJ);
-        objResult.push_back(Pair("DataHex",  pGovObj->GetDataAsHexString()));
-        objResult.push_back(Pair("DataString",  pGovObj->GetDataAsPlainString()));
-        objResult.push_back(Pair("Hash",  pGovObj->GetHash().ToString()));
-        objResult.push_back(Pair("CollateralHash",  pGovObj->GetCollateralHash().ToString()));
-        objResult.push_back(Pair("ObjectType", pGovObj->GetObjectType()));
-        objResult.push_back(Pair("CreationTime", pGovObj->GetCreationTime()));
-        const COutPoint& masternodeOutpoint = pGovObj->GetMasternodeOutpoint();
-        if(masternodeOutpoint != COutPoint()) {
-            objResult.push_back(Pair("SigningMasternode", masternodeOutpoint.ToStringShort()));
-        }
-
-        // SHOW (MUCH MORE) INFORMATION ABOUT VOTES FOR GOVERNANCE OBJECT (THAN LIST/DIFF ABOVE)
-        // -- FUNDING VOTING RESULTS
-
-        UniValue objFundingResult(UniValue::VOBJ);
-        objFundingResult.push_back(Pair("AbsoluteYesCount",  pGovObj->GetAbsoluteYesCount(VOTE_SIGNAL_FUNDING)));
-        objFundingResult.push_back(Pair("YesCount",  pGovObj->GetYesCount(VOTE_SIGNAL_FUNDING)));
-        objFundingResult.push_back(Pair("NoCount",  pGovObj->GetNoCount(VOTE_SIGNAL_FUNDING)));
-        objFundingResult.push_back(Pair("AbstainCount",  pGovObj->GetAbstainCount(VOTE_SIGNAL_FUNDING)));
-        objResult.push_back(Pair("FundingResult", objFundingResult));
-
-        // -- VALIDITY VOTING RESULTS
-        UniValue objValid(UniValue::VOBJ);
-        objValid.push_back(Pair("AbsoluteYesCount",  pGovObj->GetAbsoluteYesCount(VOTE_SIGNAL_VALID)));
-        objValid.push_back(Pair("YesCount",  pGovObj->GetYesCount(VOTE_SIGNAL_VALID)));
-        objValid.push_back(Pair("NoCount",  pGovObj->GetNoCount(VOTE_SIGNAL_VALID)));
-        objValid.push_back(Pair("AbstainCount",  pGovObj->GetAbstainCount(VOTE_SIGNAL_VALID)));
-        objResult.push_back(Pair("ValidResult", objValid));
-
-        // -- DELETION CRITERION VOTING RESULTS
-        UniValue objDelete(UniValue::VOBJ);
-        objDelete.push_back(Pair("AbsoluteYesCount",  pGovObj->GetAbsoluteYesCount(VOTE_SIGNAL_DELETE)));
-        objDelete.push_back(Pair("YesCount",  pGovObj->GetYesCount(VOTE_SIGNAL_DELETE)));
-        objDelete.push_back(Pair("NoCount",  pGovObj->GetNoCount(VOTE_SIGNAL_DELETE)));
-        objDelete.push_back(Pair("AbstainCount",  pGovObj->GetAbstainCount(VOTE_SIGNAL_DELETE)));
-        objResult.push_back(Pair("DeleteResult", objDelete));
-
-        // -- ENDORSED VIA MASTERNODE-ELECTED BOARD
-        UniValue objEndorsed(UniValue::VOBJ);
-        objEndorsed.push_back(Pair("AbsoluteYesCount",  pGovObj->GetAbsoluteYesCount(VOTE_SIGNAL_ENDORSED)));
-        objEndorsed.push_back(Pair("YesCount",  pGovObj->GetYesCount(VOTE_SIGNAL_ENDORSED)));
-        objEndorsed.push_back(Pair("NoCount",  pGovObj->GetNoCount(VOTE_SIGNAL_ENDORSED)));
-        objEndorsed.push_back(Pair("AbstainCount",  pGovObj->GetAbstainCount(VOTE_SIGNAL_ENDORSED)));
-        objResult.push_back(Pair("EndorsedResult", objEndorsed));
-
-        // --
-        std::string strError = "";
-        objResult.push_back(Pair("fLocalValidity",  pGovObj->IsValidLocally(strError, false)));
-        objResult.push_back(Pair("IsValidReason",  strError.c_str()));
-        objResult.push_back(Pair("fCachedValid",  pGovObj->IsSetCachedValid()));
-        objResult.push_back(Pair("fCachedFunding",  pGovObj->IsSetCachedFunding()));
-        objResult.push_back(Pair("fCachedDelete",  pGovObj->IsSetCachedDelete()));
-        objResult.push_back(Pair("fCachedEndorsed",  pGovObj->IsSetCachedEndorsed()));
-        return objResult;
-    }
-
-    // GETVOTES FOR SPECIFIC GOVERNANCE OBJECT
-    if(strCommand == "getvotes")
-    {
-        if (request.params.size() != 2)
-            throw std::runtime_error(
-                "Correct usage is 'gobject getvotes <governance-hash>'"
-                );
-
-        // COLLECT PARAMETERS FROM USER
-
-        uint256 hash = ParseHashV(request.params[1], "Governance hash");
-
-        // FIND OBJECT USER IS LOOKING FOR
-
-        LOCK(governance.cs);
-
-        CGovernanceObject* pGovObj = governance.FindGovernanceObject(hash);
-
-        if(pGovObj == NULL) {
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Unknown governance-hash");
-        }
-
-        // REPORT RESULTS TO USER
-
-        UniValue bResult(UniValue::VOBJ);
-
-        // GET MATCHING VOTES BY HASH, THEN SHOW USERS VOTE INFORMATION
-
-        std::vector<CGovernanceVote> vecVotes = governance.GetMatchingVotes(hash);
-        for (const auto& vote : vecVotes) {
-            bResult.push_back(Pair(vote.GetHash().ToString(),  vote.ToString()));
-        }
-
-        return bResult;
-    }
-
-    // GETVOTES FOR SPECIFIC GOVERNANCE OBJECT
-    if(strCommand == "getcurrentvotes")
-    {
-        if (request.params.size() != 2 && request.params.size() != 4)
-            throw std::runtime_error(
-                "Correct usage is 'gobject getcurrentvotes <governance-hash> [txid vout_index]'"
-                );
-
-        // COLLECT PARAMETERS FROM USER
-
-        uint256 hash = ParseHashV(request.params[1], "Governance hash");
-
-        COutPoint mnCollateralOutpoint;
-        if (request.params.size() == 4) {
-            uint256 txid = ParseHashV(request.params[2], "Masternode Collateral hash");
-            std::string strVout = request.params[3].get_str();
-            mnCollateralOutpoint = COutPoint(txid, (uint32_t)atoi(strVout));
-        }
-
-        // FIND OBJECT USER IS LOOKING FOR
-
-        LOCK(governance.cs);
-
-        CGovernanceObject* pGovObj = governance.FindGovernanceObject(hash);
-
-        if(pGovObj == NULL) {
-            throw JSONRPCError(RPC_INVALID_PARAMETER, "Unknown governance-hash");
-        }
-
-        // REPORT RESULTS TO USER
-
-        UniValue bResult(UniValue::VOBJ);
-
-        // GET MATCHING VOTES BY HASH, THEN SHOW USERS VOTE INFORMATION
-
-        std::vector<CGovernanceVote> vecVotes = governance.GetCurrentVotes(hash, mnCollateralOutpoint);
-        for (const auto& vote : vecVotes) {
-            bResult.push_back(Pair(vote.GetHash().ToString(),  vote.ToString()));
-        }
-
-        return bResult;
-    }
-
-    return NullUniValue;
 }
 
 UniValue voteraw(const JSONRPCRequest& request)
@@ -879,15 +1103,25 @@ UniValue voteraw(const JSONRPCRequest& request)
     std::string strVoteOutcome = request.params[4].get_str();
 
     vote_signal_enum_t eVoteSignal = CGovernanceVoting::ConvertVoteSignal(strVoteSignal);
-    if(eVoteSignal == VOTE_SIGNAL_NONE)  {
+    if (eVoteSignal == VOTE_SIGNAL_NONE)  {
         throw JSONRPCError(RPC_INVALID_PARAMETER,
                            "Invalid vote signal. Please using one of the following: "
                            "(funding|valid|delete|endorsed)");
     }
 
     vote_outcome_enum_t eVoteOutcome = CGovernanceVoting::ConvertVoteOutcome(strVoteOutcome);
-    if(eVoteOutcome == VOTE_OUTCOME_NONE) {
+    if (eVoteOutcome == VOTE_OUTCOME_NONE) {
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid vote outcome. Please use one of the following: 'yes', 'no' or 'abstain'");
+    }
+
+    int govObjType;
+    {
+        LOCK(governance.cs);
+        CGovernanceObject *pGovObj = governance.FindGovernanceObject(hashGovObj);
+        if (!pGovObj) {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Governance object not found");
+        }
+        govObjType = pGovObj->GetObjectType();
     }
 
     int64_t nTime = request.params[5].get_int64();
@@ -902,7 +1136,7 @@ UniValue voteraw(const JSONRPCRequest& request)
     CMasternode mn;
     bool fMnFound = mnodeman.Get(outpoint, mn);
 
-    if(!fMnFound) {
+    if (!fMnFound) {
         throw JSONRPCError(RPC_INTERNAL_ERROR, "Failure to find masternode in list : " + outpoint.ToStringShort());
     }
 
@@ -910,15 +1144,16 @@ UniValue voteraw(const JSONRPCRequest& request)
     vote.SetTime(nTime);
     vote.SetSignature(vchSig);
 
-    if(!vote.IsValid(true)) {
+    bool onlyVotingKeyAllowed = govObjType == GOVERNANCE_OBJECT_PROPOSAL && vote.GetSignal() == VOTE_SIGNAL_FUNDING;
+
+    if (!vote.IsValid(onlyVotingKeyAllowed)) {
         throw JSONRPCError(RPC_INTERNAL_ERROR, "Failure to verify vote.");
     }
 
     CGovernanceException exception;
-    if(governance.ProcessVoteAndRelay(vote, exception, *g_connman)) {
+    if (governance.ProcessVoteAndRelay(vote, exception, *g_connman)) {
         return "Voted successfully";
-    }
-    else {
+    } else {
         throw JSONRPCError(RPC_INTERNAL_ERROR, "Error voting : " + exception.GetMessage());
     }
 }
@@ -938,7 +1173,6 @@ UniValue getgovernanceinfo(const JSONRPCRequest& request)
             "  \"superblockcycle\": xxxxx,               (numeric) the number of blocks between superblocks\n"
             "  \"lastsuperblock\": xxxxx,                (numeric) the block number of the last superblock\n"
             "  \"nextsuperblock\": xxxxx,                (numeric) the block number of the next superblock\n"
-            "  \"maxgovobjdatasize\": xxxxx,             (numeric) maximum governance object data size in bytes\n"
             "}\n"
             "\nExamples:\n"
             + HelpExampleCli("getgovernanceinfo", "")
@@ -961,7 +1195,6 @@ UniValue getgovernanceinfo(const JSONRPCRequest& request)
     obj.push_back(Pair("superblockcycle", Params().GetConsensus().nSuperblockCycle));
     obj.push_back(Pair("lastsuperblock", nLastSuperblock));
     obj.push_back(Pair("nextsuperblock", nNextSuperblock));
-    obj.push_back(Pair("maxgovobjdatasize", MAX_GOVERNANCE_OBJECT_DATA_SIZE));
 
     return obj;
 }
@@ -996,7 +1229,7 @@ UniValue getsuperblockbudget(const JSONRPCRequest& request)
 static const CRPCCommand commands[] =
 { //  category              name                      actor (function)         okSafe argNames
   //  --------------------- ------------------------  -----------------------  ------ ----------
-    /* AXE features */
+    /* Axe features */
     { "axe",               "getgovernanceinfo",      &getgovernanceinfo,      true,  {} },
     { "axe",               "getsuperblockbudget",    &getsuperblockbudget,    true,  {"index"} },
     { "axe",               "gobject",                &gobject,                true,  {} },

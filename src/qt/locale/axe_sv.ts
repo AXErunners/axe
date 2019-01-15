@@ -58,12 +58,12 @@
         <translation>Mottagaradresser</translation>
     </message>
     <message>
-        <source>These are your AXE addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>De här är dina AXE-adresser för att skicka betalningar. Kontrollera alltid mängden och mottagaradressen innan du skickar mynt.</translation>
+        <source>These are your Axe addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>De här är dina Axe-adresser för att skicka betalningar. Kontrollera alltid mängden och mottagaradressen innan du skickar mynt.</translation>
     </message>
     <message>
-        <source>These are your AXE addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>De här är dina AXE-adresser för betalningsmottagningar. Det rekommenderas att använda en ny mottagaradress för varje transaktion.</translation>
+        <source>These are your Axe addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>De här är dina Axe-adresser för betalningsmottagningar. Det rekommenderas att använda en ny mottagaradress för varje transaktion.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -176,8 +176,8 @@
         <translation>Plånbok krypterad</translation>
     </message>
     <message>
-        <source>AXE will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your axes from being stolen by malware infecting your computer.</source>
-        <translation>AXE kommer nu att färdigställa krypteringsprocessen. Kom ihåg att krypteringen av din plånbok inte kan skydda dig helt och hållet från att dina AXE stjäls av skadeprogram som har infekterat din dator.</translation>
+        <source>Axe will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your axes from being stolen by malware infecting your computer.</source>
+        <translation>Axe kommer nu att färdigställa krypteringsprocessen. Kom ihåg att krypteringen av din plånbok inte kan skydda dig helt och hållet från att dina Axe stjäls av skadeprogram som har infekterat din dator.</translation>
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
@@ -219,8 +219,8 @@
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <source>AXE Core</source>
-        <translation>AXE Core
+        <source>Axe Core</source>
+        <translation>Axe Core
 </translation>
     </message>
     <message>
@@ -244,8 +244,8 @@
         <translation>&amp;Skicka</translation>
     </message>
     <message>
-        <source>Send coins to a AXE address</source>
-        <translation>Skicka mynt till en AXE-adress</translation>
+        <source>Send coins to a Axe address</source>
+        <translation>Skicka mynt till en Axe-adress</translation>
     </message>
     <message>
         <source>&amp;Receive</source>
@@ -253,7 +253,7 @@
     </message>
     <message>
         <source>Request payments (generates QR codes and axe: URIs)</source>
-        <translation>Begär betalningar (genererar QR-koder och AXE:-URI:s)</translation>
+        <translation>Begär betalningar (genererar QR-koder och Axe:-URI:s)</translation>
     </message>
     <message>
         <source>&amp;Transactions</source>
@@ -272,8 +272,8 @@
         <translation>Avsluta applikationen</translation>
     </message>
     <message>
-        <source>&amp;About AXE Core</source>
-        <translation>&amp;Om AXE Core</translation>
+        <source>&amp;About Axe Core</source>
+        <translation>&amp;Om Axe Core</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -288,8 +288,8 @@
         <translation>&amp;Alternativ...</translation>
     </message>
     <message>
-        <source>Modify configuration options for AXE</source>
-        <translation>Anpassa konfigurationsalternatv för AXE</translation>
+        <source>Modify configuration options for Axe</source>
+        <translation>Anpassa konfigurationsalternatv för Axe</translation>
     </message>
     <message>
         <source>&amp;Show / Hide</source>
@@ -340,16 +340,16 @@
         <translation>Signera &amp;meddelande...</translation>
     </message>
     <message>
-        <source>Sign messages with your AXE addresses to prove you own them</source>
-        <translation>Signera meddelanden med dina AXE-adresser för att bevisa att du äger dem</translation>
+        <source>Sign messages with your Axe addresses to prove you own them</source>
+        <translation>Signera meddelanden med dina Axe-adresser för att bevisa att du äger dem</translation>
     </message>
     <message>
         <source>&amp;Verify message...</source>
         <translation>&amp;Bekräfta meddelande...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified AXE addresses</source>
-        <translation>Bekräfta meddelanden för att garantera att de signerades med de angivna AXE-adresserna</translation>
+        <source>Verify messages to ensure they were signed with specified Axe addresses</source>
+        <translation>Bekräfta meddelanden för att garantera att de signerades med de angivna Axe-adresserna</translation>
     </message>
     <message>
         <source>&amp;Information</source>
@@ -405,15 +405,15 @@
     </message>
     <message>
         <source>Open a axe: URI or payment request</source>
-        <translation>Öppna en AXE-URI eller betalningsbegäran</translation>
+        <translation>Öppna en Axe-URI eller betalningsbegäran</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
         <translation>&amp;Kommandoradalternativ</translation>
     </message>
     <message>
-        <source>Show the AXE Core help message to get a list with possible AXE command-line options</source>
-        <translation>Visa AXE Core-hjälpmeddelandet för att få en lista med möjliga AXE-kommandoradalternativ</translation>
+        <source>Show the Axe Core help message to get a list with possible Axe command-line options</source>
+        <translation>Visa Axe Core-hjälpmeddelandet för att få en lista med möjliga Axe-kommandoradalternativ</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -790,16 +790,16 @@ Adress: %4
         <translation>Darksend-konfiguration</translation>
     </message>
     <message>
-        <source>Darksend was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening AXE's configuration screen.</source>
-        <translation>Darksend ställdes framgångsrikt om till grundläggande (%1 och 2 omgångar). Du kan ändra detta när som helst genom att öppna AXE:s konfigurationsskärm.</translation>
+        <source>Darksend was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening Axe's configuration screen.</source>
+        <translation>Darksend ställdes framgångsrikt om till grundläggande (%1 och 2 omgångar). Du kan ändra detta när som helst genom att öppna Axe:s konfigurationsskärm.</translation>
     </message>
     <message>
-        <source>Darksend was successfully set to high (%1 and 8 rounds). You can change this at any time by opening AXE's configuration screen.</source>
-        <translation>Darksend ställdes framgångsrikt in på hög (%1 och 8 omgångar). Du kan ändra detta när som helst genom att öppna AXE:s konfigurationsskärm.</translation>
+        <source>Darksend was successfully set to high (%1 and 8 rounds). You can change this at any time by opening Axe's configuration screen.</source>
+        <translation>Darksend ställdes framgångsrikt in på hög (%1 och 8 omgångar). Du kan ändra detta när som helst genom att öppna Axe:s konfigurationsskärm.</translation>
     </message>
     <message>
-        <source>Darksend was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening AXE's configuration screen.</source>
-        <translation>Darksend ställdes framgångsrikt in på maximal (%1 och 16 omgångar). Du kan ändra detta när som helst genom att öppna AXE:s konfigurationsskärm</translation>
+        <source>Darksend was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening Axe's configuration screen.</source>
+        <translation>Darksend ställdes framgångsrikt in på maximal (%1 och 16 omgångar). Du kan ändra detta när som helst genom att öppna Axe:s konfigurationsskärm</translation>
     </message>
 </context>
 <context>
@@ -841,8 +841,8 @@ Adress: %4
         <translation>Redigera avsändaradress</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid AXE address.</source>
-        <translation>Den angivna adressen "%1" är inte en giltig AXE-adress.</translation>
+        <source>The entered address "%1" is not a valid Axe address.</source>
+        <translation>Den angivna adressen "%1" är inte en giltig Axe-adress.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -883,8 +883,8 @@ Adress: %4
 <context>
     <name>HelpMessageDialog</name>
     <message>
-        <source>AXE Core</source>
-        <translation>AXE Core
+        <source>Axe Core</source>
+        <translation>Axe Core
 </translation>
     </message>
     <message>
@@ -931,16 +931,16 @@ Adress: %4
         <translation>Välkommen</translation>
     </message>
     <message>
-        <source>Welcome to AXE Core.</source>
-        <translation>Välkommen till AXE Core.</translation>
+        <source>Welcome to Axe Core.</source>
+        <translation>Välkommen till Axe Core.</translation>
     </message>
     <message>
-        <source>As this is the first time the program is launched, you can choose where AXE Core will store its data.</source>
-        <translation>Då detta är första gången programmet startas kan du välja var AXE Core ska lagra sin data.</translation>
+        <source>As this is the first time the program is launched, you can choose where Axe Core will store its data.</source>
+        <translation>Då detta är första gången programmet startas kan du välja var Axe Core ska lagra sin data.</translation>
     </message>
     <message>
-        <source>AXE Core will download and store a copy of the AXE block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>AXE Core kommer att laddas ned och lagra en kopia av AXE:s blockkedja. Minst %1 GB data kommer att lagras i denna katalog och den kommer att växa med tiden. Plånboken kommer också att lagras i denna katalog.</translation>
+        <source>Axe Core will download and store a copy of the Axe block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>Axe Core kommer att laddas ned och lagra en kopia av Axe:s blockkedja. Minst %1 GB data kommer att lagras i denna katalog och den kommer att växa med tiden. Plånboken kommer också att lagras i denna katalog.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -989,12 +989,12 @@ Adress: %4
         <translation>&amp;Huvud</translation>
     </message>
     <message>
-        <source>Automatically start AXE after logging in to the system.</source>
-        <translation>Starta AXE automatiskt efter systeminloggning.</translation>
+        <source>Automatically start Axe after logging in to the system.</source>
+        <translation>Starta Axe automatiskt efter systeminloggning.</translation>
     </message>
     <message>
-        <source>&amp;Start AXE on system login</source>
-        <translation>&amp;Starta AXE vid systeminloggning</translation>
+        <source>&amp;Start Axe on system login</source>
+        <translation>&amp;Starta Axe vid systeminloggning</translation>
     </message>
     <message>
         <source>Size of &amp;database cache</source>
@@ -1021,8 +1021,8 @@ Adress: %4
         <translation>Denna mängd fungerar som en tröskel att stänga av Darksend då det har uppnåtts.</translation>
     </message>
     <message>
-        <source>Amount of AXE to keep anonymized</source>
-        <translation>Mängd AXE att bibehålla anonymiserade</translation>
+        <source>Amount of Axe to keep anonymized</source>
+        <translation>Mängd Axe att bibehålla anonymiserade</translation>
     </message>
     <message>
         <source>W&amp;allet</source>
@@ -1049,8 +1049,8 @@ Adress: %4
         <translation>&amp;Nätverk</translation>
     </message>
     <message>
-        <source>Automatically open the AXE client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Öppna AXE:s klientport automatiskt på routern. Detta fungerar bara om din router stöder UPnP och är aktiverad.</translation>
+        <source>Automatically open the Axe client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Öppna Axe:s klientport automatiskt på routern. Detta fungerar bara om din router stöder UPnP och är aktiverad.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1101,8 +1101,8 @@ Adress: %4
         <translation>Användargränssnitt&amp;språk: </translation>
     </message>
     <message>
-        <source>The user interface language can be set here. This setting will take effect after restarting AXE.</source>
-        <translation>Användargränssnittspråket kan ställas in här. Denna inställning träder i kraft efter att AXE startats om.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting Axe.</source>
+        <translation>Användargränssnittspråket kan ställas in här. Denna inställning träder i kraft efter att Axe startats om.</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
@@ -1182,8 +1182,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Formulär</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the AXE network after a connection is established, but this process has not completed yet.</source>
-        <translation>Den visade informationen kan vara utdaterad. Din plånbok synkroniseras automatiskt med AXE-nätverket efter att en anslutning har etablerats men denna process har ännu inte slutförts.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Axe network after a connection is established, but this process has not completed yet.</source>
+        <translation>Den visade informationen kan vara utdaterad. Din plånbok synkroniseras automatiskt med Axe-nätverket efter att en anslutning har etablerats men denna process har ännu inte slutförts.</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -1435,8 +1435,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Antal anslutningar</translation>
     </message>
     <message>
-        <source>Open the AXE debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Öppna AXEs avsökningsloggfil från den nuvarande datakatalogen. Detta kan ta ett par sekunder för stora loggfiler.</translation>
+        <source>Open the Axe debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Öppna Axes avsökningsloggfil från den nuvarande datakatalogen. Detta kan ta ett par sekunder för stora loggfiler.</translation>
     </message>
     <message>
         <source>&amp;Open</source>
@@ -1507,8 +1507,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Ut:</translation>
     </message>
     <message>
-        <source>Welcome to the AXE RPC console.</source>
-        <translation>Välkommen till AXEs RPC-konsol.</translation>
+        <source>Welcome to the Axe RPC console.</source>
+        <translation>Välkommen till Axes RPC-konsol.</translation>
     </message>
     <message>
         <source>Use up and down arrows to navigate history, and &lt;b&gt;Ctrl-L&lt;/b&gt; to clear screen.</source>
@@ -1542,8 +1542,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Åt&amp;eranvänd en befintlig mottagaradress (rekommenderas inte)</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the AXE network.</source>
-        <translation>Ett valfritt meddelande att bifoga betalningsbegärandet vilket kommer att visas när begärandet öppnas. Observera: Meddelandet kommer inte att skickas med betalningen över AXE-nätverket.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Axe network.</source>
+        <translation>Ett valfritt meddelande att bifoga betalningsbegärandet vilket kommer att visas när begärandet öppnas. Observera: Meddelandet kommer inte att skickas med betalningen över Axe-nätverket.</translation>
     </message>
     <message>
         <source>&amp;Message:</source>
@@ -1899,8 +1899,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Fel: Plånboken låstes upp enbart för att anonymisera mynt.</translation>
     </message>
     <message>
-        <source>Warning: Invalid AXE address</source>
-        <translation>Varning: Ogiltig AXE-adress</translation>
+        <source>Warning: Invalid Axe address</source>
+        <translation>Varning: Ogiltig Axe-adress</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -1958,8 +1958,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Meddelande:</translation>
     </message>
     <message>
-        <source>A message that was attached to the axe: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the AXE network.</source>
-        <translation>Ett meddelande som bifogades till AXE: URI vilket kommer att lagras med transaktionen så att du vet. Observera: Meddelandet kommer inte att skickas över AXE-nätverket.</translation>
+        <source>A message that was attached to the axe: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Axe network.</source>
+        <translation>Ett meddelande som bifogades till Axe: URI vilket kommer att lagras med transaktionen så att du vet. Observera: Meddelandet kommer inte att skickas över Axe-nätverket.</translation>
     </message>
     <message>
         <source>This is an unverified payment request.</source>
@@ -1985,8 +1985,8 @@ https://www.transifex.com/projects/p/axe/</translation>
 <context>
     <name>ShutdownWindow</name>
     <message>
-        <source>AXE Core is shutting down...</source>
-        <translation>AXE Core stängs ned...</translation>
+        <source>Axe Core is shutting down...</source>
+        <translation>Axe Core stängs ned...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -2036,8 +2036,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Kopiera den nuvarande valda signaturen till systemurklippet</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this AXE address</source>
-        <translation>Signera meddelandet för att bevisa att du äger denna AXE-adress</translation>
+        <source>Sign the message to prove you own this Axe address</source>
+        <translation>Signera meddelandet för att bevisa att du äger denna Axe-adress</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2060,8 +2060,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Skriv in signeringsadressen, meddelandet, (försäkra dig om att du kopierar linjeavbrott, mellanslag, flikar med mera) och signera nedtill för att verifiera meddelandet. Var försiktig med att inte läsa in mer i signaturen än vad som finns i det signerade meddelandet för att undvika att bli lurad av en mellanhandattack.</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified AXE address</source>
-        <translation>Bekräfta meddelandet för att försäkra dig om att den signerades med den angivna AXE-adressen</translation>
+        <source>Verify the message to ensure it was signed with the specified Axe address</source>
+        <translation>Bekräfta meddelandet för att försäkra dig om att den signerades med den angivna Axe-adressen</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -2127,8 +2127,8 @@ https://www.transifex.com/projects/p/axe/</translation>
 <context>
     <name>SplashScreen</name>
     <message>
-        <source>AXE Core</source>
-        <translation>AXE Core
+        <source>Axe Core</source>
+        <translation>Axe Core
 </translation>
     </message>
     <message>
@@ -2140,8 +2140,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Bitcoin Core-utvecklarna</translation>
     </message>
     <message>
-        <source>The AXE Core developers</source>
-        <translation>AXE Core-utvecklarna</translation>
+        <source>The Axe Core developers</source>
+        <translation>Axe Core-utvecklarna</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -2662,8 +2662,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Sammanbind till fastställd adress och avlyssna alltid den. Använd [host]:port-notation för IPv6</translation>
     </message>
     <message>
-        <source>Cannot obtain a lock on data directory %s. AXE Core is probably already running.</source>
-        <translation>Kan inte erhålla ett lås på datakatalog %s. AXE Core körs förmodligen redan.</translation>
+        <source>Cannot obtain a lock on data directory %s. Axe Core is probably already running.</source>
+        <translation>Kan inte erhålla ett lås på datakatalog %s. Axe Core körs förmodligen redan.</translation>
     </message>
     <message>
         <source>Darksend uses exact denominated amounts to send funds, you might simply need to anonymize some more coins.</source>
@@ -2718,8 +2718,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Detta är en förhandsutgiven testkompilering - använd på egen risk - använd inte för utvinning eller handlarapplikationer.</translation>
     </message>
     <message>
-        <source>Unable to bind to %s on this computer. AXE Core is probably already running.</source>
-        <translation>Det går inte att binda till %s till denna dator. AXE Core körs förmodligen redan.</translation>
+        <source>Unable to bind to %s on this computer. Axe Core is probably already running.</source>
+        <translation>Det går inte att binda till %s till denna dator. Axe Core körs förmodligen redan.</translation>
     </message>
     <message>
         <source>Unable to locate enough Darksend denominated funds for this transaction.</source>
@@ -2942,8 +2942,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Information</translation>
     </message>
     <message>
-        <source>Initialization sanity check failed. AXE Core is shutting down.</source>
-        <translation>Initialiseringstillståndkontroll misslyckades. AXE Core stängs ned.</translation>
+        <source>Initialization sanity check failed. Axe Core is shutting down.</source>
+        <translation>Initialiseringstillståndkontroll misslyckades. Axe Core stängs ned.</translation>
     </message>
     <message>
         <source>Input is not valid.</source>

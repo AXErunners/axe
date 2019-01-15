@@ -68,9 +68,9 @@ can then be controlled by group membership.
 3b) Mac OS X
 
 Binary:              `/usr/local/bin/axed`  
-Configuration file:  `~/Library/Application Support/AXECore/axe.conf`  
-Data directory:      `~/Library/Application Support/AXECore`
-Lock file:           `~/Library/Application Support/AXECore/.lock`
+Configuration file:  `~/Library/Application Support/AxeCore/axe.conf`  
+Data directory:      `~/Library/Application Support/AxeCore`
+Lock file:           `~/Library/Application Support/AxeCore/.lock`
 
 4. Installing Service Configuration
 -----------------------------------

@@ -7,8 +7,6 @@
 #include "chain.h"
 #include "net.h"
 
-#include <univalue.h>
-
 class CMasternodeSync;
 
 static const int MASTERNODE_SYNC_FAILED          = -1;
@@ -24,8 +22,6 @@ static const int MASTERNODE_SYNC_FINISHED        = 999;
 static const int MASTERNODE_SYNC_TICK_SECONDS    = 6;
 static const int MASTERNODE_SYNC_TIMEOUT_SECONDS = 30; // our blocks are 2.5 minutes so 30 seconds should be fine
 
-static const int MASTERNODE_SYNC_ENOUGH_PEERS    = 6;
-
 extern CMasternodeSync masternodeSync;
 
 //
@@ -36,9 +32,9 @@ class CMasternodeSync
 {
 private:
     // Keep track of current asset
-    int nRequestedMasternodeAssets;
+    int nCurrentAsset;
     // Count peers we've requested the asset from
-    int nRequestedMasternodeAttempt;
+    int nTriedPeerCount;
 
     // Time when current masternode asset sync started
     int64_t nTimeAssetSyncStarted;
@@ -55,14 +51,14 @@ public:
 
     void SendGovernanceSyncRequest(CNode* pnode, CConnman& connman);
 
-    bool IsFailed() { return nRequestedMasternodeAssets == MASTERNODE_SYNC_FAILED; }
-    bool IsBlockchainSynced() { return nRequestedMasternodeAssets > MASTERNODE_SYNC_WAITING; }
-    bool IsMasternodeListSynced() { return nRequestedMasternodeAssets > MASTERNODE_SYNC_LIST; }
-    bool IsWinnersListSynced() { return nRequestedMasternodeAssets > MASTERNODE_SYNC_MNW; }
-    bool IsSynced() { return nRequestedMasternodeAssets == MASTERNODE_SYNC_FINISHED; }
+    bool IsFailed() { return nCurrentAsset == MASTERNODE_SYNC_FAILED; }
+    bool IsBlockchainSynced() { return nCurrentAsset > MASTERNODE_SYNC_WAITING; }
+    bool IsMasternodeListSynced() { return nCurrentAsset > MASTERNODE_SYNC_LIST; }
+    bool IsWinnersListSynced() { return nCurrentAsset > MASTERNODE_SYNC_MNW; }
+    bool IsSynced() { return nCurrentAsset == MASTERNODE_SYNC_FINISHED; }
 
-    int GetAssetID() { return nRequestedMasternodeAssets; }
-    int GetAttempt() { return nRequestedMasternodeAttempt; }
+    int GetAssetID() { return nCurrentAsset; }
+    int GetAttempt() { return nTriedPeerCount; }
     void BumpAssetLastTime(const std::string& strFuncName);
     int64_t GetAssetStartTime() { return nTimeAssetSyncStarted; }
     std::string GetAssetName();
@@ -77,6 +73,8 @@ public:
     void AcceptedBlockHeader(const CBlockIndex *pindexNew);
     void NotifyHeaderTip(const CBlockIndex *pindexNew, bool fInitialDownload, CConnman& connman);
     void UpdatedBlockTip(const CBlockIndex *pindexNew, bool fInitialDownload, CConnman& connman);
+
+    void DoMaintenance(CConnman &connman);
 };
 
 #endif

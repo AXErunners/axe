@@ -34,10 +34,10 @@ Package: axed
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer network based digital currency - daemon
- AXE is an experimental new digital currency that enables anonymous, instant
- payments to anyone, anywhere in the world. AXE uses peer-to-peer
+ Axe is an experimental new digital currency that enables anonymous, instant
+ payments to anyone, anywhere in the world. Axe uses peer-to-peer
  technology to operate with no central authority: managing transactions
- and issuing money are carried out collectively by the network. AXE Core
+ and issuing money are carried out collectively by the network. Axe Core
  is the name of the open source software which enables the use of this currency.
  .
  This package provides the daemon, axed, and the CLI tool
@@ -47,22 +47,22 @@ Package: axe-qt
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer network based digital currency - Qt GUI
- AXE is an experimental new digital currency that enables anonymous, instant
- payments to anyone, anywhere in the world. AXE uses peer-to-peer
+ Axe is an experimental new digital currency that enables anonymous, instant
+ payments to anyone, anywhere in the world. Axe uses peer-to-peer
  technology to operate with no central authority: managing transactions
- and issuing money are carried out collectively by the network. AXE Core
+ and issuing money are carried out collectively by the network. Axe Core
  is the name of the open source software which enables the use of this currency.
  .
- This package provides AXE-Qt, a GUI for AXE based on Qt.
+ This package provides Axe-Qt, a GUI for Axe based on Qt.
 
 Package: axe-tx
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: peer-to-peer digital currency - standalone transaction tool
- AXE is an experimental new digital currency that enables anonymous, instant
- payments to anyone, anywhere in the world. AXE uses peer-to-peer
+ Axe is an experimental new digital currency that enables anonymous, instant
+ payments to anyone, anywhere in the world. Axe uses peer-to-peer
  technology to operate with no central authority: managing transactions
- and issuing money are carried out collectively by the network. AXE Core
+ and issuing money are carried out collectively by the network. Axe Core
  is the name of the open source software which enables the use of this currency.
  .
  This package provides axe-tx, a command-line transaction creation
