@@ -29,16 +29,16 @@
   <string>????</string>
 
   <key>CFBundleExecutable</key>
-  <string>AXE-Qt</string>
+  <string>Axe-Qt</string>
 
   <key>CFBundleName</key>
-  <string>AXE-Qt</string>
+  <string>Axe-Qt</string>
 
   <key>LSHasLocalizedDisplayName</key>
   <true/>
 
   <key>CFBundleIdentifier</key>
-  <string>org.axe.AXE-Qt</string>
+  <string>org.axe.Axe-Qt</string>
 
   <key>CFBundleURLTypes</key>
   <array>
@@ -60,7 +60,7 @@
       <key>UTTypeIdentifier</key>
       <string>org.axe.paymentrequest</string>
       <key>UTTypeDescription</key>
-      <string>AXE payment request</string>
+      <string>Axe payment request</string>
       <key>UTTypeConformsTo</key>
       <array>
         <string>public.data</string>
