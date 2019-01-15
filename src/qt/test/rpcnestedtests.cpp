@@ -14,6 +14,9 @@
 #include "univalue.h"
 #include "util.h"
 
+#include "evo/deterministicmns.h"
+#include "llmq/quorums_init.h"
+
 #include <QDir>
 #include <QtGlobal>
 
@@ -42,13 +45,18 @@ void RPCNestedTests::rpcNestedTests()
     RegisterAllCoreRPCCommands(tableRPC);
     tableRPC.appendCommand("rpcNestedTest", &vRPCCommands[0]);
     ClearDatadirCache();
-    std::string path = QDir::tempPath().toStdString() + "/" + strprintf("test_bitcoin_qt_%lu_%i", (unsigned long)GetTime(), (int)(GetRand(100000)));
+    std::string path = QDir::tempPath().toStdString() + "/" + strprintf("test_axe_qt_%lu_%i", (unsigned long)GetTime(), (int)(GetRand(100000)));
     QDir dir(QString::fromStdString(path));
     dir.mkpath(".");
     ForceSetArg("-datadir", path);
     //mempool.setSanityCheck(1.0);
+    evoDb = new CEvoDB(1 << 20, true, true);
     pblocktree = new CBlockTreeDB(1 << 20, true);
     pcoinsdbview = new CCoinsViewDB(1 << 23, true);
+    deterministicMNManager = new CDeterministicMNManager(*evoDb);
+
+    llmq::InitLLMQSystem(*evoDb);
+
     pcoinsTip = new CCoinsViewCache(pcoinsdbview);
     InitBlockIndex(chainparams);
     {

@@ -1,5 +1,6 @@
 <!DOCTYPE RCC><RCC version="1.0">
     <qresource prefix="/translations">
+        <file alias="ar">locale/axe_ar.qm</file>
         <file alias="bg">locale/axe_bg.qm</file>
         <file alias="de">locale/axe_de.qm</file>
         <file alias="en">locale/axe_en.qm</file>
@@ -8,12 +9,15 @@
         <file alias="fr">locale/axe_fr.qm</file>
         <file alias="it">locale/axe_it.qm</file>
         <file alias="ja">locale/axe_ja.qm</file>
+        <file alias="ko">locale/axe_ko.qm</file>
         <file alias="nl">locale/axe_nl.qm</file>
         <file alias="pl">locale/axe_pl.qm</file>
         <file alias="pt">locale/axe_pt.qm</file>
         <file alias="ru">locale/axe_ru.qm</file>
         <file alias="sk">locale/axe_sk.qm</file>
         <file alias="sv">locale/axe_sv.qm</file>
+        <file alias="th">locale/axe_th.qm</file>
+        <file alias="tr">locale/axe_tr.qm</file>
         <file alias="vi">locale/axe_vi.qm</file>
         <file alias="zh_CN">locale/axe_zh_CN.qm</file>
         <file alias="zh_TW">locale/axe_zh_TW.qm</file>

@@ -1,6 +1,5 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2017-2018 The AXE Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -85,7 +84,7 @@ QString ClientModel::getMasternodeCountString() const
 {
     // return tr("Total: %1 (PS compatible: %2 / Enabled: %3) (IPv4: %4, IPv6: %5, TOR: %6)").arg(QString::number((int)mnodeman.size()))
     return tr("Total: %1 (PS compatible: %2 / Enabled: %3)")
-            .arg(QString::number((int)mnodeman.size()))
+            .arg(QString::number((int)mnodeman.CountMasternodes(0)))
             .arg(QString::number((int)mnodeman.CountEnabled(MIN_PRIVATESEND_PEER_PROTO_VERSION)))
             .arg(QString::number((int)mnodeman.CountEnabled()));
             // .arg(QString::number((int)mnodeman.CountByIP(NET_IPV4)))

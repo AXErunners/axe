@@ -1,1092 +1,1092 @@
-<TS language="zh_CN" version="2.1">
+<TS language="tr" version="2.1">
 <context>
     <name>AddressBookPage</name>
     <message>
         <source>Right-click to edit address or label</source>
-        <translation>右键点击编辑地址或标签</translation>
+        <translation>Adres veya etiketi düzenlemek için sağ tıklayın.</translation>
     </message>
     <message>
         <source>Create a new address</source>
-        <translation>创建新地址</translation>
+        <translation>Yeni bir adres oluştur</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>新建(&amp;N)</translation>
+        <translation>&amp;Yeni</translation>
     </message>
     <message>
         <source>Copy the currently selected address to the system clipboard</source>
-        <translation>复制当前选中的地址到系统剪贴板</translation>
+        <translation>Şu anda seçili olan adresi sistem panosuna kopyala</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation>复制(&amp;C)</translation>
+        <translation>&amp;Kopyala</translation>
     </message>
     <message>
         <source>Delete the currently selected address from the list</source>
-        <translation>从列表中删除选中的地址</translation>
+        <translation>Seçili adresi listeden sil</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>删除(&amp;D)</translation>
+        <translation>&amp;Sil</translation>
     </message>
     <message>
         <source>Export the data in the current tab to a file</source>
-        <translation>导出当前数据到文件</translation>
+        <translation>Güncel sekmedeki verileri bir dosyaya aktar</translation>
     </message>
     <message>
         <source>&amp;Export</source>
-        <translation>导出(&amp;E)</translation>
+        <translation>&amp;Dışa aktar</translation>
     </message>
     <message>
         <source>C&amp;lose</source>
-        <translation>关闭(&amp;C)</translation>
+        <translation>K&amp;apat</translation>
     </message>
     <message>
         <source>Choose the address to send coins to</source>
-        <translation>选择发款地址</translation>
+        <translation>Parayı göndermek istediğiniz adresi seçiniz</translation>
     </message>
     <message>
         <source>Choose the address to receive coins with</source>
-        <translation>选择收款地址</translation>
+        <translation>Parayı almak istediğiniz adresi seçiniz</translation>
     </message>
     <message>
         <source>C&amp;hoose</source>
-        <translation>选择(&amp;H)</translation>
+        <translation>S&amp;eçiniz</translation>
     </message>
     <message>
         <source>Sending addresses</source>
-        <translation>正在发送地址</translation>
+        <translation>Gönderilen adresler</translation>
     </message>
     <message>
         <source>Receiving addresses</source>
-        <translation>正在接收地址</translation>
+        <translation>Alım adresleri</translation>
     </message>
     <message>
         <source>These are your Axe addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>这些是你要付款过去的达世币地址。在付款之前，务必要检查金额和收款地址是否正确。</translation>
+        <translation>Bunlar ödemeleri göndermek için kullanacağınız Axe adreslerinizdir. Axe yollamadan önce tutarı ve alıcının alım adresini her zaman kontrol ediniz.</translation>
     </message>
     <message>
         <source>These are your Axe addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>这些是你用来收款的达世币地址。建议在每次交易时，都使用一个新的收款地址。</translation>
+        <translation>Bunlar ödemeleri almak için kullanacağınız Axe adreslerinizdir. Her işlem için yeni bir alım adresi kullanmanız tavsiye edilir.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
-        <translation>复制地址(&amp;C)</translation>
+        <translation>&amp;Adresi Kopyala</translation>
     </message>
     <message>
         <source>Copy &amp;Label</source>
-        <translation>复制标签(&amp;L)</translation>
+        <translation>&amp;Etiketi Kopyala</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation>编辑(&amp;E)</translation>
+        <translation>&amp;Değiştir</translation>
     </message>
     <message>
         <source>Export Address List</source>
-        <translation>导出地址列表</translation>
+        <translation>Adres Listesini Dışarı Aktar</translation>
     </message>
     <message>
         <source>Comma separated file (*.csv)</source>
-        <translation>逗号分隔文件 (*.csv)</translation>
+        <translation>Virgülle ayrılmış değerler dosyası (*.csv)</translation>
     </message>
     <message>
         <source>Exporting Failed</source>
-        <translation>导出失败</translation>
+        <translation>Dışarı aktarmada hata</translation>
     </message>
     <message>
         <source>There was an error trying to save the address list to %1. Please try again.</source>
-        <translation>尝试保存地址列表至%1时发生错误。请重新执行操作。</translation>
+        <translation>Adres listesinin %1 konumuna kaydedilmesi sırasında bir hata meydana geldi. Lütfen tekrar deneyin.</translation>
     </message>
 </context>
 <context>
     <name>AddressTableModel</name>
     <message>
         <source>Label</source>
-        <translation>标签</translation>
+        <translation>Etiket</translation>
     </message>
     <message>
         <source>Address</source>
-        <translation>地址</translation>
+        <translation>Adres</translation>
     </message>
     <message>
         <source>(no label)</source>
-        <translation>(无标签)</translation>
+        <translation>(etiket yok)</translation>
     </message>
 </context>
 <context>
     <name>AskPassphraseDialog</name>
     <message>
         <source>Passphrase Dialog</source>
-        <translation>密码对话框</translation>
+        <translation>Parola diyaloğu</translation>
     </message>
     <message>
         <source>Enter passphrase</source>
-        <translation>输入密码</translation>
+        <translation>Parolayı giriniz</translation>
     </message>
     <message>
         <source>New passphrase</source>
-        <translation>新密码</translation>
+        <translation>Yeni parola</translation>
     </message>
     <message>
         <source>Repeat new passphrase</source>
-        <translation>重复新密码</translation>
+        <translation>Yeni parolayı tekrarlayınız</translation>
     </message>
     <message>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;ten or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
-        <translation>输入钱包的新密码。&lt;br/&gt;使用的密码请至少包含&lt;b&gt;10个以上随机字符&lt;/b&gt;，或者是&lt;b&gt;8个以上的单词&lt;/b&gt;。</translation>
+        <translation>Cüzdan için yeni parolayı giriniz.&lt;br/&gt;Lütfen &lt;b&gt;on ya da daha fazla rastgele karakter&lt;/b&gt; veya &lt;b&gt;sekiz ya da daha fazla kelime&lt;/b&gt; içeren bir parola kullanınız.</translation>
     </message>
     <message>
         <source>Encrypt wallet</source>
-        <translation>加密钱包</translation>
+        <translation>Cüzdanı şifrele</translation>
     </message>
     <message>
         <source>This operation needs your wallet passphrase to unlock the wallet.</source>
-        <translation>此操作需要您首先使用密码解锁该钱包。</translation>
+        <translation>Bu eylem cüzdan kilidini açmak için cüzdan parolanızı gerektirir.</translation>
     </message>
     <message>
         <source>Unlock wallet for mixing only</source>
-        <translation>解锁钱包用以混币</translation>
+        <translation>Cüzdanın kilidini sadece karışım için aç</translation>
     </message>
     <message>
         <source>Unlock wallet</source>
-        <translation>解锁钱包</translation>
+        <translation>Cüzdan kilidini kaldır</translation>
     </message>
     <message>
         <source>This operation needs your wallet passphrase to decrypt the wallet.</source>
-        <translation>该操作需要您首先使用密码解密钱包。</translation>
+        <translation>Bu eylem, cüzdan şifresini çözmek için cüzdan parolanıza ihtiyaç duyuyor.</translation>
     </message>
     <message>
         <source>Decrypt wallet</source>
-        <translation>解密钱包</translation>
+        <translation>Cüzdanın şifrelemesini aç</translation>
     </message>
     <message>
         <source>Change passphrase</source>
-        <translation>更改密码</translation>
+        <translation>Parola değiştir</translation>
     </message>
     <message>
         <source>Enter the old passphrase and new passphrase to the wallet.</source>
-        <translation>请输入钱包的旧密码和新密码。</translation>
+        <translation>Eski ve yeni parolanızı cüzdana giriniz.</translation>
     </message>
     <message>
         <source>Confirm wallet encryption</source>
-        <translation>确认加密钱包</translation>
+        <translation>Cüzdan şifrelemesini onayla</translation>
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR AXE&lt;/b&gt;!</source>
-        <translation>警告:如果把钱包加​​密后又忘记密码，您就会从此&lt;b&gt;失去所有的达世币了&lt;/b&gt;！</translation>
+        <translation>Uyarı: Eğer cüzdanınızı şifreler ve parolanızı unutursanız &lt;b&gt;TÜM AXEİNİZİ KAYBEDERSİNİZ&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
-        <translation>您确定需要为钱包加密吗？</translation>
+        <translation>Cüzdanınızı şifrelemek istediğinizden emin misiniz?</translation>
     </message>
     <message>
         <source>Wallet encrypted</source>
-        <translation>钱包已加密</translation>
+        <translation>Cüzdan şifrelendi</translation>
     </message>
     <message>
         <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your funds from being stolen by malware infecting your computer.</source>
-        <translation>%1 将要关闭，以完成加密过程。请注意，加密钱包不能完全防止恶意软件入侵您的电脑盗取您的资金。</translation>
+        <translation>%1 şimdi şifreleme işlemini bitirmek için kapanacak. Unutmayın, cüzdanınızı şifrelemek sizi bilgisayarınıza bulaşmış olan kötü amaçlı yazılımlar tarafından paranızın çalınmasına karşı tamamen korumaz.</translation>
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. Previous backups of the unencrypted wallet file contain the same HD seed and still have full access to all your funds just like the new, encrypted wallet.</source>
-        <translation>重要提示：请用新生成的加密钱包文件替换旧的钱包备份文件。先前未加密的旧钱包备份文件含有同样的HD种子，能够像新加密的钱包一样获取您的资金，而无需输入密码。</translation>
+        <translation>ÖNEMLİ: Cüzdanınızın eskiden yapılmış yedekleri yeni oluşturulmuş, şifreli cüzdan dosyası ile değiştirilmelidir. Şifresiz cüzdan dosyasının önceki yedekleri aynı HD kaynağını içerir ve yeni, şifreli cüzdanınız gibi tüm bakiyenize erişim sağlar.</translation>
     </message>
     <message>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
-        <translation>重要提示：您以前备份的钱包文件应该替换成最新生成的加密钱包文件。从安全性上考虑，您以前备份的未加密的钱包文件，在您使用新的加密钱包后将无效，请重新备份。</translation>
+        <translation>ÖNEMLİ: Önceden yapmış olduğunuz cüzdan dosyası yedeklemelerinin yeni oluşturulan şifrelenmiş cüzdan dosyası ile değiştirilmeleri gerekir. Güvenlik nedenleriyle yeni, şifrelenmiş cüzdanı kullanmaya başladığınızda eski şifrelenmemiş cüzdan dosyaları işe yaramaz hale gelecektir.</translation>
     </message>
     <message>
         <source>Wallet encryption failed</source>
-        <translation>钱包加密失败</translation>
+        <translation>Cüzdan şifreleme başarısız</translation>
     </message>
     <message>
         <source>Wallet encryption failed due to an internal error. Your wallet was not encrypted.</source>
-        <translation>由于一个本地错误，加密钱包的操作已经失败。您的钱包没能被加密。</translation>
+        <translation>Dahili bir hata yüzünden cüzdan şifrelemesi başarısız oldu. Cüzdanın şifrelenmedi.</translation>
     </message>
     <message>
         <source>The supplied passphrases do not match.</source>
-        <translation>密码不匹配。</translation>
+        <translation>Girilen parolalar birbiriyle eşleşmiyor.</translation>
     </message>
     <message>
         <source>Wallet unlock failed</source>
-        <translation>钱包解锁失败</translation>
+        <translation>Cüzdan kilidini kaldırma başarısız oldu</translation>
     </message>
     <message>
         <source>The passphrase entered for the wallet decryption was incorrect.</source>
-        <translation>用于解密钱包的密码不正确。</translation>
+        <translation>Cüzdan şifresinin açılması için girilen parola yanlıştı.</translation>
     </message>
     <message>
         <source>Wallet decryption failed</source>
-        <translation>钱包解密失败。</translation>
+        <translation>Cüzdan şifresinin açılması başarısız oldu</translation>
     </message>
     <message>
         <source>Wallet passphrase was successfully changed.</source>
-        <translation>修改钱包密码成功。</translation>
+        <translation>Cüzdan parolası başarılı bir şekilde değiştirildi.</translation>
     </message>
     <message>
         <source>Warning: The Caps Lock key is on!</source>
-        <translation>警告：大写锁定键处于打开状态！</translation>
+        <translation>Uyarı: Caps Lock tuşu etkin durumda!</translation>
     </message>
 </context>
 <context>
     <name>BanTableModel</name>
     <message>
         <source>IP/Netmask</source>
-        <translation>IP/子网掩码</translation>
+        <translation>IP/Ağ Maskesi</translation>
     </message>
     <message>
         <source>Banned Until</source>
-        <translation>在此之前禁止：</translation>
+        <translation>Şu zamana kadar yasaklı:</translation>
     </message>
 </context>
 <context>
     <name>BitcoinGUI</name>
     <message>
         <source>A fatal error occurred. Axe Core can no longer continue safely and will quit.</source>
-        <translation>发生致命错误。达世币核心钱包不再能安全地运行下去，程序将会关闭。</translation>
+        <translation>Kritik bir hata oluştu. Axe Core artık güvenli şekilde devam edemez ve kapanacak.</translation>
     </message>
     <message>
         <source>Axe Core</source>
-        <translation>达世币核心</translation>
+        <translation>Axe Core</translation>
     </message>
     <message>
         <source>Wallet</source>
-        <translation>钱包</translation>
+        <translation>Cüzdan</translation>
     </message>
     <message>
         <source>Node</source>
-        <translation>节点</translation>
+        <translation>Düğüm</translation>
     </message>
     <message>
         <source>&amp;Overview</source>
-        <translation>概况(&amp;O)</translation>
+        <translation>&amp;Genel bakış</translation>
     </message>
     <message>
         <source>Show general overview of wallet</source>
-        <translation>显示钱包概况</translation>
+        <translation>Cüzdana genel bakışı göster</translation>
     </message>
     <message>
         <source>&amp;Send</source>
-        <translation>发送(&amp;S)</translation>
+        <translation>&amp;Gönder</translation>
     </message>
     <message>
         <source>Send coins to a Axe address</source>
-        <translation>发送币至达世币地址</translation>
+        <translation>Bir Axe adresine coin gönder</translation>
     </message>
     <message>
         <source>&amp;Receive</source>
-        <translation>接收(&amp;R)</translation>
+        <translation>&amp;Al</translation>
     </message>
     <message>
         <source>Request payments (generates QR codes and axe: URIs)</source>
-        <translation>请求付款(生成二维码和达世币付款协议的URI)</translation>
+        <translation>Ödeme talep et (QR kodu ve Axe URI'si oluşturur)</translation>
     </message>
     <message>
         <source>&amp;Transactions</source>
-        <translation>交易记录(&amp;T)</translation>
+        <translation>&amp;İşlemler</translation>
     </message>
     <message>
         <source>Browse transaction history</source>
-        <translation>查看交易历史</translation>
+        <translation>İşlem geçmişine gözat</translation>
     </message>
     <message>
         <source>&amp;Masternodes</source>
-        <translation>主节点(&amp;M)</translation>
+        <translation>&amp;Ana düğümler</translation>
     </message>
     <message>
         <source>Browse masternodes</source>
-        <translation>浏览主节点</translation>
+        <translation>Ana düğümlere gözat</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation>退出(&amp;X)</translation>
+        <translation>Ç&amp;ık</translation>
     </message>
     <message>
         <source>Quit application</source>
-        <translation>退出程序</translation>
+        <translation>Uygulamadan çık</translation>
     </message>
     <message>
         <source>Show information about Axe Core</source>
-        <translation>显示关于达世币核心信息</translation>
+        <translation>Axe Core hakkında bilgileri göster</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
-        <translation>关于 &amp;Qt</translation>
+        <translation>&amp;Qt Hakkında</translation>
     </message>
     <message>
         <source>Show information about Qt</source>
-        <translation>显示 Qt 相关信息</translation>
+        <translation>Qt hakkında bilgi göster</translation>
     </message>
     <message>
         <source>&amp;Options...</source>
-        <translation>选项(&amp;O)...</translation>
+        <translation>&amp;Seçenekler...</translation>
     </message>
     <message>
         <source>&amp;About %1</source>
-        <translation>关于 %1</translation>
+        <translation>%1 &amp;Hakkında</translation>
     </message>
     <message>
         <source>Modify configuration options for %1</source>
-        <translation>修改%1配置选项</translation>
+        <translation>%1 için yapılandırma ayarlarını değiştir</translation>
     </message>
     <message>
         <source>&amp;Show / Hide</source>
-        <translation>显示 / 隐藏(&amp;S)</translation>
+        <translation>&amp;Göster / Gizle</translation>
     </message>
     <message>
         <source>Show or hide the main Window</source>
-        <translation>显示或隐藏主窗口</translation>
+        <translation>Ana pencereyi göster ya da gizle</translation>
     </message>
     <message>
         <source>&amp;Encrypt Wallet...</source>
-        <translation>加密钱包(&amp;E)...</translation>
+        <translation>&amp;Cüzdanı Şifrele...</translation>
     </message>
     <message>
         <source>Encrypt the private keys that belong to your wallet</source>
-        <translation>对钱包中的私钥加密</translation>
+        <translation>Cüzdanınıza ait özel anahtarları şifreleyin</translation>
     </message>
     <message>
         <source>&amp;Backup Wallet...</source>
-        <translation>备份钱包(&amp;B)...</translation>
+        <translation>&amp;Cüzdanı Yedekle...</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
-        <translation>备份钱包到其他文件夹</translation>
+        <translation>Cüzdanı diğer bir konumda yedekle</translation>
     </message>
     <message>
         <source>&amp;Change Passphrase...</source>
-        <translation>更改密码(&amp;C)...</translation>
+        <translation>&amp;Parolayı Değiştir...</translation>
     </message>
     <message>
         <source>Change the passphrase used for wallet encryption</source>
-        <translation>更改钱包加密口令</translation>
+        <translation>Cüzdan şifrelemesi için kullanılan parolayı değiştir</translation>
     </message>
     <message>
         <source>&amp;Unlock Wallet...</source>
-        <translation>解锁钱包(&amp;U)</translation>
+        <translation>Cüzdanı &amp;Kilitle...</translation>
     </message>
     <message>
         <source>Unlock wallet</source>
-        <translation>解锁钱包</translation>
+        <translation>Cüzdan kilidini kaldır</translation>
     </message>
     <message>
         <source>&amp;Lock Wallet</source>
-        <translation>锁定钱包(&amp;L)</translation>
+        <translation>Cüzdanı &amp;Kilitle</translation>
     </message>
     <message>
         <source>Sign &amp;message...</source>
-        <translation>消息签名(&amp;M)...</translation>
+        <translation>&amp;İleti imzala...</translation>
     </message>
     <message>
         <source>Sign messages with your Axe addresses to prove you own them</source>
-        <translation>使用您的达市币地址进行消息签名以证明对此地址的所有权</translation>
+        <translation>İletileri adreslerin size ait olduğunu ispatlamak için Axe adresleri ile imzala</translation>
     </message>
     <message>
         <source>&amp;Verify message...</source>
-        <translation>验证消息(&amp;V)...</translation>
+        <translation>İletiyi &amp;kontrol et...</translation>
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified Axe addresses</source>
-        <translation>验证消息是用来确定此消息是用指定的达世币地址签发的</translation>
+        <translation>Belirtilen Axe adresleri ile imzalandıklarından emin olmak için iletileri kontrol et</translation>
     </message>
     <message>
         <source>&amp;Information</source>
-        <translation>信息(&amp;I)</translation>
+        <translation>&amp;Bilgi</translation>
     </message>
     <message>
         <source>Show diagnostic information</source>
-        <translation>显示诊断信息</translation>
+        <translation>Tanı bilgilerini göster</translation>
     </message>
     <message>
         <source>&amp;Debug console</source>
-        <translation>Debug控制台(&amp;D)</translation>
+        <translation>&amp;Debug konsolu</translation>
     </message>
     <message>
         <source>Open debugging console</source>
-        <translation>打开调试控制台</translation>
+        <translation>Debug konsolunu aç</translation>
     </message>
     <message>
         <source>&amp;Network Monitor</source>
-        <translation>网络流量监控(&amp;N)</translation>
+        <translation>&amp;Ağ Monitörü</translation>
     </message>
     <message>
         <source>Show network monitor</source>
-        <translation>显示网络流量监控</translation>
+        <translation>Ağ monitörünü göster</translation>
     </message>
     <message>
         <source>&amp;Peers list</source>
-        <translation>节点列表(&amp;P)</translation>
+        <translation>&amp;Eş listesi</translation>
     </message>
     <message>
         <source>Show peers info</source>
-        <translation>显示节点信息</translation>
+        <translation>Eş bilgisini göster</translation>
     </message>
     <message>
         <source>Wallet &amp;Repair</source>
-        <translation>钱包&amp;修复</translation>
+        <translation>Cüzdan &amp;Tamir</translation>
     </message>
     <message>
         <source>Show wallet repair options</source>
-        <translation>显示钱包修复选项</translation>
+        <translation>Cüzdan tamir seçeneklerini göster</translation>
     </message>
     <message>
         <source>Open Wallet &amp;Configuration File</source>
-        <translation>打开钱包配置文件(&amp;C)</translation>
+        <translation>Cüzdan &amp;Ayar Dosyasını Aç</translation>
     </message>
     <message>
         <source>Open configuration file</source>
-        <translation>打开配置文件</translation>
+        <translation>Yapılandırma Dosyasını Aç</translation>
     </message>
     <message>
         <source>Open &amp;Masternode Configuration File</source>
-        <translation>打开主节点配置文件(&amp;M)</translation>
+        <translation>&amp;Ana Düğüm Ayar Dosyasını Aç</translation>
     </message>
     <message>
         <source>Open Masternode configuration file</source>
-        <translation>打开主节点配置文件</translation>
+        <translation>Ana düğüm ayar dosyasını aç</translation>
     </message>
     <message>
         <source>Show Automatic &amp;Backups</source>
-        <translation>显示自动备份(&amp;B)</translation>
+        <translation>Otomatik &amp;Yedekleri Göster</translation>
     </message>
     <message>
         <source>Show automatically created wallet backups</source>
-        <translation>显示自动创建的钱包备份</translation>
+        <translation>Otomatik oluşturulan cüzdan yedeklerini göster</translation>
     </message>
     <message>
         <source>&amp;Sending addresses...</source>
-        <translation>付款地址(&amp;S)...</translation>
+        <translation>&amp;Gönderme adresleri...</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
-        <translation>显示用过的发送地址和标签的列表</translation>
+        <translation>Kullanılmış gönderme adresleri ve etiketlerin listesini göster</translation>
     </message>
     <message>
         <source>&amp;Receiving addresses...</source>
-        <translation>收款地址(&amp;R)...</translation>
+        <translation>&amp;Alma adresleri...</translation>
     </message>
     <message>
         <source>Show the list of used receiving addresses and labels</source>
-        <translation>显示用过的接收地址和标签的列表</translation>
+        <translation>Kullanılmış alım adresleri ve etiketlerin listesini göster</translation>
     </message>
     <message>
         <source>Open &amp;URI...</source>
-        <translation>打开 &amp;URI...</translation>
+        <translation>&amp;URI Aç...</translation>
     </message>
     <message>
         <source>Open a axe: URI or payment request</source>
-        <translation>打开一个达世币协议的URI或付款请求</translation>
+        <translation>Bir Axe: bağlantısı ya da ödeme talebi aç</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
-        <translation>命令行选项(&amp;C)</translation>
+        <translation>&amp;Komut satırı seçenekleri</translation>
     </message>
     <message>
         <source>Show the %1 help message to get a list with possible Axe command-line options</source>
-        <translation>显示 %1 帮助信息，获取可用命令行选项列表</translation>
+        <translation>Olası Axe komut satırı seçeneklerinin listesini görmek için %1 yardım mesajını göster</translation>
     </message>
     <message>
         <source>%1 client</source>
-        <translation>%1 客戶</translation>
+        <translation>%1 istemci</translation>
     </message>
     <message>
         <source>&amp;PrivateSend information</source>
-        <translation>匿名发送信息(&amp;P)</translation>
+        <translation>&amp;Özel Gönder bilgisi</translation>
     </message>
     <message>
         <source>Show the PrivateSend basic information</source>
-        <translation>显示匿名发送基本信息</translation>
+        <translation>Özel Gönder temel bilgilerini göster</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>文件(&amp;F)</translation>
+        <translation>&amp;Dosya</translation>
     </message>
     <message>
         <source>&amp;Settings</source>
-        <translation>设置(&amp;S)</translation>
+        <translation>&amp;Ayarlar</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
-        <translation>工具(&amp;T)</translation>
+        <translation>&amp;Araçlar</translation>
     </message>
     <message>
         <source>&amp;Help</source>
-        <translation>帮助(&amp;H)</translation>
+        <translation>&amp;Yardım</translation>
     </message>
     <message>
         <source>Tabs toolbar</source>
-        <translation>分页工具栏</translation>
+        <translation>Sekme araç çubuğu</translation>
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to Axe network</source>
-        <translation><numerusform>%n个有效的达世币网络连接</numerusform></translation>
+        <translation><numerusform>Axe ağına %n aktif bağlantı</numerusform><numerusform>Axe ağına %n aktif bağlantı</numerusform></translation>
     </message>
     <message>
         <source>Network activity disabled</source>
-        <translation>网络活动已禁用</translation>
+        <translation>Ağ etkinliği devre dışı bırakıldı</translation>
     </message>
     <message>
         <source>Syncing Headers (%1%)...</source>
-        <translation>同步区块头 (%1%)...</translation>
+        <translation>Üstbilgiler Senkronize Ediliyor (%1%)...</translation>
     </message>
     <message>
         <source>Synchronizing with network...</source>
-        <translation>正在与网络同步...</translation>
+        <translation>Ağ ile senkronize ediliyor...</translation>
     </message>
     <message>
         <source>Indexing blocks on disk...</source>
-        <translation>正在为硬盘中的区块建立索引...</translation>
+        <translation>Bloklar diske indeksleniyor...</translation>
     </message>
     <message>
         <source>Processing blocks on disk...</source>
-        <translation>正在处理硬盘中的区块...</translation>
+        <translation>Bloklar diske işleniyor...</translation>
     </message>
     <message>
         <source>Reindexing blocks on disk...</source>
-        <translation>正在为硬盘中的区块重建索引...</translation>
+        <translation>Diskteki bloklar yeniden indeksleniyor...</translation>
     </message>
     <message>
         <source>Connecting to peers...</source>
-        <translation>正在连接到节点……</translation>
+        <translation>Eşlere bağlanılıyor...</translation>
     </message>
     <message numerus="yes">
         <source>Processed %n block(s) of transaction history.</source>
-        <translation><numerusform>已处理了%n个区块的交易记录。</numerusform></translation>
+        <translation><numerusform>İşlem geçmişindeki %n blok işlendi.</numerusform><numerusform>İşlem geçmişindeki %n blok işlendi.</numerusform></translation>
     </message>
     <message>
         <source>%1 behind</source>
-        <translation>落后 %1 </translation>
+        <translation>%1 geride</translation>
     </message>
     <message>
         <source>Catching up...</source>
-        <translation>更新中...</translation>
+        <translation>Aralık kapatılıyor...</translation>
     </message>
     <message>
         <source>Last received block was generated %1 ago.</source>
-        <translation>最新收到的区块产生于%1之前。</translation>
+        <translation>Son alınan blok %1 önce oluşturulmuştu.</translation>
     </message>
     <message>
         <source>Transactions after this will not yet be visible.</source>
-        <translation>在此之后的交易尚未可见</translation>
+        <translation>Bundan sonraki işlemler henüz görüntülenemez.</translation>
     </message>
     <message>
         <source>Up to date</source>
-        <translation>已更新</translation>
+        <translation>Güncel</translation>
     </message>
     <message>
         <source>Synchronizing additional data: %p%</source>
-        <translation>正在同步附加数据：%p%</translation>
+        <translation>Ek veri eşleniyor: %p%</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation>错误</translation>
+        <translation>Hata</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>警告</translation>
+        <translation>Uyarı</translation>
     </message>
     <message>
         <source>Information</source>
-        <translation>信息</translation>
+        <translation>Bilgi</translation>
     </message>
     <message>
         <source>Date: %1
 </source>
-        <translation>日期：%1
+        <translation>Tarih: %1
 </translation>
     </message>
     <message>
         <source>Amount: %1
 </source>
-        <translation>金额：%1
+        <translation>Tutar: %1
 </translation>
     </message>
     <message>
         <source>Type: %1
 </source>
-        <translation>类型：%1
+        <translation>Tür: %1
 </translation>
     </message>
     <message>
         <source>Label: %1
 </source>
-        <translation>标签：%1
+        <translation>Etiket: %1
 </translation>
     </message>
     <message>
         <source>Address: %1
 </source>
-        <translation>地址：%1
+        <translation>Adres: %1
 </translation>
     </message>
     <message>
         <source>Sent transaction</source>
-        <translation>发送交易</translation>
+        <translation>İşlem gönderildi</translation>
     </message>
     <message>
         <source>Incoming transaction</source>
-        <translation>接收交易</translation>
+        <translation>Gelen işlem</translation>
     </message>
     <message>
         <source>HD key generation is &lt;b&gt;enabled&lt;/b&gt;</source>
-        <translation>HD密钥生成&lt;b&gt;启用&lt;/b&gt;</translation>
+        <translation>HD anahtar oluşturma &lt;b&gt;etkin&lt;/b&gt;</translation>
     </message>
     <message>
         <source>HD key generation is &lt;b&gt;disabled&lt;/b&gt;</source>
-        <translation>HD密钥生成&lt;b&gt;禁用&lt;/b&gt;</translation>
+        <translation>HD anahtar oluşturma &lt;b&gt;devre dışı&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
-        <translation>钱包已被&lt;b&gt;加密&lt;/b&gt;，当前为&lt;b&gt;解锁&lt;/b&gt;状态</translation>
+        <translation>Cüzdan &lt;b&gt;şifrelenmiştir&lt;/b&gt; ve şu anda &lt;b&gt;kilidi açıktır&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt; for mixing only</source>
-        <translation>钱包已经&lt;b&gt;加密&lt;/b&gt;  ，当前为 &lt;b&gt;解锁&lt;/b&gt;状态以进行混币</translation>
+        <translation>Cüzdan &lt;b&gt;şifrelenmiştir&lt;/b&gt; ve şu anda kilidi sadece karışım için &lt;b&gt;açıktır&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt;</source>
-        <translation>钱包已被&lt;b&gt;加密&lt;/b&gt;，当前为&lt;b&gt;锁定&lt;/b&gt;状态</translation>
+        <translation>Cüzdan &lt;b&gt;şifrelenmiştir&lt;/b&gt; ve şu anda &lt;b&gt;kilitlidir&lt;/b&gt;</translation>
     </message>
 </context>
 <context>
     <name>ClientModel</name>
     <message>
         <source>Total: %1 (PS compatible: %2 / Enabled: %3)</source>
-        <translation>总计：%1 (匿名发送兼容：%2 / 可用：%3)</translation>
+        <translation>Toplam %1 (ÖG uyumlu: %2 / Etkin: %3)</translation>
     </message>
     <message>
         <source>Network Alert</source>
-        <translation>网络警报</translation>
+        <translation>Ağ Uyarısı</translation>
     </message>
 </context>
 <context>
     <name>CoinControlDialog</name>
     <message>
         <source>Quantity:</source>
-        <translation>总量：</translation>
+        <translation>Miktar:</translation>
     </message>
     <message>
         <source>Bytes:</source>
-        <translation>字节：</translation>
+        <translation>Bayt:</translation>
     </message>
     <message>
         <source>Amount:</source>
-        <translation>金额：</translation>
+        <translation>Meblağ:</translation>
     </message>
     <message>
         <source>Fee:</source>
-        <translation>费用：</translation>
+        <translation>Ücret:</translation>
     </message>
     <message>
         <source>Coin Selection</source>
-        <translation>选择币</translation>
+        <translation>Bitcoin Seçimi</translation>
     </message>
     <message>
         <source>Dust:</source>
-        <translation>零散金额：</translation>
+        <translation>Toz:</translation>
     </message>
     <message>
         <source>After Fee:</source>
-        <translation>加上交易费用后：</translation>
+        <translation>Ücretten sonra:</translation>
     </message>
     <message>
         <source>Change:</source>
-        <translation>找零金额：</translation>
+        <translation>Para üstü:</translation>
     </message>
     <message>
         <source>(un)select all</source>
-        <translation>(不)全选</translation>
+        <translation>tümünü seç(me)</translation>
     </message>
     <message>
         <source>toggle lock state</source>
-        <translation>切换锁定状态</translation>
+        <translation>kilit durumunu aç/kapa</translation>
     </message>
     <message>
         <source>Tree mode</source>
-        <translation>树状模式</translation>
+        <translation>Ağaç kipi</translation>
     </message>
     <message>
         <source>List mode</source>
-        <translation>列表模式</translation>
+        <translation>Liste kipi</translation>
     </message>
     <message>
         <source>(1 locked)</source>
-        <translation>(1 锁定)</translation>
+        <translation>(1 kilitli)</translation>
     </message>
     <message>
         <source>Amount</source>
-        <translation>金额</translation>
+        <translation>Meblağ</translation>
     </message>
     <message>
         <source>Received with label</source>
-        <translation>收款标签</translation>
+        <translation>Şu etiketle alındı</translation>
     </message>
     <message>
         <source>Received with address</source>
-        <translation>收款地址</translation>
+        <translation>Şu adresle alındı</translation>
     </message>
     <message>
         <source>PS Rounds</source>
-        <translation>匿名发送循环</translation>
+        <translation>ÖG Turları</translation>
     </message>
     <message>
         <source>Date</source>
-        <translation>日期</translation>
+        <translation>Tarih</translation>
     </message>
     <message>
         <source>Confirmations</source>
-        <translation>确认</translation>
+        <translation>Doğrulamalar</translation>
     </message>
     <message>
         <source>Confirmed</source>
-        <translation>已确认</translation>
+        <translation>Doğrulandı</translation>
     </message>
     <message>
         <source>Copy address</source>
-        <translation>复制地址</translation>
+        <translation>Adres kopyala</translation>
     </message>
     <message>
         <source>Copy label</source>
-        <translation>复制标签</translation>
+        <translation>Etiket kopyala</translation>
     </message>
     <message>
         <source>Copy amount</source>
-        <translation>复制金额</translation>
+        <translation>Tutarı kopyala</translation>
     </message>
     <message>
         <source>Copy transaction ID</source>
-        <translation>复制交易编号</translation>
+        <translation>İşlem ID'sini kopyala</translation>
     </message>
     <message>
         <source>Lock unspent</source>
-        <translation>锁定未花费</translation>
+        <translation>Harcanmamışı kilitle</translation>
     </message>
     <message>
         <source>Unlock unspent</source>
-        <translation>解锁未花费</translation>
+        <translation>Harcanmamışın kilidini aç</translation>
     </message>
     <message>
         <source>Copy quantity</source>
-        <translation>复制金额</translation>
+        <translation>Miktarı kopyala</translation>
     </message>
     <message>
         <source>Copy fee</source>
-        <translation>复制交易费</translation>
+        <translation>Ücreti kopyala</translation>
     </message>
     <message>
         <source>Copy after fee</source>
-        <translation>复制含交易费的金额</translation>
+        <translation>Ücretten sonrasını kopyala</translation>
     </message>
     <message>
         <source>Copy bytes</source>
-        <translation>复制字节</translation>
+        <translation>Baytları kopyala</translation>
     </message>
     <message>
         <source>Copy dust</source>
-        <translation>复制零钱金额</translation>
+        <translation>Tozu kopyala</translation>
     </message>
     <message>
         <source>Copy change</source>
-        <translation>复制零钱</translation>
+        <translation>Para üstünü kopyala</translation>
     </message>
     <message>
         <source>Please switch to "List mode" to use this function.</source>
-        <translation>请切换到“列表模式”来使用此功能。</translation>
+        <translation>Bu fonksiyonu kullanmak için lütfen "Liste modu"na geçin.</translation>
     </message>
     <message>
         <source>Non-anonymized input selected. &lt;b&gt;PrivateSend will be disabled.&lt;/b&gt;&lt;br&gt;&lt;br&gt;If you still want to use PrivateSend, please deselect all non-anonymized inputs first and then check the PrivateSend checkbox again.</source>
-        <translation>已选择非匿名输入。&lt;b&gt;匿名发送将会被禁用。&lt;/b&gt;&lt;br&gt;&lt;br&gt;如果你仍然想使用匿名发送功能，请先取消所选的非匿名输入，然后再勾选匿名发送。</translation>
+        <translation>Anonim hale getirilmemiş girdi seçildi. &lt;b&gt;Özel Gönder devre dışı olacak&lt;/b&gt;&lt;br&gt;&lt;br&gt;Yine de Özel Gönder kullanmak istiyorsanız, lütfen önce anonim hale getirilmemiş girdilerin seçimini kaldırın sonra Özel Gönder kutusunu işaretleyin.</translation>
     </message>
     <message>
         <source>(%1 locked)</source>
-        <translation>(%1 锁定)</translation>
+        <translation>(%1 kilitlendi)</translation>
     </message>
     <message>
         <source>yes</source>
-        <translation>是</translation>
+        <translation>Evet</translation>
     </message>
     <message>
         <source>no</source>
-        <translation>否</translation>
+        <translation>Hayır</translation>
     </message>
     <message>
         <source>This label turns red if any recipient receives an amount smaller than the current dust threshold.</source>
-        <translation>当任何一个收款金额小于目前的零散金额上限时，文字会变红色。</translation>
+        <translation>Eğer herhangi bir alıcı mevcut toz eşiğinden daha düşük bir tutar alırsa bu etiket kırmızıya dönüşür.</translation>
     </message>
     <message>
         <source>Can vary +/- %1 hak(s) per input.</source>
-        <translation>每笔输入可能会有 +/- %1个hak(s)的偏差.</translation>
+        <translation>Girdi başına +/- %1 hak değişebilir.</translation>
     </message>
     <message>
         <source>(no label)</source>
-        <translation>(无标签)</translation>
+        <translation>(etiket yok)</translation>
     </message>
     <message>
         <source>change from %1 (%2)</source>
-        <translation>来自%1的找零 (%2)</translation>
+        <translation>%1 ögesinden para üstü (%2)</translation>
     </message>
     <message>
         <source>(change)</source>
-        <translation>(找零)</translation>
+        <translation>(para üstü)</translation>
     </message>
     <message>
         <source>n/a</source>
-        <translation>不可用</translation>
+        <translation>Mevcut değil</translation>
     </message>
 </context>
 <context>
     <name>EditAddressDialog</name>
     <message>
         <source>Edit Address</source>
-        <translation>编辑地址</translation>
+        <translation>Adresi düzenle</translation>
     </message>
     <message>
         <source>&amp;Label</source>
-        <translation>标签(&amp;L)</translation>
+        <translation>&amp;Etiket</translation>
     </message>
     <message>
         <source>The label associated with this address list entry</source>
-        <translation>与此地址相关的标签项</translation>
+        <translation>Bu adres listesi girdisi ile ilişkili etiket</translation>
     </message>
     <message>
         <source>&amp;Address</source>
-        <translation>地址(&amp;A)</translation>
+        <translation>&amp;Adres</translation>
     </message>
     <message>
         <source>The address associated with this address list entry. This can only be modified for sending addresses.</source>
-        <translation>该地址已与地址列表中的条目关联。只有发送地址才能被修改。</translation>
+        <translation>Bu adres listesi girdisi ile ilişkili adres. Sadece gönderme adresleri için değiştirilebilir.</translation>
     </message>
     <message>
         <source>New receiving address</source>
-        <translation>新建接收地址</translation>
+        <translation>Yeni alım adresi</translation>
     </message>
     <message>
         <source>New sending address</source>
-        <translation>新建发送地址</translation>
+        <translation>Yeni gönderi adresi</translation>
     </message>
     <message>
         <source>Edit receiving address</source>
-        <translation>编辑接收地址</translation>
+        <translation>Alım adresini düzenle</translation>
     </message>
     <message>
         <source>Edit sending address</source>
-        <translation>编辑发送地址</translation>
+        <translation>Gönderi adresini düzenle</translation>
     </message>
     <message>
         <source>The entered address "%1" is not a valid Axe address.</source>
-        <translation>输入的地址“%1”不是有效的达世币地址。</translation>
+        <translation>Girilen %1 adresi, geçerli bir Axe adresi değildir.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
-        <translation>输入的地址“%1”已经存在于地址簿中。</translation>
+        <translation>Girilen "%1" adresi zaten adres defterinde mevcuttur.</translation>
     </message>
     <message>
         <source>Could not unlock wallet.</source>
-        <translation>无法解锁钱包</translation>
+        <translation>Cüzdan kilidi açılamadı.</translation>
     </message>
     <message>
         <source>New key generation failed.</source>
-        <translation>新的密钥生成失败。</translation>
+        <translation>Yeni anahtar oluşturulması başarısız oldu.</translation>
     </message>
 </context>
 <context>
     <name>FreespaceChecker</name>
     <message>
         <source>A new data directory will be created.</source>
-        <translation>一个新的数据目录将被创建。</translation>
+        <translation>Yeni bir veri klasörü oluşturulacaktır.</translation>
     </message>
     <message>
         <source>name</source>
-        <translation>名称</translation>
+        <translation>İsim</translation>
     </message>
     <message>
         <source>Directory already exists. Add %1 if you intend to create a new directory here.</source>
-        <translation>目录已存在。如果您打算在这里创建一个新目录，添加 %1。</translation>
+        <translation>Klasör zaten mevcuttur. Burada yeni bir klasör oluşturmak istiyorsanız, %1 ekleyiniz.</translation>
     </message>
     <message>
         <source>Path already exists, and is not a directory.</source>
-        <translation>路径已存在，并且不是一个目录。</translation>
+        <translation>Erişim yolu zaten mevcuttur ve klasör değildir.</translation>
     </message>
     <message>
         <source>Cannot create data directory here.</source>
-        <translation>无法在此创建数据目录。</translation>
+        <translation>Burada veri klasörü oluşturulamaz.</translation>
     </message>
 </context>
 <context>
     <name>HelpMessageDialog</name>
     <message>
         <source>version</source>
-        <translation>版本</translation>
+        <translation>Sürüm</translation>
     </message>
     <message>
         <source>(%1-bit)</source>
-        <translation>(%1 位)</translation>
+        <translation>(%1-bit)</translation>
     </message>
     <message>
         <source>About %1</source>
-        <translation>關於 %1</translation>
+        <translation>%1 Hakkında</translation>
     </message>
     <message>
         <source>Command-line options</source>
-        <translation>命令行选项</translation>
+        <translation>komut satırı seçenekleri</translation>
     </message>
     <message>
         <source>Usage:</source>
-        <translation>用法：</translation>
+        <translation>Kullanım:</translation>
     </message>
     <message>
         <source>command-line options</source>
-        <translation>命令行选项</translation>
+        <translation>komut satırı seçenekleri</translation>
     </message>
     <message>
         <source>UI Options:</source>
-        <translation>界面选项：</translation>
+        <translation>Arayüz Seçenekleri:</translation>
     </message>
     <message>
         <source>Choose data directory on startup (default: %u)</source>
-        <translation>在启动时选择目录（默认%u）</translation>
+        <translation>Başlangıçta veri klasörü seç (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Set language, for example "de_DE" (default: system locale)</source>
-        <translation>设置语言, 例如“zh_CN”（默认为系统语言）</translation>
+        <translation>Lisan belirt, mesela "de_De" (varsayılan: sistem dili)</translation>
     </message>
     <message>
         <source>Start minimized</source>
-        <translation>启动时最小化</translation>
+        <translation>Küçültülmüş olarak başlat</translation>
     </message>
     <message>
         <source>Set SSL root certificates for payment request (default: -system-)</source>
-        <translation>设置付款请求时使用的SSL根证书（默认：-系统-）</translation>
+        <translation>Ödeme talebi için SSL kök sertifikalarını belirle (varsayılan: -system-)</translation>
     </message>
     <message>
         <source>Show splash screen on startup (default: %u)</source>
-        <translation>显示启动画面（默认：%u）</translation>
+        <translation>Başlatıldığında başlangıç ekranını göster (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Reset all settings changed in the GUI</source>
-        <translation>重置图形界面所有的变更设置</translation>
+        <translation>Grafik arayüzde yapılan tüm seçenek değişikliklerini sıfırla</translation>
     </message>
     <message>
         <source>PrivateSend information</source>
-        <translation>匿名发送信息</translation>
+        <translation>Özel Gönder bilgisi</translation>
     </message>
     <message>
         <source>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the Axe in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 AXE, 0.01 AXE, 0.1 AXE, 1 AXE and 10 AXE -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more information, see the &lt;a href="https://docs.axe.org/en/latest/wallets/axecore/privatesend-instantsend.html"&gt;PrivateSend documentation&lt;/a&gt;.</source>
-        <translation>&lt;h3&gt;匿名发送基础知识&lt;/h3&gt;匿名发送通过隐藏您的资金来源为您提供真正的财务隐私。您的钱包中所有的达世币都由不同的“输入”组成，您可以将其视为分开的离散硬币。&lt;br&gt;匿名发送使用创新的方法将您的输入与其他两个人的输入相结合，而过程中不会让您的达世币离开您的钱包。每时每刻，您仍然控制着您的钱。&lt;hr&gt;&lt;b&gt;匿名发送的运作原理如下：&lt;/b&gt;&lt;ol type="1"&gt;&lt;li&gt;匿名发送首先将您的交易分柝成多个标准面额的交易。这些标准面额分别为0.001 AXE，0.01 AXE，0.1 AXE，1 AXE和10 AXE --有点像您每天使用的纸币。&lt;/li&gt;&lt;li&gt;您的钱包然后发送请求到网络上有专门配置的软件节点，称为“主节点”。这些主节点会收到您希望混合一些资金的通知。没有可识别的信息发送到主节点，所以他们永远不会知道你是“谁”。&lt;li&gt;当另外两个人发送类似的消息时，表示希望混合相同的面额的话，混合会话就会开始。相关的主节点会混合这些输入，并指示所有三个用户的钱包将已经转换了输入的交易支付给自己。您的钱包直接支付给自己，但是付给不同的位址（称之为找零地址）。&lt;/li&gt;&lt;li&gt;为了完全掩盖您的资金来源，您的钱包必须以每个面额来重复此过程数次。每次这个过程完成后，都称之为一个“循环”。每个循环的匿名发送都会令确定您的资金来源的工作倍加困难。&lt;/li&gt;&lt;li&gt;这种混合过程发生在后台，而不需要您进行任何操作。当您想进行交易时，您的资金将已被匿名处理。不需再花额外的时间等待。&lt;/li&gt;&lt;/ol&gt;&lt;hr&gt;重要：&lt;b&gt;您的钱包只能拥有1000个“找零地址”。每次混合事件发生时，最多会使用9个找零地址。这意味着这1000个地址可以容许100次的混合事件。当其的中900个已经被使用后，您的钱包必须创建更多的地址。如果您启用了自动备份，则只能够这样做。&lt;br&gt;因此，禁用备份的用户也将禁用匿名发送。&lt;hr&gt;如欲了解更多信息请参阅&lt;a href="https://docs.axe.org/en/latest/wallets/axecore/privatesend-instantsend.html"&gt;匿名发送文档&lt;/a&gt;。</translation>
+        <translation>&lt;h3&gt;Özel Gönder Temel Bilgiler&lt;/h3&gt; Özel Gönder size paranızın gerçek kaynağını gizleyerek tam bir gizlilik imkanı sağlar. Cüzdanınızdaki Axe farklı "girdiler"den oluşur, bunu ayrı gizli paralar olarak düşünebilirsiniz.&lt;br&gt; Özel Gönder sizin girdilerinizi başka iki kişinin girdileri ile karıştırmak için yenilikçi bir işlem kullanır ve bu sırada paranın cüzdanınızdan çıkmasına gerek kalmaz. Her an paranızın kontrolü sizdedir.&lt;hr&gt; &lt;b&gt;Özel Gönder işlemi şöyle işler:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;Özel Gönder işlem girdilerinizi standart birimlere bölerek başlar. Bu birimler 0.001 AXE, 0.01 AXE, 0.1 AXE, 1 AXE ve 10 AXE'dir -- her gün kullandığınız kağıt para gibi düşünebilirsiniz.&lt;/li&gt; &lt;li&gt;Sonra cüzdanınız ağdaki özel ayarlanmış yazılım düğümlerine talepler gönderir, bunşara "ana düğümler" denir. Bu ana düğümlere sizin belli bir miktar birimi karıştırmak istediğiniz bilgisi gider. Ana düğümlere kimliğinizi açık edecek bir bilgi gönderilmez, bu yüzden "kim" olduğunuzu bilmezler.&lt;/li&gt; &lt;li&gt;Aynı birimleri karıştırmak istediğini belirten iki başka kişi daha benzer mesajlar gönderince, karıştırma işlemi başlar. Ana düğüm giridleri karıştırır ve üç kullanıcının da cüzdanına şimdi dönüştürülmüş olan girdiyi kendilerne ödemelerini emreder. Cüzdanınız bu birimleri doğrudan kendisine öder ama farklı bir adres kullanır (buna değişim adresi denir).&lt;/li&gt; &lt;li&gt;Paranızı tamamen gizlemek için cüzdanınız bu işlemi her birim için birkaç defa tekrar etmelidir. Her işlem tamamlandığına buna bir "tur" denir. Her bir Özel Gönder turu paranızın kaynağının bulunmasını üstel olarak zorlaştırır.&lt;/li&gt; &lt;li&gt;Bu karışım işlemi arkaplanda sizin tarafınızdan bir müdahale olmadan gerçekleşir. Bir işlem yapmak istediğinizde bakiyeniz zaten anonimleştirilmiş olacaktır. Ek bir beklemeye gerek kalmaz.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;ÖNEMLİ:&lt;/b&gt; Cüzdanınızda bu "değişim adreslerinden" sadece 1000 tane vardır. Her bir karışım işleminde bu adreslerden 9 taneye kadar kullanılır. Bu da 1000 adresin yaklaşık 100 karışım işlemine yeteceği anlamına gelir. 900 tanesi kullanıldığı zaman, cüzdanınızın daha fazla adres oluşturması gerekir. Yalnız bunu ancak otomatik yedekleme etkinse yapabilir.&lt;br&gt; Sonuç olarak yedeklemeyi kapatan kullanıcılar aynı zamanda Özel Gönderi de kapatmış olurlar. &lt;hr&gt;Daha fazla bilgi için lütfen &lt;a href="https://docs.axe.org/en/latest/wallets/axecore/privatesend-instantsend.html"&gt;Özel Gönder dökümantasyonuna&lt;/a&gt; göz atın.         </translation>
     </message>
 </context>
 <context>
     <name>Intro</name>
     <message>
         <source>Welcome</source>
-        <translation>欢迎</translation>
+        <translation>Hoş geldiniz</translation>
     </message>
     <message>
         <source>Welcome to %1.</source>
-        <translation>欢迎使用 %1</translation>
+        <translation>%1'a hoş geldiniz.</translation>
     </message>
     <message>
         <source>As this is the first time the program is launched, you can choose where %1 will store its data.</source>
-        <translation>由于这是第一次启动此程序，您可以选择%1的数据所存储的位置</translation>
+        <translation>Bu programın ilk kez başlatılmasından dolayı %1 yazılımının verilerini nerede saklayacağını seçebilirsiniz.</translation>
     </message>
     <message>
         <source>%1 will download and store a copy of the Axe block chain. At least %2GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>%1 将会下载并存储达世币区块链。至少有 %2 GB的数据会保存到此路径下，并且随着时间增长。钱包文件也将存储到此路径下。</translation>
+        <translation>%1 Axe blok zincirinin bir kopyasını indirecek ve depolayacak. En az %2GB veri bu klasörde depolanacak ve zaman içinde büyüyecek. Cüzdan da aynı zamanda bu klasörde depolanacak.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
-        <translation>使用默认的数据目录</translation>
+        <translation>Varsayılan veri klasörünü kullan</translation>
     </message>
     <message>
         <source>Use a custom data directory:</source>
-        <translation>使用自定义的数据目录：</translation>
+        <translation>Özel bir veri klasörü kullan:</translation>
     </message>
     <message>
         <source>Error: Specified data directory "%1" cannot be created.</source>
-        <translation>错误：指定的数据目录“%1”无法被创建。</translation>
+        <translation>Hata: belirtilen "%1" veri klasörü oluşturulamaz.</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation>错误</translation>
+        <translation>Hata</translation>
     </message>
     <message>
         <source>%1 GB of free space available</source>
-        <translation>%1GB的可用空间</translation>
+        <translation>%1 GB boş alan mevcut</translation>
     </message>
     <message>
         <source>(of %1 GB needed)</source>
-        <translation>(需要 %1 GB的空间)</translation>
+        <translation>(%1 GB gerekli)</translation>
     </message>
 </context>
 <context>
     <name>MasternodeList</name>
     <message>
         <source>Form</source>
-        <translation>表单</translation>
+        <translation>Form</translation>
     </message>
     <message>
         <source>My Masternodes</source>
-        <translation>我的主节点</translation>
+        <translation>Ana Düğümlerim</translation>
     </message>
     <message>
         <source>Note: Status of your masternodes in local wallet can potentially be slightly incorrect.&lt;br /&gt;Always wait for wallet to sync additional data and then double check from another node&lt;br /&gt;if your masternode should be running but you still do not see "ENABLED" in "Status" field.</source>
-        <translation>注意：本地钱包中的主节点状态可能会稍有误差。&lt;br /&gt;总是等待钱包同步完额外的数据后再从另一个节点重新检查&lt;br /&gt;如果您的主节点应该已经运行，但您仍然在“状态”栏看不到“启用”的话。</translation>
+        <translation>Not: Yerel cüzdanınızdaki ana düğüm durumları biraz yanlış olabilir.&lt;br /&gt;Eğer ana düğümünüz çalışıyor durumda olmalı ama "Durum" alanında "ETKİN" olarak görünmüyorsa&lt;br /&gt;her zaman cüzdanın ek bilgiyi eşleştirmesini bekleyip başka bir düğümü kontrol edin.</translation>
     </message>
     <message>
         <source>Alias</source>
-        <translation>别名</translation>
+        <translation>Adlar</translation>
     </message>
     <message>
         <source>Address</source>
-        <translation>地址</translation>
+        <translation>Adres</translation>
     </message>
     <message>
         <source>Protocol</source>
-        <translation>协议</translation>
+        <translation>Protokol</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation>状态</translation>
+        <translation>Durum</translation>
     </message>
     <message>
         <source>Active</source>
-        <translation>工作中</translation>
+        <translation>Etkin</translation>
     </message>
     <message>
         <source>Last Seen</source>
-        <translation>最后在线</translation>
+        <translation>Son Görülme</translation>
     </message>
     <message>
         <source>Payee</source>
-        <translation>收款人</translation>
+        <translation>Alacaklı</translation>
     </message>
     <message>
         <source>S&amp;tart alias</source>
-        <translation>启动别名(&amp;T)</translation>
+        <translation>A&amp;d Başlat</translation>
     </message>
     <message>
         <source>Start &amp;all</source>
-        <translation>启动全部(&amp;A)</translation>
+        <translation>&amp;Hepsini başlat</translation>
     </message>
     <message>
         <source>Start &amp;MISSING</source>
-        <translation>启动遗漏(&amp;M)</translation>
+        <translation>&amp;KAYIP başlat</translation>
     </message>
     <message>
         <source>&amp;Update status</source>
-        <translation>更新状态(&amp;U)</translation>
+        <translation>&amp;Güncelleme durumu</translation>
     </message>
     <message>
         <source>Show additional Masternode information</source>
-        <translation>显示附加的主节点信息</translation>
+        <translation>Ek Ana düğüm bilgisi göster</translation>
     </message>
     <message>
         <source>Show &amp;Info...</source>
-        <translation>显示 &amp;信息...</translation>
+        <translation>&amp;Bilgi göster...</translation>
     </message>
     <message>
         <source>Status will be updated automatically in (sec):</source>
-        <translation>状态将在数秒后自动更新：</translation>
+        <translation>Şu kadar (san) içinde durum güncellenecek:</translation>
     </message>
     <message>
         <source>0</source>
@@ -1094,67 +1094,67 @@
     </message>
     <message>
         <source>All Masternodes</source>
-        <translation>所有主节点</translation>
+        <translation>Tüm Ana Düğümler</translation>
     </message>
     <message>
         <source>Filter List:</source>
-        <translation>筛选列表：</translation>
+        <translation>Filtre Listesi:</translation>
     </message>
     <message>
         <source>Filter masternode list</source>
-        <translation>筛选主节点列表</translation>
+        <translation>Ana düğüm listesini filtrele</translation>
     </message>
     <message>
         <source>Node Count:</source>
-        <translation>节点数：</translation>
+        <translation>Düğüm Sayısı:</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Note: This list represents the legacy and non-deterministic masternode list. It is only active as long as DIP3 has not been fully activated. After SPORK15 activation, this list will be empty.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;注意: 本列表显示的是遗留的非确定性主节点列表，并仅在 DIP3 未完全激活时处于活动状态。在 SPORK15开启后，本列表将清空。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Not: Bu liste eski ve deterministik olmayan ana düğüm listesini gösterir. Bu liste sadece DIP3 tamamen etkinleştirilene kadar etkin olacaktır. SPORK15 etkinleştirmesinden sonra bu liste boş kalacaktır.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>DIP3 Masternodes</source>
-        <translation>DIP3 主节点</translation>
+        <translation>DIP3 Ana Düğümleri</translation>
     </message>
     <message>
         <source>PoSe Score</source>
-        <translation>PoSe 评分</translation>
+        <translation>PoSe Puanı</translation>
     </message>
     <message>
         <source>Registered</source>
-        <translation>已注册的</translation>
+        <translation>Kayıtlı</translation>
     </message>
     <message>
         <source>Last Paid</source>
-        <translation>最近支付</translation>
+        <translation>Son Ödeme</translation>
     </message>
     <message>
         <source>Next Payment</source>
-        <translation>下次支付</translation>
+        <translation>Gelecek Ödeme</translation>
     </message>
     <message>
         <source>Operator Reward</source>
-        <translation>运行者奖励</translation>
+        <translation>Operatör Ödülü</translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Note: This list is not active yet and only for informational purposes. The network is still running in compatibility mode, which means that the non-deterministic masternode list is still active. Only after SPORK15 activation, this list will become the active one. Also, the values in the payment related fields are not used at the moment, but still updated for every block. Please ignore this until SPORK15 activation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;注意: 本列表尚未激活，仅供参考。网络仍在以兼容模式运行，这意味着非确定性主节点列表仍然处于活动状态。只有在 SPORK15 开启后，本列表才会激活。另外，支付相关字段的值暂未使用，但依旧会逐块更新。请忽略此项直至 SPORK15 开启。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Not: Bu liste henüz etkin değildir ve sadece bilgi amaçlıdır. Ağ hala uyumluluk modunda çalışıyor bu sebeple deterministik olmayan ana düğüm listesi hala etkin. SPORK15 etkinleştirmesinden sonra bu liste geçerli olacak. Ayrıca, ödemeyle ilgili alanlardaki değerler şu anda kullanımda değil ama yine de ger bloktan sonra güncelleniyor. Lütfen bu değerleri SPORK15 etkinleştirmesine kadar dikkate almayın.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <source>Start alias</source>
-        <translation>启动别名</translation>
+        <translation>Ad başlat</translation>
     </message>
     <message>
         <source>Copy ProTx Hash</source>
-        <translation>复制 ProTx Hash</translation>
+        <translation>ProTx Hashini kopyala</translation>
     </message>
     <message>
         <source>Copy Collateral Outpoint</source>
-        <translation>复制保证金输出点</translation>
+        <translation>Teminat Çıkış Noktasını Kopyala</translation>
     </message>
     <message>
         <source>ENABLED</source>
-        <translation>ENABLED</translation>
+        <translation>ETKİN</translation>
     </message>
     <message>
         <source>POSE_BANNED</source>
@@ -1162,71 +1162,71 @@
     </message>
     <message>
         <source>UNKNOWN</source>
-        <translation>UNKNOWN</translation>
+        <translation>BİLİNMİYOR</translation>
     </message>
     <message>
         <source>to %1</source>
-        <translation>至 %1</translation>
+        <translation>şuna: %1</translation>
     </message>
     <message>
         <source>to UNKNOWN</source>
-        <translation>至 UNKNOWN</translation>
+        <translation>şuna: BİLİNMİYOR</translation>
     </message>
     <message>
         <source>but not claimed</source>
-        <translation>但未认领</translation>
+        <translation>ama alınmadı</translation>
     </message>
     <message>
         <source>NONE</source>
-        <translation>NONE</translation>
+        <translation>YOK</translation>
     </message>
     <message>
         <source>Confirm masternode start</source>
-        <translation>确认启动主节点</translation>
+        <translation>Ana düğüm başlangıcını onayla</translation>
     </message>
     <message>
         <source>Are you sure you want to start masternode %1?</source>
-        <translation>您确定要启动主节点%1吗？</translation>
+        <translation>Ana düğüm %1 başlatmak istediğinize emin misiniz?</translation>
     </message>
     <message>
         <source>Confirm all masternodes start</source>
-        <translation>确认启动所有的主节点</translation>
+        <translation>Tüm ana düğüm başlatmalarını onayla</translation>
     </message>
     <message>
         <source>Are you sure you want to start ALL masternodes?</source>
-        <translation>您确定要启动所有主节点吗？</translation>
+        <translation>TÜM ana düğümleri başlatmak istediğinize emin misiniz?</translation>
     </message>
     <message>
         <source>Command is not available right now</source>
-        <translation>命令目前不可使用</translation>
+        <translation>Komut şu an mevcut değil</translation>
     </message>
     <message>
         <source>You can't use this command until masternode list is synced</source>
-        <translation>在主节点列表同步之前您无法使用此命令</translation>
+        <translation>Ana düğüm listesi eşleşene kadar bu komutu kullanamazsınız</translation>
     </message>
     <message>
         <source>Confirm missing masternodes start</source>
-        <translation>确认启动遗漏的主节点</translation>
+        <translation>Kayıp ana düğümleri başlatmayı onayla</translation>
     </message>
     <message>
         <source>Are you sure you want to start MISSING masternodes?</source>
-        <translation>你确定要启动遗漏的主节点吗？</translation>
+        <translation>KAYIP ana düğümleri başlatmak istediğinize emin misiniz?</translation>
     </message>
     <message>
         <source>Additional information for Masternode %1</source>
-        <translation>主节点 %1 的附加信息</translation>
+        <translation>Ana Düğüm %1 için ek bilgi</translation>
     </message>
     <message>
         <source>Masternode Private Key</source>
-        <translation>主节点私钥</translation>
+        <translation>Ana  Düğüm Özel Anahtarı</translation>
     </message>
     <message>
         <source>Private Key</source>
-        <translation>私钥</translation>
+        <translation>Özel Anahtar</translation>
     </message>
     <message>
         <source>Collateral</source>
-        <translation>抵押</translation>
+        <translation>Teminat</translation>
     </message>
     <message>
         <source>IP</source>
@@ -1234,81 +1234,81 @@
     </message>
     <message>
         <source>Version</source>
-        <translation>版本</translation>
+        <translation>Sürüm</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation>未知</translation>
+        <translation>Bilinmiyor</translation>
     </message>
     <message>
         <source>Sentinel</source>
-        <translation>哨兵</translation>
+        <translation>Sentinel</translation>
     </message>
     <message>
         <source>Additional information for DIP3 Masternode %1</source>
-        <translation>DIP3 主节点 %1 的额外信息</translation>
+        <translation>DIP3 Ana Düğümü %1 için ek bilgi</translation>
     </message>
 </context>
 <context>
     <name>ModalOverlay</name>
     <message>
         <source>Form</source>
-        <translation>表单</translation>
+        <translation>Form</translation>
     </message>
     <message>
         <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the Axe network, as detailed below.</source>
-        <translation>最近的交易可能尚未显示，因此您的钱包的余额可能不正确。一旦您的钱包完成与达世币网络的同步，这个信息将会修正，如下所述。</translation>
+        <translation>Son işlemler henüz görünmeyebilir ve bu nedenle cüzdanınızın bakiyesi yanlış olabilir. Bu bilgiler, aşağıda detaylandırıldığı gibi, cüzdanınız Axe ağı ile senkronizasyonunu tamamladığında doğru olacaktır. </translation>
     </message>
     <message>
         <source>Attempting to spend Axe that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
-        <translation>假如您正在尝试花费尚未显示出来的达世币，这个交易将不会被网络所接受。</translation>
+        <translation>Daha görüntülenmemiş işlemler tarafından etkilenen Axe'i harcama teşebbüsü ağ tarafından kabul edilmez.</translation>
     </message>
     <message>
         <source>Number of blocks left</source>
-        <translation>剩余区块数量</translation>
+        <translation>Kalan blok sayısı</translation>
     </message>
     <message>
         <source>Unknown...</source>
-        <translation>未知...</translation>
+        <translation>Bilinmiyor...</translation>
     </message>
     <message>
         <source>Last block time</source>
-        <translation>上一区块时间</translation>
+        <translation>Son blok zamanı</translation>
     </message>
     <message>
         <source>Progress</source>
-        <translation>进度</translation>
+        <translation>İlerleme</translation>
     </message>
     <message>
         <source>Progress increase per hour</source>
-        <translation>每小时进度增加</translation>
+        <translation>Saat başı ilerleme artışı</translation>
     </message>
     <message>
         <source>calculating...</source>
-        <translation>正在计算...</translation>
+        <translation>hesaplanıyor...</translation>
     </message>
     <message>
         <source>Estimated time left until synced</source>
-        <translation>预计剩余同步时间</translation>
+        <translation>Senkronize edilene kadar kalan tahmini süre</translation>
     </message>
     <message>
         <source>Hide</source>
-        <translation>隐藏</translation>
+        <translation>Gizle</translation>
     </message>
     <message>
         <source>Unknown. Syncing Headers (%1)...</source>
-        <translation>未知状态。同步区块头(%1)...</translation>
+        <translation>Bilinmeyen. Üstbilgiler Senkronize Ediliyor (%1)...</translation>
     </message>
 </context>
 <context>
     <name>OpenURIDialog</name>
     <message>
         <source>Open URI</source>
-        <translation>打开 URI</translation>
+        <translation>URI aç</translation>
     </message>
     <message>
         <source>Open payment request from URI or file</source>
-        <translation>打开来自URI或文件的付款请求 </translation>
+        <translation>Dosyadan veya URI'den ödeme talebi aç</translation>
     </message>
     <message>
         <source>URI:</source>
@@ -1316,26 +1316,26 @@
     </message>
     <message>
         <source>Select payment request file</source>
-        <translation>选择付款请求文件 </translation>
+        <translation>Ödeme talebi dosyasını seç</translation>
     </message>
     <message>
         <source>Select payment request file to open</source>
-        <translation>选择需要打开的付款请求文件 </translation>
+        <translation>Açılacak ödeme talebi dosyasını seç</translation>
     </message>
 </context>
 <context>
     <name>OptionsDialog</name>
     <message>
         <source>Options</source>
-        <translation>选项</translation>
+        <translation>Seçenekler</translation>
     </message>
     <message>
         <source>&amp;Main</source>
-        <translation>主要(&amp;M)</translation>
+        <translation>&amp;Esas ayarlar</translation>
     </message>
     <message>
         <source>Size of &amp;database cache</source>
-        <translation>数据库缓存大小(&amp;D)</translation>
+        <translation>&amp;Veritabanı tamponunun boyutu</translation>
     </message>
     <message>
         <source>MB</source>
@@ -1343,159 +1343,159 @@
     </message>
     <message>
         <source>Number of script &amp;verification threads</source>
-        <translation>脚本&amp; 验证 进程数 </translation>
+        <translation>İş parçacıklarını &amp;denetleme betiği sayısı</translation>
     </message>
     <message>
         <source>(0 = auto, &lt;0 = leave that many cores free)</source>
-        <translation>(0 = 自动, &lt;0 = 保留处理器核心不用的数目)</translation>
+        <translation>(0 = otomatik, &lt;0 = bu kadar çekirdeği kullanma)</translation>
     </message>
     <message>
         <source>Amount of Axe to keep anonymized</source>
-        <translation>保持匿名化的达世币数</translation>
+        <translation>Anonim tutulacak Axe tutarı</translation>
     </message>
     <message>
         <source>W&amp;allet</source>
-        <translation>钱包(&amp;A)</translation>
+        <translation>&amp;Cüzdan</translation>
     </message>
     <message>
         <source>Show additional tab listing all your masternodes in first sub-tab&lt;br/&gt;and all masternodes on the network in second sub-tab.</source>
-        <translation>显示其他标签，在第一个子标签列出所有您的主节点&lt;br/&gt;在第二个子标签列出所有网络上的主节点。</translation>
+        <translation>İlk alt sekmede tüm ana düğümlerinizi gösteren ve&lt;br/&gt;ikinci alt sekmede tüm ana düğümleri gösteren ek bir sekme göster.</translation>
     </message>
     <message>
         <source>Show Masternodes Tab</source>
-        <translation>显示主节点标签页</translation>
+        <translation>Ana Düğümler Sekmesini Göster</translation>
     </message>
     <message>
         <source>Show additional information and buttons for PrivateSend on overview screen.</source>
-        <translation>在概况页面上显示匿名发送的额外信息和按钮。</translation>
+        <translation>Genel bakış ekranında Özel Gönder için ek bilgi ve düğmeler göster.</translation>
     </message>
     <message>
         <source>Enable advanced PrivateSend interface</source>
-        <translation>启用高级匿名发送界面</translation>
+        <translation>Gelişmiş Özel Gönder arayüzünü etkinleştir</translation>
     </message>
     <message>
         <source>Show warning dialog when PrivateSend detects that wallet has very low number of keys left.</source>
-        <translation>当匿名发送检测到钱包具有非常少的公钥时，显示警告对话框。</translation>
+        <translation>Özel Gönder çok az sayıda anahtar kaldığını tespit ettiğinde bir uyarı göster.</translation>
     </message>
     <message>
         <source>Warn if PrivateSend is running out of keys</source>
-        <translation>如果匿名发送用完公钥就发出警告</translation>
+        <translation>Özel Gönderin anahtarı bitiyorsa uyar</translation>
     </message>
     <message>
         <source>Whether to use experimental PrivateSend mode with multiple mixing sessions per block.&lt;br/&gt;Note: You must use this feature carefully.&lt;br/&gt;Make sure you always have recent wallet (auto)backup in a safe place!</source>
-        <translation>是否使用实验性质的匿名发送模式，当中每个内存块都会有多个混合会话。&lt;br/&gt;注意：您必须小心使用此功能。&lt;br/&gt;确保您总是有最近的钱包（自动）备份在一个安全的地方！</translation>
+        <translation>Blok başına birden fazla karışım yapmak için deneysel Özel Gönder modunu kullanıp kullanmayacağınızı belirler.&lt;br/&gt;Not: Bu özelliği dikkatli kullanmalısınız.&lt;br/&gt;Cüzdanınızın son (oto)yedeğinin güvenli bir yerde olduğundan her zaman emin olun!</translation>
     </message>
     <message>
         <source>Enable PrivateSend &amp;multi-session</source>
-        <translation>启用匿名发送多重会话</translation>
+        <translation>Özel Gönder &amp;çoklu oturumu etkinleştir</translation>
     </message>
     <message>
         <source>If you disable the spending of unconfirmed change, the change from a transaction&lt;br/&gt;cannot be used until that transaction has at least one confirmation.&lt;br/&gt;This also affects how your balance is computed.</source>
-        <translation>如果您禁用还未确认的零钱，那么交易中找零的零钱&lt;br/&gt;至少需要1个确认才能使用。&lt;br/&gt;这也会影响余额的计算。</translation>
+        <translation>Teyit edilmemiş para üstünü harcamayı devre dışı bırakırsanız&lt;br/&gt;bir işlemin para üstü bu işlem için en az bir teyit olana dek harcanamaz.&lt;br/&gt;Bu, aynı zamanda bakiyenizin nasıl hesaplandığını da etkiler.</translation>
     </message>
     <message>
         <source>PrivateSend rounds to use</source>
-        <translation>匿名传送的循环次数</translation>
+        <translation>Kullanılacak Özel Gönder turları</translation>
     </message>
     <message>
         <source>This amount acts as a threshold to turn off PrivateSend once it's reached.</source>
-        <translation>此金额为关闭匿名发送的阈值。</translation>
+        <translation>Bu tutar ulaşıldığında Özel Gönderi kapatacak bir eşik olarak çalışır.</translation>
     </message>
     <message>
         <source>Automatically open the Axe Core client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>自动在路由器打开达世币核心客户端端口。此项只在路由器支持UPnP且开启时有效。</translation>
+        <translation>Router'da otomatik olarak Axe Core istemcisi portu aç. Bu sadece router'ınız UPnP destekliyorsa ve etkinse çalışır.</translation>
     </message>
     <message>
         <source>Accept connections from outside</source>
-        <translation>接受来自外部的连接</translation>
+        <translation>Dışarıdan bağlantı kabul et</translation>
     </message>
     <message>
         <source>Allow incoming connections</source>
-        <translation>接受外来连接</translation>
+        <translation>Gelen bağlantılara izin ver</translation>
     </message>
     <message>
         <source>Connect to the Axe network through a SOCKS5 proxy.</source>
-        <translation>通过SOCKS5代理连接达世币网络。</translation>
+        <translation>Axe ağına bir SOCKS5 vekil sunucusu aracılığıyla bağlan.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
-        <translation>通过SOCKS5代理连接 (默认代理)(&amp;C)：</translation>
+        <translation>SOCKS5 vekil sunucusu aracılığıyla &amp;bağlan (varsayılan vekil sunucusu):</translation>
     </message>
     <message>
         <source>Minimize instead of exit the application when the window is closed. When this option is enabled, the application will be closed only after selecting Exit in the menu.</source>
-        <translation>窗口被关闭时最小化而不是退出应用程序。当此选项启用时，应用程序只会在菜单中选择退出时退出。</translation>
+        <translation>Pencere kapatıldığında uygulamadan çıkmak yerine uygulamayı küçültür. Bu seçenek etkinleştirildiğinde, uygulama sadece menüden çıkış seçildiğinde kapanacaktır.</translation>
     </message>
     <message>
         <source>Third party URLs (e.g. a block explorer) that appear in the transactions tab as context menu items.&lt;br/&gt;%s in the URL is replaced by transaction hash. Multiple URLs are separated by vertical bar |.</source>
-        <translation>出现在交易的选项卡的上下文菜单项的第三方URL（例如，区块链查询网站）。&lt;br/&gt;URL中的 %s被替换为交易哈希。多个URL需用竖线 | 分隔。</translation>
+        <translation>İşlemler sekmesinde bağlam menüsü ögeleri gibi görünen  üçüncü parti URLleri (ör. bir blok tarayıcısı).&lt;br/&gt;URL'deki %s işlem hashi ile değiştirilir. Birden fazla URL dikey çizgi | ile ayrılır.</translation>
     </message>
     <message>
         <source>Expert</source>
-        <translation>专家</translation>
+        <translation>Gelişmiş</translation>
     </message>
     <message>
         <source>This setting determines the amount of individual masternodes that an input will be anonymized through.&lt;br/&gt;More rounds of anonymization gives a higher degree of privacy, but also costs more in fees.</source>
-        <translation>此选项用以调整进行匿名化操作的主节点数量。&lt;br/&gt;越多的循环次数提供了更高级别的匿名性，同时也会花费更多的手续费</translation>
+        <translation>Bu ayar, bir girdinin anonim hale getirilmesi için kullanılacak ana düğüm sayısını belirler.&lt;br/&gt;Daha çok anonimleştirme turu daha yüksek bir gizlilik sağlar ama daha maliyetli olur.</translation>
     </message>
     <message>
         <source>Whether to show coin control features or not.</source>
-        <translation>是否显示交易源地址控制功能。</translation>
+        <translation>Para kontrol özelliklerinin gösterilip gösterilmeyeceğini ayarlar.</translation>
     </message>
     <message>
         <source>Automatically start %1 after logging in to the system.</source>
-        <translation>在登入系统后自动启动 %1</translation>
+        <translation>Sistemde oturum açıldığında %1 programını otomatik olarak başlat.</translation>
     </message>
     <message>
         <source>&amp;Start %1 on system login</source>
-        <translation>系统登入时启动 %1</translation>
+        <translation>&amp;Açılışta %1 açılsın</translation>
     </message>
     <message>
         <source>Enable coin &amp;control features</source>
-        <translation>启动交易源地址控制功能(&amp;C)</translation>
+        <translation>Para &amp;kontrolü özelliklerini etkinleştir</translation>
     </message>
     <message>
         <source>Show system popups for PrivateSend mixing transactions&lt;br/&gt;just like for all other transaction types.</source>
-        <translation>显示匿名发送混币交易的系统弹出窗口 &lt;br/&gt; 如同其他所有交易类型一样。</translation>
+        <translation>Özel Gönder karışım işlemleri için tıpkı diğer işlemler&lt;br/&gt;için olduğu gibi sistem popuplarını göster.</translation>
     </message>
     <message>
         <source>Show popups for PrivateSend transactions</source>
-        <translation>显示匿名发送交易的弹出窗口</translation>
+        <translation>Özel Gönder işlemleri için popup göster.</translation>
     </message>
     <message>
         <source>&amp;Spend unconfirmed change</source>
-        <translation>可以花还未确认的零钱(&amp;S)</translation>
+        <translation>Teyit edilmemiş para üstünü &amp;harca</translation>
     </message>
     <message>
         <source>&amp;Network</source>
-        <translation>网络(&amp;N)</translation>
+        <translation>&amp;Şebeke</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
-        <translation>使用UPnP映射端口(&amp;U)</translation>
+        <translation>Portları &amp;UPnP kullanarak haritala</translation>
     </message>
     <message>
         <source>Proxy &amp;IP:</source>
-        <translation>代理服务器IP(&amp;I)：</translation>
+        <translation>Vekil &amp;İP:</translation>
     </message>
     <message>
         <source>IP address of the proxy (e.g. IPv4: 127.0.0.1 / IPv6: ::1)</source>
-        <translation>代理的 IP 地址 (例如 IPv4: 127.0.0.1 / IPv6: ::1)</translation>
+        <translation>Vekil sunucusunun IP adresi (mesela IPv4: 127.0.0.1 / IPv6: ::1)</translation>
     </message>
     <message>
         <source>&amp;Port:</source>
-        <translation>端口(&amp;P)：</translation>
+        <translation>&amp;Port:</translation>
     </message>
     <message>
         <source>Port of the proxy (e.g. 9050)</source>
-        <translation>代理端口（例如 9050）</translation>
+        <translation>Vekil sunucunun portu (mesela 9050)</translation>
     </message>
     <message>
         <source>Used for reaching peers via:</source>
-        <translation>连接到节点的方式：</translation>
+        <translation>Eşlere ulaşmak için kullanılır, şu üzerinden:</translation>
     </message>
     <message>
         <source>Shows, if the supplied default SOCKS5 proxy is used to reach peers via this network type.</source>
-        <translation>如果是使用提供的默认SOCKS5代理来连接到节点就加以显示。</translation>
+        <translation>Bu ağ türünde eşlere ulaşmak için varsayılan SOCKS5 proxy'nin kullanılıp kullanılmadığını gösterir.</translation>
     </message>
     <message>
         <source>IPv4</source>
@@ -1511,978 +1511,978 @@
     </message>
     <message>
         <source>Connect to the Axe network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>通过另一个SOCKS5代理服务器作为Tor隐藏服务来连接到达世币网络。</translation>
+        <translation>Axe ağına gizli Tor servisleri için ayrı bir SOCKS5 vekil sunucusu aracılığıyla bağlan.</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services:</source>
-        <translation>使用另外的SOCK5代理服务器，并透过Tor隐藏服务跟节点联系：</translation>
+        <translation>Eşlere Tor gizli servislerini kullanarak ulaşmak için ayrı SOCKS5 vekilleri kullan:</translation>
     </message>
     <message>
         <source>&amp;Window</source>
-        <translation>窗口(&amp;W)</translation>
+        <translation>&amp;Pencere</translation>
     </message>
     <message>
         <source>&amp;Hide the icon from the system tray.</source>
-        <translation>从系统托盘中隐藏图标(&amp;H）。</translation>
+        <translation>Simgeyi sistem çubuğunda &amp;gizle.</translation>
     </message>
     <message>
         <source>Hide tray icon</source>
-        <translation>隐藏托盘图标</translation>
+        <translation>Sistem çubuğu simgesini gizle</translation>
     </message>
     <message>
         <source>Show only a tray icon after minimizing the window.</source>
-        <translation>最小化窗口后仅显示托盘图标。</translation>
+        <translation>Küçültüldükten sonra sadece çekmece ikonu göster.</translation>
     </message>
     <message>
         <source>&amp;Minimize to the tray instead of the taskbar</source>
-        <translation>最小化到托盘(&amp;M)</translation>
+        <translation>İşlem çubuğu yerine sistem çekmecesine &amp;küçült</translation>
     </message>
     <message>
         <source>M&amp;inimize on close</source>
-        <translation>单击关闭按钮最小化(&amp;I)</translation>
+        <translation>Kapatma sırasında k&amp;üçült</translation>
     </message>
     <message>
         <source>&amp;Display</source>
-        <translation>显示(&amp;D)</translation>
+        <translation>&amp;Görünüm</translation>
     </message>
     <message>
         <source>User Interface &amp;language:</source>
-        <translation>用户界面语言(&amp;L)：</translation>
+        <translation>Kullanıcı arayüzü &amp;lisanı:</translation>
     </message>
     <message>
         <source>The user interface language can be set here. This setting will take effect after restarting %1.</source>
-        <translation>可以在这里设定用户界面的语言。这个设定在重启 %1 后才会生效。</translation>
+        <translation>Kullanıcı arayüzünün dili burada belirtilebilir. Bu ayar %1 tekrar başlatıldığında etkinleşecektir.</translation>
     </message>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
 https://www.transifex.com/projects/p/axe/</source>
-        <translation>缺少相关语言或翻译不完整？请到这里协助翻译：
+        <translation>Diliniz mevcut değil veya çeviri eksik mi? Buradan çevirilere katkıda bulunun:
 https://www.transifex.com/projects/p/axe/</translation>
     </message>
     <message>
         <source>User Interface Theme:</source>
-        <translation>用户界面主题：</translation>
+        <translation>Kullanıcı Arayüzü Teması:</translation>
     </message>
     <message>
         <source>&amp;Unit to show amounts in:</source>
-        <translation>达世币金额单位(&amp;U)：</translation>
+        <translation>Meblağları göstermek için &amp;birim:</translation>
     </message>
     <message>
         <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation>选择操作界面和付款时，显示金额的默认细分单位。</translation>
+        <translation>Bitcoin gönderildiğinde arayüzde gösterilecek varsayılan alt birimi seçiniz.</translation>
     </message>
     <message>
         <source>Decimal digits</source>
-        <translation>小数位数</translation>
+        <translation>Ondalık haneler</translation>
     </message>
     <message>
         <source>Third party transaction URLs</source>
-        <translation>第三方交易网址</translation>
+        <translation>Üçüncü taraf muamele URL'leri</translation>
     </message>
     <message>
         <source>Active command-line options that override above options:</source>
-        <translation>有效的命令行参数覆盖上述选项：</translation>
+        <translation>Yukarıdaki seçeneklerin yerine geçen faal komut satırı seçenekleri:</translation>
     </message>
     <message>
         <source>Reset all client options to default.</source>
-        <translation>恢复客户端的缺省设置。</translation>
+        <translation>İstemcinin tüm seçeneklerini varsayılan değerlere geri al.</translation>
     </message>
     <message>
         <source>&amp;Reset Options</source>
-        <translation>恢复缺省设置(&amp;R)</translation>
+        <translation>Seçenekleri Sıfı&amp;rla</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation>确定(&amp;O)</translation>
+        <translation>&amp;Tamam</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation>取消(&amp;C)</translation>
+        <translation>&amp;İptal</translation>
     </message>
     <message>
         <source>default</source>
-        <translation>默认</translation>
+        <translation>varsayılan</translation>
     </message>
     <message>
         <source>none</source>
-        <translation>无</translation>
+        <translation>Boş</translation>
     </message>
     <message>
         <source>Confirm options reset</source>
-        <translation>确认恢复缺省设置</translation>
+        <translation>Seçeneklerin sıfırlanmasını teyit et</translation>
     </message>
     <message>
         <source>Client restart required to activate changes.</source>
-        <translation>更改生效需要重启客户端。</translation>
+        <translation>Değişikliklerin uygulanması için istemcinin yeniden başlatılması lazımdır.</translation>
     </message>
     <message>
         <source>Client will be shut down. Do you want to proceed?</source>
-        <translation>客户端即将关闭，您想继续吗？</translation>
+        <translation>İstemci kapanacaktır. Devam etmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>This change would require a client restart.</source>
-        <translation>此更改需要重启客户端。</translation>
+        <translation>Bu değişiklik istemcinin tekrar başlatılmasını gerektirir.</translation>
     </message>
     <message>
         <source>The supplied proxy address is invalid.</source>
-        <translation>提供的代理服务器地址无效。</translation>
+        <translation>Girilen vekil sunucu adresi geçersizdir.</translation>
     </message>
 </context>
 <context>
     <name>OverviewPage</name>
     <message>
         <source>Form</source>
-        <translation>表单</translation>
+        <translation>Form</translation>
     </message>
     <message>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Axe network after a connection is established, but this process has not completed yet.</source>
-        <translation>显示的信息也许已过期。当与达世币网络连接后钱包程序会自动同步，但现在还未完成。</translation>
+        <translation>Görüntülenen bilgiler güncel olmayabilir. Bağlantı kurulduğunda cüzdanınız otomatik olarak Axe ağı ile senkronize olur ancak bu işlem henüz tamamlanmamıştır.</translation>
     </message>
     <message>
         <source>Available:</source>
-        <translation>可使用的余额：</translation>
+        <translation>Mevcut:</translation>
     </message>
     <message>
         <source>Your current spendable balance</source>
-        <translation>您当前可使用的余额</translation>
+        <translation>Güncel harcanabilir bakiyeniz</translation>
     </message>
     <message>
         <source>Pending:</source>
-        <translation>等待中的余额：</translation>
+        <translation>Beklemede:</translation>
     </message>
     <message>
         <source>Total of transactions that have yet to be confirmed, and do not yet count toward the spendable balance</source>
-        <translation>尚未确认的交易总额，未计入当前余额</translation>
+        <translation>Henüz teyit edilmemiş ve harcanabilir bakiyeye eklenmemiş muamelelerin toplamı</translation>
     </message>
     <message>
         <source>Immature:</source>
-        <translation>未成熟的：</translation>
+        <translation>Olgunlaşmamış:</translation>
     </message>
     <message>
         <source>Mined balance that has not yet matured</source>
-        <translation>尚未成熟的挖矿收入余额</translation>
+        <translation>Oluşturulan bakiye henüz olgunlaşmamıştır</translation>
     </message>
     <message>
         <source>Balances</source>
-        <translation>余额</translation>
+        <translation>Bakiyeler</translation>
     </message>
     <message>
         <source>Unconfirmed transactions to watch-only addresses</source>
-        <translation>仅限查看的还未交易确认的地址</translation>
+        <translation>Sadece izlenen adreslere gelen doğrulanmamış işlemler</translation>
     </message>
     <message>
         <source>Mined balance in watch-only addresses that has not yet matured</source>
-        <translation>仅限查看的地址中尚未成熟的挖矿收入余额</translation>
+        <translation>Sadece izlenen adreslerin henüz olgunlaşmamış oluşturulan bakiyeleri</translation>
     </message>
     <message>
         <source>Total:</source>
-        <translation>总额：</translation>
+        <translation>Toplam:</translation>
     </message>
     <message>
         <source>Your current total balance</source>
-        <translation>您当前的总余额</translation>
+        <translation>Güncel toplam bakiyeniz</translation>
     </message>
     <message>
         <source>Current total balance in watch-only addresses</source>
-        <translation>仅限查看地址中的当前总余额</translation>
+        <translation>Sadece izlenen adreslerdeki güncel toplam bakiye</translation>
     </message>
     <message>
         <source>Watch-only:</source>
-        <translation>仅限查看：</translation>
+        <translation>Sadece-izlenen:</translation>
     </message>
     <message>
         <source>Your current balance in watch-only addresses</source>
-        <translation>仅限查看地址中的当前余额</translation>
+        <translation>Sadece izlenen adreslerdeki güncel bakiyeniz</translation>
     </message>
     <message>
         <source>Spendable:</source>
-        <translation>可花费：</translation>
+        <translation>Harcanabilir:</translation>
     </message>
     <message>
         <source>PrivateSend</source>
-        <translation>匿名发送</translation>
+        <translation>Özel Gönder</translation>
     </message>
     <message>
         <source>Status:</source>
-        <translation>状态：</translation>
+        <translation>Durum:</translation>
     </message>
     <message>
         <source>Enabled/Disabled</source>
-        <translation>启用/禁用</translation>
+        <translation>Açık/Kapalı</translation>
     </message>
     <message>
         <source>Completion:</source>
-        <translation>完成度：</translation>
+        <translation>Tamamlanma:</translation>
     </message>
     <message>
         <source>Try to manually submit a PrivateSend request.</source>
-        <translation>尝试手动提交匿名发送请求。</translation>
+        <translation>Bir Özel Gönder isteğini elle göndermeyi dene.</translation>
     </message>
     <message>
         <source>Reset the current status of PrivateSend (can interrupt PrivateSend if it's in the process of Mixing, which can cost you money!)</source>
-        <translation>重置目前匿名发送状态（此操作可能会影响您目前正在执行的混合过程，并且产生费用！）</translation>
+        <translation>Özel Gönderin mevcut durumunu sıfırla (eğer bir Karışım işlemi devam ediyorsa Özel Gönderi yarıda keser, bu da para kaybetmenize neden olabilir!)</translation>
     </message>
     <message>
         <source>Information about PrivateSend and Mixing</source>
-        <translation>关于匿名发送和混币的信息</translation>
+        <translation>Özel Gönder ve Karışım hakkında bilgi</translation>
     </message>
     <message>
         <source>Info</source>
-        <translation>信息</translation>
+        <translation>Bilgi</translation>
     </message>
     <message>
         <source>Amount and Rounds:</source>
-        <translation>数量与循环次数：</translation>
+        <translation>Tutar ve Turlar:</translation>
     </message>
     <message>
         <source>0 AXE / 0 Rounds</source>
-        <translation>0 达世币 / 0 循环数</translation>
+        <translation>0 AXE / 0 Tur</translation>
     </message>
     <message>
         <source>Submitted Denom:</source>
-        <translation>提交的面额:</translation>
+        <translation>Gönderilen Birim:</translation>
     </message>
     <message>
         <source>n/a</source>
-        <translation>不可用</translation>
+        <translation>Mevcut değil</translation>
     </message>
     <message>
         <source>Recent transactions</source>
-        <translation>最近交易</translation>
+        <translation>Son işlemler</translation>
     </message>
     <message>
         <source>Start/Stop Mixing</source>
-        <translation>开始/停止 混合</translation>
+        <translation>Karışımı Başlat/Durdur</translation>
     </message>
     <message>
         <source>PrivateSend Balance:</source>
-        <translation>匿名发送余额：</translation>
+        <translation>Özel Gönder Bakiyesi:</translation>
     </message>
     <message>
         <source>The denominations you submitted to the Masternode.&lt;br&gt;To mix, other users must submit the exact same denominations.</source>
-        <translation>您向主节点所提交的用以面额化混合的达世币。&lt;br&gt;为了混合，其他用户必须提交完全一样的面额。</translation>
+        <translation>Ana düğüme gönderdiğiniz birimler.&lt;br&gt;Karıştırmak için diğer kullanıcılar da tam olarak aynı birimleri göndermelidir.</translation>
     </message>
     <message>
         <source>(Last Message)</source>
-        <translation>(最近一次信息)</translation>
+        <translation>(Son Mesaj)</translation>
     </message>
     <message>
         <source>Try Mix</source>
-        <translation>尝试混合</translation>
+        <translation>Karışım Dene</translation>
     </message>
     <message>
         <source>Reset</source>
-        <translation>重置</translation>
+        <translation>Sıfırla</translation>
     </message>
     <message>
         <source>out of sync</source>
-        <translation>未同步</translation>
+        <translation>eşleşme dışı</translation>
     </message>
     <message>
         <source>Automatic backups are disabled, no mixing available!</source>
-        <translation>自动备份已停用，无法进行混合！</translation>
+        <translation>Otomatik yedekleme kapalı, karışım mevcut değil!</translation>
     </message>
     <message>
         <source>Start Mixing</source>
-        <translation>开始混合</translation>
+        <translation>Karışıma Başla</translation>
     </message>
     <message>
         <source>Stop Mixing</source>
-        <translation>停止混合</translation>
+        <translation>Karışımı Durdur</translation>
     </message>
     <message>
         <source>No inputs detected</source>
-        <translation>未检测到输入</translation>
+        <translation>Hiç girdi tespit edilmedi</translation>
     </message>
     <message numerus="yes">
         <source>%n Rounds</source>
-        <translation><numerusform>%n 次循环</numerusform></translation>
+        <translation><numerusform>%n Tur</numerusform><numerusform>%n Tur</numerusform></translation>
     </message>
     <message>
         <source>Found enough compatible inputs to anonymize %1</source>
-        <translation>找到足够的相容的输入进行匿名处理 %1</translation>
+        <translation>%1 anonim hale getirmek için yeterli uyumlu girdi bulundu</translation>
     </message>
     <message>
         <source>Not enough compatible inputs to anonymize &lt;span style='color:red;'&gt;%1&lt;/span&gt;,&lt;br&gt;will anonymize &lt;span style='color:red;'&gt;%2&lt;/span&gt; instead</source>
-        <translation>没有足够相容的输入来进行匿名处理&lt;span style='color:red;'&gt;%1&lt;/span&gt;,&lt;br&gt;将匿名处理 &lt;span style='color:red;'&gt;%2&lt;/span&gt; 作为代替</translation>
+        <translation>&lt;span style='color:red;'&gt;%1&lt;/span&gt; anonim hale getirmek için yeterli uyumlu girdi yok,&lt;br&gt;onun yerine&lt;span style='color:red;'&gt;%2&lt;/span&gt; anonim hale getirilecek</translation>
     </message>
     <message>
         <source>Overall progress</source>
-        <translation>总体进度</translation>
+        <translation>Genel ilerleme</translation>
     </message>
     <message>
         <source>Denominated</source>
-        <translation>已面额化的</translation>
+        <translation>Birimlendirildi</translation>
     </message>
     <message>
         <source>Mixed</source>
-        <translation>混合的</translation>
+        <translation>Karıştırıldı</translation>
     </message>
     <message>
         <source>Anonymized</source>
-        <translation>已匿名处理的</translation>
+        <translation>Anonim Yapıldı</translation>
     </message>
     <message numerus="yes">
         <source>Denominated inputs have %5 of %n rounds on average</source>
-        <translation><numerusform>面额化的输入在%n次循环中平均有%5</numerusform></translation>
+        <translation><numerusform>Birimlendirilmiş girdiler ortalama %5 / %n tura sahip</numerusform><numerusform>Birimlendirilmiş girdiler ortalama %5 / %n tura sahip</numerusform></translation>
     </message>
     <message>
         <source>keys left: %1</source>
-        <translation>剩余密匙：%1</translation>
+        <translation>kalan anahtarlar: %1</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation>已禁用</translation>
+        <translation>Kapalı</translation>
     </message>
     <message>
         <source>Very low number of keys left since last automatic backup!</source>
-        <translation>自上次自动备份后，尚余小量的密钥！</translation>
+        <translation>Son otomatik yedekten beri çok az sayıda anahtar kaldı!</translation>
     </message>
     <message>
         <source>We are about to create a new automatic backup for you, however &lt;span style='color:red;'&gt; you should always make sure you have backups saved in some safe place&lt;/span&gt;!</source>
-        <translation>我们即将为您创建一个新的自动备份，但&lt;span style='color:red;'&gt;您应该始终确保您有另外的一些备份保存在安全的位置&lt;/span&gt;！</translation>
+        <translation>Sizin için yeni bir otomatik yedek oluşturmak üzereyiz ancak &lt;span style='color:red;'&gt; yedeklerinizin her zaman güvenli bir yerde taşındığından emin olmalısınız&lt;/span&gt;!</translation>
     </message>
     <message>
         <source>Note: You can turn this message off in options.</source>
-        <translation>注意：您可以在选项中关闭此消息。</translation>
+        <translation>Not: Bu mesajı seçeneklerden kapatabilirsiniz.</translation>
     </message>
     <message>
         <source>WARNING! Something went wrong on automatic backup</source>
-        <translation>警告！自动备份出现问题</translation>
+        <translation>UYARI! Otomatik yedeklemede bir sorun çıktı</translation>
     </message>
     <message>
         <source>ERROR! Failed to create automatic backup</source>
-        <translation>错误！无法创建自动备份</translation>
+        <translation>HATA! Otomatik yedek oluşturulamadı</translation>
     </message>
     <message>
         <source>Mixing is disabled, please close your wallet and fix the issue!</source>
-        <translation>混合被停用，请关闭您的钱包和解决这个问题！</translation>
+        <translation>Karışım devredışı, lütfen cüzdanınızı kapatıp sorunu çözün!</translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation>已启用</translation>
+        <translation>Açık</translation>
     </message>
     <message>
         <source>see debug.log for details.</source>
-        <translation>详细信息请参阅debug.log。</translation>
+        <translation>ayrıntılar için debug.log dosyasına bakın.</translation>
     </message>
     <message>
         <source>WARNING! Failed to replenish keypool, please unlock your wallet to do so.</source>
-        <translation>警告！无法补充公钥池，请解锁您的钱包。</translation>
+        <translation>UYARI! Anahtar havuzu yenilenemedi, lütfen devam etmek için cüzdanınızın kilidini açın.</translation>
     </message>
     <message>
         <source>Last PrivateSend message:
 </source>
-        <translation>最近收到的匿名发送信息：
+        <translation>Son Özel Gönder mesajı:
 </translation>
     </message>
     <message>
         <source>PrivateSend was successfully reset.</source>
-        <translation>匿名发送成功重置。</translation>
+        <translation>Özel Gönder başarıyla sıfırlandı.</translation>
     </message>
     <message>
         <source>If you don't want to see internal PrivateSend fees/transactions select "Most Common" as Type on the "Transactions" tab.</source>
-        <translation>如果您不希望看到内部匿名发送手续费/交易，请在“交易”种类标签中选择“最常用的”。</translation>
+        <translation>Eğer Özel Gönderin iç ücretlerini/işlemlerini görmek istemiyorsanız "İşlemler" sekmesinde Tür olarak "En Sıkı" seçin.</translation>
     </message>
     <message>
         <source>PrivateSend requires at least %1 to use.</source>
-        <translation>匿名发送要求至少%1才能使用</translation>
+        <translation>Özel Gönder en az %1 gerektiriyor.</translation>
     </message>
     <message>
         <source>Wallet is locked and user declined to unlock. Disabling PrivateSend.</source>
-        <translation>钱包被锁定，用户拒绝解锁。正在停用匿名发送。</translation>
+        <translation>Cüzdan kilitli ve kullanıcı kilidi açmadı. Özel Gönder devredışı bırakılıyor.</translation>
     </message>
 </context>
 <context>
     <name>PaymentServer</name>
     <message>
         <source>Payment request error</source>
-        <translation>支付请求出错</translation>
+        <translation>Ödeme talebi hatası</translation>
     </message>
     <message>
         <source>Cannot start axe: click-to-pay handler</source>
-        <translation>无法启动达世币程序：click-to-pay handler</translation>
+        <translation>Axe başlatılamadı: tıkla-ve-öde yöneticisi</translation>
     </message>
     <message>
         <source>URI handling</source>
-        <translation>URI 处理</translation>
+        <translation>URI yönetimi</translation>
     </message>
     <message>
         <source>Payment request fetch URL is invalid: %1</source>
-        <translation>付款请求URI链接非法：%1</translation>
+        <translation>Ödeme talebini alma URL'i geçersiz: %1</translation>
     </message>
     <message>
         <source>Invalid payment address %1</source>
-        <translation>无效的付款地址 %1</translation>
+        <translation>%1 ödeme adresi geçersizdir</translation>
     </message>
     <message>
         <source>URI cannot be parsed! This can be caused by an invalid Axe address or malformed URI parameters.</source>
-        <translation>URI不能被解析! 原因可能是无效的达世币地址或URI参数格式错误。</translation>
+        <translation>URI ayrıştırılamıyor! Bunun nedeni geçersiz bir Axe adresi veya hatalı biçimlendirilmiş URI değişkenleri olabilir.</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
-        <translation>付款请求文件处理 </translation>
+        <translation>Ödeme talebi dosyası yönetimi</translation>
     </message>
     <message>
         <source>Payment request file cannot be read! This can be caused by an invalid payment request file.</source>
-        <translation>付款请求文件不能读取！这可能是个无效的付款请求文件。</translation>
+        <translation>Ödeme talebi dosyası okunamıyor! Bunun nedeni geçersiz bir ödeme talebi dosyası olabilir.</translation>
     </message>
     <message>
         <source>Payment request rejected</source>
-        <translation>付款请求被拒绝</translation>
+        <translation>Ödeme talebi reddedildi</translation>
     </message>
     <message>
         <source>Payment request network doesn't match client network.</source>
-        <translation>付款请求网络与客户端网络不符。</translation>
+        <translation>Ödeme talebi ağı, istemci ağıyla eşleşmiyor.</translation>
     </message>
     <message>
         <source>Payment request expired.</source>
-        <translation>付款请求已过期。</translation>
+        <translation>Ödeme talebinin geçerlilik süresi bitti.</translation>
     </message>
     <message>
         <source>Payment request is not initialized.</source>
-        <translation>付款请求没有完成初始化。</translation>
+        <translation>Ödeme talebi başlatılmadı.</translation>
     </message>
     <message>
         <source>Unverified payment requests to custom payment scripts are unsupported.</source>
-        <translation>不支持到自定义付款脚本的未验证付款请求。</translation>
+        <translation>Özel ödeme betiklerine, doğrulanmamış ödeme talepleri desteklenmez.</translation>
     </message>
     <message>
         <source>Invalid payment request.</source>
-        <translation>无效的支付请求。</translation>
+        <translation>Geçersiz ödeme talebi.</translation>
     </message>
     <message>
         <source>Requested payment amount of %1 is too small (considered dust).</source>
-        <translation>请求支付的金额 %1 太小（会被网络认为是没有必要的零散金额）。</translation>
+        <translation>Talep edilen %1 ödeme tutarı çok küçüktür (toz olarak kabul edilir).</translation>
     </message>
     <message>
         <source>Refund from %1</source>
-        <translation>来自%1的退款</translation>
+        <translation>%1 adresinden geri ödeme</translation>
     </message>
     <message>
         <source>Payment request %1 is too large (%2 bytes, allowed %3 bytes).</source>
-        <translation>付款请求 %1 过大（%2字节，上限%3字节位）。</translation>
+        <translation>%1 ödeme talebi çok büyük (%2 bayt, üst sınır %3 bayt).</translation>
     </message>
     <message>
         <source>Error communicating with %1: %2</source>
-        <translation>跟%1通信时发生错误：%2</translation>
+        <translation>%1 ile iletişimde hata: %2</translation>
     </message>
     <message>
         <source>Payment request cannot be parsed!</source>
-        <translation>支付请求不能被解析！</translation>
+        <translation>Ödeme talebi ayrıştırılamaz!</translation>
     </message>
     <message>
         <source>Bad response from server %1</source>
-        <translation>来自 %1 服务器的错误响应</translation>
+        <translation>%1 sunucusundan hatalı yanıt</translation>
     </message>
     <message>
         <source>Network request error</source>
-        <translation>网络请求出错</translation>
+        <translation>Ağ talebi hatası</translation>
     </message>
     <message>
         <source>Payment acknowledged</source>
-        <translation>支付已到账</translation>
+        <translation>Ödeme kabul edildi</translation>
     </message>
 </context>
 <context>
     <name>PeerTableModel</name>
     <message>
         <source>NodeId</source>
-        <translation>节点ID</translation>
+        <translation>Düğüm ID'si</translation>
     </message>
     <message>
         <source>Node/Service</source>
-        <translation>节点/服务</translation>
+        <translation>Düğüm/Servis</translation>
     </message>
     <message>
         <source>User Agent</source>
-        <translation>用户代理</translation>
+        <translation>Kullanıcı Yazılımı</translation>
     </message>
     <message>
         <source>Ping</source>
-        <translation> Ping</translation>
+        <translation>Ping</translation>
     </message>
 </context>
 <context>
     <name>QObject</name>
     <message>
         <source>Axe Core</source>
-        <translation>达世币核心</translation>
+        <translation>Axe Core</translation>
     </message>
     <message>
         <source>%1 didn't yet exit safely...</source>
-        <translation>%1 尚未安全退出</translation>
+        <translation>%1  henüz güvenli bir şekilde çıkış yapmamıştır...</translation>
     </message>
     <message>
         <source>Error reading masternode configuration file: %1</source>
-        <translation>读取主节点配置文件时出错：%1</translation>
+        <translation>Ana düğüm ayar dosyası okuma hatası: %1</translation>
     </message>
     <message>
         <source>Amount</source>
-        <translation>金额</translation>
+        <translation>Tutar</translation>
     </message>
     <message>
         <source>Enter a Axe address (e.g. %1)</source>
-        <translation>输入达世币地址(例如 %1)</translation>
+        <translation>Bir Axe adresi giriniz (mesela %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
-        <translation>%1 天</translation>
+        <translation>%1 g</translation>
     </message>
     <message>
         <source>%1 h</source>
-        <translation>%1 小时</translation>
+        <translation>%1 s</translation>
     </message>
     <message>
         <source>%1 m</source>
-        <translation>%1 分钟</translation>
+        <translation>%1 d</translation>
     </message>
     <message>
         <source>%1 s</source>
-        <translation>%1 秒</translation>
+        <translation>%1 s</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>无</translation>
+        <translation>Boş</translation>
     </message>
     <message>
         <source>N/A</source>
-        <translation>不可用</translation>
+        <translation>Mevcut değil</translation>
     </message>
     <message>
         <source>%1 ms</source>
-        <translation>%1 毫秒</translation>
+        <translation>%1 ms</translation>
     </message>
     <message numerus="yes">
         <source>%n second(s)</source>
-        <translation><numerusform>%n 秒</numerusform></translation>
+        <translation><numerusform>%n saniye</numerusform><numerusform>%n saniye</numerusform></translation>
     </message>
     <message numerus="yes">
         <source>%n minute(s)</source>
-        <translation><numerusform>%n 分钟</numerusform></translation>
+        <translation><numerusform>%n dakika</numerusform><numerusform>%n dakika</numerusform></translation>
     </message>
     <message numerus="yes">
         <source>%n hour(s)</source>
-        <translation><numerusform>%n 小时</numerusform></translation>
+        <translation><numerusform>%n saat</numerusform><numerusform>%n saat</numerusform></translation>
     </message>
     <message numerus="yes">
         <source>%n day(s)</source>
-        <translation><numerusform>%n 天</numerusform></translation>
+        <translation><numerusform>%n gün</numerusform><numerusform>%n gün</numerusform></translation>
     </message>
     <message numerus="yes">
         <source>%n week(s)</source>
-        <translation><numerusform>%n 周</numerusform></translation>
+        <translation><numerusform>%n hafta</numerusform><numerusform>%n hafta</numerusform></translation>
     </message>
     <message numerus="yes">
         <source>%n year(s)</source>
-        <translation><numerusform>%n 年</numerusform></translation>
+        <translation><numerusform>%n yıl</numerusform><numerusform>%n yıl</numerusform></translation>
     </message>
     <message>
         <source>%1 and %2</source>
-        <translation>%1 和 %2</translation>
+        <translation>%1 ve %2</translation>
     </message>
     <message>
         <source>unknown</source>
-        <translation>未知</translation>
+        <translation>bilinmiyor</translation>
     </message>
 </context>
 <context>
     <name>QObject::QObject</name>
     <message>
         <source>Error: Specified data directory "%1" does not exist.</source>
-        <translation>错误：指定的数据目录“%1”不存在。</translation>
+        <translation>Hata: Belirtilen "%1" veri klasörü yoktur.</translation>
     </message>
     <message>
         <source>Error: Cannot parse configuration file: %1. Only use key=value syntax.</source>
-        <translation>错误：无法解析配置文件：%1。只接受 key=value语法。</translation>
+        <translation>Hata: %1 yapılandırma dosyası ayrıştırılamadı. Sadece anahtar=değer dizimini kullanınız.</translation>
     </message>
     <message>
         <source>Error: %1</source>
-        <translation>错误：%1</translation>
+        <translation>Hata: %1</translation>
     </message>
 </context>
 <context>
     <name>QRDialog</name>
     <message>
         <source>QR-Code Title</source>
-        <translation>二维码标题</translation>
+        <translation>QR Kod Başlığı</translation>
     </message>
     <message>
         <source>QR Code</source>
-        <translation>二维码</translation>
+        <translation>QR Kodu</translation>
     </message>
     <message>
         <source>&amp;Save Image...</source>
-        <translation>保存图片(&amp;S)...</translation>
+        <translation>Resmi ka&amp;ydet...</translation>
     </message>
     <message>
         <source>Error creating QR Code.</source>
-        <translation>生成二维码错误</translation>
+        <translation>QR Kod oluşturma hatası.</translation>
     </message>
 </context>
 <context>
     <name>QRGeneralImageWidget</name>
     <message>
         <source>&amp;Save Image...</source>
-        <translation>保存图片(&amp;S)...</translation>
+        <translation>Resmi ka&amp;ydet...</translation>
     </message>
     <message>
         <source>&amp;Copy Image</source>
-        <translation>复制图片</translation>
+        <translation>Resmi &amp;Kopyala</translation>
     </message>
     <message>
         <source>Save QR Code</source>
-        <translation>保存QR二维码</translation>
+        <translation>QR Kodu Kaydet</translation>
     </message>
     <message>
         <source>PNG Image (*.png)</source>
-        <translation>PNG 图像(*.png)</translation>
+        <translation>PNG Resim (*.png)</translation>
     </message>
 </context>
 <context>
     <name>QRImageWidget</name>
     <message>
         <source>&amp;Save Image...</source>
-        <translation>保存图片(&amp;S)...</translation>
+        <translation>Resmi ka&amp;ydet...</translation>
     </message>
     <message>
         <source>&amp;Copy Image</source>
-        <translation>复制图片(&amp;C)</translation>
+        <translation>Resmi &amp;Kopyala</translation>
     </message>
     <message>
         <source>Save QR Code</source>
-        <translation>保存二维码</translation>
+        <translation>QR Kodu Kaydet</translation>
     </message>
     <message>
         <source>PNG Image (*.png)</source>
-        <translation>PNG图片(*.png)</translation>
+        <translation>PNG Resim (*.png)</translation>
     </message>
 </context>
 <context>
     <name>RPCConsole</name>
     <message>
         <source>Tools window</source>
-        <translation>工具窗口</translation>
+        <translation>Araçlar penceresi</translation>
     </message>
     <message>
         <source>&amp;Information</source>
-        <translation>信息(&amp;I)</translation>
+        <translation>&amp;Malumat</translation>
     </message>
     <message>
         <source>General</source>
-        <translation>常规</translation>
+        <translation>Genel</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>姓名</translation>
+        <translation>İsim</translation>
     </message>
     <message>
         <source>N/A</source>
-        <translation>不可用</translation>
+        <translation>Mevcut değil</translation>
     </message>
     <message>
         <source>Number of connections</source>
-        <translation>连接数</translation>
+        <translation>Bağlantı sayısı</translation>
     </message>
     <message>
         <source>&amp;Open</source>
-        <translation>打开(&amp;O)</translation>
+        <translation>&amp;Aç</translation>
     </message>
     <message>
         <source>Startup time</source>
-        <translation>启动时间</translation>
+        <translation>Başlama zamanı</translation>
     </message>
     <message>
         <source>Network</source>
-        <translation>网络</translation>
+        <translation>Şebeke</translation>
     </message>
     <message>
         <source>Last block time</source>
-        <translation>上一数据块时间</translation>
+        <translation>Son blok zamanı</translation>
     </message>
     <message>
         <source>Debug log file</source>
-        <translation>调试日志文件</translation>
+        <translation>Hata ayıklama kütük dosyası</translation>
     </message>
     <message>
         <source>Current number of blocks</source>
-        <translation>当前数据块数量</translation>
+        <translation>Güncel blok sayısı</translation>
     </message>
     <message>
         <source>Client version</source>
-        <translation>客户端版本</translation>
+        <translation>İstemci sürümü</translation>
     </message>
     <message>
         <source>Using BerkeleyDB version</source>
-        <translation>使用 BerkeleyDB 版本</translation>
+        <translation>Kullanılan BerkeleyDB sürümü</translation>
     </message>
     <message>
         <source>Block chain</source>
-        <translation>区块链</translation>
+        <translation>Blok zinciri</translation>
     </message>
     <message>
         <source>Number of Masternodes</source>
-        <translation>主节点数量</translation>
+        <translation>Ana düğüm sayısı</translation>
     </message>
     <message>
         <source>Memory Pool</source>
-        <translation>内存池</translation>
+        <translation>Bellek Alanı</translation>
     </message>
     <message>
         <source>Current number of transactions</source>
-        <translation>当前交易数量</translation>
+        <translation>Güncel işlem sayısı</translation>
     </message>
     <message>
         <source>Memory usage</source>
-        <translation>内存使用</translation>
+        <translation>Bellek kullanımı</translation>
     </message>
     <message>
         <source>&amp;Console</source>
-        <translation>控制台(&amp;C)</translation>
+        <translation>&amp;Konsol</translation>
     </message>
     <message>
         <source>Clear console</source>
-        <translation>清空控制台</translation>
+        <translation>Konsolu temizle</translation>
     </message>
     <message>
         <source>&amp;Network Traffic</source>
-        <translation>网络流量(&amp;N)</translation>
+        <translation>&amp;Şebeke trafiği</translation>
     </message>
     <message>
         <source>&amp;Clear</source>
-        <translation>清除(&amp;C)</translation>
+        <translation>&amp;Temizle</translation>
     </message>
     <message>
         <source>Totals</source>
-        <translation>总数</translation>
+        <translation>Toplamlar</translation>
     </message>
     <message>
         <source>Received</source>
-        <translation>接收</translation>
+        <translation>Alınan</translation>
     </message>
     <message>
         <source>Sent</source>
-        <translation>发送</translation>
+        <translation>Yollanan</translation>
     </message>
     <message>
         <source>&amp;Peers</source>
-        <translation>&amp;节点</translation>
+        <translation>&amp;Eşler</translation>
     </message>
     <message>
         <source>Banned peers</source>
-        <translation>节点黑名单</translation>
+        <translation>Yasaklı eşler</translation>
     </message>
     <message>
         <source>Select a peer to view detailed information.</source>
-        <translation>选择一个节点查看详细信息.</translation>
+        <translation>Ayrıntılı bilgi görmek için bir eş seçin.</translation>
     </message>
     <message>
         <source>Whitelisted</source>
-        <translation>白名单</translation>
+        <translation>Beyaz listedekiler</translation>
     </message>
     <message>
         <source>Direction</source>
-        <translation>方向</translation>
+        <translation>Yön</translation>
     </message>
     <message>
         <source>Version</source>
-        <translation>版本</translation>
+        <translation>Sürüm</translation>
     </message>
     <message>
         <source>Starting Block</source>
-        <translation>起始高度</translation>
+        <translation>Başlangıç Bloku</translation>
     </message>
     <message>
         <source>Synced Headers</source>
-        <translation>已同步的区块头</translation>
+        <translation>Eşleşmiş Üstbilgiler</translation>
     </message>
     <message>
         <source>Synced Blocks</source>
-        <translation>已同步的区块</translation>
+        <translation>Eşleşmiş Bloklar</translation>
     </message>
     <message>
         <source>Wallet Path</source>
-        <translation>钱包路径</translation>
+        <translation>Cüzdan Yolu</translation>
     </message>
     <message>
         <source>User Agent</source>
-        <translation>用户代理</translation>
+        <translation>Kullanıcı Yazılımı</translation>
     </message>
     <message>
         <source>Datadir</source>
-        <translation>数据目录</translation>
+        <translation>Veri konumu</translation>
     </message>
     <message>
         <source>Open the %1 debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>打开当前目录中的%1调试日志文件。日志文件大的话可能要等上几秒钟。</translation>
+        <translation>Güncel veri klasöründen %1 hata ayıklama kütük dosyasını açar. Büyük kütük dosyaları için bu birkaç saniye alabilir.</translation>
     </message>
     <message>
         <source>Decrease font size</source>
-        <translation>缩小文字</translation>
+        <translation>Font boyutunu küçült</translation>
     </message>
     <message>
         <source>Increase font size</source>
-        <translation>放大文字</translation>
+        <translation>Yazıtipi boyutunu büyült</translation>
     </message>
     <message>
         <source>Services</source>
-        <translation>服务</translation>
+        <translation>Servisler</translation>
     </message>
     <message>
         <source>Ban Score</source>
-        <translation>组别评分</translation>
+        <translation>Yasaklama Skoru</translation>
     </message>
     <message>
         <source>Connection Time</source>
-        <translation>连接时间</translation>
+        <translation>Bağlantı Süresi</translation>
     </message>
     <message>
         <source>Last Send</source>
-        <translation>最近发送</translation>
+        <translation>Son Gönderme</translation>
     </message>
     <message>
         <source>Last Receive</source>
-        <translation>最近接收</translation>
+        <translation>Son Alma</translation>
     </message>
     <message>
         <source>Ping Time</source>
-        <translation>Ping 时间</translation>
+        <translation>Ping Süresi</translation>
     </message>
     <message>
         <source>The duration of a currently outstanding ping.</source>
-        <translation>目前这一次 ping 已经过去的时间。</translation>
+        <translation>Güncel olarak göze çarpan bir ping'in süresi.</translation>
     </message>
     <message>
         <source>Ping Wait</source>
-        <translation>Ping等待</translation>
+        <translation>Ping Beklemesi</translation>
     </message>
     <message>
         <source>Min Ping</source>
-        <translation>最小Ping值</translation>
+        <translation>En Düşük Ping</translation>
     </message>
     <message>
         <source>Time Offset</source>
-        <translation>时间抵消</translation>
+        <translation>Saat Farkı</translation>
     </message>
     <message>
         <source>&amp;Wallet Repair</source>
-        <translation>钱包修复(&amp;W)</translation>
+        <translation>&amp;Cüzdan Tamiri</translation>
     </message>
     <message>
         <source>Salvage wallet</source>
-        <translation>抢救钱包</translation>
+        <translation>Cüzdanı kurtar</translation>
     </message>
     <message>
         <source>Rescan blockchain files</source>
-        <translation>重新扫描区块链文件</translation>
+        <translation>Blok zinciri dosyalarını yeniden tara</translation>
     </message>
     <message>
         <source>Recover transactions 1</source>
-        <translation>恢复交易 1</translation>
+        <translation>İşlemleri geri al 1</translation>
     </message>
     <message>
         <source>Recover transactions 2</source>
-        <translation>恢复交易 2</translation>
+        <translation>İşlemleri geri al 2</translation>
     </message>
     <message>
         <source>Upgrade wallet format</source>
-        <translation>升级钱包格式</translation>
+        <translation>Cüzdan biçimini yükselt</translation>
     </message>
     <message>
         <source>The buttons below will restart the wallet with command-line options to repair the wallet, fix issues with corrupt blockhain files or missing/obsolete transactions.</source>
-        <translation>下面的按钮将重新启动钱包并使用命令行选项进行修复，解决损坏或丢失的区块链文件/超时的交易问题。</translation>
+        <translation>Aşağıdaki düğmeler cüzdanı tamir etmek, bozuk blok zinciri dosyalarıyla veya kayıp/geçersiz işlemlerle ilgili sorunları çözmek için cüzdanı komut istemi seçenekleri ile yeniden başlatacak.</translation>
     </message>
     <message>
         <source>-salvagewallet: Attempt to recover private keys from a corrupt wallet.dat.</source>
-        <translation>-salvagewallet：尝试从已损坏的钱包文件中找回私钥。</translation>
+        <translation>-salvagewallet: Bozuk bir wallet.dat dosyasında özel anahtarları kurtarma denemesi.</translation>
     </message>
     <message>
         <source>-rescan: Rescan the block chain for missing wallet transactions.</source>
-        <translation>-rescan：重新扫描区块链以查找遗漏的钱包交易。</translation>
+        <translation>-rescan: Kayıp cüzdan işlemleri için blok zincirini yeniden tarama.</translation>
     </message>
     <message>
         <source>-zapwallettxes=1: Recover transactions from blockchain (keep meta-data, e.g. account owner).</source>
-        <translation>-zapwallettxes=1：从区块链恢复交易（保留交易描述信息，例如账户拥有者）。</translation>
+        <translation>-zapwallettxes=1: Blok zincirinden işlemleri kurtarma (meta-veri tutulur, ör. hesap sahibi).</translation>
     </message>
     <message>
         <source>-zapwallettxes=2: Recover transactions from blockchain (drop meta-data).</source>
-        <translation>-zapwallettxes=2：从区块链恢复交易（删除交易描述信息）。</translation>
+        <translation>-zapwallettxes=2: Blok zincirinden işlemleri kurtarma (meta-veri atılır).</translation>
     </message>
     <message>
         <source>-upgradewallet: Upgrade wallet to latest format on startup. (Note: this is NOT an update of the wallet itself!)</source>
-        <translation>-upgradewallet：在启动时升级钱包到最新格式。（注：这并不是钱包软件本身的更新！）</translation>
+        <translation>-upgradewallet: Açılışta cüzdanı en son biçime yükselt. (Not: Bu cüzdanın kendisinin güncellenmesi DEĞİLDİR!)</translation>
     </message>
     <message>
         <source>Wallet repair options.</source>
-        <translation>钱包修复选项。</translation>
+        <translation>Cüzdan tamir seçenekleri.</translation>
     </message>
     <message>
         <source>Rebuild index</source>
-        <translation>重建索引</translation>
+        <translation>Dizini yeniden oluştur</translation>
     </message>
     <message>
         <source>-reindex: Rebuild block chain index from current blk000??.dat files.</source>
-        <translation>-reindex：从现在的blk000??.dat文件重新建立区块链索引。</translation>
+        <translation>-reindex: Blok zinciri dizinini mevcut blk000??.dat dosyalarından yeniden oluşturma.</translation>
     </message>
     <message>
         <source>&amp;Disconnect</source>
-        <translation>断开(&amp;D)</translation>
+        <translation>&amp;Bağlantıyı Kes</translation>
     </message>
     <message>
         <source>Ban for</source>
-        <translation>禁止</translation>
+        <translation>Yasakla</translation>
     </message>
     <message>
         <source>1 &amp;hour</source>
-        <translation>1 小时(&amp;H)</translation>
+        <translation>1 &amp;saat</translation>
     </message>
     <message>
         <source>1 &amp;day</source>
-        <translation>1 天(&amp;D)</translation>
+        <translation>1 &amp;gün</translation>
     </message>
     <message>
         <source>1 &amp;week</source>
-        <translation>1 周(&amp;W)</translation>
+        <translation>1 &amp;hafta</translation>
     </message>
     <message>
         <source>1 &amp;year</source>
-        <translation>1 年(&amp;Y)</translation>
+        <translation>1 &amp;yıl</translation>
     </message>
     <message>
         <source>&amp;Unban</source>
-        <translation>解禁(&amp;U)</translation>
+        <translation>&amp;Yasaklamayı Kaldır</translation>
     </message>
     <message>
         <source>Welcome to the %1 RPC console.</source>
-        <translation>欢迎使用 %1 的 RPC 控制台。</translation>
+        <translation>%1 RPC konsoluna hoş geldiniz.</translation>
     </message>
     <message>
         <source>Use up and down arrows to navigate history, and &lt;b&gt;Ctrl-L&lt;/b&gt; to clear screen.</source>
-        <translation>使用上下方向键浏览历史,  &lt;b&gt;Ctrl-L&lt;/b&gt;清除屏幕。</translation>
+        <translation>Tarihçede gezinmek için imleç tuşlarını kullanınız, &lt;b&gt;Ctrl-L&lt;/b&gt; ile de ekranı temizleyebilirsiniz.</translation>
     </message>
     <message>
         <source>Type &lt;b&gt;help&lt;/b&gt; for an overview of available commands.</source>
-        <translation>使用 &lt;b&gt;help&lt;/b&gt; 命令显示可用命令的简介。</translation>
+        <translation>Mevcut komutların listesi için &lt;b&gt;help&lt;/b&gt; yazınız.</translation>
     </message>
     <message>
         <source>WARNING: Scammers have been active, telling users to type commands here, stealing their wallet contents. Do not use this console without fully understanding the ramification of a command.</source>
-        <translation>警告: 骗子总是积极地劝说用户在此输入指令, 以窃取用户钱包中的资金. 在没有完全理解各命令行作用前, 请不要使用控制台.</translation>
+        <translation>UYARI: Kullanıcıların cüzdan içeriğini çalmak için buraya komut girmenizi söyleyen dolandırıcılar olabilir. Bir komutun ne anlama geldiğini tam olarak bilmiyorsanız bu konsolu kullanmayın.</translation>
     </message>
     <message>
         <source>In:</source>
-        <translation>输入：</translation>
+        <translation>İçeri:</translation>
     </message>
     <message>
         <source>Out:</source>
-        <translation>输出：</translation>
+        <translation>Dışarı:</translation>
     </message>
     <message>
         <source>Network activity disabled</source>
-        <translation>网络活动已禁用</translation>
+        <translation>Ağ etkinliği devre dışı bırakıldı</translation>
     </message>
     <message>
         <source>%1 B</source>
-        <translation>%1 字节</translation>
+        <translation>%1 B</translation>
     </message>
     <message>
         <source>%1 KB</source>
@@ -2498,157 +2498,157 @@ https://www.transifex.com/projects/p/axe/</translation>
     </message>
     <message>
         <source>(node id: %1)</source>
-        <translation>(节点ID：%1)</translation>
+        <translation>(düğüm kimliği: %1)</translation>
     </message>
     <message>
         <source>via %1</source>
-        <translation>经由 %1</translation>
+        <translation>%1 vasıtasıyla</translation>
     </message>
     <message>
         <source>never</source>
-        <translation>永不</translation>
+        <translation>asla</translation>
     </message>
     <message>
         <source>Inbound</source>
-        <translation>导入</translation>
+        <translation>Gelen</translation>
     </message>
     <message>
         <source>Outbound</source>
-        <translation>导出</translation>
+        <translation>Giden</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation>是</translation>
+        <translation>Evet</translation>
     </message>
     <message>
         <source>No</source>
-        <translation>否</translation>
+        <translation>Hayır</translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation>未知</translation>
+        <translation>bilinmiyor</translation>
     </message>
 </context>
 <context>
     <name>ReceiveCoinsDialog</name>
     <message>
         <source>Reuse one of the previously used receiving addresses.&lt;br&gt;Reusing addresses has security and privacy issues.&lt;br&gt;Do not use this unless re-generating a payment request made before.</source>
-        <translation>重复使用以前用过的接收地址。&lt;br&gt;重用地址有安全和隐私方面的隐患。&lt;br&gt;除非是为重复生成同一项支付请求，否则请不要这样做。</translation>
+        <translation>Öneden kullanılmış bir alım adresini tekrar kullan.&lt;br&gt;Adresleri tekrar kullanmak güvenlik ve gizlilik sorunlarına neden olur.&lt;br&gt;Eğer daha önce yapılmış bir ödeme talebi tekrar oluşturulmadıysa bunu kullanmayın.</translation>
     </message>
     <message>
         <source>R&amp;euse an existing receiving address (not recommended)</source>
-        <translation>重用现有的接收地址（不推荐）</translation>
+        <translation>&amp;Hâlihazırda bulunan bir alım adresini kullan (önerilmez)</translation>
     </message>
     <message>
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Axe network.</source>
-        <translation>附加在付款要求中的讯息，可以不填，打开要求内容时会显示。注意：这个讯息不会随着付款送到达世币网路上。</translation>
+        <translation>Talep açıldığında gösterilecek, isteğinize dayalı, ödeme talebi ile ilişkilendirilecek bir ileti. Not: Bu ileti ödeme ile birlikte Axe ağı üzerinden gönderilmeyecektir.</translation>
     </message>
     <message>
         <source>&amp;Message:</source>
-        <translation>消息(&amp;M)：</translation>
+        <translation>Me&amp;saj:</translation>
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
-        <translation>可为新建的收款地址添加一个可选标签。</translation>
+        <translation>Yeni alım adresi ile ilişkili, seçiminize dayalı etiket.</translation>
     </message>
     <message>
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the Axe network.</source>
-        <translation>附加在付款要求中的讯息，可以不填，打开要求内容时会显示。&lt;br&gt;注意：这个讯息不会随着付款送到达世币网路上。</translation>
+        <translation>Ödeme talebine eklenecek isteğe bağlı bir mesaj, talep açıldığında gösterilecektir.&lt;br&gt;Not: Mesaj ödeme ile birlikte Axe ağı üzerinden gönderilmez.</translation>
     </message>
     <message>
         <source>Use this form to request payments. All fields are &lt;b&gt;optional&lt;/b&gt;.</source>
-        <translation>使用此表单要求付款。所有字段都是&lt;b&gt;可选&lt;/b&gt;的。</translation>
+        <translation>Ödeme talep etmek için bu formu kullanın. Tüm alanlar &lt;b&gt;seçime dayalıdır&lt;/b&gt;.</translation>
     </message>
     <message>
         <source>&amp;Label:</source>
-        <translation>标签(&amp;L)：</translation>
+        <translation>&amp;Etiket:</translation>
     </message>
     <message>
         <source>An optional amount to request. Leave this empty or zero to not request a specific amount.</source>
-        <translation>可选的请求金额。留空或填零为不要求具体金额。</translation>
+        <translation>Seçiminize dayalı talep edilecek meblağ. Belli bir meblağ talep etmemek için bunu boş bırakın veya sıfır değerini kullanın.</translation>
     </message>
     <message>
         <source>&amp;Amount:</source>
-        <translation>总额(&amp;A)：</translation>
+        <translation>&amp;Meblağ:</translation>
     </message>
     <message>
         <source>&amp;Request payment</source>
-        <translation>请求付款(&amp;R)</translation>
+        <translation>Ödeme &amp;talep et</translation>
     </message>
     <message>
         <source>Clear all fields of the form.</source>
-        <translation>清空此表单的所有字段。</translation>
+        <translation>Formdaki tüm alanları temizle.</translation>
     </message>
     <message>
         <source>Clear</source>
-        <translation>清除</translation>
+        <translation>Temizle</translation>
     </message>
     <message>
         <source>Request InstantSend</source>
-        <translation>要求即时到帐付款</translation>
+        <translation>Anında Gönder Talep Et</translation>
     </message>
     <message>
         <source>Requested payments history</source>
-        <translation>请求付款的历史</translation>
+        <translation>Talep edilen ödemelerin tarihçesi</translation>
     </message>
     <message>
         <source>Show the selected request (does the same as double clicking an entry)</source>
-        <translation>显示选中的请求 (双击也可以显示)</translation>
+        <translation>Seçilen talebi göster (bir unsura çift tıklamakla aynı anlama gelir)</translation>
     </message>
     <message>
         <source>Show</source>
-        <translation>显示</translation>
+        <translation>Göster</translation>
     </message>
     <message>
         <source>Remove the selected entries from the list</source>
-        <translation>从列表中移除选中的条目</translation>
+        <translation>Seçilen unsurları listeden kaldır</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation>移除</translation>
+        <translation>Kaldır</translation>
     </message>
     <message>
         <source>Copy URI</source>
-        <translation>复制URI</translation>
+        <translation>URI'yi kopyala</translation>
     </message>
     <message>
         <source>Copy label</source>
-        <translation>复制标签</translation>
+        <translation>Etiket kopyala</translation>
     </message>
     <message>
         <source>Copy message</source>
-        <translation>复制消息 </translation>
+        <translation>İletiyi kopyala</translation>
     </message>
     <message>
         <source>Copy amount</source>
-        <translation>复制金额</translation>
+        <translation>Tutarı kopyala</translation>
     </message>
 </context>
 <context>
     <name>ReceiveRequestDialog</name>
     <message>
         <source>QR Code</source>
-        <translation>二维码</translation>
+        <translation>QR Kodu</translation>
     </message>
     <message>
         <source>Copy &amp;URI</source>
-        <translation>复制 URI(&amp;U)</translation>
+        <translation>&amp;URI'yi kopyala</translation>
     </message>
     <message>
         <source>Copy &amp;Address</source>
-        <translation>复制地址(&amp;A)</translation>
+        <translation>&amp;Adresi kopyala</translation>
     </message>
     <message>
         <source>&amp;Save Image...</source>
-        <translation>保存图片(&amp;S)...</translation>
+        <translation>Resmi ka&amp;ydet...</translation>
     </message>
     <message>
         <source>Request payment to %1</source>
-        <translation>请求付款到 %1</translation>
+        <translation>%1 unsuruna ödeme talep et</translation>
     </message>
     <message>
         <source>Payment information</source>
-        <translation>付款信息</translation>
+        <translation>Ödeme bilgisi</translation>
     </message>
     <message>
         <source>URI</source>
@@ -2656,396 +2656,396 @@ https://www.transifex.com/projects/p/axe/</translation>
     </message>
     <message>
         <source>Address</source>
-        <translation>地址</translation>
+        <translation>Adres</translation>
     </message>
     <message>
         <source>Amount</source>
-        <translation>金额</translation>
+        <translation>Tutar</translation>
     </message>
     <message>
         <source>Label</source>
-        <translation>标签</translation>
+        <translation>Etiket</translation>
     </message>
     <message>
         <source>Message</source>
-        <translation>消息</translation>
+        <translation>İleti</translation>
     </message>
     <message>
         <source>InstantSend</source>
-        <translation>即时到账</translation>
+        <translation>Anında Gönder</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation>是</translation>
+        <translation>Evet</translation>
     </message>
     <message>
         <source>No</source>
-        <translation>否</translation>
+        <translation>Hayır</translation>
     </message>
     <message>
         <source>Resulting URI too long, try to reduce the text for label / message.</source>
-        <translation>URI 太长，请试着精简标签或消息文本。</translation>
+        <translation>Sonuç URI çok uzun, etiket ya da ileti metnini kısaltmayı deneyiniz.</translation>
     </message>
     <message>
         <source>Error encoding URI into QR Code.</source>
-        <translation>将 URI 转为二维码失败。</translation>
+        <translation>URI'nin QR koduna kodlanmasında hata oluştu.</translation>
     </message>
 </context>
 <context>
     <name>RecentRequestsTableModel</name>
     <message>
         <source>Date</source>
-        <translation>日期</translation>
+        <translation>Tarih</translation>
     </message>
     <message>
         <source>Label</source>
-        <translation>标签</translation>
+        <translation>Etiket</translation>
     </message>
     <message>
         <source>Message</source>
-        <translation>消息</translation>
+        <translation>İleti</translation>
     </message>
     <message>
         <source>(no label)</source>
-        <translation>(无标签)</translation>
+        <translation>(etiket yok)</translation>
     </message>
     <message>
         <source>(no message)</source>
-        <translation>(无消息)</translation>
+        <translation>(ileti yok)</translation>
     </message>
     <message>
         <source>(no amount requested)</source>
-        <translation>（无请求金额）</translation>
+        <translation>(tutar talep edilmedi)</translation>
     </message>
     <message>
         <source>Requested</source>
-        <translation>总额</translation>
+        <translation>Talep edilen</translation>
     </message>
 </context>
 <context>
     <name>SendCoinsDialog</name>
     <message>
         <source>Send Coins</source>
-        <translation>发送货币</translation>
+        <translation>Bitcoin yolla</translation>
     </message>
     <message>
         <source>Coin Control Features</source>
-        <translation>交易源地址控制功能</translation>
+        <translation>Para kontrolü özellikleri</translation>
     </message>
     <message>
         <source>Inputs...</source>
-        <translation>输入...</translation>
+        <translation>Girdiler...</translation>
     </message>
     <message>
         <source>automatically selected</source>
-        <translation>自动选择</translation>
+        <translation>otomatik seçilmiş</translation>
     </message>
     <message>
         <source>Insufficient funds!</source>
-        <translation>余额不足！</translation>
+        <translation>Yetersiz fon!</translation>
     </message>
     <message>
         <source>Quantity:</source>
-        <translation>总量：</translation>
+        <translation>Miktar:</translation>
     </message>
     <message>
         <source>Bytes:</source>
-        <translation>字节：</translation>
+        <translation>Bayt:</translation>
     </message>
     <message>
         <source>Amount:</source>
-        <translation>金额：</translation>
+        <translation>Meblağ:</translation>
     </message>
     <message>
         <source>Fee:</source>
-        <translation>费用：</translation>
+        <translation>Ücret:</translation>
     </message>
     <message>
         <source>Dust:</source>
-        <translation>零散金额：</translation>
+        <translation>Toz:</translation>
     </message>
     <message>
         <source>After Fee:</source>
-        <translation>加上交易费用后:</translation>
+        <translation>Ücretten sonra:</translation>
     </message>
     <message>
         <source>Change:</source>
-        <translation>找零金额：</translation>
+        <translation>Para üstü:</translation>
     </message>
     <message>
         <source>If this is activated, but the change address is empty or invalid, change will be sent to a newly generated address.</source>
-        <translation>如果激活该选项，但是找零地址用光或者非法，将会生成新的找零地址，转入找零金额。</translation>
+        <translation>Bu etkinleştirildiyse fakat para üstü adresi boş ya da geçersizse para üstü yeni oluşturulan bir adrese gönderilecektir.</translation>
     </message>
     <message>
         <source>Custom change address</source>
-        <translation>自定义找零地址</translation>
+        <translation>Özel para üstü adresi</translation>
     </message>
     <message>
         <source>Transaction Fee:</source>
-        <translation>交易手续费：</translation>
+        <translation>İşlem ücreti:</translation>
     </message>
     <message>
         <source>Choose...</source>
-        <translation>选择...</translation>
+        <translation>Seç...</translation>
     </message>
     <message>
         <source>Using the fallbackfee can result in sending a transaction that will take several hours or days (or never) to confirm. Consider choosing your fee manually or wait until your have validated the complete chain.</source>
-        <translation>使用fallbackfee可能会导致发送一笔需要几个小时或几天(或永远不会)确认的交易. 建议手动选择手续费, 或者等待你完全验证整个区块链后.</translation>
+        <translation>Fallbackfee kullanmak, bir işlemin teyit edilmesinin satler veya günler almasına (ve hiçbir zaman teyit edilememesine) neden olabilir. Ücreti elle seçmeyi veya tüm zincirin onaylanmasını beklemeyi göz önünde bulundurun.</translation>
     </message>
     <message>
         <source>Warning: Fee estimation is currently not possible.</source>
-        <translation>警告: 目前无法进行交易费估计。</translation>
+        <translation>Uyarı: Ücret tahmini şu anda mümkün değildir.</translation>
     </message>
     <message>
         <source>collapse fee-settings</source>
-        <translation>收起手续费设置</translation>
+        <translation>ücret-ayarlarını-küçült</translation>
     </message>
     <message>
         <source>Confirmation time target:</source>
-        <translation>确认时间目标：</translation>
+        <translation>Doğrulama süresi hedefi:</translation>
     </message>
     <message>
         <source>PrivateSend</source>
-        <translation>匿名发送</translation>
+        <translation>Özel Gönder</translation>
     </message>
     <message>
         <source>InstantSend</source>
-        <translation>即时到账</translation>
+        <translation>Anında Gönder</translation>
     </message>
     <message>
         <source>If the custom fee is set to 1000 haks and the transaction is only 250 bytes, then "per kilobyte" only pays 250 haks in fee,&lt;br /&gt;while "at least" pays 1000 haks. For transactions bigger than a kilobyte both pay by kilobyte.</source>
-        <translation>如果自定手续费设定为1000 haks，而交易信息只有250字节的话，那么选择"每千字节"就只会支付250 haks的手续费，&lt;br /&gt;而"至少"会支付1000 haks。但如果交易信息大于一千字节,那么两者都要按每千字节付费。</translation>
+        <translation>Eğer özel ücret 1000 hak olarak belirlendiyse ve işlem sadece 250 bayt ise "kilobayt başına" ücret olarak sadece 250 hak ödersiniz,&lt;br /&gt;bu da "en az" 1000 hak öder. Bir kilobayttan büyük işlemler için ikisi de kilobayt başına ödeme yapar.</translation>
     </message>
     <message>
         <source>If the custom fee is set to 1000 haks and the transaction is only 250 bytes, then "per kilobyte" only pays 250 haks in fee,&lt;br /&gt;while "total at least" pays 1000 haks. For transactions bigger than a kilobyte both pay by kilobyte.</source>
-        <translation>如果自定手续费设定为1000 haks，而交易信息只有250字节的话，那么选择“每千字节”就只会支付250 haks的手续费，&lt;br /&gt;而"总共至少"会支付1000 haks。但如果交易信息大于一千字节，那么两者都要按每千字节付费。</translation>
+        <translation>Eğer özel ücret 1000 hak olarak belirlendiyse ve işlem sadece 250 bayt ise "kilobayt başına" ücret olarak sadece 250 hak ödersiniz,&lt;br /&gt;bu da "toplam en az" 1000 hak öder. Bir kilobayttan büyük işlemler için ikisi de kilobayt başına ödeme yapar.</translation>
     </message>
     <message>
         <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks.&lt;br /&gt;But be aware that this can end up in a never confirming transaction once there is more demand for axe transactions than the network can process.</source>
-        <translation>当交易量少于区块可容纳的空间时，只需支付最低手续费。&lt;br /&gt;但当交易量的需求增长到超过总体网络可处理的量时，可能会造成一笔一直不被确认的交易。</translation>
+        <translation>Bloklardaki alandan daha düşük işlem hacmi var olduğu sürece sadece minimum ücreti ödemek yeterli olur.&lt;br /&gt;Ama ağın işleyebileceğinden daha fazla axe işlemi talebi olursa, bunun işlemlerin asla teyit edilememesi gibi bir sonucu olabileceğini unutmayın.</translation>
     </message>
     <message>
         <source>per kilobyte</source>
-        <translation>每千字节</translation>
+        <translation>kilobayt başı</translation>
     </message>
     <message>
         <source>Hide</source>
-        <translation>隐藏</translation>
+        <translation>Gizle</translation>
     </message>
     <message>
         <source>total at least</source>
-        <translation>总共至少</translation>
+        <translation>toplam en az</translation>
     </message>
     <message>
         <source>(read the tooltip)</source>
-        <translation>(请看提示)</translation>
+        <translation>(bilgi balonunu oku)</translation>
     </message>
     <message>
         <source>Recommended:</source>
-        <translation>推荐：</translation>
+        <translation>Tavsiye edilen:</translation>
     </message>
     <message>
         <source>Custom:</source>
-        <translation>自定义：</translation>
+        <translation>Özel:</translation>
     </message>
     <message>
         <source>(Smart fee not initialized yet. This usually takes a few blocks...)</source>
-        <translation>(手续费演算法还没有准备好。通常都要等几个块才可以...)</translation>
+        <translation>(Zeki ücret henüz başlatılmadı. Bu genelde birkaç blok alır...)</translation>
     </message>
     <message>
         <source>normal</source>
-        <translation>正常</translation>
+        <translation>normal</translation>
     </message>
     <message>
         <source>fast</source>
-        <translation>快速</translation>
+        <translation>hızlı</translation>
     </message>
     <message>
         <source>Confirm the send action</source>
-        <translation>确认并发送货币</translation>
+        <translation>Yollama etkinliğini teyit ediniz</translation>
     </message>
     <message>
         <source>S&amp;end</source>
-        <translation>发送(&amp;E)</translation>
+        <translation>G&amp;önder</translation>
     </message>
     <message>
         <source>Clear all fields of the form.</source>
-        <translation>清除此表单的所有字段。</translation>
+        <translation>Formdaki tüm alanları temizle.</translation>
     </message>
     <message>
         <source>Clear &amp;All</source>
-        <translation>清除所有(&amp;A)</translation>
+        <translation>Tümünü &amp;temizle</translation>
     </message>
     <message>
         <source>Send to multiple recipients at once</source>
-        <translation>一次发送给多个接收者</translation>
+        <translation>Birçok alıcıya aynı anda gönder</translation>
     </message>
     <message>
         <source>Add &amp;Recipient</source>
-        <translation>添加收款人(&amp;R)</translation>
+        <translation>&amp;Alıcı ekle</translation>
     </message>
     <message>
         <source>Balance:</source>
-        <translation>余额：</translation>
+        <translation>Bakiye:</translation>
     </message>
     <message>
         <source>Copy quantity</source>
-        <translation>复制数量</translation>
+        <translation>Miktarı kopyala</translation>
     </message>
     <message>
         <source>Copy amount</source>
-        <translation>复制金额</translation>
+        <translation>Tutarı kopyala</translation>
     </message>
     <message>
         <source>Copy fee</source>
-        <translation>复制交易费</translation>
+        <translation>Ücreti kopyala</translation>
     </message>
     <message>
         <source>Copy after fee</source>
-        <translation>复制含交易费的金额</translation>
+        <translation>Ücretten sonrasını kopyala</translation>
     </message>
     <message>
         <source>Copy bytes</source>
-        <translation>复制字节</translation>
+        <translation>Baytları kopyala</translation>
     </message>
     <message>
         <source>Copy dust</source>
-        <translation>复制零散金额</translation>
+        <translation>Tozu kopyala</translation>
     </message>
     <message>
         <source>Copy change</source>
-        <translation>复制找零金额</translation>
+        <translation>Para üstünü kopyala</translation>
     </message>
     <message>
         <source>using</source>
-        <translation>使用</translation>
+        <translation>bunu kullanarak:</translation>
     </message>
     <message>
         <source>anonymous funds</source>
-        <translation>匿名化资金</translation>
+        <translation>anonim bakiye</translation>
     </message>
     <message>
         <source>(privatesend requires this amount to be rounded up to the nearest %1).</source>
-        <translation>（匿名发送需要这一数额四舍五入到最接近%1）。</translation>
+        <translation>(özel gönder için bu tutarın en yakın %1 tutarına yuvarlanması gerekiyor).</translation>
     </message>
     <message>
         <source>any available funds (not anonymous)</source>
-        <translation>任何可用资金（非匿名的）</translation>
+        <translation>tüm mevcut bakiye (anonim değil)</translation>
     </message>
     <message>
         <source>and InstantSend</source>
-        <translation>和即时支付</translation>
+        <translation>ve Anında Gönder</translation>
     </message>
     <message>
         <source>%1 to %2</source>
-        <translation>%1 到 %2</translation>
+        <translation>%1 ögesinden %2 unsuruna</translation>
     </message>
     <message>
         <source>Are you sure you want to send?</source>
-        <translation>您确定要发出吗？</translation>
+        <translation>Göndermek istediğinizden emin misiniz?</translation>
     </message>
     <message>
         <source>are added as transaction fee</source>
-        <translation>作为交易费被添加</translation>
+        <translation>işlem ücreti olarak eklendi</translation>
     </message>
     <message>
         <source>Total Amount = &lt;b&gt;%1&lt;/b&gt;&lt;br /&gt;= %2</source>
-        <translation>总额 = &lt;b&gt;%1&lt;/b&gt;&lt;br /&gt;= %2</translation>
+        <translation>Toplam Tutar = &lt;b&gt;%1&lt;/b&gt;&lt;br /&gt;= %2</translation>
     </message>
     <message>
         <source>&lt;b&gt;(%1 of %2 entries displayed)&lt;/b&gt;</source>
-        <translation>&lt;b&gt;（在%2中%1个项目显示出来）&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;(%1 / %2 girdi gösteriliyor)&lt;/b&gt;</translation>
     </message>
     <message>
         <source>Confirm send coins</source>
-        <translation>确认发送货币</translation>
+        <translation>Bitcoin gönderimini onaylayın</translation>
     </message>
     <message>
         <source>The recipient address is not valid. Please recheck.</source>
-        <translation>接收人地址无效。请重新检查。</translation>
+        <translation>Alıcı adresi geçerli değildir. Lütfen tekrar kontrol ediniz.</translation>
     </message>
     <message>
         <source>The amount to pay must be larger than 0.</source>
-        <translation>支付金额必须大于0。</translation>
+        <translation>Ödeyeceğiniz tutarın 0'dan yüksek olması gerekir.</translation>
     </message>
     <message>
         <source>The amount exceeds your balance.</source>
-        <translation>金额超出您的账上余额。</translation>
+        <translation>Tutar bakiyenizden yüksektir.</translation>
     </message>
     <message>
         <source>The total exceeds your balance when the %1 transaction fee is included.</source>
-        <translation>计入 %1 交易费后的金额超出您的账上余额。</translation>
+        <translation>Toplam, %1 işlem ücreti eklendiğinde bakiyenizi geçmektedir.</translation>
     </message>
     <message>
         <source>Duplicate address found: addresses should only be used once each.</source>
-        <translation>发现重复地址：每个地址应该只使用一次。</translation>
+        <translation>Tekrarlayan adres bulundu: adresler sadece bir kez kullanılmalıdır.</translation>
     </message>
     <message>
         <source>Transaction creation failed!</source>
-        <translation>交易创建失败！</translation>
+        <translation>İşlem oluşturma başarısız!</translation>
     </message>
     <message>
         <source>The transaction was rejected with the following reason: %1</source>
-        <translation>交易因以下原因拒绝：%1</translation>
+        <translation>İşlem şu nedenden dolayı reddedildi: %1</translation>
     </message>
     <message>
         <source>A fee higher than %1 is considered an absurdly high fee.</source>
-        <translation>交易费一般不应超过 %1。</translation>
+        <translation>%1 tutarından yüksek bir ücret saçma derecede yüksek bir ücret olarak kabul edilir.</translation>
     </message>
     <message>
         <source>Payment request expired.</source>
-        <translation>付款请求已过期。</translation>
+        <translation>Ödeme talebinin geçerlilik süresi bitti.</translation>
     </message>
     <message numerus="yes">
         <source>%n block(s)</source>
-        <translation><numerusform>%n 区块</numerusform></translation>
+        <translation><numerusform>%n blok</numerusform><numerusform>%n blok</numerusform></translation>
     </message>
     <message>
         <source>Pay only the required fee of %1</source>
-        <translation>只支付必要费用 %1</translation>
+        <translation>Sadece asgari ücret olan %1 tutarını öde</translation>
     </message>
     <message numerus="yes">
         <source>Estimated to begin confirmation within %n block(s).</source>
-        <translation><numerusform>预计在%n 个区块内开始确认。</numerusform></translation>
+        <translation><numerusform>%n blok içinde onaylamanın başlayacağı tahmin ediliyor.</numerusform><numerusform>%n blok içinde onaylamanın başlayacağı tahmin ediliyor.</numerusform></translation>
     </message>
     <message>
         <source>Warning: Invalid Axe address</source>
-        <translation>警告：无效的达世币地址</translation>
+        <translation>UYARI: Geçersiz Axe adresi</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
-        <translation>警告：未知的更改地址</translation>
+        <translation>Uyarı: Bilinmeyen para üstü adresi</translation>
     </message>
     <message>
         <source>Confirm custom change address</source>
-        <translation>确认用户找零地址</translation>
+        <translation>Özel para üstü adresini onayla</translation>
     </message>
     <message>
         <source>The address you selected for change is not part of this wallet. Any or all funds in your wallet may be sent to this address. Are you sure?</source>
-        <translation>你选择的找零地址未被包含在本钱包中，你钱包中的部分或全部金额将被发送至该地址。你确定要这样做吗？</translation>
+        <translation>Para üstü için seçtiğiniz adres bu cüzdanın bir parçası değil. Cüzdanınızdaki bir miktar veya tüm para bu adrese gönderilebilir. Emin misiniz?</translation>
     </message>
     <message>
         <source>(no label)</source>
-        <translation>(无标签)</translation>
+        <translation>(etiket yok)</translation>
     </message>
 </context>
 <context>
     <name>SendCoinsEntry</name>
     <message>
         <source>This is a normal payment.</source>
-        <translation>这是笔正常的支付。</translation>
+        <translation>Bu, normal bir ödemedir.</translation>
     </message>
     <message>
         <source>Pay &amp;To:</source>
-        <translation>付给(&amp;T)：</translation>
+        <translation>&amp;Şu adrese öde:</translation>
     </message>
     <message>
         <source>The Axe address to send the payment to</source>
-        <translation>选择发款地址</translation>
+        <translation>Ödemenin yollanacağı Axe adresi</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
-        <translation>选择以前用过的地址</translation>
+        <translation>Önceden kullanılmış adres seç</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -3053,7 +3053,7 @@ https://www.transifex.com/projects/p/axe/</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
-        <translation>从剪贴板粘贴地址</translation>
+        <translation>Panodan adres yapıştır</translation>
     </message>
     <message>
         <source>Alt+P</source>
@@ -3061,96 +3061,96 @@ https://www.transifex.com/projects/p/axe/</translation>
     </message>
     <message>
         <source>Remove this entry</source>
-        <translation>移除此项</translation>
+        <translation>Bu unsuru kaldır</translation>
     </message>
     <message>
         <source>&amp;Label:</source>
-        <translation>标签(&amp;L)：</translation>
+        <translation>&amp;Etiket:</translation>
     </message>
     <message>
         <source>Enter a label for this address to add it to the list of used addresses</source>
-        <translation>请为此地址输入一个标签以将它加入用过的地址列表</translation>
+        <translation>Kullanılmış adres listesine eklemek için bu adrese bir etiket girin</translation>
     </message>
     <message>
         <source>A&amp;mount:</source>
-        <translation>金额(&amp;M)</translation>
+        <translation>Mebla&amp;ğ:</translation>
     </message>
     <message>
         <source>The fee will be deducted from the amount being sent. The recipient will receive a lower amount of Axe than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
-        <translation>手续费将从发送金额中扣除。接收者将收到的达世币金额将会比您在金额字段中输入的金额为少。如果选择了多个收款人，该费用将会被平均摊分。</translation>
+        <translation>Ücret gönderilen tutardan düşülecek. Alıcı sizin tutar alanına girdiğinizden daha düşük miktarda Axe alacak. Eğer birden fazla alıcı seçilirse, ücret eşit bölünür.</translation>
     </message>
     <message>
         <source>S&amp;ubtract fee from amount</source>
-        <translation>从金额中减去交易费(&amp;U)</translation>
+        <translation>Ücreti tutardan düş</translation>
     </message>
     <message>
         <source>Message:</source>
-        <translation>消息：</translation>
+        <translation>Mesaj:</translation>
     </message>
     <message>
         <source>A message that was attached to the axe: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Axe network.</source>
-        <translation>附加在达世币付款协议URI中的信息，会和交易内容一并存储，可供您参考。提示：此信息不会发送到达世币网络上。</translation>
+        <translation>Referans için Axe: URI'siyle iliştirilmiş işlemle birlikte depolanacak bir ileti. Not: Bu mesaj Axe ağı üzerinden gönderilmeyecektir.</translation>
     </message>
     <message>
         <source>This is an unauthenticated payment request.</source>
-        <translation>这是一个未经验证的支付请求。</translation>
+        <translation>Bu, kimliği doğrulanmamış bir ödeme talebidir.</translation>
     </message>
     <message>
         <source>This is an authenticated payment request.</source>
-        <translation>这是一个已经验证的支付请求。</translation>
+        <translation>Bu, kimliği doğrulanmış bir ödeme talebidir.</translation>
     </message>
     <message>
         <source>Pay To:</source>
-        <translation>支付给：</translation>
+        <translation>Şu adrese öde:</translation>
     </message>
     <message>
         <source>Memo:</source>
-        <translation>便条：</translation>
+        <translation>Not:</translation>
     </message>
     <message>
         <source>Enter a label for this address to add it to your address book</source>
-        <translation>为这个地址输入一个标签，以便将它添加到您的地址簿</translation>
+        <translation>Adres defterinize eklemek için bu adrese bir etiket giriniz</translation>
     </message>
 </context>
 <context>
     <name>SendConfirmationDialog</name>
     <message>
         <source>Yes</source>
-        <translation>是</translation>
+        <translation>Evet</translation>
     </message>
 </context>
 <context>
     <name>ShutdownWindow</name>
     <message>
         <source>%1 is shutting down...</source>
-        <translation>正在关闭 %1 ...</translation>
+        <translation>%1 kapanıyor...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
-        <translation>在此窗口消失前不要关闭计算机。</translation>
+        <translation>Bu pencere kalkıncaya dek bilgisayarı kapatmayınız.</translation>
     </message>
 </context>
 <context>
     <name>SignVerifyMessageDialog</name>
     <message>
         <source>Signatures - Sign / Verify a Message</source>
-        <translation>签名 - 签署/验证消息</translation>
+        <translation>İmzalar - Mesaj İmzala / Kontrol et</translation>
     </message>
     <message>
         <source>&amp;Sign Message</source>
-        <translation>签名消息(&amp;S)</translation>
+        <translation>Mesaj &amp;imzala</translation>
     </message>
     <message>
         <source>You can sign messages/agreements with your addresses to prove you can receive Axe sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
-        <translation>您可以用自己的地址签署信息/协议，来证明您对地址的所有权。但是请小心，不要签署语意含糊不清的内容，因为钓鱼式诈骗可能会用骗您签署的手法来冒充是您。只有在语句中的细节您都同意时才签署。</translation>
+        <translation>Onlara gönderilen Axe'i alabildiğinizi ispatlamak için mesajları/anlaşmaları adresleriniz ile imzalayabilirsiniz. Muallak ya da rastgele bir şeyi imzalamamaya dikkat edin çünkü kimlik avı saldırıları ile sizi kimliğinizi açık etmek için dolandırabilirler. Sadece anlaştığınız tam ayrıntılı beyanları imzalayın.</translation>
     </message>
     <message>
         <source>The Axe address to sign the message with</source>
-        <translation>对此地址进行签名</translation>
+        <translation>İletinin imzalanmasında kullanılacak Axe adresi</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
-        <translation>选择以前用过的地址</translation>
+        <translation>Önceden kullanılmış adres seç</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -3158,7 +3158,7 @@ https://www.transifex.com/projects/p/axe/</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
-        <translation>从剪贴板粘贴地址</translation>
+        <translation>Panodan adres yapıştır</translation>
     </message>
     <message>
         <source>Alt+P</source>
@@ -3166,107 +3166,107 @@ https://www.transifex.com/projects/p/axe/</translation>
     </message>
     <message>
         <source>Enter the message you want to sign here</source>
-        <translation>请输入您要发送的签名消息</translation>
+        <translation>İmzalamak istediğiniz mesajı burada giriniz</translation>
     </message>
     <message>
         <source>Signature</source>
-        <translation>签名</translation>
+        <translation>İmza</translation>
     </message>
     <message>
         <source>Copy the current signature to the system clipboard</source>
-        <translation>复制当前签名至剪切板</translation>
+        <translation>Güncel imzayı sistem panosuna kopyala</translation>
     </message>
     <message>
         <source>Sign the message to prove you own this Axe address</source>
-        <translation>签署信息证明您拥有此达世币地址</translation>
+        <translation>Bu Axe adresine sahip olduğunuzu ispatlamak için mesajı imzala</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
-        <translation>消息签名(&amp;M)</translation>
+        <translation>&amp;Mesajı imzala</translation>
     </message>
     <message>
         <source>Reset all sign message fields</source>
-        <translation>清空所有签名消息栏</translation>
+        <translation>Tüm mesaj alanlarını sıfırla</translation>
     </message>
     <message>
         <source>Clear &amp;All</source>
-        <translation>清除所有(&amp;A)</translation>
+        <translation>Tümünü &amp;temizle</translation>
     </message>
     <message>
         <source>&amp;Verify Message</source>
-        <translation>验证消息(&amp;V)</translation>
+        <translation>Mesaj &amp;kontrol et</translation>
     </message>
     <message>
         <source>Enter the receiver's address, message (ensure you copy line breaks, spaces, tabs, etc. exactly) and signature below to verify the message. Be careful not to read more into the signature than what is in the signed message itself, to avoid being tricked by a man-in-the-middle attack. Note that this only proves the signing party receives with the address, it cannot prove sendership of any transaction!</source>
-        <translation>请在下面输入接收者地址、消息（确保换行符、空格符、制表符等完全相同）和签名以验证消息。请仔细核对签名信息，以提防中间人攻击。请注意，这只是证明接收方签名的地址，它不能证明任何交易！</translation>
+        <translation>Alıcının adresini, iletiyi (satır sonları, boşluklar, sekmeler vs. karakterleri tam olarak kopyaladığınızdan emin olunuz) ve imzayı aşağıya giriniz. Bir ortadaki adam saldırısı tarafından kandırılmaya engel olmak için imzadan, imzalı iletinin içeriğini aşan bir anlam çıkarmamaya dikkat ediniz. Bunun sadece imzalayan tarafın adres ile alım yapabildiğini ispatladığını ve herhangi bir işlemin gönderi tarafını kanıtlayamayacağını unutmayınız!</translation>
     </message>
     <message>
         <source>The Axe address the message was signed with</source>
-        <translation>已签名的地址</translation>
+        <translation>İletinin imzalanmasında kullanılan Axe adresi</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified Axe address</source>
-        <translation>验证信息用来确保此被签署信息对应相对的达世币地址</translation>
+        <translation>Belirtilen Axe adresi ile imzalandığını doğrulamak için iletiyi kontrol et</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
-        <translation>验证消息签名(&amp;M)</translation>
+        <translation>&amp;Mesaj kontrol et</translation>
     </message>
     <message>
         <source>Reset all verify message fields</source>
-        <translation>清空所有验证消息栏</translation>
+        <translation>Tüm mesaj kontrolü alanlarını sıfırla</translation>
     </message>
     <message>
         <source>Click "Sign Message" to generate signature</source>
-        <translation>单击“签名消息“产生签名。</translation>
+        <translation>İmzayı oluşturmak için "İletiyi İmzala"ya tıklayın</translation>
     </message>
     <message>
         <source>The entered address is invalid.</source>
-        <translation>输入的地址非法。</translation>
+        <translation>Girilen adres geçersizdir.</translation>
     </message>
     <message>
         <source>Please check the address and try again.</source>
-        <translation>请检查地址后重试。</translation>
+        <translation>Lütfen adresi kontrol edip tekrar deneyiniz.</translation>
     </message>
     <message>
         <source>The entered address does not refer to a key.</source>
-        <translation>输入的地址没有关联的密匙。</translation>
+        <translation>Girilen adres herhangi bir anahtara işaret etmemektedir.</translation>
     </message>
     <message>
         <source>Wallet unlock was cancelled.</source>
-        <translation>钱包解锁已取消。</translation>
+        <translation>Cüzdan kilidinin açılması iptal edildi.</translation>
     </message>
     <message>
         <source>Private key for the entered address is not available.</source>
-        <translation>找不到输入地址关联的私钥。</translation>
+        <translation>Girilen adres için özel anahtar mevcut değildir.</translation>
     </message>
     <message>
         <source>Message signing failed.</source>
-        <translation>消息签名失败。</translation>
+        <translation>İleti imzalaması başarısız oldu.</translation>
     </message>
     <message>
         <source>Message signed.</source>
-        <translation>消息已签名。</translation>
+        <translation>İleti imzalandı.</translation>
     </message>
     <message>
         <source>The signature could not be decoded.</source>
-        <translation>签名无法解码。</translation>
+        <translation>İmzanın kodu çözülemedi.</translation>
     </message>
     <message>
         <source>Please check the signature and try again.</source>
-        <translation>请检查签名后重试。</translation>
+        <translation>Lütfen imzayı kontrol edip tekrar deneyiniz.</translation>
     </message>
     <message>
         <source>The signature did not match the message digest.</source>
-        <translation>签名与消息摘要不匹配。</translation>
+        <translation>İmza iletinin özeti ile eşleşmedi.</translation>
     </message>
     <message>
         <source>Message verification failed.</source>
-        <translation>消息验证失败。</translation>
+        <translation>İleti doğrulaması başarısız oldu.</translation>
     </message>
     <message>
         <source>Message verified.</source>
-        <translation>消息验证成功。</translation>
+        <translation>İleti doğrulandı.</translation>
     </message>
 </context>
 <context>
@@ -3277,7 +3277,7 @@ https://www.transifex.com/projects/p/axe/</translation>
     </message>
     <message>
         <source>Version %1</source>
-        <translation>版本 %1</translation>
+        <translation>Sürüm %1</translation>
     </message>
 </context>
 <context>
@@ -3291,500 +3291,500 @@ https://www.transifex.com/projects/p/axe/</translation>
     <name>TransactionDesc</name>
     <message numerus="yes">
         <source>Open for %n more block(s)</source>
-        <translation><numerusform>到下%n个区块产生前可修改</numerusform></translation>
+        <translation><numerusform>%n daha blok için açık</numerusform><numerusform>%n daha blok için açık</numerusform></translation>
     </message>
     <message>
         <source>Open until %1</source>
-        <translation>至 %1 个区块时开启</translation>
+        <translation>%1 değerine dek açık</translation>
     </message>
     <message>
         <source>conflicted</source>
-        <translation>发现冲突</translation>
+        <translation>Uyuşmadı</translation>
     </message>
     <message>
         <source>%1/offline</source>
-        <translation>%1 / 离线</translation>
+        <translation>%1/çevrim dışı</translation>
     </message>
     <message>
         <source>0/unconfirmed, %1</source>
-        <translation>0/未确认，%1</translation>
+        <translation>0/doğrulanmamış, %1</translation>
     </message>
     <message>
         <source>in memory pool</source>
-        <translation>在内存池中</translation>
+        <translation>bellek alanında</translation>
     </message>
     <message>
         <source>not in memory pool</source>
-        <translation>不在内存池中</translation>
+        <translation>bellek alanında değil</translation>
     </message>
     <message>
         <source>abandoned</source>
-        <translation>已丢弃</translation>
+        <translation>Terk edilmiş</translation>
     </message>
     <message>
         <source>%1/unconfirmed</source>
-        <translation>%1/未确认</translation>
+        <translation>%1/doğrulanmadı</translation>
     </message>
     <message>
         <source>%1 confirmations</source>
-        <translation>确认%1次</translation>
+        <translation>%1 doğrulama</translation>
     </message>
     <message>
         <source>verified via InstantSend</source>
-        <translation>经即时发送系统核实</translation>
+        <translation>Anında Gönder ile onaylanmış</translation>
     </message>
     <message>
         <source>InstantSend verification in progress - %1 of %2 signatures</source>
-        <translation>即时发送验证正在进行 - %2个签署中的第%1个</translation>
+        <translation>Anında Gönder onaylaması sürüyor - %1 / %2 imza</translation>
     </message>
     <message>
         <source>InstantSend verification failed</source>
-        <translation>即时发送验证失败</translation>
+        <translation>Anında Gönder onaylaması başarısız</translation>
     </message>
     <message>
         <source>Status</source>
-        <translation>状态</translation>
+        <translation>Durum</translation>
     </message>
     <message>
         <source>, has not been successfully broadcast yet</source>
-        <translation>，未被成功广播</translation>
+        <translation>, henüz başarılı bir şekilde yayınlanmadı</translation>
     </message>
     <message numerus="yes">
         <source>, broadcast through %n node(s)</source>
-        <translation><numerusform>，通过%n个节点广播</numerusform></translation>
+        <translation><numerusform>, %n düğümden yayın</numerusform><numerusform>, %n düğümden yayın</numerusform></translation>
     </message>
     <message>
         <source>Date</source>
-        <translation>日期</translation>
+        <translation>Tarih</translation>
     </message>
     <message>
         <source>Source</source>
-        <translation>源</translation>
+        <translation>Kaynak</translation>
     </message>
     <message>
         <source>Generated</source>
-        <translation>生成</translation>
+        <translation>Oluşturuldu</translation>
     </message>
     <message>
         <source>From</source>
-        <translation>来自</translation>
+        <translation>Gönderen</translation>
     </message>
     <message>
         <source>unknown</source>
-        <translation>未知</translation>
+        <translation>bilinmiyor</translation>
     </message>
     <message>
         <source>To</source>
-        <translation>到</translation>
+        <translation>Alıcı</translation>
     </message>
     <message>
         <source>own address</source>
-        <translation>自己的地址</translation>
+        <translation>kendi adresiniz</translation>
     </message>
     <message>
         <source>watch-only</source>
-        <translation>仅限查看</translation>
+        <translation>Sadece izlenen</translation>
     </message>
     <message>
         <source>label</source>
-        <translation>标签</translation>
+        <translation>Etiket</translation>
     </message>
     <message>
         <source>Credit</source>
-        <translation>收入</translation>
+        <translation>Alınan Tutar</translation>
     </message>
     <message numerus="yes">
         <source>matures in %n more block(s)</source>
-        <translation><numerusform>再过%n个区块产生后成熟</numerusform></translation>
+        <translation><numerusform>%n blok sonra olgunlaşacak</numerusform><numerusform>%n blok sonra olgunlaşacak</numerusform></translation>
     </message>
     <message>
         <source>not accepted</source>
-        <translation>未被接受</translation>
+        <translation>kabul edilmedi</translation>
     </message>
     <message>
         <source>Debit</source>
-        <translation>支出</translation>
+        <translation>Çekilen Tutar</translation>
     </message>
     <message>
         <source>Total debit</source>
-        <translation>支出总额</translation>
+        <translation>Toplam çekilen tutar</translation>
     </message>
     <message>
         <source>Total credit</source>
-        <translation>入账总额</translation>
+        <translation>Toplam alınan tutar</translation>
     </message>
     <message>
         <source>Transaction fee</source>
-        <translation>交易费</translation>
+        <translation>İşlem ücreti</translation>
     </message>
     <message>
         <source>Net amount</source>
-        <translation>净额</translation>
+        <translation>Net tutar</translation>
     </message>
     <message>
         <source>Message</source>
-        <translation>消息</translation>
+        <translation>İleti</translation>
     </message>
     <message>
         <source>Comment</source>
-        <translation>备注</translation>
+        <translation>Yorum</translation>
     </message>
     <message>
         <source>Transaction ID</source>
-        <translation>交易ID</translation>
+        <translation>İşlem ID'si</translation>
     </message>
     <message>
         <source>Output index</source>
-        <translation>输出索引</translation>
+        <translation>Çıktı indeksi</translation>
     </message>
     <message>
         <source>Transaction total size</source>
-        <translation>交易总大小</translation>
+        <translation>İşlemin toplam boyutu</translation>
     </message>
     <message>
         <source>Merchant</source>
-        <translation>商店</translation>
+        <translation>Tüccar</translation>
     </message>
     <message>
         <source>Generated coins must mature %1 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to "not accepted" and it won't be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
-        <translation>生成的达世币在可以使用前必须有 %1 个成熟的区块。当您生成了此区块后，它将被广播到网络中以加入区块链。如果它未成功进入区块链，其状态将变更为“不接受”并且不可使用。这可能偶尔会发生，如果另一个节点比你早几秒钟成功生成一个区块。</translation>
+        <translation>Oluşturulan bitcoin'lerin harcanabilmelerinden önce %1 blok beklemeleri gerekmektedir. Bu blok, oluşturduğunuzda, blok zincirine eklenmesi için ağda yayınlandı. Zincire eklenmesi başarısız olursa, durumu "kabul edilmedi" olarak değiştirilecek ve harcanamayacaktır. Bu, bazen başka bir düğüm sizden birkaç saniye önce ya da sonra blok oluşturursa meydana gelebilir.</translation>
     </message>
     <message>
         <source>Debug information</source>
-        <translation>调试信息</translation>
+        <translation>Hata ayıklama bilgisi</translation>
     </message>
     <message>
         <source>Transaction</source>
-        <translation>交易</translation>
+        <translation>İşlem</translation>
     </message>
     <message>
         <source>Inputs</source>
-        <translation>输入</translation>
+        <translation>Girdiler</translation>
     </message>
     <message>
         <source>Amount</source>
-        <translation>金额</translation>
+        <translation>Tutar</translation>
     </message>
     <message>
         <source>true</source>
-        <translation>正确</translation>
+        <translation>doğru</translation>
     </message>
     <message>
         <source>false</source>
-        <translation>错误</translation>
+        <translation>yanlış</translation>
     </message>
 </context>
 <context>
     <name>TransactionDescDialog</name>
     <message>
         <source>This pane shows a detailed description of the transaction</source>
-        <translation>当前面板显示了交易的详细信息</translation>
+        <translation>Bu pano muamelenin ayrıntılı açıklamasını gösterir</translation>
     </message>
     <message>
         <source>Details for %1</source>
-        <translation>%1 详情</translation>
+        <translation>%1 için ayrıntılar</translation>
     </message>
 </context>
 <context>
     <name>TransactionTableModel</name>
     <message>
         <source>Date</source>
-        <translation>日期</translation>
+        <translation>Tarih</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>类型</translation>
+        <translation>Tür</translation>
     </message>
     <message>
         <source>Address / Label</source>
-        <translation>地址/标签</translation>
+        <translation>Adres / Etiket</translation>
     </message>
     <message numerus="yes">
         <source>Open for %n more block(s)</source>
-        <translation><numerusform>到下%n个区块产生前可修改</numerusform></translation>
+        <translation><numerusform>%n daha blok için açık</numerusform><numerusform>%n daha blok için açık</numerusform></translation>
     </message>
     <message>
         <source>Open until %1</source>
-        <translation>至 %1 个区块时开启</translation>
+        <translation>%1 değerine dek açık</translation>
     </message>
     <message>
         <source>Offline</source>
-        <translation>掉线</translation>
+        <translation>Çevrim dışı</translation>
     </message>
     <message>
         <source>Unconfirmed</source>
-        <translation>未确认的 </translation>
+        <translation>Doğrulanmamış</translation>
     </message>
     <message>
         <source>Abandoned</source>
-        <translation>已丢弃</translation>
+        <translation>Terk edilmiş</translation>
     </message>
     <message>
         <source>Confirming (%1 of %2 recommended confirmations)</source>
-        <translation>确认中 (推荐 %2个确认，已经有 %1个确认)</translation>
+        <translation>Doğrulanıyor (%1 kere doğrulandı, önerilen doğrulama sayısı %2)</translation>
     </message>
     <message>
         <source>Confirmed (%1 confirmations)</source>
-        <translation>已确认 (%1 次)</translation>
+        <translation>Doğrulandı (%1 doğrulama)</translation>
     </message>
     <message>
         <source>Conflicted</source>
-        <translation>冲突的</translation>
+        <translation>Uyuşmadı</translation>
     </message>
     <message>
         <source>Immature (%1 confirmations, will be available after %2)</source>
-        <translation>未成熟 (%1 个确认，将在 %2 个后可用)</translation>
+        <translation>Olgunlaşmamış (%1 doğrulama, %2 doğrulama sonra kullanılabilir olacaktır)</translation>
     </message>
     <message>
         <source>This block was not received by any other nodes and will probably not be accepted!</source>
-        <translation>此区块未被任何其他节点接收。以后可能也不会被接受！</translation>
+        <translation>Bu blok başka hiçbir düğüm tarafından alınmamıştır ve muhtemelen kabul edilmeyecektir!</translation>
     </message>
     <message>
         <source>Generated but not accepted</source>
-        <translation>已生成但未被接受</translation>
+        <translation>Oluşturuldu ama kabul edilmedi</translation>
     </message>
     <message>
         <source>Received with</source>
-        <translation>接收于</translation>
+        <translation>Şununla alındı</translation>
     </message>
     <message>
         <source>Received from</source>
-        <translation>收款来自</translation>
+        <translation>Alındığı kişi</translation>
     </message>
     <message>
         <source>Received via PrivateSend</source>
-        <translation>经由匿名发送收到</translation>
+        <translation>Özel Gönder ile alındı</translation>
     </message>
     <message>
         <source>Sent to</source>
-        <translation>发送给</translation>
+        <translation>Gönderildiği adres</translation>
     </message>
     <message>
         <source>Payment to yourself</source>
-        <translation>付款给自己</translation>
+        <translation>Kendinize ödeme</translation>
     </message>
     <message>
         <source>Mined</source>
-        <translation>挖矿所得</translation>
+        <translation>Madenden çıkarılan</translation>
     </message>
     <message>
         <source>PrivateSend Denominate</source>
-        <translation>匿名发送面额化</translation>
+        <translation>Özel Gönder Birimi</translation>
     </message>
     <message>
         <source>PrivateSend Collateral Payment</source>
-        <translation>匿名发送附加费用</translation>
+        <translation>Özel Gönder Teminat Ödemesi</translation>
     </message>
     <message>
         <source>PrivateSend Make Collateral Inputs</source>
-        <translation>匿名发送会产生附加费用</translation>
+        <translation>Özel Gönder Teminat Girdisi Yap</translation>
     </message>
     <message>
         <source>PrivateSend Create Denominations</source>
-        <translation>匿名发送会生成面值额度</translation>
+        <translation>Özel Gönder Birim Oluştur</translation>
     </message>
     <message>
         <source>PrivateSend</source>
-        <translation>匿名发送</translation>
+        <translation>Özel Gönder</translation>
     </message>
     <message>
         <source>watch-only</source>
-        <translation>仅限查看</translation>
+        <translation>Sadece izlenen</translation>
     </message>
     <message>
         <source>(n/a)</source>
-        <translation>(不可用)</translation>
+        <translation>(mevcut değil)</translation>
     </message>
     <message>
         <source>(no label)</source>
-        <translation>(无标签)</translation>
+        <translation>(etiket yok)</translation>
     </message>
     <message>
         <source>Transaction status. Hover over this field to show number of confirmations.</source>
-        <translation>交易状态。 鼠标移到此区域可显示确认项数量。</translation>
+        <translation>İşlem durumu. Doğrulama sayısını görüntülemek için fare imlecini bu alanın üzerinde tutunuz.</translation>
     </message>
     <message>
         <source>Date and time that the transaction was received.</source>
-        <translation>接收到交易的时间</translation>
+        <translation>İşlemin alındığı tarih ve zaman.</translation>
     </message>
     <message>
         <source>Type of transaction.</source>
-        <translation>交易类别。</translation>
+        <translation>İşlemin türü.</translation>
     </message>
     <message>
         <source>Whether or not a watch-only address is involved in this transaction.</source>
-        <translation>决定是否有一个仅限查看的地址参与这次交易.</translation>
+        <translation>Bu işleme sadece-izlenen bir adresin dahil edilip, edilmediği.</translation>
     </message>
     <message>
         <source>Whether or not this transaction was locked by InstantSend.</source>
-        <translation>无论此交易是否被即时发送锁定。</translation>
+        <translation>Bu işlem Anında Gönder ile kilitlendi mi gösterir.</translation>
     </message>
     <message>
         <source>User-defined intent/purpose of the transaction.</source>
-        <translation>用户定义的该交易的意图/目的。</translation>
+        <translation>İşlemin kullanıcı tanımlı amacı.</translation>
     </message>
     <message>
         <source>Amount removed from or added to balance.</source>
-        <translation>从余额添加或移除的金额。</translation>
+        <translation>Bakiyeden kaldırılan ya da bakiyeye eklenen tutar.</translation>
     </message>
 </context>
 <context>
     <name>TransactionView</name>
     <message>
         <source>All</source>
-        <translation>全部</translation>
+        <translation>Hepsi</translation>
     </message>
     <message>
         <source>Locked by InstantSend</source>
-        <translation>被即时发送锁定</translation>
+        <translation>Anında Gönder ile kilitlendi</translation>
     </message>
     <message>
         <source>Not locked by InstantSend</source>
-        <translation>未被即时发送锁定</translation>
+        <translation>Anında Gönder ile kilitlenmedi</translation>
     </message>
     <message>
         <source>Today</source>
-        <translation>今天</translation>
+        <translation>Bugün</translation>
     </message>
     <message>
         <source>This week</source>
-        <translation>本周</translation>
+        <translation>Bu hafta</translation>
     </message>
     <message>
         <source>This month</source>
-        <translation>本月</translation>
+        <translation>Bu ay</translation>
     </message>
     <message>
         <source>Last month</source>
-        <translation>上月</translation>
+        <translation>Geçen ay</translation>
     </message>
     <message>
         <source>This year</source>
-        <translation>今年</translation>
+        <translation>Bu yıl</translation>
     </message>
     <message>
         <source>Range...</source>
-        <translation>范围...</translation>
+        <translation>Tarih Aralığı</translation>
     </message>
     <message>
         <source>Most Common</source>
-        <translation>最常用的</translation>
+        <translation>En Sık</translation>
     </message>
     <message>
         <source>Received with</source>
-        <translation>接收于</translation>
+        <translation>Şununla alındı</translation>
     </message>
     <message>
         <source>Sent to</source>
-        <translation>发送给</translation>
+        <translation>Gönderildiği adres</translation>
     </message>
     <message>
         <source>PrivateSend</source>
-        <translation>匿名发送</translation>
+        <translation>Özel Gönder</translation>
     </message>
     <message>
         <source>PrivateSend Make Collateral Inputs</source>
-        <translation>匿名发送会产生附加费用</translation>
+        <translation>Özel Gönder Teminat Girdisi Yap</translation>
     </message>
     <message>
         <source>PrivateSend Create Denominations</source>
-        <translation>匿名发送会生成面值额度</translation>
+        <translation>Özel Gönder Birim Oluştur</translation>
     </message>
     <message>
         <source>PrivateSend Denominate</source>
-        <translation>匿名发送面额化</translation>
+        <translation>Özel Gönder Birimi</translation>
     </message>
     <message>
         <source>PrivateSend Collateral Payment</source>
-        <translation>匿名发送附加费用</translation>
+        <translation>Özel Gönder Teminat Ödemesi</translation>
     </message>
     <message>
         <source>To yourself</source>
-        <translation>付款给自己</translation>
+        <translation>Kendinize</translation>
     </message>
     <message>
         <source>Mined</source>
-        <translation>挖矿所得</translation>
+        <translation>Madenden çıkarılan</translation>
     </message>
     <message>
         <source>Other</source>
-        <translation>其他</translation>
+        <translation>Diğer</translation>
     </message>
     <message>
         <source>Enter address or label to search</source>
-        <translation>输入地址或标签进行搜索</translation>
+        <translation>Aranacak adres ya da etiket giriniz</translation>
     </message>
     <message>
         <source>Min amount</source>
-        <translation>最小金额</translation>
+        <translation>En düşük tutar</translation>
     </message>
     <message>
         <source>Abandon transaction</source>
-        <translation>放弃交易</translation>
+        <translation>İşlemden vazgeç</translation>
     </message>
     <message>
         <source>Copy address</source>
-        <translation>复制地址</translation>
+        <translation>Adres kopyala</translation>
     </message>
     <message>
         <source>Copy label</source>
-        <translation>复制标签</translation>
+        <translation>Etiket kopyala</translation>
     </message>
     <message>
         <source>Copy amount</source>
-        <translation>复制金额</translation>
+        <translation>Tutarı kopyala</translation>
     </message>
     <message>
         <source>Copy transaction ID</source>
-        <translation>复制交易编号</translation>
+        <translation>İşlem ID'sini kopyala</translation>
     </message>
     <message>
         <source>Copy raw transaction</source>
-        <translation>复制原始交易</translation>
+        <translation>Ham işlemi kopyala</translation>
     </message>
     <message>
         <source>Copy full transaction details</source>
-        <translation>复制完整交易详情</translation>
+        <translation>Tüm işlem ayrıntılarını kopyala</translation>
     </message>
     <message>
         <source>Edit label</source>
-        <translation>编辑标签</translation>
+        <translation>Etiketi düzenle</translation>
     </message>
     <message>
         <source>Show transaction details</source>
-        <translation>显示交易详情</translation>
+        <translation>İşlem ayrıntılarını göster</translation>
     </message>
     <message>
         <source>Export Transaction History</source>
-        <translation>导出交易历史</translation>
+        <translation>İşlem Tarihçesini Dışarı Aktar</translation>
     </message>
     <message>
         <source>Comma separated file (*.csv)</source>
-        <translation>逗号分隔文件 (*.csv)</translation>
+        <translation>Virgülle ayrılmış değerler dosyası (*.csv)</translation>
     </message>
     <message>
         <source>Confirmed</source>
-        <translation>已确认</translation>
+        <translation>Doğrulandı</translation>
     </message>
     <message>
         <source>Watch-only</source>
-        <translation>仅限查看</translation>
+        <translation>Sadece izlenen</translation>
     </message>
     <message>
         <source>Date</source>
-        <translation>日期</translation>
+        <translation>Tarih</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation>类别</translation>
+        <translation>Tür</translation>
     </message>
     <message>
         <source>Label</source>
-        <translation>标签</translation>
+        <translation>Etiket</translation>
     </message>
     <message>
         <source>Address</source>
-        <translation>地址</translation>
+        <translation>Adres</translation>
     </message>
     <message>
         <source>ID</source>
@@ -3792,1654 +3792,1654 @@ https://www.transifex.com/projects/p/axe/</translation>
     </message>
     <message>
         <source>Exporting Failed</source>
-        <translation>导出失败</translation>
+        <translation>Dışarı aktarmada hata</translation>
     </message>
     <message>
         <source>There was an error trying to save the transaction history to %1.</source>
-        <translation>导出交易历史到 %1 时发生错误。</translation>
+        <translation>İşlem tarihçesinin %1 konumuna kaydedilmeye çalışıldığı sırada bir hata meydana geldi.</translation>
     </message>
     <message>
         <source>Exporting Successful</source>
-        <translation>导出成功</translation>
+        <translation>Dışarı Aktarma Başarılı</translation>
     </message>
     <message>
         <source>The transaction history was successfully saved to %1.</source>
-        <translation>交易历史已成功保存到 %1。</translation>
+        <translation>İşlem tarihçesi %1 konumuna başarıyla kaydedildi.</translation>
     </message>
     <message>
         <source>Range:</source>
-        <translation>范围：</translation>
+        <translation>Tarih Aralığı:</translation>
     </message>
     <message>
         <source>to</source>
-        <translation>到</translation>
+        <translation>Alıcı</translation>
     </message>
 </context>
 <context>
     <name>UnitDisplayStatusBarControl</name>
     <message>
         <source>Unit to show amounts in. Click to select another unit.</source>
-        <translation>金额显示单位。单击选择其他单位。</translation>
+        <translation>Tutarı göstermek için birim. Başka bir birim seçmek için tıklayınız.</translation>
     </message>
 </context>
 <context>
     <name>WalletFrame</name>
     <message>
         <source>No wallet has been loaded.</source>
-        <translation>没有载入钱包。</translation>
+        <translation>Hiçbir cüzdan yüklenmedi.</translation>
     </message>
 </context>
 <context>
     <name>WalletModel</name>
     <message>
         <source>Send Coins</source>
-        <translation>发送达世币</translation>
+        <translation>Bitcoini Gönder</translation>
     </message>
     <message>
         <source>InstantSend doesn't support sending values that high yet. Transactions are currently limited to %1 AXE.</source>
-        <translation>即时发送功能目前还不支持发送如此高的金额。目前限制在%1达世币。</translation>
+        <translation>Anında Gönder şu anda bu kadar yüksek tutarları göndermeyi desteklemiyor. İşlemler şimdilik %1 AXE ile sınırlı.</translation>
     </message>
     <message>
         <source>Used way too many inputs (&gt;%1) for this InstantSend transaction, fees could be huge.</source>
-        <translation>这个即时发送交易使用过多的输入（&gt;%1），费用可能很大。</translation>
+        <translation>Bu Anında Gönder işlemi için çok fazla girdi (&gt;%1) kullanıldı, ücret çok yüksek olabilir.</translation>
     </message>
 </context>
 <context>
     <name>WalletView</name>
     <message>
         <source>&amp;Export</source>
-        <translation>导出(&amp;E)</translation>
+        <translation>&amp;Dışarı aktar</translation>
     </message>
     <message>
         <source>Export the data in the current tab to a file</source>
-        <translation>导出当前数据到文件</translation>
+        <translation>Mevcut sekmedeki verileri bir dosyaya aktar</translation>
     </message>
     <message>
         <source>Selected amount:</source>
-        <translation>选择总额:</translation>
+        <translation>Seçilen tutar:</translation>
     </message>
     <message>
         <source>Backup Wallet</source>
-        <translation>备份钱包</translation>
+        <translation>Cüzdanı Yedekle</translation>
     </message>
     <message>
         <source>Wallet Data (*.dat)</source>
-        <translation>钱包文件(*.dat)</translation>
+        <translation>Cüzdan Verileri (*.dat)</translation>
     </message>
     <message>
         <source>Backup Failed</source>
-        <translation>备份失败</translation>
+        <translation>Yedekleme Başarısız Oldu</translation>
     </message>
     <message>
         <source>There was an error trying to save the wallet data to %1.</source>
-        <translation>尝试保存钱包数据至 %1 时发生错误。</translation>
+        <translation>Cüzdan verilerinin %1 konumuna kaydedilmesi sırasında bir hata meydana geldi.</translation>
     </message>
     <message>
         <source>Backup Successful</source>
-        <translation>备份成功</translation>
+        <translation>Yedekleme Başarılı</translation>
     </message>
     <message>
         <source>The wallet data was successfully saved to %1.</source>
-        <translation>钱包数据成功保存至 %1 。</translation>
+        <translation>Cüzdan verileri %1 konumuna başarıyla kaydedildi.</translation>
     </message>
 </context>
 <context>
     <name>axe-core</name>
     <message>
         <source>Bind to given address and always listen on it. Use [host]:port notation for IPv6</source>
-        <translation>与提供地址绑定，持续监听。IPv6请用[host]:port格式</translation>
+        <translation>Belirtilen adrese bağlan ve daima ondan dinle. IPv6 için [makine]:port yazımını kullanınız</translation>
     </message>
     <message>
         <source>Error: Listening for incoming connections failed (listen returned error %s)</source>
-        <translation>错误：监听外来连接失败(监听回馈错误 %s)</translation>
+        <translation>Hata: İçeri gelen bağlantıların dinlenmesi başarısız oldu (dinleme %s hatasını verdi)</translation>
     </message>
     <message>
         <source>Execute command when a relevant alert is received or we see a really long fork (%s in cmd is replaced by message)</source>
-        <translation>当收到相关警示或产生相当长的分叉时，执行命令(命令中的 %s 会被警示信息代替)</translation>
+        <translation>İlgili bir uyarı alındığında ya da gerçekten uzun bir çatallama gördüğümüzde komutu çalıştır (komuttaki %s mesaj ile değiştirilir)</translation>
     </message>
     <message>
         <source>Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)</source>
-        <translation>当钱包有交易改变时需要执行命令(命令中的 %s 会被交易识别码代替)</translation>
+        <translation>Bir cüzdan muamelesi değiştiğinde komutu çalıştır (komuttaki %s TxID ile değiştirilecektir)</translation>
     </message>
     <message>
         <source>Execute command when the best block changes (%s in cmd is replaced by block hash)</source>
-        <translation>当最新区块改变时需要执行的命令(命令中的 %s 会被区块哈希值代替)</translation>
+        <translation>En iyi blok değiştiğinde komutu çalıştır (komut için %s parametresi blok hash değeri ile değiştirilecektir)</translation>
     </message>
     <message>
         <source>Name to construct url for KeePass entry that stores the wallet passphrase</source>
-        <translation>为存储钱包密码的KeePass入口链接命名</translation>
+        <translation>Cüzdan parolanızı bulunduran KeePass girdisine url oluşturmak için ad</translation>
     </message>
     <message>
         <source>Set maximum size of high-priority/low-fee transactions in bytes (default: %d)</source>
-        <translation>设置以字节为单位的高优先级或低费率交易的最大数(默认：%d)</translation>
+        <translation>Yüksek öncelikli/düşük ücretli muamelelerin azami boyutunu bayt olarak ayarla (varsayılan: %d)</translation>
     </message>
     <message>
         <source>Set the number of script verification threads (%u to %d, 0 = auto, &lt;0 = leave that many cores free, default: %d)</source>
-        <translation>设置脚本确认线程数(%u到%d，0 = 自动，&lt;0 = 保留处理器核心不用的数目， 默认：%d)</translation>
+        <translation>Betik kontrolü iş parçacıklarının sayısını belirler (%u ilâ %d, 0 = otomatik, &lt;0 = bu sayıda çekirdeği kullanma, varsayılan: %d)</translation>
     </message>
     <message>
         <source>This is a pre-release test build - use at your own risk - do not use for mining or merchant applications</source>
-        <translation>这是一个预发布测试版本 - 您自己承担风险使用 - 采矿商或交易商不要使用本应用程序</translation>
+        <translation>Bu yayın öncesi bir deneme sürümüdür - tüm riski siz üstlenmiş olursunuz - bitcoin oluşturmak ya da ticari uygulamalar için kullanmayınız</translation>
     </message>
     <message>
         <source>Warning: The network does not appear to fully agree! Some miners appear to be experiencing issues.</source>
-        <translation>警告: 达世币网路对于区块链结的决定目前有分歧！看来有些矿工会有问题。</translation>
+        <translation>Uyarı: şebeke tamamen mutabık değil gibi görünüyor! Bazı madenciler sorun yaşıyor gibi görünüyor.</translation>
     </message>
     <message>
         <source>Warning: We do not appear to fully agree with our peers! You may need to upgrade, or other nodes may need to upgrade.</source>
-        <translation>警告: 我们和某些连线的节点对于区块链结的决定不同！你可能需要升级，或是需要等其它的节点升级。</translation>
+        <translation>Uyarı: eşlerimizle tamamen mutabık değiliz gibi görünüyor! Güncelleme yapmanız gerekebilir ya da diğer düğümlerin güncelleme yapmaları gerekebilir.</translation>
     </message>
     <message>
         <source>You must specify a masternodeprivkey in the configuration. Please see documentation for help.</source>
-        <translation>您必须在配置中指定一个主节点密钥。请参阅文档以获得帮助。</translation>
+        <translation>Ayarlarda bir masternodeprivkey belirtmelisiniz. Lütfen yardım almak için dökümantasyona göz atın.</translation>
     </message>
     <message>
         <source>Accept command line and JSON-RPC commands</source>
-        <translation>接受命令行以及JSON-RPC命令</translation>
+        <translation>Komut satırı ve JSON-RPC komutlarını kabul et</translation>
     </message>
     <message>
         <source>Add a node to connect to and attempt to keep the connection open</source>
-        <translation>添加一个可连接节点，并尝试保持连接开放。</translation>
+        <translation>Bağlanılacak düğüm ekle ve bağlantıyı zinde tutmaya çalış</translation>
     </message>
     <message>
         <source>Allow DNS lookups for -addnode, -seednode and -connect</source>
-        <translation>允许对-addnode，-seednode，-connect的参数使用DNS查询</translation>
+        <translation>-addnode, -seednode ve -connect için DNS aramalarına izin ver</translation>
     </message>
     <message>
         <source>Already have that input.</source>
-        <translation>输入已存在。</translation>
+        <translation>Bu girdi zaten var.</translation>
     </message>
     <message>
         <source>Block creation options:</source>
-        <translation>区块创建选项：</translation>
+        <translation>Blok oluşturma seçenekleri:</translation>
     </message>
     <message>
         <source>Cannot downgrade wallet</source>
-        <translation>不能降级钱包</translation>
+        <translation>Cüzdan eski biçime geri alınamaz</translation>
     </message>
     <message>
         <source>Cannot write default address</source>
-        <translation>不能写入默认地址</translation>
+        <translation>Varsayılan adres yazılamadı</translation>
     </message>
     <message>
         <source>Collateral not valid.</source>
-        <translation>并行无效。</translation>
+        <translation>Teminat geçerli değil.</translation>
     </message>
     <message>
         <source>Connect to a node to retrieve peer addresses, and disconnect</source>
-        <translation>连接至节点来取得其地址后断开连接</translation>
+        <translation>Eş adresleri elde etmek için bir düğüme bağlan ve ardından bağlantıyı kes</translation>
     </message>
     <message>
         <source>Connection options:</source>
-        <translation>连接选项：</translation>
+        <translation>Bağlantı seçenekleri:</translation>
     </message>
     <message>
         <source>Corrupted block database detected</source>
-        <translation>区块数据库已损坏</translation>
+        <translation>Bozuk blok veritabanı tespit edildi</translation>
     </message>
     <message>
         <source>Debugging/Testing options:</source>
-        <translation>调试/测试 选项：</translation>
+        <translation>Hata ayıklama/deneme seçenekleri:</translation>
     </message>
     <message>
         <source>Do not load the wallet and disable wallet RPC calls</source>
-        <translation>不要载入钱包并禁用钱包的RPC调用</translation>
+        <translation>Cüzdanı yükleme ve cüzdan RPC çağrılarını devre dışı bırak</translation>
     </message>
     <message>
         <source>Do you want to rebuild the block database now?</source>
-        <translation>您想要现在重建区块数据库吗？</translation>
+        <translation>Blok veritabanını şimdi yeniden inşa etmek istiyor musunuz?</translation>
     </message>
     <message>
         <source>Done loading</source>
-        <translation>读取完成</translation>
+        <translation>Yükleme tamamlandı</translation>
     </message>
     <message>
         <source>Entries are full.</source>
-        <translation>词条已满。</translation>
+        <translation>Girdiler dolu.</translation>
     </message>
     <message>
         <source>Error initializing block database</source>
-        <translation>初始化区块数据库错误</translation>
+        <translation>Blok veritabanını başlatılırken bir hata meydana geldi</translation>
     </message>
     <message>
         <source>Error initializing wallet database environment %s!</source>
-        <translation>初始化钱包数据库环境错误 %s！</translation>
+        <translation>%s cüzdan veritabanı ortamının başlatılmasında hata meydana geldi!</translation>
     </message>
     <message>
         <source>Error loading block database</source>
-        <translation>读取区块数据库错误</translation>
+        <translation>Blok veritabanının yüklenmesinde hata</translation>
     </message>
     <message>
         <source>Error opening block database</source>
-        <translation>打开区块数据库错误</translation>
+        <translation>Blok veritabanının açılışı sırasında hata</translation>
     </message>
     <message>
         <source>Error reading from database, shutting down.</source>
-        <translation>读取数据库错误，正在关闭。</translation>
+        <translation>Veritabanından okumada hata, kapatılıyor.</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation>错误</translation>
+        <translation>Hata</translation>
     </message>
     <message>
         <source>Error: Disk space is low!</source>
-        <translation>错误：磁盘空间不够！</translation>
+        <translation>Hata: Disk alanı düşük!</translation>
     </message>
     <message>
         <source>Failed to listen on any port. Use -listen=0 if you want this.</source>
-        <translation>监听端口失败。如果想使用此项，可设定-listen=0。</translation>
+        <translation>Herhangi bir portun dinlenmesi başarısız oldu. Bunu istiyorsanız -listen=0 seçeneğini kullanınız.</translation>
     </message>
     <message>
         <source>(1 = keep tx meta data e.g. account owner and payment request information, 2 = drop tx meta data)</source>
-        <translation>(1 = 保留交易描述数据，例如账户持有人和交易请求信息，2 = 丢弃交易描述数据)</translation>
+        <translation>(1 = tx meta verilerini tut mesela hesap sahibi ve ödeme talebi bilgileri, 2 = tx meta verilerini at)</translation>
     </message>
     <message>
         <source>-maxtxfee is set very high! Fees this large could be paid on a single transaction.</source>
-        <translation>-maxtxfee 设定了很高的金额！这是您一次交易就有可能付出的手续费。</translation>
+        <translation>-maxtxfee çok yüksek bir değere ayarlanmış! Bu denli yüksek ücretler tek bir işlemde ödenebilir.</translation>
     </message>
     <message>
         <source>A fee rate (in %s/kB) that will be used when fee estimation has insufficient data (default: %s)</source>
-        <translation>费用估算数据不足时将使用的费用（以%s/kB为单位）（预设值：%s）</translation>
+        <translation>Ücret tahmini için yetersiz veri bulunduğunda kullanılacak ücret oranı (%s/kB olarak) (varsayılan: %s)</translation>
     </message>
     <message>
         <source>Accept relayed transactions received from whitelisted peers even when not relaying transactions (default: %d)</source>
-        <translation>即使在没有中继交易发生的情况下仍然接受来自节点白名单的中继交易（预设值：%d）</translation>
+        <translation>İşlemler aktarılmadığında dahi beyaz listedeki eşlerden aktarılan işlemleri kabul et (varsayılan: %d)</translation>
     </message>
     <message>
         <source>Allow JSON-RPC connections from specified source. Valid for &lt;ip&gt; are a single IP (e.g. 1.2.3.4), a network/netmask (e.g. 1.2.3.4/255.255.255.0) or a network/CIDR (e.g. 1.2.3.4/24). This option can be specified multiple times</source>
-        <translation>允许指定来源建立与JSON-RPC的连接。&lt;ip&gt; 的有效值可以是单独IP(例如1.2.3.4)，一个网络/子网掩码(例如 1.2.3.4/255.255.255.0)，或网络/CIDR(例如1.2.3.4/24)。这个选项可以多次设定。</translation>
+        <translation>Belirtilen kaynaktan JSON-RPC bağlantılarını kabul et. Bir &lt;ip&gt; için geçerli olanlar şunlardır: IP adresi (mesela 1.2.3.4), bir ağ/ağ maskesi (örneğin 1.2.3.4/255.255.255.0) ya da bir ağ/CIDR (mesela 1.2.3.4/24). Bu seçenek birden fazla kez belirtilebilir</translation>
     </message>
     <message>
         <source>Bind to given address and whitelist peers connecting to it. Use [host]:port notation for IPv6</source>
-        <translation>和指定的地址连接，並且将连接的节点放入白名单中。IPv6请用[host]:port格式</translation>
+        <translation>Belirtilen adrese bağlan ve ona bağlanan eşleri beyaz listeye al. IPv6 için [makine]:port imlasını kullanınız</translation>
     </message>
     <message>
         <source>Bind to given address to listen for JSON-RPC connections. Use [host]:port notation for IPv6. This option can be specified multiple times (default: bind to all interfaces)</source>
-        <translation>和指定的地址连接，监听JSON-RPC连接。IPv6请用[host]:port格式。此选项可以多次设定(默认：绑定所有界面)</translation>
+        <translation>JSON-RPC bağlantılarını dinlemek için verilen adrese bağla. IPv6 için [host]:port formatını kullanın. Bu seçenek birden fazla defa belirtilebilir (varsayılan: tüm arayüzlere bağla)</translation>
     </message>
     <message>
         <source>Create new files with system default permissions, instead of umask 077 (only effective with disabled wallet functionality)</source>
-        <translation>创建系统默认权限的文件，而不是 umask 077 (只在关闭钱包功能时有效) </translation>
+        <translation>Yeni dosyaları umask 077 yerine varsayılan izinlerle oluştur (sadece devre dışı cüzdan işlevselliği ile etkilidir)</translation>
     </message>
     <message>
         <source>Delete all wallet transactions and only recover those parts of the blockchain through -rescan on startup</source>
-        <translation>删除钱包里的所有交易信息, 并且在下次启动时, 使用 -rescan 来从区块链中恢复</translation>
+        <translation>Tüm cüzdan işlemlerini sil ve başlangıçta -rescan ile sadece blok zincirinin parçası olanları geri getir</translation>
     </message>
     <message>
         <source>Enable publish raw transactions of attempted InstantSend double spend in &lt;address&gt;</source>
-        <translation>允许在 &lt;address&gt;中发布尝试即时支付双花的原始交易</translation>
+        <translation>&lt;address&gt; adresindeki Anında Gönder çift harcama girişimleri için ham işlem yayınını etkinleştir.</translation>
     </message>
     <message>
         <source>Enable publish transaction hashes of attempted InstantSend double spend in &lt;address&gt;</source>
-        <translation>允许在 &lt;address&gt;中发布尝试即时支付双花的交易哈希值</translation>
+        <translation>&lt;address&gt; adresindeki Anında Gönder çift harcama girişimleri için işlem hash yayınını etkinleştir.</translation>
     </message>
     <message>
         <source>Error loading %s: You can't enable HD on a already existing non-HD wallet</source>
-        <translation>加载%s时出错：您不能够在非HD钱包上启用HD功能</translation>
+        <translation>%s yüklenirken hata: Zaten var olan bir HD olmayan cüzdanda HD etkinleştiremezsiniz</translation>
     </message>
     <message>
         <source>Found unconfirmed denominated outputs, will wait till they confirm to continue.</source>
-        <translation>未确认的面额化输出，将等待他们确认后继续。</translation>
+        <translation>Teyit edilmemiş birimlendirilmiş çıktılar bulundu, devam etmek için teyit edilene kadar beklenecek.</translation>
     </message>
     <message>
         <source>How thorough the block verification of -checkblocks is (0-4, default: %u)</source>
-        <translation>使用 -checkblocks 检查区块的仔细程度 (0-4，默认：%u)</translation>
+        <translation>-checkblocks'un blok kontrolünün ne kadar kapsamlı olacağı (0 ilâ 4, varsayılan: %u)</translation>
     </message>
     <message>
         <source>If paytxfee is not set, include enough fee so transactions begin confirmation on average within n blocks (default: %u)</source>
-        <translation>当没有设定 paytxfee 时, 自动包含可以让交易能在平均 n 个区块内开始确认的手续费 (默认：%u)</translation>
+        <translation>Eğer paytxfee ayarlanmadıysa kafi derecede ücret ekleyin ki işlemler teyite vasati n blok içinde başlasın (varsayılan: %u)</translation>
     </message>
     <message>
         <source>If this block is in the chain assume that it and its ancestors are valid and potentially skip their script verification (0 to verify all, default: %s, testnet: %s)</source>
-        <translation>如果在这条链中的区块假设它和它之前的内存块是有效的，并有可能跳过他们的脚本验证（0是验证全部，默认：%s，testnet：%s）</translation>
+        <translation>Eğer bu blok zincirde yer alıyorsa onun ve atalarının geçerli olduğunu varsay ve potansiyel olarak onların betik doğrulamasını atla.  (Tümünü doğrulamak için 0, varsayılan %s, testnet: %s)</translation>
     </message>
     <message>
         <source>Invalid amount for -maxtxfee=&lt;amount&gt;: '%s' (must be at least the minrelay fee of %s to prevent stuck transactions)</source>
-        <translation>设定 -maxtxfee=&lt;金额&gt;  的金额无效&lt;amount&gt;：'%s' (必须大于等于最低转发手续费%s 以避免交易无法被确认)</translation>
+        <translation>-maxtxfee=&lt;tutar&gt; için geçersiz tutar: '%s' (Sıkışmış işlemleri önlemek için en az %s değerinde en düşük aktarım ücretine eşit olmalıdır)</translation>
     </message>
     <message>
         <source>Maintain a full transaction index, used by the getrawtransaction rpc call (default: %u)</source>
-        <translation>维护一份完整的交易索引, 用于 getrawtransaction RPC调用 (默认：%u)</translation>
+        <translation>İşlemlerin tamamının indeksini tut, getrawtransaction rpc çağrısı tarafından kullanılır (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Make sure to encrypt your wallet and delete all non-encrypted backups after you verified that wallet works!</source>
-        <translation>请确保加密您的钱包，并在验证您的钱包能够运作后删除所有未加密的备份！</translation>
+        <translation>Cüzdanın çalıştığından emin olduktan sonra mutlaka cüzdanınızı şifreleyip şifrelenmemiş tüm yedekleri silin!</translation>
     </message>
     <message>
         <source>Maximum size of data in data carrier transactions we relay and mine (default: %u)</source>
-        <translation>转发和挖矿时，对只带数据的交易的大小上限（默认：%u）</translation>
+        <translation>Aktardığımız ve oluşturduğumuz veri taşıyıcı işlemlerindeki en yüksek veri boyutu (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Number of seconds to keep misbehaving peers from reconnecting (default: %u)</source>
-        <translation>避免与异常的节点重新连接的秒数（预设：%u）</translation>
+        <translation>Aksaklık gösteren eşlerle terkar bağlantıyı engelleme süresi, saniye olarak (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Output debugging information (default: %u, supplying &lt;category&gt; is optional)</source>
-        <translation>输出调试信息(默认：%u，&lt;category&gt;是可选项)</translation>
+        <translation>Hata ayıklama bilgisini dök (varsayılan: %u, &lt;category&gt; sağlanması seçime dayalıdır)</translation>
     </message>
     <message>
         <source>Overrides minimum spork signers to change spork value. Only useful for regtest and devnet. Using this on mainnet or testnet will ban you.</source>
-        <translation>重写最少数叉勺签名人以更改叉勺值。仅适用于 regtest 和 devnet。在主网或测试网络使用会被禁止。</translation>
+        <translation>Spork değerini değiştirmek için ereken spork imzacısı sayısını değiştirir. Sadece regtest ve devnet için kullanılır. Bunu mainnet veya testnette kullanırsanız atılırsınız.</translation>
     </message>
     <message>
         <source>Use N separate masternodes in parallel to mix funds (%u-%u, default: %u)</source>
-        <translation>同时使用 N 个独立主节点来混淆资金 (%u-%u, default: %u)</translation>
+        <translation>Meblağı karıştırmak için N tane farklı ana düğüm kullan (%u-%u, varsayılan: %u)</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
-        <translation>使用独立的SOCK5 代理服务器, 来通过Tor 隐藏服务器与节点的连接 (默认: %s)</translation>
+        <translation>Eşlere gizli Tor servisleri ile ulaşmak için ayrı SOCKS5 vekil sunucusu kullan (varsayılan: %s)</translation>
     </message>
     <message>
         <source>User defined mnemonic for HD wallet (bip39). Only has effect during wallet creation/first start (default: randomly generated)</source>
-        <translation>用户自定义的HD钱包（bip39）。仅在创建钱包/首次启动时有效（默认：随机生成）</translation>
+        <translation>HD cüzdan (bip39) için kullanıcı tarafından belirlenmiş anımsatıcı. Sadece cüzdan oluşturma/ilk açılış sırasında etkilidir (varsayılan: rastgele oluşturulur)</translation>
     </message>
     <message>
         <source>User defined seed for HD wallet (should be in hex). Only has effect during wallet creation/first start (default: randomly generated)</source>
-        <translation>用户自定义的HD钱包种子（应该是十六进制）。仅在创建钱包/首次启动时有效（默认：随机生成）</translation>
+        <translation>HD cüzdan (hex olmalıdır) için kullanıcı tarafından belirlenmiş kaynak. Sadece cüzdan oluşturma/ilk açılış sırasında etkilidir (varsayılan: rastgele oluşturulur)</translation>
     </message>
     <message>
         <source>Whitelisted peers cannot be DoS banned and their transactions are always relayed, even if they are already in the mempool, useful e.g. for a gateway</source>
-        <translation>在白名单中的节点不会因为检测到DoS攻击而被停用。来自这些节点的交易也一定会被转发，即使说交易本来就在记忆池里了也一样。适用于像是网关服务器</translation>
+        <translation>Beyaz listeye alınan eşler DoS yasaklamasına uğramazlar ve işlemleri zaten mempool'da olsalar da daima aktarılır, bu mesela bir geçit için kullanışlıdır</translation>
     </message>
     <message>
         <source>You need to rebuild the database using -reindex-chainstate to change -txindex</source>
-        <translation>你需要通过使用 -reindex-chainstate改变-txindex来重建数据库</translation>
+        <translation>-txindex'i değiştirmek için -reindex-chainstate kullanarak veritabanını baştan kurmalısınız</translation>
     </message>
     <message>
         <source>You should specify a masternodeblsprivkey in the configuration. Please see documentation for help.</source>
-        <translation>您应当在设置中具体标注 masternodeblsprivkey。请阅读文档获得帮助。</translation>
+        <translation>Ayarlarda bir masternodeblsprivkey belirtmelisiniz. Yardım için dökümanlara göz atın.</translation>
     </message>
     <message>
         <source>(default: %s)</source>
-        <translation>(默认：%s)</translation>
+        <translation>(varsayılan: %s)</translation>
     </message>
     <message>
         <source>Accept public REST requests (default: %u)</source>
-        <translation>接受公开的REST请求(默认：%u)</translation>
+        <translation>Herkese açık REST taleplerini kabul et (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Always query for peer addresses via DNS lookup (default: %u)</source>
-        <translation>是否总是通过DNS查询来搜寻节点（预设值：%u）</translation>
+        <translation>Eş adresleri sorgulaması için daima DNS aramasını kullan (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Can't mix: no compatible inputs found!</source>
-        <translation>无法混合：没有找到兼容的输入！</translation>
+        <translation>Karıştırılamıyor: hiç uyumlu girdi bulunamadı!</translation>
     </message>
     <message>
         <source>Chain selection options:</source>
-        <translation>选择区块链选项：</translation>
+        <translation>Blok zinciri seçim ayarları:</translation>
     </message>
     <message>
         <source>Connect through SOCKS5 proxy</source>
-        <translation>通过SOCKS5代理连接</translation>
+        <translation>SOCKS5 vekil sunucusu vasıtasıyla bağlan</translation>
     </message>
     <message>
         <source>Connect to KeePassHttp on port &lt;port&gt; (default: %u)</source>
-        <translation>连接至 KeePassHttp 端口 &lt;port&gt; (默认：%u)</translation>
+        <translation>Port &lt;port&gt; üstünde KeePassHttp'ye bağlan (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Enable the client to act as a masternode (0-1, default: %u)</source>
-        <translation>激活客户端，使其作为主节点(0-1，默认：%u)</translation>
+        <translation>İstemcinin ana düğüm olarak davranmasını etkinleştir (0-1, varsayılan: %u)</translation>
     </message>
     <message>
         <source>Entry exceeds maximum size.</source>
-        <translation>条目超过最大值。</translation>
+        <translation>Girdi maksimum boyutu aşıyor.</translation>
     </message>
     <message>
         <source>Error loading %s: You can't disable HD on a already existing HD wallet</source>
-        <translation>加载%s时出错：您不能在HD钱包上禁用HD功能</translation>
+        <translation>%s yüklenirken hata: Zaten var olan bir HD cüzdanda HD'yi kapatamazsınız.</translation>
     </message>
     <message>
         <source>Failed to load fulfilled requests cache from</source>
-        <translation>无法加载完成请求缓存</translation>
+        <translation>Şuradan tamamlanmış talep önbelleği yüklemesi başarısız:</translation>
     </message>
     <message>
         <source>Failed to load governance cache from</source>
-        <translation>无法加载治理缓存</translation>
+        <translation>Şuradan yönetim önbelleği yüklemesi başarısız:</translation>
     </message>
     <message>
         <source>Failed to load masternode cache from</source>
-        <translation>无法加载主节点缓存</translation>
+        <translation>Şuradan ana düğüm önbelleği yüklemesi başarısız:</translation>
     </message>
     <message>
         <source>Failed to load masternode payments cache from</source>
-        <translation>无法加载主节点付款缓存</translation>
+        <translation>Şuradan ana düğüm ödemeleri önbelleği yüklemesi başarısız:</translation>
     </message>
     <message>
         <source>Found enough users, signing ( waiting %s )</source>
-        <translation>用户数已满足，开始签名 (等待 %s)</translation>
+        <translation>Yeterli kullanıcı bulundu, imzalanıyor ( %s bekleniyor )</translation>
     </message>
     <message>
         <source>Found enough users, signing ...</source>
-        <translation>用户数已满足，开始签名 ... </translation>
+        <translation>Yeterli kullanıcı bulundu, imzalanıyor ...</translation>
     </message>
     <message>
         <source>How many blocks to check at startup (default: %u, 0 = all)</source>
-        <translation>启动时检测多少个区块(默认：%u，0=所有)</translation>
+        <translation>Başlangıçta kontrol edilecek blok sayısı (varsayılan: %u, 0 = hepsi)</translation>
     </message>
     <message>
         <source>Importing...</source>
-        <translation>正在导入...</translation>
+        <translation>İçe aktarılıyor...</translation>
     </message>
     <message>
         <source>Include IP addresses in debug output (default: %u)</source>
-        <translation>在调试输出内容中包含网络IP地址(默认: %u)</translation>
+        <translation>Hata ayıklama çıktısına IP adreslerini dahil et (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Incompatible mode.</source>
-        <translation>不兼容模式。</translation>
+        <translation>Uyumsuz mod.</translation>
     </message>
     <message>
         <source>Incompatible version.</source>
-        <translation>不兼容版本。</translation>
+        <translation>Uyumsuz sürüm.</translation>
     </message>
     <message>
         <source>Incorrect or no genesis block found. Wrong datadir for network?</source>
-        <translation>不正确或没有找到创世区块。错误的数据目录？</translation>
+        <translation>Yanlış ya da bulunamamış doğuş bloku. Şebeke için yanlış veri klasörü mü?</translation>
     </message>
     <message>
         <source>Information</source>
-        <translation>信息</translation>
+        <translation>Bilgi</translation>
     </message>
     <message>
         <source>Input is not valid.</source>
-        <translation>输入是无效的。</translation>
+        <translation>Girdi geçerli değil.</translation>
     </message>
     <message>
         <source>Insufficient funds.</source>
-        <translation>余额不足。</translation>
+        <translation>Yetersiz bakiye.</translation>
     </message>
     <message>
         <source>Invalid -onion address: '%s'</source>
-        <translation>无效-onion地址：'%s'</translation>
+        <translation>Geçersiz -onion adresi: '%s'</translation>
     </message>
     <message>
         <source>Invalid -proxy address: '%s'</source>
-        <translation>无效 -proxy地址：'%s'</translation>
+        <translation>Geçersiz -proxy adresi: '%s'</translation>
     </message>
     <message>
         <source>Invalid amount for -paytxfee=&lt;amount&gt;: '%s' (must be at least %s)</source>
-        <translation>设定 -paytxfee=&lt;金额&gt;  的金额无效：'%s' (至少要有%s)</translation>
+        <translation>-paytxfee=&lt;tutar&gt;:'%s' unsurunda geçersiz tutar (asgari %s olması lazımdır)</translation>
     </message>
     <message>
         <source>Invalid masternodeblsprivkey. Please see documenation.</source>
-        <translation>无效的 masternodeblsprivkey。请阅读文档。</translation>
+        <translation>Geçersiz masternodeblsprivkey. Lütfen dökümanlara göz atın.</translation>
     </message>
     <message>
         <source>Invalid minimum number of spork signers specified with -minsporkkeys</source>
-        <translation>无效的最少数叉勺签名人以  -minsporkkeys 标识</translation>
+        <translation>-minsporkkeys ile belirtilmiş geçersiz minimum spork imzacısı sayısı</translation>
     </message>
     <message>
         <source>Keypool ran out, please call keypoolrefill first</source>
-        <translation>Keypool用完了，请先调用keypoolrefill</translation>
+        <translation>Keypool tükendi, lütfen önce keypoolrefill'i çağırın</translation>
     </message>
     <message>
         <source>Listen for JSON-RPC connections on &lt;port&gt; (default: %u or testnet: %u)</source>
-        <translation>在通信端口&lt;port&gt;监听JSON-RPC连接(默认：%u 或 测试网络：%u)</translation>
+        <translation>JSON-RPC bağlantılarını &lt;port&gt; üzerinde dinle (varsayılan: %u veya tesnet: %u)</translation>
     </message>
     <message>
         <source>Listen for connections on &lt;port&gt; (default: %u or testnet: %u)</source>
-        <translation>在通信端口&lt;port&gt;监听连接（默认：%u，或若为测试网络：%u）</translation>
+        <translation>Bağlantılar için dinlenecek &lt;port&gt; (varsayılan: %u ya da testnet: %u)</translation>
     </message>
     <message>
         <source>Loading banlist...</source>
-        <translation>正在加载黑名单...</translation>
+        <translation>Yasaklama listesi yükleniyor...</translation>
     </message>
     <message>
         <source>Loading fulfilled requests cache...</source>
-        <translation>正在加载己完成请求的缓存…</translation>
+        <translation>Tamamlanan talepler önbelleği yükleniyor...</translation>
     </message>
     <message>
         <source>Loading masternode cache...</source>
-        <translation>正在读取主节点缓存...</translation>
+        <translation>Ana düğüm önbelleği yükleniyor...</translation>
     </message>
     <message>
         <source>Loading masternode payment cache...</source>
-        <translation>正在读取主节点付款缓存...</translation>
+        <translation>Ana düğüm ödeme önbelleği yükleniyor...</translation>
     </message>
     <message>
         <source>Lock is already in place.</source>
-        <translation>已锁定。</translation>
+        <translation>Kilit zaten yerinde.</translation>
     </message>
     <message>
         <source>Lock masternodes from masternode configuration file (default: %u)</source>
-        <translation>根据主节点的配置文件锁定主节点(默认：%u)</translation>
+        <translation>Ana düğüm ayar dosyasından ana düğümleri kilitle (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Maximum per-connection receive buffer, &lt;n&gt;*1000 bytes (default: %u)</source>
-        <translation>每个连接的最大接收缓存，&lt;n&gt;*1000 字节 (默认：%u)</translation>
+        <translation>Her bağlantı için en yüksek alım tamponu, &lt;n&gt;*1000 bayt (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Maximum per-connection send buffer, &lt;n&gt;*1000 bytes (default: %u)</source>
-        <translation>每个连接的最大发送缓存，&lt;n&gt;*1000 字节 (默认：%u)</translation>
+        <translation>Her bağlantı için çok gönderme tamponu, &lt;n&gt;*1000 bayt (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Mixing in progress...</source>
-        <translation>正在混合...</translation>
+        <translation>Karışım devam ediyor...</translation>
     </message>
     <message>
         <source>Mnemonic passphrase is too long, must be at most 256 characters</source>
-        <translation>助记密码太长，不得超过256个字符</translation>
+        <translation>Anımsatıcı parola çok uzun, en fazla 256 karakter olmalı</translation>
     </message>
     <message>
         <source>Need to specify a port with -whitebind: '%s'</source>
-        <translation>指定-whitebind时必须包含通信端口： '%s'</translation>
+        <translation>-whitebind: '%s' ile bir port belirtilmesi lazımdır</translation>
     </message>
     <message>
         <source>No Masternodes detected.</source>
-        <translation>没有检测到任何主节点。</translation>
+        <translation>Hiç Ana düğüm  bulunamadı.</translation>
     </message>
     <message>
         <source>No compatible Masternode found.</source>
-        <translation>没有找到任何兼容的主节点。</translation>
+        <translation>Hiç uyumlu Ana düğüm bulunamadı.</translation>
     </message>
     <message>
         <source>Not in the Masternode list.</source>
-        <translation>在主节点列表中不存在。</translation>
+        <translation>Ana düğüm listesinde yok.</translation>
     </message>
     <message>
         <source>Only connect to nodes in network &lt;net&gt; (ipv4, ipv6 or onion)</source>
-        <translation>在网络中只连接至节点 &lt;net&gt; (ipv4，ipv6 或 onion)</translation>
+        <translation>Sadece &lt;net&gt; ağındaki düğümlere bağlan (ipv4, ipv6 veya onion)</translation>
     </message>
     <message>
         <source>Port: %d</source>
-        <translation>端口：%d</translation>
+        <translation>Port: %d</translation>
     </message>
     <message>
         <source>Prepend debug output with timestamp (default: %u)</source>
-        <translation>在调试输出内容前附加时间戳 (默认：%u)</translation>
+        <translation>Hata ayıklama verilerinin önüne zaman damgası ekle (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Rebuild chain state and block index from the blk*.dat files on disk</source>
-        <translation>从磁盘上的blk*.dat文件重建区块链状态和区块索引</translation>
+        <translation>Zincir durumu ve blok indeksini diskteki blk*.dat dosyalarından yeniden derle</translation>
     </message>
     <message>
         <source>Rebuild chain state from the currently indexed blocks</source>
-        <translation>从当前索引的区块中重建链状态</translation>
+        <translation>Zincir durumunu güncel olarak indekslenen bloklardan yeniden derle</translation>
     </message>
     <message>
         <source>Send trace/debug info to debug.log file (default: %u)</source>
-        <translation>发送追踪或除错信息到debug.log中 (默认：%u)</translation>
+        <translation>trace/debug bilgisini debug.log dosyasına gönder (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Send transactions as zero-fee transactions if possible (default: %u)</source>
-        <translation>如果可能，发送零手续费的交易(默认：%u)</translation>
+        <translation>Eğer mümkünse işlemleri sıfır maliyetli işlem olarak gönder (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Set key pool size to &lt;n&gt; (default: %u)</source>
-        <translation>设置密匙池大小至&lt;n&gt; (默认：%u)</translation>
+        <translation>Anahtar alan boyutunu &lt;n&gt; değerine ayarla (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Set the masternode BLS private key</source>
-        <translation>设置主节点 BLS 私钥</translation>
+        <translation>Ana düğüm BLS özel anahtarını belirle</translation>
     </message>
     <message>
         <source>Set the number of threads to service RPC calls (default: %d)</source>
-        <translation>设定处理RPC 服务请求的线程数(默认：%d)</translation>
+        <translation>Hizmet RCP aramaları iş parçacığı sayısını belirle (varsayılan: %d)</translation>
     </message>
     <message>
         <source>Specify configuration file (default: %s)</source>
-        <translation>指定配置文件(默认：%s)</translation>
+        <translation>Yapılandırma dosyası belirtiniz (varsayılan: %s)</translation>
     </message>
     <message>
         <source>Specify connection timeout in milliseconds (minimum: 1, default: %d)</source>
-        <translation>指定连接超时毫秒数 (最小值：1，默认：%d)</translation>
+        <translation>Bağlantı zaman aşım süresini milisaniye olarak belirt (en düşüki: 1, varsayılan: %d)</translation>
     </message>
     <message>
         <source>Specify masternode configuration file (default: %s)</source>
-        <translation>指定主节点配置文件 (默认：%s)</translation>
+        <translation>Ana düğüm ayar dosyasını belirt (varsayılan: %s)</translation>
     </message>
     <message>
         <source>Specify pid file (default: %s)</source>
-        <translation>指定pid 文件 (默认：%s)</translation>
+        <translation>Pid dosyası belirtiniz (varsayılan: %s)</translation>
     </message>
     <message>
         <source>Spend unconfirmed change when sending transactions (default: %u)</source>
-        <translation>发送交易时花费未确认的费用(默认：%u)</translation>
+        <translation>Gönderme işlemlerinde doğrulanmamış para üstünü harca (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Submitted following entries to masternode: %u / %d</source>
-        <translation>己经提交下列条目到主节点：%u / %d</translation>
+        <translation>Ana düğüme şu girdiler gönderildi: %u / %d</translation>
     </message>
     <message>
         <source>Submitted to masternode, waiting for more entries ( %u / %d ) %s</source>
-        <translation>己经提交到主节点，正在等候更多条目（%u / %d）%s</translation>
+        <translation>Ana düğüme gönderildi, daha fazla girdi bekleniyor ( %u / %d ) %s</translation>
     </message>
     <message>
         <source>Submitted to masternode, waiting in queue %s</source>
-        <translation>提交到主节点，在队列 %s 中等待</translation>
+        <translation>Ana düğüme gönderildi, kuyrukta bekleniyor %s</translation>
     </message>
     <message>
         <source>Synchroning blockchain...</source>
-        <translation>正在同步区块链...</translation>
+        <translation>Blok zinciri eşleniyor...</translation>
     </message>
     <message>
         <source>Synchronization failed</source>
-        <translation>同步失败</translation>
+        <translation>Eşleme başarısız</translation>
     </message>
     <message>
         <source>Synchronization finished</source>
-        <translation>同步完成</translation>
+        <translation>Eşleme bitti</translation>
     </message>
     <message>
         <source>Synchronizing masternodes...</source>
-        <translation>正在同步主节点...</translation>
+        <translation>Ana düğümler eşleniyor...</translation>
     </message>
     <message>
         <source>This is not a Masternode.</source>
-        <translation>这并不是一个主节点。</translation>
+        <translation>Bu bir Ana Düğüm değil.</translation>
     </message>
     <message>
         <source>Threshold for disconnecting misbehaving peers (default: %u)</source>
-        <translation>断开无效节点的临界值(默认：%u)</translation>
+        <translation>Aksaklık gösteren eşlerle bağlantıyı kesme sınırı (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Too many %f denominations, removing.</source>
-        <translation>太多%f面额化资金，正在移除。</translation>
+        <translation>Çok fazla %f birimi, siliniyor.</translation>
     </message>
     <message>
         <source>Too many %f denominations, skipping.</source>
-        <translation>太多 %f 面额，跳过。</translation>
+        <translation>Çok fazla %f birimi, geçiliyor.</translation>
     </message>
     <message>
         <source>Tor control port password (default: empty)</source>
-        <translation>Tor 控制端口密码 (默认值：空白)</translation>
+        <translation>Tor kontrol portu parolası (varsayılan: boş)</translation>
     </message>
     <message>
         <source>Tor control port to use if onion listening enabled (default: %s)</source>
-        <translation>开启监听 onion 连接时的 Tor 控制端口 (默认：%s)</translation>
+        <translation>Eğer onion dinlemesi etkinse kullanılacak Tor kontrol portu (varsayılan: %s)</translation>
     </message>
     <message>
         <source>Unable to start HTTP server. See debug log for details.</source>
-        <translation>无法启动HTTP服务，查看日志获取更多信息。</translation>
+        <translation>HTTP sunucusu başlatılamadı. Ayrıntılar için debug.log dosyasına bakınız.</translation>
     </message>
     <message>
         <source>Unknown response.</source>
-        <translation>未知响应。</translation>
+        <translation>Bilinmeyen cevap.</translation>
     </message>
     <message>
         <source>Unsupported argument -benchmark ignored, use -debug=bench.</source>
-        <translation>忽略不支持的选项 -benchmark，使用 -debug=bench</translation>
+        <translation>Desteklenmeyen -benchmark argümanı görmezden gelindi, -debug=bench kullanınız.</translation>
     </message>
     <message>
         <source>Unsupported argument -debugnet ignored, use -debug=net.</source>
-        <translation>忽略不支持的选项 -debugnet，使用 -debug=net。</translation>
+        <translation>Desteklenmeyen -debugnet argümanı görmezden gelindi, debug=net kullanınız.</translation>
     </message>
     <message>
         <source>Unsupported argument -tor found, use -onion.</source>
-        <translation>忽略不支持的选项 -tor，使用 -oinon</translation>
+        <translation>Deskteklenmeyen -tor argümanı bulundu, -onion kullanınız.</translation>
     </message>
     <message>
         <source>Upgrade wallet to latest format on startup</source>
-        <translation>程序启动时升级钱包到最新格式</translation>
+        <translation>Başlangıçta cüzdanı en yeni biçime güncelle</translation>
     </message>
     <message>
         <source>Use KeePass 2 integration using KeePassHttp plugin (default: %u)</source>
-        <translation>使用KeePass 2集成KeePassHttp插件(默认：%u)</translation>
+        <translation>KeePassHttp eklentisi kullanarak KeePass 2 entegrasyonu kullan (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Use UPnP to map the listening port (default: %u)</source>
-        <translation>使用UPnP来映射监听端口(默认：%u)</translation>
+        <translation>Dinleme portunu haritalamak için UPnP kullan (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Use the test chain</source>
-        <translation>使用测试链</translation>
+        <translation>Test blok zincirini kullan</translation>
     </message>
     <message>
         <source>User Agent comment (%s) contains unsafe characters.</source>
-        <translation>用户代理评论(%s)包含不安全的字符。</translation>
+        <translation>Kullanıcı Aracı açıklaması (%s) güvensiz karakterler içermektedir.</translation>
     </message>
     <message>
         <source>Will retry...</source>
-        <translation>即将重试...</translation>
+        <translation>Tekrar denenecek...</translation>
     </message>
     <message>
         <source>Invalid masternodeprivkey. Please see documenation.</source>
-        <translation>无效主节点私钥。请查阅文档。</translation>
+        <translation>Geçersiz anadüğümözelanahtarı. Lütfen dökümantasyona göz atın.</translation>
     </message>
     <message>
         <source>Can't find random Masternode.</source>
-        <translation>无法找到随机主节点。</translation>
+        <translation>Rastgele Ana düğüm bulunamıyor.</translation>
     </message>
     <message>
         <source>Can't mix while sync in progress.</source>
-        <translation>无法在同步过程中进行混合。</translation>
+        <translation>Eşleme sürerken karıştırılamaz.</translation>
     </message>
     <message>
         <source>Could not parse masternode.conf</source>
-        <translation>无法解析主节点配置文件</translation>
+        <translation>masternode.conf okunamıyor</translation>
     </message>
     <message>
         <source>Invalid netmask specified in -whitelist: '%s'</source>
-        <translation>在 -whitelist中指定了无效的子网掩码：'%s'</translation>
+        <translation>-whitelist: '%s' unsurunda geçersiz bir ağ maskesi belirtildi</translation>
     </message>
     <message>
         <source>Invalid port detected in masternode.conf</source>
-        <translation>在主节点配置文件中检测到无效端口</translation>
+        <translation>masternode.conf dosyasında geçersiz port tespit edildi</translation>
     </message>
     <message>
         <source>Invalid script detected.</source>
-        <translation>检测到无效脚本。</translation>
+        <translation>Geçersiz betik tespit edildi.</translation>
     </message>
     <message>
         <source>KeePassHttp id for the established association</source>
-        <translation>KeePassHttp id，用作建立关联</translation>
+        <translation>Birliktelik başlatmak için KeePassHttp kimliği</translation>
     </message>
     <message>
         <source>KeePassHttp key for AES encrypted communication with KeePass</source>
-        <translation>KeePassHttp的密钥，用作与KeePass的AES加密通信</translation>
+        <translation>KeePass ile AES şifreli iletişim sağlamak için KeePassHttp anahtarı</translation>
     </message>
     <message>
         <source>Keep at most &lt;n&gt; unconnectable transactions in memory (default: %u)</source>
-        <translation>内存中最多保留 &lt;n&gt; 笔孤立的交易 (默认：%u) </translation>
+        <translation>Hafızada en çok &lt;n&gt; bağlanılamaz işlem tut (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Disable all Axe specific functionality (Masternodes, PrivateSend, InstantSend, Governance) (0-1, default: %u)</source>
-        <translation>禁止所有达世币的附加功能（主节点，匿名发送，即时发送，预算案）（0-1，默认：%u）</translation>
+        <translation>Tüm Axe spesifik işlevleri kapat (Ana Düğümler, Özel Gönder, Anında Gönder, Yönetim) (0-1, varsayılan: %u)</translation>
     </message>
     <message>
         <source>%s file contains all private keys from this wallet. Do not share it with anyone!</source>
-        <translation>%s 文件包含此钱包中的所有私钥。不要与任何人分享！</translation>
+        <translation>%s dosyası bu cüzdana ait tüm özel anahtarları tutuyor. Kimseyle paylaşmayın!</translation>
     </message>
     <message>
         <source>Discover own IP addresses (default: 1 when listening and no -externalip or -proxy)</source>
-        <translation>找出自己的 IP 地址（默认：监听并且无 -externalip 或 -proxy 时为 1）</translation>
+        <translation>Kendi IP adreslerini keşfet (varsayılan: dinlenildiğinde ve -externalip ya da -proxy yoksa 1)</translation>
     </message>
     <message>
         <source>Do not keep transactions in the mempool longer than &lt;n&gt; hours (default: %u)</source>
-        <translation>不要让交易留在内存池中超过 &lt;n&gt; 个小时 (默认：%u)</translation>
+        <translation>İşlemleri bellek alanında &lt;n&gt; saatten fazla tutma (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Enable InstantSend, show confirmations for locked transactions (0-1, default: %u)</source>
-        <translation>启用即时发送，显示锁定交易的确认次数（0-1，默认：%u）</translation>
+        <translation>Anında Gönderi aç, kilitlenmiş işlemler için teyitleri gösterir (0-1, varsayılan: %u)</translation>
     </message>
     <message>
         <source>Enable multiple PrivateSend mixing sessions per block, experimental (0-1, default: %u)</source>
-        <translation>允许在每个区块中使用多重匿名发送混合会话，实验性功能（0-1，预设值：%u）</translation>
+        <translation>Blok başına birden fazla Özel Gönder karışım işlemini aç, deneysel (0-1, varsayılan: %u)</translation>
     </message>
     <message>
         <source>Enable use of automated PrivateSend for funds stored in this wallet (0-1, default: %u)</source>
-        <translation>允许存储在这个钱包内的资金自动使用匿名发送（0-1，默认：%u）</translation>
+        <translation>Bu cüzdanda depolanan meblağ için otomatik Özel Gönder kullanımını aç (0-1, varsayılan: %u)</translation>
     </message>
     <message>
         <source>Execute command when a wallet InstantSend transaction is successfully locked (%s in cmd is replaced by TxID)</source>
-        <translation>当钱包有交易改变时要执行的指令（命令中的%s会被取代成交易识别码）</translation>
+        <translation>Bir cüzdan bir Anında Gönder işlemini başarılı şekilde kilitlediğinde bir komut çalıştır (cmd içinde %s TxID ile değiştirilir)</translation>
     </message>
     <message>
         <source>Extra transactions to keep in memory for compact block reconstructions (default: %u)</source>
-        <translation>额外的交易储存在内存中用于致密区块的重建 (默认: %u)</translation>
+        <translation>Kompakt blok yeniden inşası için hafıza tutmak için ekstra işlemler (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Failed to create backup, file already exists! This could happen if you restarted wallet in less than 60 seconds. You can continue if you are ok with this.</source>
-        <translation>无法创建备份，文件已经存在！如果您在60秒内重新启动钱包，则可能发生这种情况。如果您觉得这样没问题的话，您可以继续。</translation>
+        <translation>Yedek oluşturulamadı, dosya zaten mevcut! Bu durum eğer 60 saniyeden kısa sürede cüzdanı yenidden başlattıysanız oluşabilir. Sizin için sorun yoksa devam edebilirsiniz.</translation>
     </message>
     <message>
         <source>Fees (in %s/kB) smaller than this are considered zero fee for relaying, mining and transaction creation (default: %s)</source>
-        <translation>当在建立交易、中继交易和采矿时，如果每千字节（%s/Kb）的手续费比这个值低，就视为没付手续费（预设值：%s）</translation>
+        <translation>Bundan düşük ücretler (%s/kB olarak) aktarma, oluşturma ve işlem yaratma için sıfır değerinde ücret olarak kabul edilir (varsayılan: %s)</translation>
     </message>
     <message>
         <source>Fees (in %s/kB) smaller than this are considered zero fee for transaction creation (default: %s)</source>
-        <translation>当产生交易时，如果每千字节 (%s/Kb) 的手续费比这个值 低，就视为没支付手续费 (默认：%s)</translation>
+        <translation>Bundan düşük ücretler (%s/kB olarak) işlem oluşturulması için sıfır değerinde ücret olarak kabul edilir (varsayılan: %s)</translation>
     </message>
     <message>
         <source>If &lt;category&gt; is not supplied or if &lt;category&gt; = 1, output all debugging information.</source>
-        <translation>如果&lt;category&gt;未提供或&lt;category&gt; = 1，输出所有调试信息。</translation>
+        <translation>Eğer &lt;category&gt; belirtilmemişse ya da &lt;category&gt; = 1 ise, tüm hata ayıklama verilerini çıktı al.</translation>
     </message>
     <message>
         <source>InstantSend doesn't support sending values that high yet. Transactions are currently limited to %1 AXE.</source>
-        <translation>即时发送系统暂时并不支持这么高的交易金额。目前的金额仅限于%1达世币。</translation>
+        <translation>Özel Gönder şu anda bu kadar büyük meblağları desteklemiyor. Şu anda işlemler %1 AXE ile sınırlı.</translation>
     </message>
     <message>
         <source>InstantSend requires inputs with at least %d confirmations, you might need to wait a few minutes and try again.</source>
-        <translation>即时发送系统要求输入的资金最少要有%d个确认，您可能需要等待数分钟然后再重试。</translation>
+        <translation>Anında Gönder için girdilerin en az %d teyidi olması gerekiyor, birkaç dakika daha bekleyip tekrar denemeniz gerekebilir.</translation>
     </message>
     <message>
         <source>Maintain a full address index, used to query for the balance, txids and unspent outputs for addresses (default: %u)</source>
-        <translation>维护一个完整的地址索引，用于查询余额，txids和未使用的位址输出（默认：%u）</translation>
+        <translation>Tam adres endeksi tut, bakiye, txid ve adresler için harcanmamış çıktı sorgusu yapmak için kullanılır (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Maintain a full spent index, used to query the spending txid and input index for an outpoint (default: %u)</source>
-        <translation>维护一个完整的花费索引，用于查询支出的txid与及出点的输入索引（默认：%u）</translation>
+        <translation>Tam harcama endeksi tut, harcama txidleri ve bir çıkış noktası için girdi endeksi sorgusu yapmak için kullanılır (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Maintain a timestamp index for block hashes, used to query blocks hashes by a range of timestamps (default: %u)</source>
-        <translation>维护一个内存块哈希值的时间戳索引，用于通过一系列时间戳来查询内存块哈希值（默认：%u）</translation>
+        <translation>Blok hashleri için bir zaman kodu endeksi tut, bir düzü zaman kodu ile hash bloğu sorgusu yapmak için kullanılır (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Maintain at most &lt;n&gt; connections to peers (temporary service connections excluded) (default: %u)</source>
-        <translation>维持与节点联机数的上限为&lt;n&gt;个（临时服务连接除外）（默认：%u）</translation>
+        <translation>Eşlerle en fazla &lt;n&gt; bağlantı sağla (geçici hizmet bağlantıları dahil değildir) (varsayılan: %u)</translation>
     </message>
     <message>
         <source>PrivateSend uses exact denominated amounts to send funds, you might simply need to anonymize some more coins.</source>
-        <translation>匿名发送要求使用准确的已除名资金来发送，你可能需要再匿名处理一些资金。</translation>
+        <translation>Özel Gönder para göndermek için tam olarak birimlendirilmiş meblağlar kullanır, sadece biraz daha fazla parayı anonim hale getirmeniz gerekiyor.</translation>
     </message>
     <message>
         <source>Prune configured below the minimum of %d MiB.  Please use a higher number.</source>
-        <translation>修剪值被设置为低于最小值%d MiB。请使用更大的数值。</translation>
+        <translation>Budama, en düşük değer olan %d MiB'den düşük olarak ayarlanmıştır. Lütfen daha yüksek bir sayı kullanınız.</translation>
     </message>
     <message>
         <source>Prune: last wallet synchronisation goes beyond pruned data. You need to -reindex (download the whole blockchain again in case of pruned node)</source>
-        <translation>修剪：最后的钱包同步超过了修剪的数据。你需要通过 -reindex (重新下载整个区块链以防止节点被修剪)</translation>
+        <translation>Budama: son cüzdan eşleşmesi budanmış verilerin ötesine gitmektedir. -reindex kullanmanız gerekmektedir (Budanmış düğüm ise tüm blok zincirini tekrar indirmeniz gerekir.)</translation>
     </message>
     <message>
         <source>Randomize credentials for every proxy connection. This enables Tor stream isolation (default: %u)</source>
-        <translation>随机化每个代理连接的凭证。这能使Tor流隔离（默认：%u）</translation>
+        <translation>Her vekil bağlantısı için kimlik verilerini rastgele yap. Bu, Tor akış izolasyonunu etkinleştirir (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Rescans are not possible in pruned mode. You will need to use -reindex which will download the whole blockchain again.</source>
-        <translation>无法在开启修剪的状态下重扫描。请使用 -reindex重新下载完整的区块链。</translation>
+        <translation>Tekrar taramalar budanmış kipte mümkün değildir. Tüm blok zincirini tekrar indirecek olan -reindex seçeneğini kullanmanız gerekecektir.</translation>
     </message>
     <message>
         <source>Specify full path to directory for automatic wallet backups (must exist)</source>
-        <translation>指定钱包自动备份目录的完整路径（必须存在）</translation>
+        <translation>Otomatik cüzdan yedekleri için tam yolu belirtin (yol şu an var olmalı)</translation>
     </message>
     <message>
         <source>Support filtering of blocks and transaction with bloom filters (default: %u)</source>
-        <translation>支持用 Bloom 过滤器来过滤区块和交易(默认：%u)</translation>
+        <translation>Blokların ve işlemlerin bloom filtreleri ile süzülmesini destekle (varsayılan: %u)</translation>
     </message>
     <message>
         <source>The block database contains a block which appears to be from the future. This may be due to your computer's date and time being set incorrectly. Only rebuild the block database if you are sure that your computer's date and time are correct</source>
-        <translation>区块数据库包含未来的交易，这可能是由本机错误的日期时间引起。若确认本机日期时间正确，请重新建立区块数据库。</translation>
+        <translation>Blok veritabanı gelecekten gibi görünen bir blok içermektedir. Bu, bilgisayarınızın saat ve tarihinin yanlış ayarlanmış olmasından kaynaklanabilir. Blok veritabanını sadece bilgisayarınızın tarih ve saatinin doğru olduğundan eminseniz yeniden derleyin.</translation>
     </message>
     <message>
         <source>The transaction amount is too small to send after the fee has been deducted</source>
-        <translation>在交易费被扣除后发送的交易金额太小</translation>
+        <translation>Bu işlem, tutar düşüldükten sonra göndermek için çok düşük</translation>
     </message>
     <message>
         <source>Total length of network version string (%i) exceeds maximum length (%i). Reduce the number or size of uacomments.</source>
-        <translation>网络版本字符串的总长度 (%i) 超过最大长度 (%i) 了。请减少 uacomment 参数的数量或大小。</translation>
+        <translation>Ağ sürümü zincirinin toplam boyutu (%i) en yüksek boyutu geçmektedir (%i). Kullanıcı aracı açıklamasının sayısı veya boyutunu azaltınız.</translation>
     </message>
     <message>
         <source>Transaction index can't be disabled in full mode. Either start with -litemode command line switch or enable transaction index.</source>
-        <translation>交易索引无法在全节点中禁用。可以通过 -litemode 来切换或开启交易索引。</translation>
+        <translation>Tam modda işlem endeksi kapatılamaz. Ya komut satırından -litemode ile başlatın ya da işlem endeksini açın.</translation>
     </message>
     <message>
         <source>Tries to keep outbound traffic under the given target (in MiB per 24h), 0 = no limit (default: %d)</source>
-        <translation>尝试保持上传带宽低于（MiB/24h），0=无限制（默认：%d）</translation>
+        <translation>Giden trafiği belirtilen hedefin altında tutmaya çalışır (24 saat başı MiB olarak), 0 = sınırsız (varsayılan: %d)</translation>
     </message>
     <message>
         <source>Unable to locate enough PrivateSend denominated funds for this transaction.</source>
-        <translation>在本之交易中，无法找到足够的匿名发送面额化资金。</translation>
+        <translation>Bu işlem için yeterli Özel Gönder ile birimlendirilmiş bakiye bulunamadı.</translation>
     </message>
     <message>
         <source>Unsupported argument -socks found. Setting SOCKS version isn't possible anymore, only SOCKS5 proxies are supported.</source>
-        <translation>找到不再支持的 -socks 参数。现在只支持 SOCKS5 协议的代理服务器，因此不可以指定 SOCKS 协议版本。</translation>
+        <translation>Desteklenmeyen -socks argümanı bulundu. SOCKS sürümünün ayarlanması artık mümkün değildir, sadece SOCKS5 vekilleri desteklenmektedir.</translation>
     </message>
     <message>
         <source>Unsupported argument -whitelistalwaysrelay ignored, use -whitelistrelay and/or -whitelistforcerelay.</source>
-        <translation>一个不被支持的参数 -whitelistalwaysrelay 被忽略了。请使用 -whitelistrelay 和/或 -whitelistforcerelay。</translation>
+        <translation>Desteklenmeyen argüman -whitelistalwaysrelay görmezden gelindi, -whitelistrelay ve/veya -whitelistforcerelay kullanın.</translation>
     </message>
     <message>
         <source>Use UPnP to map the listening port (default: 1 when listening and no -proxy)</source>
-        <translation>使用UPnP来映射监听端口(默认：1为监听中且不使用代理)</translation>
+        <translation>Dinlenecek portu haritalamak için UPnP kullan (varsayılan: dinlenildiğinde ve -proxy olmadığında 1)</translation>
     </message>
     <message>
         <source>WARNING! Failed to replenish keypool, please unlock your wallet to do so.</source>
-        <translation>警告！无法补充公钥池，请解锁您的钱包。</translation>
+        <translation>UYARI! Anahtar havuzu yenilenemedi, lütfen devam etmek için cüzdanınızın kilidini açın.</translation>
     </message>
     <message>
         <source>Wallet is locked, can't replenish keypool! Automatic backups and mixing are disabled, please unlock your wallet to replenish keypool.</source>
-        <translation>钱包被锁定，无法补充keypool！自动备份和混合功能被禁用，请解锁您的钱包以补充keypool。</translation>
+        <translation>Cüzdanınız kilitli, anahtar havuzu yenilenemiyor! Otomatik yedekleme ve karışım kapalı, anahtar havuzunu yenilemek için lütfen cüzdanınızın kilidini açın.</translation>
     </message>
     <message>
         <source>Warning: Unknown block versions being mined! It's possible unknown rules are in effect</source>
-        <translation>警告：未知的区块版本被挖出！未知规则可能已生效</translation>
+        <translation>Uyarı: Bilinmeyen blok sürümü oluşturulmaya çalışılıyor. Bilinmeyen kuralların işlemesi mümkündür.</translation>
     </message>
     <message>
         <source>You are starting in lite mode, all Axe-specific functionality is disabled.</source>
-        <translation>您启动了简化模式，所有达世币特有的功能已禁用。</translation>
+        <translation>Lite modda başlatıyorsunuz, tüm Axe spesifik işlevler kapalı olacak.</translation>
     </message>
     <message>
         <source>You need to rebuild the database using -reindex to go back to unpruned mode.  This will redownload the entire blockchain</source>
-        <translation>您需要使用 -reindex 重新构建数据库以返回未修剪的模式。这将重新下载整个区块链</translation>
+        <translation>Budama olmayan kipe dönmek için veritabanını -reindex ile tekrar derlemeniz gerekir. Bu, tüm blok zincirini tekrar indirecektir</translation>
     </message>
     <message>
         <source>(%d could be used only on mainnet)</source>
-        <translation>（%d只可以在主网络上使用）</translation>
+        <translation>(%d sadece mainnet'te kullanılabilir)</translation>
     </message>
     <message>
         <source>(default: %u)</source>
-        <translation>(默认: %u)</translation>
+        <translation>(varsayılan: %u)</translation>
     </message>
     <message>
         <source>(must be %d for mainnet)</source>
-        <translation>（必须是%d用于主网）</translation>
+        <translation>(mainnet için %d olmalı)</translation>
     </message>
     <message>
         <source>-maxmempool must be at least %d MB</source>
-        <translation>-maxmempool 最小为%d MB</translation>
+        <translation>-maxmempool en az %d MB olmalıdır</translation>
     </message>
     <message>
         <source>&lt;category&gt; can be:</source>
-        <translation>&lt;category&gt; 可能是：</translation>
+        <translation>&lt;kategori&gt; şunlar olabilir:</translation>
     </message>
     <message>
         <source>Append comment to the user agent string</source>
-        <translation>为用户代理字符串附加说明</translation>
+        <translation>Kullanıcı aracı zincirine yorumu ekle</translation>
     </message>
     <message>
         <source>Automatic backups disabled</source>
-        <translation>自动备份已停用</translation>
+        <translation>Otomatik yedekleme kapalı</translation>
     </message>
     <message>
         <source>Automatically create Tor hidden service (default: %d)</source>
-        <translation>自动建立Tor隐藏服务 (默认：%d)</translation>
+        <translation>Otomatik olarak gizli Tor servisi oluştur (varsayılan: %d)</translation>
     </message>
     <message>
         <source>ERROR! Failed to create automatic backup</source>
-        <translation>错误！无法创建自动备份</translation>
+        <translation>HATA! Otomatik yedek oluşturulamadı</translation>
     </message>
     <message>
         <source>Enable publish hash block in &lt;address&gt;</source>
-        <translation>允许在&lt;address&gt;中发布哈希区块</translation>
+        <translation>Blok karma değerinin &lt;adres&gt;te yayınlanmasını etkinleştir</translation>
     </message>
     <message>
         <source>Enable publish hash of governance objects (like proposals) in &lt;address&gt;</source>
-        <translation>允许在 &lt;address&gt;中发布管理对象哈希值（如提案）</translation>
+        <translation>Şuradaki yönetim nesnelerinin (teklifler gibi) hashlerini yayınlamayı etkinleştir: &lt;address&gt;</translation>
     </message>
     <message>
         <source>Enable publish hash of governance votes in &lt;address&gt;</source>
-        <translation>允许在 &lt;address&gt;中发布管理投票哈希值</translation>
+        <translation>Şuradaki yönetim hashlerini yayınlamayı etkinleştir: &lt;address&gt;</translation>
     </message>
     <message>
         <source>Enable publish hash transaction (locked via InstantSend) in &lt;address&gt;</source>
-        <translation>允许在&lt;address&gt;中发布哈希交易（通过即时发送来锁定）</translation>
+        <translation>Şurada hash işlemleri yayınlamayı etkinleştir (Anında Gönder ile kilitli): &lt;address&gt;</translation>
     </message>
     <message>
         <source>Enable publish hash transaction in &lt;address&gt;</source>
-        <translation>允许在&lt;address&gt;中发布哈希交易</translation>
+        <translation>Karma değer işleminin &lt;adres&gt;te yayınlanmasını etkinleştir</translation>
     </message>
     <message>
         <source>Enable publish raw block in &lt;address&gt;</source>
-        <translation>允许在&lt;address&gt;中发布原始区块</translation>
+        <translation>Ham blokun &lt;adres&gt;te yayınlanmasını etkinleştir</translation>
     </message>
     <message>
         <source>Enable publish raw transaction (locked via InstantSend) in &lt;address&gt;</source>
-        <translation>允许在&lt;address&gt;中发布原始交易（通过即时发送来锁定）</translation>
+        <translation>Şurada ham işlemleri yayınlamayı etkinleştir (Anında Gönder ile kilitli): &lt;address&gt;</translation>
     </message>
     <message>
         <source>Enable publish raw transaction in &lt;address&gt;</source>
-        <translation>允许在&lt;address&gt;中发布原始交易</translation>
+        <translation>Ham işlemin &lt;adres&gt;te yayınlanmasını etkinleştir</translation>
     </message>
     <message>
         <source>Error: A fatal internal error occurred, see debug.log for details</source>
-        <translation>错误：发生了致命的内部错误，详情见 debug.log 文件</translation>
+        <translation>Hata: Ölümcül dahili bir hata meydana geldi, ayrıntılar için debug.log dosyasına bakınız</translation>
     </message>
     <message>
         <source>Failed to create backup %s!</source>
-        <translation>无法创建备份%s！</translation>
+        <translation>Yedek %s oluşturulamadı!</translation>
     </message>
     <message>
         <source>Failed to create backup, error: %s</source>
-        <translation>无法创建备份，错误：%s</translation>
+        <translation>Yedek oluşturulamadı, hata: %s</translation>
     </message>
     <message>
         <source>Failed to delete backup, error: %s</source>
-        <translation>无法删除备份，错误：%s</translation>
+        <translation>Yedek silinemedi, hata: %s</translation>
     </message>
     <message>
         <source>Failed to load InstantSend data cache from</source>
-        <translation>从... 读取即时发送数据缓存失败</translation>
+        <translation>Şuradan Anında Gönder verisi önbelleği yüklemesi başarısız:</translation>
     </message>
     <message>
         <source>Failed to load sporks cache from</source>
-        <translation>从... 读取叉勺缓存失败</translation>
+        <translation>Şuradan spork önbelleği yüklemesi başarısız:</translation>
     </message>
     <message>
         <source>Failed to parse host:port string</source>
-        <translation>无法解析host:port字符串</translation>
+        <translation>host:port metni okunamıyor</translation>
     </message>
     <message>
         <source>Fee (in %s/kB) to add to transactions you send (default: %s)</source>
-        <translation>为付款交易添加交易费 (%s/kB) (默认：%s) </translation>
+        <translation>Yolladığınız işlemlere eklenecek ücret (%s/kB olarak) (varsayılan: %s)</translation>
     </message>
     <message>
         <source>Imports blocks from external blk000??.dat file on startup</source>
-        <translation>启动时从其他来源的  blk000??.dat 文件导入区块</translation>
+        <translation>Başlangıçta harici blk000??.dat dosyasından blokları içe aktarır</translation>
     </message>
     <message>
         <source>InstantSend options:</source>
-        <translation>即时发送选项：</translation>
+        <translation>Anında Gönder seçenekleri:</translation>
     </message>
     <message>
         <source>Invalid amount for -fallbackfee=&lt;amount&gt;: '%s'</source>
-        <translation>设定-fallbackfee=&lt;amount&gt;的金额无效：'%s'</translation>
+        <translation> -fallbackfee=&lt;tutar&gt; için geçersiz tutar: '%s'</translation>
     </message>
     <message>
         <source>Keep the transaction memory pool below &lt;n&gt; megabytes (default: %u)</source>
-        <translation>保持交易内存池大小低于&lt;n&gt;MB（默认：%u）</translation>
+        <translation>İşlem bellek alanını &lt;n&gt; megabayttan düşük tut (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Last PrivateSend was too recent.</source>
-        <translation>距离上一次匿名发送的时间过短。</translation>
+        <translation>Son Özel Gönder çok yakında yapıldı.</translation>
     </message>
     <message>
         <source>Last successful PrivateSend action was too recent.</source>
-        <translation>距离上一次成功送出匿名发送的时间过短。</translation>
+        <translation>Son başarılı Özel Gönder eylemi çok yakında yapıldı.</translation>
     </message>
     <message>
         <source>Line: %d</source>
-        <translation>行：%d</translation>
+        <translation>Hat: %d</translation>
     </message>
     <message>
         <source>Loading InstantSend data cache...</source>
-        <translation>正在读取即时支付数据缓存...</translation>
+        <translation>Anında Gönder verisi önbelleği yükleniyor...</translation>
     </message>
     <message>
         <source>Loading addresses...</source>
-        <translation>正在读取地址...</translation>
+        <translation>Adresler yükleniyor...</translation>
     </message>
     <message>
         <source>Loading block index...</source>
-        <translation>正在读取区块索引...</translation>
+        <translation>Blok indeksi yükleniyor...</translation>
     </message>
     <message>
         <source>Loading governance cache...</source>
-        <translation>正在加载治理缓存…</translation>
+        <translation>Yönetim önbelleği yükleniyor...</translation>
     </message>
     <message>
         <source>Loading sporks cache...</source>
-        <translation>正在读取叉勺缓存...</translation>
+        <translation>Spork önbelleği yükleniyor...</translation>
     </message>
     <message>
         <source>Loading wallet... (%3.2f %%)</source>
-        <translation>正在读取钱包...(%3.2f%%)</translation>
+        <translation>Cüzdan yükleniyor... (%3.2f %%)</translation>
     </message>
     <message>
         <source>Loading wallet...</source>
-        <translation>正在读取钱包...</translation>
+        <translation>Cüzdan yükleniyor...</translation>
     </message>
     <message>
         <source>Location of the auth cookie (default: data dir)</source>
-        <translation>auth cookie的位置 (默认: data dir)</translation>
+        <translation>auth çerezinin konumu (varsayılan: veri klasörü)</translation>
     </message>
     <message>
         <source>Make the wallet broadcast transactions</source>
-        <translation>使钱包广播交易</translation>
+        <translation>Cüzdanın işlemleri yayınlamasını sağla</translation>
     </message>
     <message>
         <source>Masternode cache is empty, skipping payments and governance cache...</source>
-        <translation>主节点缓存为空，跳过付款和治理缓存…</translation>
+        <translation>Ana düğüm önbelleği boş, ödeme ve yönetim önbellekleri atlanıyor...</translation>
     </message>
     <message>
         <source>Masternode options:</source>
-        <translation>主节点选项：</translation>
+        <translation>Ana düğüm seçenekleri:</translation>
     </message>
     <message>
         <source>Masternode queue is full.</source>
-        <translation>主节点列队已满。</translation>
+        <translation>Ana düğüm kuyruğu dolu.</translation>
     </message>
     <message>
         <source>Masternode:</source>
-        <translation>主节点：</translation>
+        <translation>Ana düğüm:</translation>
     </message>
     <message>
         <source>Minimum bytes per sigop in transactions we relay and mine (default: %u)</source>
-        <translation>在中继和挖矿交易中，每个sigop中的最小字节数（默认：%u）</translation>
+        <translation>Yönlendirip kazacağımız işlemlerde sigop başına minimum bayt (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Missing input transaction information.</source>
-        <translation>缺少交易信息的输入数据。</translation>
+        <translation>Girdi işlem bilgisi eksik.</translation>
     </message>
     <message>
         <source>No errors detected.</source>
-        <translation>未检测到错误。</translation>
+        <translation>Hata tespit edilmedi.</translation>
     </message>
     <message>
         <source>No matching denominations found for mixing.</source>
-        <translation>没有找到匹配的金额用作资金混合。</translation>
+        <translation>Karışım için uyumlu birim bulunamadı.</translation>
     </message>
     <message>
         <source>Node relay options:</source>
-        <translation>节点中继选项：</translation>
+        <translation>Düğüm aktarma seçenekleri:</translation>
     </message>
     <message>
         <source>Non-standard public key detected.</source>
-        <translation>检测到非标准的公钥。</translation>
+        <translation>Standart olmayan herkese açık anahtar tespit edildi.</translation>
     </message>
     <message>
         <source>Not compatible with existing transactions.</source>
-        <translation>与已存在交易不匹配。</translation>
+        <translation>Var olan işlemlerle uyumlu değil.</translation>
     </message>
     <message>
         <source>Not enough file descriptors available.</source>
-        <translation>文件说明符不足</translation>
+        <translation>Kafi derecede dosya tanımlayıcıları mevcut değil.</translation>
     </message>
     <message>
         <source>Not enough funds to anonymize.</source>
-        <translation>没有足够的资金进行匿名处理。</translation>
+        <translation>Anonim hale getirilecek yeterli bakiye yok.</translation>
     </message>
     <message>
         <source>Number of automatic wallet backups (default: %u)</source>
-        <translation>自动备份的钱包数目 (默认：%u)</translation>
+        <translation>Otomatik cüzdan yedeği sayısı (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation>选项：</translation>
+        <translation>Seçenekler:</translation>
     </message>
     <message>
         <source>Password for JSON-RPC connections</source>
-        <translation>JSON-RPC连接密码</translation>
+        <translation>JSON-RPC bağlantıları için parola</translation>
     </message>
     <message>
         <source>Print version and exit</source>
-        <translation>打印版本信息并退出</translation>
+        <translation>Sürümü yaz ve çık</translation>
     </message>
     <message>
         <source>PrivateSend is idle.</source>
-        <translation>匿名发送处于闲置状态。</translation>
+        <translation>Özel Gönder boşta.</translation>
     </message>
     <message>
         <source>PrivateSend options:</source>
-        <translation>匿名发送选项：</translation>
+        <translation>Özel Gönder seçenekleri:</translation>
     </message>
     <message>
         <source>PrivateSend request complete:</source>
-        <translation>完成匿名发送请求：</translation>
+        <translation>Özel Gönder talebi tamamlandı:</translation>
     </message>
     <message>
         <source>PrivateSend request incomplete:</source>
-        <translation>未完成匿名发送请求：</translation>
+        <translation>Özel Gönder talebi tamamlanmadı:</translation>
     </message>
     <message>
         <source>Prune cannot be configured with a negative value.</source>
-        <translation>修剪不能设置为负数。</translation>
+        <translation>Budama negatif bir değerle yapılandırılamaz.</translation>
     </message>
     <message>
         <source>Prune mode is incompatible with -txindex.</source>
-        <translation>修剪模式与 -txindex 不兼容。</translation>
+        <translation>Budama kipi -txindex ile uyumsuzdur.</translation>
     </message>
     <message>
         <source>Pruning blockstore...</source>
-        <translation>正在修剪区块存储...</translation>
+        <translation>Blockstore budanıyor...</translation>
     </message>
     <message>
         <source>Rescan the block chain for missing wallet transactions on startup</source>
-        <translation>启动时重新扫描区块链以查找遗漏的钱包交易</translation>
+        <translation>Başlangıçta blok zincirini eksik cüzdan işlemleri için tekrar tara</translation>
     </message>
     <message>
         <source>The wallet will avoid paying less than the minimum relay fee.</source>
-        <translation>钱包避免低于最小交易费的支付</translation>
+        <translation>Cüzdan en az aktarma ücretinden daha az ödeme yapmaktan sakınacaktır.</translation>
     </message>
     <message>
         <source>This is the minimum transaction fee you pay on every transaction.</source>
-        <translation>这是你每次交易付款时最少要付的手续费。</translation>
+        <translation>Bu her işlemde ödeceğiniz en düşük işlem ücretidir.</translation>
     </message>
     <message>
         <source>This is the transaction fee you will pay if you send a transaction.</source>
-        <translation>如果发送交易，这将是你要支付的交易费。</translation>
+        <translation>Eğer bir gönderme işlemi yaparsanız bu ödeyeceğiniz işlem ücretidir.</translation>
     </message>
     <message>
         <source>Transaction amounts must not be negative</source>
-        <translation>交易金额不不可为负数</translation>
+        <translation>İşlem tutarı negatif olmamalıdır</translation>
     </message>
     <message>
         <source>Transaction has too long of a mempool chain</source>
-        <translation>交易造成内存池中的交易链太长</translation>
+        <translation>İşlem çok uzun bir mempool zincirine sahip</translation>
     </message>
     <message>
         <source>Transaction must have at least one recipient</source>
-        <translation>交易必须包含至少一个接收人</translation>
+        <translation>İşlemin en az bir alıcısı olması gerekir</translation>
     </message>
     <message>
         <source>Transaction too large</source>
-        <translation>交易过大</translation>
+        <translation>İşlem çok büyük</translation>
     </message>
     <message>
         <source>Trying to connect...</source>
-        <translation>尝试连接中...</translation>
+        <translation>Bağlanmaya çalışılıyor...</translation>
     </message>
     <message>
         <source>Unable to bind to %s on this computer. %s is probably already running.</source>
-        <translation>无法在本机绑定 %s 端口。%s 可能已经在运行。</translation>
+        <translation>Bu bilgisayarda %s unsuruna bağlanılamadı. %s muhtemelen hâlihazırda çalışmaktadır.</translation>
     </message>
     <message>
         <source>Upgrading UTXO database</source>
-        <translation>升级UTXO数据库</translation>
+        <translation>UTXO veritabanı yükseltiliyor</translation>
     </message>
     <message>
         <source>Use devnet chain with provided name</source>
-        <translation>以提供的名称来使用devnet</translation>
+        <translation>Verilen ad ile devnet zinciri kullan</translation>
     </message>
     <message>
         <source>Wallet debugging/testing options:</source>
-        <translation>钱包调试/测试选项：</translation>
+        <translation>Cüzdan hata ayıklama/test etme seçenekleri:</translation>
     </message>
     <message>
         <source>Wallet is not initialized</source>
-        <translation>钱包未初始化</translation>
+        <translation>Cüzdan başlatılmadı</translation>
     </message>
     <message>
         <source>Wallet needed to be rewritten: restart %s to complete</source>
-        <translation>钱包需要被重写：请重新启动%s来完成</translation>
+        <translation>Cüzdanın tekrar yazılması gerekiyordu: işlemi tamamlamak için %s programını yeniden başlatınız</translation>
     </message>
     <message>
         <source>Warning: unknown new rules activated (versionbit %i)</source>
-        <translation>警告：不明的新规则被激活(versionbit %i)</translation>
+        <translation>Uyarı: bilinmeyen yeni kurallar etkinleştirilmiştir (versionbit %i)</translation>
     </message>
     <message>
         <source>Wasn't able to create wallet backup folder %s!</source>
-        <translation>无法创建钱包备份文件夹%s！</translation>
+        <translation>Cüzdan yedeği klasörü %s oluşturulamadı!</translation>
     </message>
     <message>
         <source>Whether to operate in a blocks only mode (default: %u)</source>
-        <translation>是否在区块模式下操作（默认：%u）</translation>
+        <translation>Sadece blok kipinde çalışılıp çalışılmayacağı (varsayılan: %u)</translation>
     </message>
     <message>
         <source>You can not start a masternode in lite mode.</source>
-        <translation>您无法在简化模式中启动主节点。</translation>
+        <translation>Bir ana düğümü lite modda başlatamazsınız.</translation>
     </message>
     <message>
         <source>ZeroMQ notification options:</source>
-        <translation>ZeroMQ 通知选项：</translation>
+        <translation>ZeroMQ bildirim seçenekleri:</translation>
     </message>
     <message>
         <source>no mixing available.</source>
-        <translation>无法进行混合。</translation>
+        <translation>karışım mevcut değil.</translation>
     </message>
     <message>
         <source>see debug.log for details.</source>
-        <translation>详细信息请参阅debug.log。</translation>
+        <translation>ayrıntlar için debug.log dosyasına bakın</translation>
     </message>
     <message>
         <source>RPC server options:</source>
-        <translation>RPC服务器选项：</translation>
+        <translation>RPC sunucu seçenekleri:</translation>
     </message>
     <message>
         <source>Axe Core</source>
-        <translation>达世币核心</translation>
+        <translation>Axe Core</translation>
     </message>
     <message>
         <source>The %s developers</source>
-        <translation>%s 开发人员</translation>
+        <translation>%s geliştiricileri</translation>
     </message>
     <message>
         <source>Accept connections from outside (default: 1 if no -proxy or -connect/-noconnect)</source>
-        <translation>接收来自外部链接 (默认: 1 当没有 -proxy 或 -connect/-noconnect)</translation>
+        <translation>Dışarıdan gelen bağlantıları kabul et (varsayılan: -proxy veya -connect/-noconnect yoksa 1)</translation>
     </message>
     <message>
         <source>Cannot obtain a lock on data directory %s. %s is probably already running.</source>
-        <translation>无法锁定数据目录 %s。%s 可能已经在运行。</translation>
+        <translation>%s veri dizininde kilit elde edilemedi. %s muhtemelen hâlihazırda çalışmaktadır.</translation>
     </message>
     <message>
         <source>Connect only to the specified node(s); -noconnect or -connect=0 alone to disable automatic connections</source>
-        <translation>只连接指定节点(或多个); -noconnect or connect=0 来仅用自动链接</translation>
+        <translation>Sadece belirtilen düğümler bağlan; otomatik bağlantıları devredışı bırakmak için -noconnect veya -connect=0 yeterli</translation>
     </message>
     <message>
         <source>Distributed under the MIT software license, see the accompanying file %s or %s</source>
-        <translation>在MIT协议下分发，参见附带的 %s 文件或 %s</translation>
+        <translation>MIT yazılım lisansı altında dağıtılmıştır, beraberindeki %s ya da %s dosyasına bakınız.</translation>
     </message>
     <message>
         <source>Error reading %s! All keys read correctly, but transaction data or address book entries might be missing or incorrect.</source>
-        <translation>读取 %s 时发生错误！所有的密钥都可以正确读取，但是交易记录或地址簿数据可能已经丢失或出错。</translation>
+        <translation>%s dosyasının okunması sırasında bir hata meydana geldi! Tüm anahtarlar doğru bir şekilde okundu, ancak işlem verileri ya da adres defteri ögeleri hatalı veya eksik olabilir.</translation>
     </message>
     <message>
         <source>Force relay of transactions from whitelisted peers even if they violate local relay policy (default: %d)</source>
-        <translation>强制转发从白名点节点收到的交易，即使它们违反了本机的转发准则（默认：%d）</translation>
+        <translation>Yerel aktarma politikasını ihlal etseler bile beyaz listedeki eşlerden gelen işlemlerin aktarılmasını zorla (varsayılan: %d)</translation>
     </message>
     <message>
         <source>Incorrect or no devnet genesis block found. Wrong datadir for devnet specified?</source>
-        <translation>devnet的创世区块错误或未找到. devnet的数据目录错误?</translation>
+        <translation>Geçersiz veya sıfır devnet genesis bloğu bulundu. Devnet için belirtilen datadir yanlış mı?</translation>
     </message>
     <message>
         <source>Maximum allowed median peer time offset adjustment. Local perspective of time may be influenced by peers forward or backward by this amount. (default: %u seconds)</source>
-        <translation>跟其他节点的时间差最高可接受的中位数值。本机所认为的时间可能会被其他节点影响，往前或往后在这个值之内。（默认：%u秒）</translation>
+        <translation>İzin verilen edilen en yüksek medyan eş zamanı değişiklik sınırının ayarlaması. Zamanın yerel perspektifi bu miktar kadar ileri ya da geri eşler tarafından etkilenebilir. (Varsayılan %u saniye)</translation>
     </message>
     <message>
         <source>Maximum total fees (in %s) to use in a single wallet transaction or raw transaction; setting this too low may abort large transactions (default: %s)</source>
-        <translation>最大的单次钱包或原始转账费用(%s)，设置太低可能导致大尺寸交易失败(默认：%s)</translation>
+        <translation>Tek bir cüzdan işleminde ya da ham işlemde kullanılacak en yüksek toplam ücret (%s olarak); bunu çok düşük olarak ayarlamak büyük işlemleri iptal edebilir (varsayılan: %s)</translation>
     </message>
     <message>
         <source>Override spork address. Only useful for regtest and devnet. Using this on mainnet or testnet will ban you.</source>
-        <translation>覆盖spork地址. 仅对regtest及devnet有用. 在主网或测试网络使用会被封.</translation>
+        <translation>Spork adresini geçersiz kıl. Sadece regtest ve devnet içindir. Bunu mainnet veya testnet'te kullanmak engellenmenize yol açar.</translation>
     </message>
     <message>
         <source>Please check that your computer's date and time are correct! If your clock is wrong, %s will not work properly.</source>
-        <translation>请检查电脑的日期时间设置是否正确！时间错误可能会导致 %s 运行异常。</translation>
+        <translation>Lütfen bilgisayarınızın saat ve tarihinin doğru olduğunu kontrol ediniz! Saatinizde gecikme varsa %s doğru şekilde çalışamaz.</translation>
     </message>
     <message>
         <source>Please contribute if you find %s useful. Visit %s for further information about the software.</source>
-        <translation>如果你认为%s对你比较有用的话，请对我们进行一些捐赠支持。请访问%s网站来获取有关这个软件的更多信息。</translation>
+        <translation>%s programını faydalı buluyorsanız lütfen katkıda bulununuz. Yazılım hakkında daha fazla bilgi için %s adresini ziyaret ediniz.</translation>
     </message>
     <message>
         <source>Provide liquidity to PrivateSend by infrequently mixing coins on a continual basis (%u-%u, default: %u, 1=very frequent, high fees, %u=very infrequent, low fees)</source>
-        <translation>透过偶尔混币来为匿名发送提供流动性 (%u-%u, 默认: %u, 1=非常频繁, 高手续费, %u=非常偶尔，低手续费)</translation>
+        <translation>Sürekli olarak para karışımı yaparak Özel Göndere likidite sağla  (%u-%u, varsayılan: %u, 1=çok sık, yüksek ücret, %u=düşük sıklıkta, düşük ücret)</translation>
     </message>
     <message>
         <source>Query for peer addresses via DNS lookup, if low on addresses (default: 1 unless -connect/-noconnect)</source>
-        <translation>如果地址不足, 则通过DNS查询对等地址(默认: 1 除非 -connect/-noconnect)</translation>
+        <translation>Eğer adresler az ise DNS lookup ile eş adresi talebi (varsayılan: 1 eğer -connect/-noconnect değilse)</translation>
     </message>
     <message>
         <source>Reduce storage requirements by enabling pruning (deleting) of old blocks. This allows the pruneblockchain RPC to be called to delete specific blocks, and enables automatic pruning of old blocks if a target size in MiB is provided. This mode is incompatible with -txindex and -rescan. Warning: Reverting this setting requires re-downloading the entire blockchain. (default: 0 = disable pruning blocks, 1 = allow manual pruning via RPC, &gt;%u = automatically prune block files to stay under the specified target size in MiB)</source>
-        <translation>修剪（删除）掉老旧区块以降低需要的储存空间。这样会增加一个RPC指令pruneblockchain，可以使用它来删除指定的区块；也可以指定目标储存空间大小，以启用对老旧内存块的自动修剪功能。这个模式跟-txindex和-rescan参数不兼容。警告：还原回不修剪模式会需要重新下载整个区块链。（默认：0表示不修剪内存块，1表示允许使用RPC指令做修剪，&gt;%u的值表示为区块数据的目标大小，单位是百万字节，MiB）</translation>
+        <translation>Eski blokları budamayı (silme) etkinleştirerek depolama gereksinimlerini azaltın. Bu belirli blokları silmek için pruneblockchain uzak yordam çağrısına (RPC) izin verir. Eğer bloklar hedef mebibyte boyutuna ulaşırsa eski blokların otomatik olarak budanmasını sağlar. Bu kip, -txindex ve -rescan ile uyumsuzdur. Uyarı: Bu ayarı geri almak, blok zincirinin tamamını yeniden yüklemeyi gerektirir. (varsayılan: 0 = blok budaması devre dışı, 1 = RPC üzerinden manuel budamaya izin verir, &gt;%u = mebibyte olarak belirtilen hedef boyutun altında kalması için blok dosyalarını otomatik olarak budar)</translation>
     </message>
     <message>
         <source>Set lowest fee rate (in %s/kB) for transactions to be included in block creation. (default: %s)</source>
-        <translation>设定生成区块时，所要包含交易每千字节的最低手续费（单位是%s）。（默认：%s）</translation>
+        <translation>Blok oluşturmaya dahil olan işlemler için en düşük ücret oranını (%s/kB olarak) ayarla. (varsayılan: %s)</translation>
     </message>
     <message>
         <source>This is the transaction fee you may pay when fee estimates are not available.</source>
-        <translation>这是在费用估计不可用时你可能会支付的交易费。</translation>
+        <translation>İşlem ücret tahminleri mevcut olmadığında ödeyebileceğiniz işlem ücreti budur.</translation>
     </message>
     <message>
         <source>This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit %s and cryptographic software written by Eric Young and UPnP software written by Thomas Bernard.</source>
-        <translation>此产品包含了由OpenSSL Project所开发的OpenSSL Toolkit软件%s，由Eric Young撰写的加解密软件，以及由Thomas Bernard所撰写的UPnP软件。</translation>
+        <translation>Bu ürün OpenSSL Projesi tarafından geliştirilen OpenSSL araç takımınında kullanılmak üzere yazılan yazılımları %s Eric Young  tarafından yazılmış şifreleme yazılımını ve Thomas Bernard tarafından yazılmış UPnP yazılımını içerir.</translation>
     </message>
     <message>
         <source>Unable to locate enough PrivateSend non-denominated funds for this transaction.</source>
-        <translation>在本次交易中, 无法找到足够的未面额化资金.</translation>
+        <translation>Bu işlem için yeterli Özel Gönder ile birimlendirilmemiş bakiye bulunamadı.</translation>
     </message>
     <message>
         <source>Use N separate masternodes for each denominated input to mix funds (%u-%u, default: %u)</source>
-        <translation>使用N个独立的主节点来为各个面额化的输入进行混币 (%u-%u, 默认: %u)</translation>
+        <translation>Her birimlendirilmiş girdi tutarı için N ayrı ana düğüm kullan (%u-%u, varsayılan: %u)</translation>
     </message>
     <message>
         <source>Use hierarchical deterministic key generation (HD) after BIP39/BIP44. Only has effect during wallet creation/first start</source>
-        <translation>在BIP39/BIP44后使用分层确定性(HD)规则生成密钥. 仅在创建钱包/首次启动时才有效</translation>
+        <translation>BIP39/BIP44'ten sonra hiyerarşik deterministik anahtar oluşturma (HD) kullan. Sadece cüzdan oluşturma/ilk açılış sırasında etkilidir</translation>
     </message>
     <message>
         <source>User defined mnemonic passphrase for HD wallet (BIP39). Only has effect during wallet creation/first start (default: empty string)</source>
-        <translation>HD钱包(BIP39)的用户自定义记忆密码. 仅在创建钱包/首次启动时才有效 (默认: 空白字符)</translation>
+        <translation>HD cüzdan (BIP39) için kullanıcı tarafından belirlenmiş anımsatıcı parola. Sadece cüzdan oluşturma/ilk açılış sırasında etkilidir (varsayılan: boş metin)</translation>
     </message>
     <message>
         <source>Username and hashed password for JSON-RPC connections. The field &lt;userpw&gt; comes in the format: &lt;USERNAME&gt;:&lt;SALT&gt;$&lt;HASH&gt;. A canonical python script is included in share/rpcuser. The client then connects normally using the rpcuser=&lt;USERNAME&gt;/rpcpassword=&lt;PASSWORD&gt; pair of arguments. This option can be specified multiple times</source>
-        <translation>JSON-RPC 连接要使用的用户名和散列密码。&lt;userpw&gt; 的格式是：&lt;USERNAME&gt;:&lt;SALT&gt;$&lt;HASH&gt;。在 share/rpcuser 目录下有一个示范的 python 脚本。之后客户端程序就可以用这对参数正常连接：rpcuser=&lt;USERNAME&gt;和rpcpassword=&lt;PASSWORD&gt;。这个选项可以被多次指定。</translation>
+        <translation>JSON-RPC bağlantıları için kullanıcı adı ve karmalanmış parola. &lt;userpw&gt; alanı şu biçimdedir: &lt;KULLANICI ADI&gt;:&lt;SALT&gt;$&lt;HASH&gt;. Kanonik bir Python betiği share/rpcuser klasöründe bulunabilir. Ardından istemci normal şekilde rpcuser=&lt;KULLANICI ADI&gt;/rpcpassword=&lt;PAROLA&gt; argüman çiftini kullanarak bağlanabilir. Bu seçenek birden çok kez belirtilebilir.</translation>
     </message>
     <message>
         <source>Wallet will not create transactions that violate mempool chain limits (default: %u)</source>
-        <translation>钱包软件不会产生违反内存池交易链限制的交易（默认：%u）</translation>
+        <translation>Cüzdan, zincir bellek alanı limitlerini ihlal eden işlem oluşturmayacak. (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Warning: At least %d of %d masternodes are running on a newer software version. Please check latest releases, you might need to update too.</source>
-        <translation>警告: 至少有 %d 分之 %d 的主节点正在运行新版本软件. 请检查最新版本, 您可能也需要更新.</translation>
+        <translation>Uyarı: En az %d / %d ana düğüm yeni bir yazılım sürümüyle çalışıyor. Lütfen son sürümleri kontrol edin, sizin de güncellemeye ihtiyacınız olabilir.</translation>
     </message>
     <message>
         <source>Warning: Every masternode (out of %d known ones) is running on a newer software version. Please check latest releases, it's very likely that you missed a major/critical update.</source>
-        <translation>警告: 每个主节点 ( %d 个已知的) 正在运行新版本软件. 请检查最新版本, 您很有可能错过了重大/关键更新.</translation>
+        <translation>Uyarı her ana düğüm (%d bilinen arasında) daha yeni bir yazılım sürümüyle çalışıyor. Lütfen son sürümleri kontrol edin, büyük/kritik bir güncellemeyi atlamış olmanız yüksek ihtimal dahilinde.</translation>
     </message>
     <message>
         <source>Warning: Wallet file corrupt, data salvaged! Original %s saved as %s in %s; if your balance or transactions are incorrect you should restore from a backup.</source>
-        <translation>警告：钱包文件损坏，但数据被救回！原始的钱包文件%s已经重命名为%s并存储到%s目录下 。如果您的账户余额或者交易记录不正确，请使用您的钱包备份文件恢复。</translation>
+        <translation>Uyarı: wallet.dat bozuk, veriler geri kazanıldı! Özgün %s, %s olarak %s klasörüne kaydedildi; bakiyeniz ya da işlemleriniz yanlışsa bir yedeklemeden tekrar yüklemeniz gerekir.</translation>
     </message>
     <message>
         <source>Whitelist peers connecting from the given IP address (e.g. 1.2.3.4) or CIDR notated network (e.g. 1.2.3.0/24). Can be specified multiple times.</source>
-        <translation>把来自指定地址（例如：1.2.3.4）或CIDR格式网段（例如：1.2.3.0/24）的节点放进白名单。这个选项可以设定多次。</translation>
+        <translation>Beyaz listeye eklenen eşler verilen IP adresinden (ör. 1.2.3.4) veya CIDR ağından (ör. 1.2.3.0/24) bağlanabilir. Değerler birden çok kez kullanılabilir.</translation>
     </message>
     <message>
         <source>%s corrupt, salvage failed</source>
-        <translation>%s 已损坏，抢救备份失败</translation>
+        <translation>%s bozuk, geri kazanım başarısız oldu</translation>
     </message>
     <message>
         <source>%s is not a valid backup folder!</source>
-        <translation>%s 不是一个有效的备份文件夹!</translation>
+        <translation>%s geçerli bir yedek klasörü değil!</translation>
     </message>
     <message>
         <source>%s is set very high!</source>
-        <translation>%s非常高！</translation>
+        <translation>%s çok yüksek ayarlanmış!</translation>
     </message>
     <message>
         <source>(press q to shutdown and continue later)</source>
-        <translation>(按 q 关闭并稍后继续)</translation>
+        <translation>(kapatıp daha sonra devam etmek için q tuşuna basın)</translation>
     </message>
     <message>
         <source>-devnet can only be specified once</source>
-        <translation>-devnet 只能被指定一次</translation>
+        <translation>-devnet sadece bir kere belirtilebilir</translation>
     </message>
     <message>
         <source>-port must be specified when -devnet and -listen are specified</source>
-        <translation>当 -devnet 和 -listen 被指定时, 必须指定 -port</translation>
+        <translation>-devnet ve -listen belirtildiğinde -port da belirtilmelidir</translation>
     </message>
     <message>
         <source>-rpcport must be specified when -devnet and -server are specified</source>
-        <translation>当 -devnet 和 -server 被指定时, 必须指定 -rpcport</translation>
+        <translation>-devnet ve -server belirtildiğinde -rpcport da belirtilmelidir</translation>
     </message>
     <message>
         <source>Allow RFC1918 addresses to be relayed and connected to (default: %u)</source>
-        <translation>允许 RFC1918 地址能被中继并连接到 (默认: %u)</translation>
+        <translation>RFC1918 adreslerine iletim ve bağlantıya izin ver (varsayılan %u)</translation>
     </message>
     <message>
         <source>Attempt to recover private keys from a corrupt wallet on startup</source>
-        <translation>启动时尝试从已损坏的钱包文件中恢复私钥</translation>
+        <translation>Başlangıçta bozuk bir cüzdandan özel anahtarları geri kazanmayı dene</translation>
     </message>
     <message>
         <source>Cannot resolve -%s address: '%s'</source>
-        <translation>无法解析 - %s 地址： '%s'</translation>
+        <translation>Çözümlenemedi - %s adres: '%s'</translation>
     </message>
     <message>
         <source>Change index out of range</source>
-        <translation>修改索引超过范围</translation>
+        <translation>Aralık dışında değişiklik indeksi</translation>
     </message>
     <message>
         <source>Copyright (C)</source>
-        <translation>版权 (C)</translation>
+        <translation>Copyright (C)</translation>
     </message>
     <message>
         <source>Error loading %s</source>
-        <translation>载入 %s 时发生错误</translation>
+        <translation>%s unsurunun yüklenmesinde hata oluştu</translation>
     </message>
     <message>
         <source>Error loading %s: Wallet corrupted</source>
-        <translation>%s 加载出错：钱包损坏</translation>
+        <translation>%s unsurunun yüklenmesinde hata oluştu: bozuk cüzdan</translation>
     </message>
     <message>
         <source>Error loading %s: Wallet requires newer version of %s</source>
-        <translation>%s 加载错误：请升级到最新版 %s</translation>
+        <translation>%s unsurunun yüklenmesinde hata oluştu: cüzdan %s programının yeni bir sürümüne ihtiyaç duyuyor</translation>
     </message>
     <message>
         <source>Error upgrading chainstate database</source>
-        <translation>升级链状态数据库出错</translation>
+        <translation>Zincirdurumu veritabanı yükseltme hatası</translation>
     </message>
     <message>
         <source>Failed to find mixing queue to join</source>
-        <translation>无法找到混币队列并加入</translation>
+        <translation>Katılacak karışım kuyruğu bulunamadı</translation>
     </message>
     <message>
         <source>Failed to start a new mixing queue</source>
-        <translation>无法开始一个新的混币队列</translation>
+        <translation>Yeni bir karışım kuyruğu başlatılamadı</translation>
     </message>
     <message>
         <source>Initialization sanity check failed. %s is shutting down.</source>
-        <translation>初始化完整性检查失败。%s即将关闭。</translation>
+        <translation>Başlatma sınaması başarısız oldu. %s kapatılıyor.</translation>
     </message>
     <message>
         <source>Invalid amount for -%s=&lt;amount&gt;: '%s'</source>
-        <translation>无效的金额 -%s=&lt;amount&gt;: '%s'</translation>
+        <translation>-%s=&lt;tutar&gt; için geçersiz tutar: '%s'</translation>
     </message>
     <message>
         <source>Invalid spork address specified with -sporkaddr</source>
-        <translation>使用 -sporkaddr 指定的spork地址无效</translation>
+        <translation>-sporkaddr ile yanlış spork adresi belirtildi</translation>
     </message>
     <message>
         <source>Keep N AXE anonymized (%u-%u, default: %u)</source>
-        <translation>保持 N 个匿名处理的达世币 (%u-%u, default: %u)</translation>
+        <translation>N AXE'i anonim tut (%u-%u, varsayılan: %u)</translation>
     </message>
     <message>
         <source>Print this help message and exit</source>
-        <translation>打印出这段帮助信息并退出</translation>
+        <translation>Bu yardım mesajını yaz ve çık</translation>
     </message>
     <message>
         <source>Receive and display P2P network alerts (default: %u)</source>
-        <translation>接收并显示P2P网络警报（默认：%u）</translation>
+        <translation>P2P ağ uyarılarını al ve göster (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Reducing -maxconnections from %d to %d, because of system limitations.</source>
-        <translation>因为系统的限制，将 -maxconnections 参数从 %d 降到了 %d</translation>
+        <translation>Sistem sınırlamaları sebebiyle -maxconnections %d değerinden %d değerine düşürülmüştür.</translation>
     </message>
     <message>
         <source>Relay and mine data carrier transactions (default: %u)</source>
-        <translation>允许转发和开采只带数据的交易（默认：%u）</translation>
+        <translation>Veri taşıyıcı işlemleri oluştur ve aktar (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Relay non-P2SH multisig (default: %u)</source>
-        <translation>是否转发非P2SH格式的多签名交易 (默认: %u) </translation>
+        <translation>P2SH olmayan çoklu imzaları aktar (varsayılan: %u)</translation>
     </message>
     <message>
         <source>Rescanning...</source>
-        <translation>正在重新扫描...</translation>
+        <translation>Yeniden tarama...</translation>
     </message>
     <message>
         <source>Run in the background as a daemon and accept commands</source>
-        <translation>后台运行并且接受命令</translation>
+        <translation>Arka planda daemon (servis) olarak çalış ve komutları kabul et</translation>
     </message>
     <message>
         <source>Send trace/debug info to console instead of debug.log file</source>
-        <translation>跟踪/调试信息输出到控制台，而不是debug.log文件</translation>
+        <translation>İzleme/hata ayıklama verilerini debug.log dosyası yerine konsola gönder</translation>
     </message>
     <message>
         <source>Session not complete!</source>
-        <translation>会话未完成！</translation>
+        <translation>Oturum tamamlanmadı!</translation>
     </message>
     <message>
         <source>Session timed out.</source>
-        <translation>会话超时。</translation>
+        <translation>Oturum zaman aşımına uğradı.</translation>
     </message>
     <message>
         <source>Set database cache size in megabytes (%d to %d, default: %d)</source>
-        <translation>以兆字节为单位设置数据库缓存数据大小 (%d 到 %d，默认：%d)</translation>
+        <translation>Veritabanı önbellek boyutunu megabayt olarak belirt (%d ilâ %d, varsayılan: %d)</translation>
     </message>
     <message>
         <source>Set maximum block size in bytes (default: %d)</source>
-        <translation>以字节为单位设置最大区块的大小(默认：%d)</translation>
+        <translation>Azami blok boyutunu bayt olarak ayarla (varsayılan: %d)</translation>
     </message>
     <message>
         <source>Set the masternode private key</source>
-        <translation>设置主节点私钥</translation>
+        <translation>Ana düğüm özel anahtarubu belirle</translation>
     </message>
     <message>
         <source>Show all debugging options (usage: --help -help-debug)</source>
-        <translation>显示所有debug选项(用法：--help -help-debug)</translation>
+        <translation>Tüm hata ayıklama seçeneklerini göster (kullanımı: --help -help-debug)</translation>
     </message>
     <message>
         <source>Shrink debug.log file on client startup (default: 1 when no -debug)</source>
-        <translation>客户启动时缩小debug.log文件(默认：当没有-debug时为1)</translation>
+        <translation>İstemci başlatıldığında debug.log dosyasını küçült (varsayılan: -debug bulunmadığında 1)</translation>
     </message>
     <message>
         <source>Signing transaction failed</source>
-        <translation>交易签名失败</translation>
+        <translation>Muamelenin imzalanması başarısız oldu</translation>
     </message>
     <message>
         <source>Specify data directory</source>
-        <translation>指定数据目录</translation>
+        <translation>Veri dizinini belirt</translation>
     </message>
     <message>
         <source>Specify wallet file (within data directory)</source>
-        <translation>指定钱包文件(在数据目录中)</translation>
+        <translation>Cüzdan dosyası belirtiniz (veri klasörünün içinde)</translation>
     </message>
     <message>
         <source>Specify your own public address</source>
-        <translation>指定您自己的公开地址</translation>
+        <translation>Kendi genel adresinizi tanımlayın</translation>
     </message>
     <message>
         <source>Starting network threads...</source>
-        <translation>正在启动网络线程...</translation>
+        <translation>Ağ iş parçacıkları başlatılıyor...</translation>
     </message>
     <message>
         <source>Synchronization pending...</source>
-        <translation>同步即将开始...</translation>
+        <translation>Eşleme bekliyor...</translation>
     </message>
     <message>
         <source>Synchronizing governance objects...</source>
-        <translation>正在同步治理对象…</translation>
+        <translation>Yönetim nesneleri eşleniyor...</translation>
     </message>
     <message>
         <source>Synchronizing masternode payments...</source>
-        <translation>正在同步主节点付款信息…</translation>
+        <translation>Ana düğüm ödemeleri eşleniyor...</translation>
     </message>
     <message>
         <source>The source code is available from %s.</source>
-        <translation>源代码可以在 %s 获得。</translation>
+        <translation>Kaynak kod şuradan elde edilebilir: %s.</translation>
     </message>
     <message>
         <source>The transaction amount is too small to pay the fee</source>
-        <translation>交易金额太小，不足以支付交易费</translation>
+        <translation>İşlemdeki bitcoin tutarı ücreti ödemek için çok düşük</translation>
     </message>
     <message>
         <source>This is experimental software.</source>
-        <translation>这是一款实验软件。</translation>
+        <translation>Bu, deneysel bir yazılımdır.</translation>
     </message>
     <message>
         <source>Transaction amount too small</source>
-        <translation>交易额过小</translation>
+        <translation>Muamele meblağı çok düşük</translation>
     </message>
     <message>
         <source>Transaction created successfully.</source>
-        <translation>交易创建成功。</translation>
+        <translation>İşlem başarıyla oluşturuldu.</translation>
     </message>
     <message>
         <source>Transaction fees are too high.</source>
-        <translation>交易费用过高。</translation>
+        <translation>İşlem ücretleri çok yüksek.</translation>
     </message>
     <message>
         <source>Transaction not valid.</source>
-        <translation>交易无效。</translation>
+        <translation>İşlem geçerli değil.</translation>
     </message>
     <message>
         <source>Transaction too large for fee policy</source>
-        <translation>根据交易手续费准则，本交易过大</translation>
+        <translation>Ücret politikası için işlem çok büyük</translation>
     </message>
     <message>
         <source>Unable to bind to %s on this computer (bind returned error %s)</source>
-        <translation>无法绑定此计算机上的%s (绑定返回错误 %s)</translation>
+        <translation>Bu bilgisayarda %s ögesine bağlanılamadı (bağlanma %s hatasını verdi)</translation>
     </message>
     <message>
         <source>Unable to sign spork message, wrong key?</source>
-        <translation>无法签署交叉信息，错误的密钥？</translation>
+        <translation>Spork mesajı imzalanamadı, anahtar mı yanlış?</translation>
     </message>
     <message>
         <source>Unknown network specified in -onlynet: '%s'</source>
-        <translation>在 -onlynet 指定了不明的网路：'%s'</translation>
+        <translation>-onlynet için bilinmeyen bir şebeke belirtildi: '%s'</translation>
     </message>
     <message>
         <source>Unknown state: id = %u</source>
-        <translation>未知状态：id = %u</translation>
+        <translation>Bilinmeyen durum: id = %u</translation>
     </message>
     <message>
         <source>Username for JSON-RPC connections</source>
-        <translation>JSON-RPC连接用户名</translation>
+        <translation>JSON-RPC bağlantıları için kullanıcı ismi</translation>
     </message>
     <message>
         <source>Verifying blocks...</source>
-        <translation>验证区块中...</translation>
+        <translation>Bloklar kontrol ediliyor...</translation>
     </message>
     <message>
         <source>Verifying wallet...</source>
-        <translation>验证钱包中...</translation>
+        <translation>Cüzdan kontrol ediliyor...</translation>
     </message>
     <message>
         <source>Very low number of keys left: %d</source>
-        <translation>尚余少量的密匙：%d</translation>
+        <translation>Çok az sayıda anahtar kaldı: %d</translation>
     </message>
     <message>
         <source>Wallet %s resides outside data directory %s</source>
-        <translation>钱包%s没有在数据目录%s里面</translation>
+        <translation>%s cüzdan %s veri klasörünün dışında bulunuyor</translation>
     </message>
     <message>
         <source>Wallet is locked.</source>
-        <translation>钱包被锁定。</translation>
+        <translation>Cüzdan kilitli.</translation>
     </message>
     <message>
         <source>Wallet options:</source>
-        <translation>钱包选项：</translation>
+        <translation>Cüzdan seçenekleri:</translation>
     </message>
     <message>
         <source>Wallet window title</source>
-        <translation>钱包窗口标题</translation>
+        <translation>Cüzdan penceresi başlığı</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>警告</translation>
+        <translation>Uyarı</translation>
     </message>
     <message>
         <source>Your entries added successfully.</source>
-        <translation>您的词条已添加成功.</translation>
+        <translation>Girdileriniz başarıyla eklendi.</translation>
     </message>
     <message>
         <source>Your transaction was accepted into the pool!</source>
-        <translation>您的交易成功被矿池接受！</translation>
+        <translation>İşleminiz havuza kabul edildi!</translation>
     </message>
     <message>
         <source>Zapping all transactions from wallet...</source>
-        <translation>正在清除钱包中的所有交易...</translation>
+        <translation>Cüzdandaki tüm muameleler kaldırılıyor...</translation>
     </message>
 </context>
 </TS>
