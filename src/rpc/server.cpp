@@ -1,7 +1,6 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2015 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2017-2018 The AXE Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -24,7 +23,10 @@
 #include <boost/signals2/signal.hpp>
 #include <boost/thread.hpp>
 #include <boost/algorithm/string/case_conv.hpp> // for to_upper()
+#include <boost/algorithm/string/classification.hpp>
+#include <boost/algorithm/string/split.hpp>
 
+#include <algorithm>
 #include <memory> // for unique_ptr
 #include <unordered_map>
 
@@ -173,11 +175,58 @@ std::vector<unsigned char> ParseHexO(const UniValue& o, std::string strKey)
     return ParseHexV(find_value(o, strKey), strKey);
 }
 
+int32_t ParseInt32V(const UniValue& v, const std::string &strName)
+{
+    std::string strNum = v.getValStr();
+    int32_t num;
+    if (!ParseInt32(strNum, &num))
+        throw JSONRPCError(RPC_INVALID_PARAMETER, strName+" must be a 32bit integer (not '"+strNum+"')");
+    return num;
+}
+
+int64_t ParseInt64V(const UniValue& v, const std::string &strName)
+{
+    std::string strNum = v.getValStr();
+    int64_t num;
+    if (!ParseInt64(strNum, &num))
+        throw JSONRPCError(RPC_INVALID_PARAMETER, strName+" must be a 64bit integer (not '"+strNum+"')");
+    return num;
+}
+
+double ParseDoubleV(const UniValue& v, const std::string &strName)
+{
+    std::string strNum = v.getValStr();
+    double num;
+    if (!ParseDouble(strNum, &num))
+        throw JSONRPCError(RPC_INVALID_PARAMETER, strName+" must be a be number (not '"+strNum+"')");
+    return num;
+}
+
+bool ParseBoolV(const UniValue& v, const std::string &strName)
+{
+    std::string strBool;
+    if (v.isBool())
+        return v.get_bool();
+    else if (v.isNum())
+        strBool = itostr(v.get_int());
+    else if (v.isStr())
+        strBool = v.get_str();
+
+    std::transform(strBool.begin(), strBool.end(), strBool.begin(), ::tolower);
+
+    if (strBool == "true" || strBool == "yes" || strBool == "1") {
+        return true;
+    } else if (strBool == "false" || strBool == "no" || strBool == "0") {
+        return false;
+    }
+    throw JSONRPCError(RPC_INVALID_PARAMETER, strName+" must be true, false, yes, no, 1 or 0 (not '"+strBool+"')");
+}
+
 /**
  * Note: This interface may still be subject to change.
  */
 
-std::string CRPCTable::help(const std::string& strCommand) const
+std::string CRPCTable::help(const std::string& strCommand, const std::string& strSubCommand) const
 {
     std::string strRet;
     std::string category;
@@ -201,6 +250,10 @@ std::string CRPCTable::help(const std::string& strCommand) const
         {
             JSONRPCRequest jreq;
             jreq.fHelp = true;
+            if (!strSubCommand.empty()) {
+                jreq.params.setArray();
+                jreq.params.push_back(strSubCommand);
+            }
             rpcfn_type pfn = pcmd->actor;
             if (setDone.insert(pfn).second)
                 (*pfn)(jreq);
@@ -235,21 +288,24 @@ std::string CRPCTable::help(const std::string& strCommand) const
 
 UniValue help(const JSONRPCRequest& jsonRequest)
 {
-    if (jsonRequest.fHelp || jsonRequest.params.size() > 1)
+    if (jsonRequest.fHelp || jsonRequest.params.size() > 2)
         throw std::runtime_error(
-            "help ( \"command\" )\n"
+            "help ( \"command\" ) (\"subCommand\")\n"
             "\nList all commands, or get help for a specified command.\n"
             "\nArguments:\n"
             "1. \"command\"     (string, optional) The command to get help on\n"
+            "2. \"subCommand\"  (string, optional) The subcommand to get help on. Please not that not all subcommands support this at the moment\n"
             "\nResult:\n"
             "\"text\"     (string) The help text\n"
         );
 
-    std::string strCommand;
+    std::string strCommand, strSubCommand;
     if (jsonRequest.params.size() > 0)
         strCommand = jsonRequest.params[0].get_str();
+    if (jsonRequest.params.size() > 1)
+        strSubCommand = jsonRequest.params[1].get_str();
 
-    return tableRPC.help(strCommand);
+    return tableRPC.help(strCommand, strSubCommand);
 }
 
 
@@ -259,11 +315,11 @@ UniValue stop(const JSONRPCRequest& jsonRequest)
     if (jsonRequest.fHelp || jsonRequest.params.size() > 1)
         throw std::runtime_error(
             "stop\n"
-            "\nStop AXE Core server.");
+            "\nStop Axe Core server.");
     // Event loop will exit after current HTTP requests have been handled, so
     // this reply will get back to the client.
     StartShutdown();
-    return "AXE Core server stopping";
+    return "Axe Core server stopping";
 }
 
 /**
@@ -441,8 +497,16 @@ static inline JSONRPCRequest transformNamedArguments(const JSONRPCRequest& in, c
     }
     // Process expected parameters.
     int hole = 0;
-    for (const std::string &argName: argNames) {
-        auto fr = argsIn.find(argName);
+    for (const std::string &argNamePattern: argNames) {
+        std::vector<std::string> vargNames;
+        boost::algorithm::split(vargNames, argNamePattern, boost::algorithm::is_any_of("|"));
+        auto fr = argsIn.end();
+        for (const std::string & argName : vargNames) {
+            fr = argsIn.find(argName);
+            if (fr != argsIn.end()) {
+                break;
+            }
+        }
         if (fr != argsIn.end()) {
             for (int i = 0; i < hole; ++i) {
                 // Fill hole between specified parameters with JSON nulls,

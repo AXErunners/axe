@@ -32,19 +32,19 @@ Run `test_axe --help` for the full list.
 ### Note on adding test cases
 
 The sources in this directory are unit test cases.  Boost includes a
-unit testing framework, and since AXE Core already uses boost, it makes
+unit testing framework, and since Axe Core already uses boost, it makes
 sense to simply use this framework rather than require developers to
 configure some other framework (we want as few impediments to creating
 unit tests as possible).
 
 The build system is setup to compile an executable called `test_axe`
 that runs all of the unit tests.  The main source file is called
-test_axe.cpp. To add a new unit test file to our test suite you need
-to add the file to `src/Makefile.test.include`. The pattern is to create
-one test file for each class or source file for which you want to create
-unit tests.  The file naming convention is `<source_filename>_tests.cpp`
-and such files should wrap their tests in a test suite
-called `<source_filename>_tests`. For an example of this pattern,
+test_axe.cpp. To add a new unit test file to our test suite you need 
+to add the file to `src/Makefile.test.include`. The pattern is to create 
+one test file for each class or source file for which you want to create 
+unit tests.  The file naming convention is `<source_filename>_tests.cpp` 
+and such files should wrap their tests in a test suite 
+called `<source_filename>_tests`. For an example of this pattern, 
 examine `uint256_tests.cpp`.
 
 For further reading, I found the following website to be helpful in
