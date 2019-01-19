@@ -562,9 +562,9 @@ public:
         nDefaultPort = 19937;
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1518140233, 715201, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1529231337, 1096451, 0x207fffff, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x0000069b8c1508fe7cd7fdad59d2e605de768b1e8f3824b11980cb369b0eb076"));
+        assert(consensus.hashGenesisBlock == uint256S("0x0be2d8c839cc6ef84840be6845e96ce43ab995d2eb239b3afe2ee81fda9585ba"));
         assert(genesis.hashMerkleRoot == uint256S("0x987a08c31d7f04f47f1aeccdffc73ca4336e32a6615f619b94cc7109e7c2a7ac"));
 
         devnetGenesis = FindDevNetGenesisBlock(consensus, genesis, 50 * COIN);
@@ -611,7 +611,7 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            (      0, uint256S("0x0000069b8c1508fe7cd7fdad59d2e605de768b1e8f3824b11980cb369b0eb076"))
+            (      0, uint256S("0x0be2d8c839cc6ef84840be6845e96ce43ab995d2eb239b3afe2ee81fda9585ba"))
             (      1, devnetGenesis.GetHash())
         };
 
@@ -697,9 +697,10 @@ public:
         nDefaultPort = 19994;
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1518140233, 715201, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1529231337, 1096451, 0x207fffff, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x0000069b8c1508fe7cd7fdad59d2e605de768b1e8f3824b11980cb369b0eb076"));
+
+        assert(consensus.hashGenesisBlock == uint256S("0x0be2d8c839cc6ef84840be6845e96ce43ab995d2eb239b3afe2ee81fda9585ba"));
         assert(genesis.hashMerkleRoot == uint256S("0x987a08c31d7f04f47f1aeccdffc73ca4336e32a6615f619b94cc7109e7c2a7ac"));
 
         vFixedSeeds.clear(); //!< Regtest mode doesn't have any fixed seeds.
@@ -724,7 +725,7 @@ public:
 
         checkpointData = (CCheckpointData){
             boost::assign::map_list_of
-            ( 0, uint256S("0x0000069b8c1508fe7cd7fdad59d2e605de768b1e8f3824b11980cb369b0eb076"))
+            ( 0, uint256S("0x0be2d8c839cc6ef84840be6845e96ce43ab995d2eb239b3afe2ee81fda9585ba"))
         };
 
         chainTxData = ChainTxData{
