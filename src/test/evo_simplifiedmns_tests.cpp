@@ -57,7 +57,7 @@ BOOST_AUTO_TEST_CASE(simplifiedmns_merkleroots)
 
     for (auto& smle : entries) {
         calculatedHashes.emplace_back(smle.CalcHash().ToString());
-        //printf("\"%s\",\n", calculatedHashes.back().c_str());
+        printf("\"%s\",\n", calculatedHashes.back().c_str());
     }
 
     BOOST_CHECK(expectedHashes == calculatedHashes);
@@ -66,7 +66,7 @@ BOOST_AUTO_TEST_CASE(simplifiedmns_merkleroots)
 
     std::string expectedMerkleRoot = "b2303aca677ae2091c882e44b58f57869fa88a6db1f4e1a5d71975e5387fa195";
     std::string calculatedMerkleRoot = sml.CalcMerkleRoot(nullptr).ToString();
-    //printf("merkleRoot=\"%s\",\n", calculatedMerkleRoot.c_str());
+    printf("merkleRoot=\"%s\",\n", calculatedMerkleRoot.c_str());
 
     BOOST_CHECK(expectedMerkleRoot == calculatedMerkleRoot);
 }
