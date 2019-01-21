@@ -82,7 +82,7 @@ libconftest.dylib*
 *.qm
 Makefile
 axe-qt
-AXE-Qt.app
+Axe-Qt.app
 
 # Unit-tests
 Makefile.test
