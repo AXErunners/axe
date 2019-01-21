@@ -6,7 +6,7 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #
-# mininode.py - AXE P2P network half-a-node
+# mininode.py - Axe P2P network half-a-node
 #
 # This python code was modified from ArtForz' public domain  half-a-node, as
 # found in the mini-node branch of http://github.com/jgarzik/pynode.
@@ -41,7 +41,7 @@ from test_framework.siphash import siphash256
 import axe_hash
 
 BIP0031_VERSION = 60000
-MY_VERSION = 70209  # SHORT_IDS_BLOCKS_VERSION to support cmpct blocks
+MY_VERSION = 70210  # MIN_PEER_PROTO_VERSION
 MY_SUBVERSION = b"/python-mininode-tester:0.0.3/"
 MY_RELAY = 1 # from version 70001 onwards, fRelay should be appended to version messages (BIP37)
 
@@ -357,33 +357,44 @@ class CTransaction(object):
     def __init__(self, tx=None):
         if tx is None:
             self.nVersion = 1
+            self.nType = 0
             self.vin = []
             self.vout = []
             self.nLockTime = 0
+            self.vExtraPayload = None
             self.sha256 = None
             self.hash = None
         else:
             self.nVersion = tx.nVersion
+            self.nType = tx.nType
             self.vin = copy.deepcopy(tx.vin)
             self.vout = copy.deepcopy(tx.vout)
             self.nLockTime = tx.nLockTime
+            self.vExtraPayload = tx.vExtraPayload
             self.sha256 = tx.sha256
             self.hash = tx.hash
 
     def deserialize(self, f):
-        self.nVersion = struct.unpack("<i", f.read(4))[0]
+        ver32bit = struct.unpack("<i", f.read(4))[0]
+        self.nVersion = ver32bit & 0xffff
+        self.nType = (ver32bit >> 16) & 0xffff
         self.vin = deser_vector(f, CTxIn)
         self.vout = deser_vector(f, CTxOut)
         self.nLockTime = struct.unpack("<I", f.read(4))[0]
+        if self.nType != 0:
+            self.vExtraPayload = deser_string(f)
         self.sha256 = None
         self.hash = None
 
     def serialize(self):
         r = b""
-        r += struct.pack("<i", self.nVersion)
+        ver32bit = int(self.nVersion | (self.nType << 16))
+        r += struct.pack("<i", ver32bit)
         r += ser_vector(self.vin)
         r += ser_vector(self.vout)
         r += struct.pack("<I", self.nLockTime)
+        if self.nType != 0:
+            r += ser_string(self.vExtraPayload)
         return r
 
     def rehash(self):
@@ -780,6 +791,34 @@ class BlockTransactions(object):
 
     def __repr__(self):
         return "BlockTransactions(hash=%064x transactions=%s)" % (self.blockhash, repr(self.transactions))
+
+
+class CCbTx(object):
+    def __init__(self, version=None, height=None, merkleRootMNList=None):
+        self.set_null()
+        if version is not None:
+            self.version = version
+        if height is not None:
+            self.height = height
+        if merkleRootMNList is not None:
+            self.merkleRootMNList = merkleRootMNList
+
+    def set_null(self):
+        self.version = 0
+        self.height = 0
+        self.merkleRootMNList = None
+
+    def deserialize(self, f):
+        self.version = struct.unpack("<H", f.read(2))[0]
+        self.height = struct.unpack("<i", f.read(4))[0]
+        self.merkleRootMNList = deser_uint256(f)
+
+    def serialize(self):
+        r = b""
+        r += struct.pack("<H", self.version)
+        r += struct.pack("<i", self.height)
+        r += ser_uint256(self.merkleRootMNList)
+        return r
 
 
 # Objects that correspond to messages on the wire
@@ -1187,7 +1226,7 @@ class msg_reject(object):
             % (self.message, self.code, self.reason, self.data)
 
 # Helper function
-def wait_until(predicate, *, attempts=float('inf'), timeout=float('inf')):
+def wait_until(predicate, *, attempts=float('inf'), timeout=float('inf'), sleep=0.05):
     attempt = 0
     elapsed = 0
 
@@ -1196,8 +1235,8 @@ def wait_until(predicate, *, attempts=float('inf'), timeout=float('inf')):
             if predicate():
                 return True
         attempt += 1
-        elapsed += 0.05
-        time.sleep(0.05)
+        elapsed += sleep
+        time.sleep(sleep)
 
     return False
 
@@ -1450,7 +1489,7 @@ class NodeConn(asyncore.dispatcher):
             vt.addrFrom.port = 0
             self.send_message(vt, True)
 
-        print('MiniNode: Connecting to AXE Node IP # ' + dstaddr + ':' \
+        print('MiniNode: Connecting to Axe Node IP # ' + dstaddr + ':' \
             + str(dstport))
 
         try:
