@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2017 The Dash Core developers
+// Copyright (c) 2014-2018 The Dash Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -16,6 +16,7 @@
 #include "sync.h"
 #include "util.h"
 #include "utilstrencodings.h"
+#include "bls/bls.h"
 
 #include <univalue.h>
 
@@ -24,8 +25,7 @@ class CGovernanceTriggerManager;
 class CGovernanceObject;
 class CGovernanceVote;
 
-static const int MAX_GOVERNANCE_OBJECT_DATA_SIZE = 16 * 1024;
-static const int MIN_GOVERNANCE_PEER_PROTO_VERSION = 70208;
+static const int MIN_GOVERNANCE_PEER_PROTO_VERSION = 70210;
 static const int GOVERNANCE_FILTER_PROTO_VERSION = 70206;
 
 static const double GOVERNANCE_FILTER_FP_RATE = 0.001;
@@ -35,20 +35,20 @@ static const int GOVERNANCE_OBJECT_PROPOSAL = 1;
 static const int GOVERNANCE_OBJECT_TRIGGER = 2;
 static const int GOVERNANCE_OBJECT_WATCHDOG = 3;
 
-static const CAmount GOVERNANCE_PROPOSAL_FEE_TX = (5.0*COIN);
+static const CAmount GOVERNANCE_PROPOSAL_FEE_TX = (5.0 * COIN);
 
 static const int64_t GOVERNANCE_FEE_CONFIRMATIONS = 6;
 static const int64_t GOVERNANCE_MIN_RELAY_FEE_CONFIRMATIONS = 1;
-static const int64_t GOVERNANCE_UPDATE_MIN = 60*60;
-static const int64_t GOVERNANCE_DELETION_DELAY = 10*60;
-static const int64_t GOVERNANCE_ORPHAN_EXPIRATION_TIME = 10*60;
+static const int64_t GOVERNANCE_UPDATE_MIN = 60 * 60;
+static const int64_t GOVERNANCE_DELETION_DELAY = 10 * 60;
+static const int64_t GOVERNANCE_ORPHAN_EXPIRATION_TIME = 10 * 60;
 
 // FOR SEEN MAP ARRAYS - GOVERNANCE OBJECTS AND VOTES
 static const int SEEN_OBJECT_IS_VALID = 0;
 static const int SEEN_OBJECT_ERROR_INVALID = 1;
 static const int SEEN_OBJECT_ERROR_IMMATURE = 2;
 static const int SEEN_OBJECT_EXECUTED = 3; //used for triggers
-static const int SEEN_OBJECT_UNKNOWN = 4; // the default
+static const int SEEN_OBJECT_UNKNOWN = 4;  // the default
 
 typedef std::pair<CGovernanceVote, int64_t> vote_time_pair_t;
 
@@ -58,16 +58,16 @@ inline bool operator<(const vote_time_pair_t& p1, const vote_time_pair_t& p2)
 }
 
 struct vote_instance_t {
-
     vote_outcome_enum_t eOutcome;
     int64_t nTime;
     int64_t nCreationTime;
 
-    vote_instance_t(vote_outcome_enum_t eOutcomeIn = VOTE_OUTCOME_NONE, int64_t nTimeIn = 0, int64_t nCreationTimeIn = 0)
-        : eOutcome(eOutcomeIn),
-          nTime(nTimeIn),
-          nCreationTime(nCreationTimeIn)
-    {}
+    vote_instance_t(vote_outcome_enum_t eOutcomeIn = VOTE_OUTCOME_NONE, int64_t nTimeIn = 0, int64_t nCreationTimeIn = 0) :
+        eOutcome(eOutcomeIn),
+        nTime(nTimeIn),
+        nCreationTime(nCreationTimeIn)
+    {
+    }
 
     ADD_SERIALIZE_METHODS;
 
@@ -78,13 +78,13 @@ struct vote_instance_t {
         READWRITE(nOutcome);
         READWRITE(nTime);
         READWRITE(nCreationTime);
-        if(ser_action.ForRead()) {
+        if (ser_action.ForRead()) {
             eOutcome = vote_outcome_enum_t(nOutcome);
         }
     }
 };
 
-typedef std::map<int,vote_instance_t> vote_instance_m_t;
+typedef std::map<int, vote_instance_t> vote_instance_m_t;
 
 typedef vote_instance_m_t::iterator vote_instance_m_it;
 
@@ -95,11 +95,11 @@ struct vote_rec_t {
 
     ADD_SERIALIZE_METHODS;
 
-     template <typename Stream, typename Operation>
-     inline void SerializationOp(Stream& s, Operation ser_action)
-     {
-         READWRITE(mapInstances);
-     }
+    template <typename Stream, typename Operation>
+    inline void SerializationOp(Stream& s, Operation ser_action)
+    {
+        READWRITE(mapInstances);
+    }
 };
 
 /**
@@ -194,67 +194,75 @@ public:
 
     CGovernanceObject(const CGovernanceObject& other);
 
-    void swap(CGovernanceObject& first, CGovernanceObject& second); // nothrow
-
     // Public Getter methods
 
-    int64_t GetCreationTime() const {
+    int64_t GetCreationTime() const
+    {
         return nTime;
     }
 
-    int64_t GetDeletionTime() const {
+    int64_t GetDeletionTime() const
+    {
         return nDeletionTime;
     }
 
-    int GetObjectType() const {
+    int GetObjectType() const
+    {
         return nObjectType;
     }
 
-    const uint256& GetCollateralHash() const {
+    const uint256& GetCollateralHash() const
+    {
         return nCollateralHash;
     }
 
-    const COutPoint& GetMasternodeOutpoint() const {
+    const COutPoint& GetMasternodeOutpoint() const
+    {
         return masternodeOutpoint;
     }
 
-    bool IsSetCachedFunding() const {
+    bool IsSetCachedFunding() const
+    {
         return fCachedFunding;
     }
 
-    bool IsSetCachedValid() const {
+    bool IsSetCachedValid() const
+    {
         return fCachedValid;
     }
 
-    bool IsSetCachedDelete() const {
+    bool IsSetCachedDelete() const
+    {
         return fCachedDelete;
     }
 
-    bool IsSetCachedEndorsed() const {
+    bool IsSetCachedEndorsed() const
+    {
         return fCachedEndorsed;
     }
 
-    bool IsSetDirtyCache() const {
+    bool IsSetDirtyCache() const
+    {
         return fDirtyCache;
     }
 
-    bool IsSetExpired() const {
+    bool IsSetExpired() const
+    {
         return fExpired;
     }
 
-    void InvalidateVoteCache() {
-        fDirtyCache = true;
-    }
-
-    const CGovernanceObjectVoteFile& GetVoteFile() const {
+    const CGovernanceObjectVoteFile& GetVoteFile() const
+    {
         return fileVotes;
     }
 
     // Signature related functions
 
     void SetMasternodeOutpoint(const COutPoint& outpoint);
-    bool Sign(const CKey& keyMasternode, const CPubKey& pubKeyMasternode);
-    bool CheckSignature(const CPubKey& pubKeyMasternode) const;
+    bool Sign(const CKey& key, const CKeyID& keyID);
+    bool CheckSignature(const CKeyID& keyID) const;
+    bool Sign(const CBLSSecretKey& key);
+    bool CheckSignature(const CBLSPublicKey& pubKey) const;
 
     std::string GetSignatureMessage() const;
     uint256 GetSignatureHash() const;
@@ -305,44 +313,17 @@ public:
     inline void SerializationOp(Stream& s, Operation ser_action)
     {
         // SERIALIZE DATA FOR SAVING/LOADING OR NETWORK FUNCTIONS
-        int nVersion = s.GetVersion();
         READWRITE(nHashParent);
         READWRITE(nRevision);
         READWRITE(nTime);
         READWRITE(nCollateralHash);
-        if (nVersion == 70208 && (s.GetType() & SER_NETWORK)) {
-            // converting from/to old format
-            std::string strDataHex;
-            if (ser_action.ForRead()) {
-                READWRITE(LIMITED_STRING(strDataHex, MAX_GOVERNANCE_OBJECT_DATA_SIZE));
-                vchData = ParseHex(strDataHex);
-            } else {
-                strDataHex = HexStr(vchData);
-                READWRITE(LIMITED_STRING(strDataHex, MAX_GOVERNANCE_OBJECT_DATA_SIZE));
-            }
-        } else {
-            // using new format directly
-            READWRITE(vchData);
-        }
+        READWRITE(vchData);
         READWRITE(nObjectType);
-        if (nVersion == 70208 && (s.GetType() & SER_NETWORK)) {
-            // converting from/to old format
-            CTxIn txin;
-            if (ser_action.ForRead()) {
-                READWRITE(txin);
-                masternodeOutpoint = txin.prevout;
-            } else {
-                txin = CTxIn(masternodeOutpoint);
-                READWRITE(txin);
-            }
-        } else {
-            // using new format directly
-            READWRITE(masternodeOutpoint);
-        }
+        READWRITE(masternodeOutpoint);
         if (!(s.GetType() & SER_GETHASH)) {
             READWRITE(vchSig);
         }
-        if(s.GetType() & SER_DISK) {
+        if (s.GetType() & SER_DISK) {
             // Only include these for the disk file format
             LogPrint("gobject", "CGovernanceObject::SerializationOp Reading/writing votes from/to disk\n");
             READWRITE(nDeletionTime);
@@ -355,27 +336,27 @@ public:
         // AFTER DESERIALIZATION OCCURS, CACHED VARIABLES MUST BE CALCULATED MANUALLY
     }
 
-    CGovernanceObject& operator=(CGovernanceObject from)
-    {
-        swap(*this, from);
-        return *this;
-    }
-
 private:
     // FUNCTIONS FOR DEALING WITH DATA STRING
     void LoadData();
     void GetData(UniValue& objResult);
 
     bool ProcessVote(CNode* pfrom,
-                     const CGovernanceVote& vote,
-                     CGovernanceException& exception,
-                     CConnman& connman);
+        const CGovernanceVote& vote,
+        CGovernanceException& exception,
+        CConnman& connman);
 
     /// Called when MN's which have voted on this object have been removed
     void ClearMasternodeVotes();
 
+    // Revalidate all votes from this MN and delete them if validation fails
+    // This is the case for DIP3 MNs that change voting keys. Returns deleted vote hashes
+    std::set<uint256> RemoveInvalidProposalVotes(const COutPoint& mnOutpoint);
+
     void CheckOrphanVotes(CConnman& connman);
 
+    // TODO can be removed after DIP3 is fully deployed
+    std::vector<uint256> RemoveOldVotes(unsigned int nMinTime);
 };
 
 

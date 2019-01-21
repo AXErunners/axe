@@ -19,8 +19,8 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "AXE"
-            VALUE "FileDescription",    PACKAGE_NAME " (GUI node for AXE)"
+            VALUE "CompanyName",        "Axe"
+            VALUE "FileDescription",    PACKAGE_NAME " (GUI node for Axe)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
             VALUE "InternalName",       "axe-qt"
             VALUE "LegalCopyright",     COPYRIGHT_STR

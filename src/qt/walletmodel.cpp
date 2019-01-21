@@ -1,6 +1,5 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2017-2018 The AXE Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -296,58 +295,64 @@ WalletModel::SendCoinsReturn WalletModel::prepareTransaction(WalletModelTransact
         return AmountExceedsBalance;
     }
 
+    if(recipients[0].fUseInstantSend && total > sporkManager.GetSporkValue(SPORK_5_INSTANTSEND_MAX_VALUE)*COIN) {
+        Q_EMIT message(tr("Send Coins"), tr("InstantSend doesn't support sending values that high yet. Transactions are currently limited to %1 AXE.").arg(sporkManager.GetSporkValue(SPORK_5_INSTANTSEND_MAX_VALUE)),
+                     CClientUIInterface::MSG_ERROR);
+        return TransactionCreationFailed;
+    }
+
+    CAmount nFeeRequired = 0;
+    CAmount nValueOut = 0;
+    size_t nVinSize = 0;
+    bool fCreated;
+    std::string strFailReason;
     {
         LOCK2(cs_main, wallet->cs_wallet);
 
         transaction.newPossibleKeyChange(wallet);
 
-        CAmount nFeeRequired = 0;
         int nChangePosRet = -1;
-        std::string strFailReason;
 
-        CWalletTx *newTx = transaction.getTransaction();
+        CWalletTx* newTx = transaction.getTransaction();
         CReserveKey *keyChange = transaction.getPossibleKeyChange();
 
-        if(recipients[0].fUseInstantSend && total > sporkManager.GetSporkValue(SPORK_5_INSTANTSEND_MAX_VALUE)*COIN){
+        fCreated = wallet->CreateTransaction(vecSend, *newTx, *keyChange, nFeeRequired, nChangePosRet, strFailReason, coinControl, true, recipients[0].inputType, recipients[0].fUseInstantSend);
+        transaction.setTransactionFee(nFeeRequired);
+        if (fSubtractFeeFromAmount && fCreated)
+            transaction.reassignAmounts();
+
+        nValueOut = newTx->tx->GetValueOut();
+        nVinSize = newTx->tx->vin.size();
+    }
+
+    if(recipients[0].fUseInstantSend) {
+        if(nValueOut > sporkManager.GetSporkValue(SPORK_5_INSTANTSEND_MAX_VALUE)*COIN) {
             Q_EMIT message(tr("Send Coins"), tr("InstantSend doesn't support sending values that high yet. Transactions are currently limited to %1 AXE.").arg(sporkManager.GetSporkValue(SPORK_5_INSTANTSEND_MAX_VALUE)),
                          CClientUIInterface::MSG_ERROR);
             return TransactionCreationFailed;
         }
-
-        bool fCreated = wallet->CreateTransaction(vecSend, *newTx, *keyChange, nFeeRequired, nChangePosRet, strFailReason, coinControl, true, recipients[0].inputType, recipients[0].fUseInstantSend);
-        transaction.setTransactionFee(nFeeRequired);
-        if (fSubtractFeeFromAmount && fCreated)
-            transaction.reassignAmounts(nChangePosRet);
-
-        if(recipients[0].fUseInstantSend) {
-            if(newTx->tx->GetValueOut() > sporkManager.GetSporkValue(SPORK_5_INSTANTSEND_MAX_VALUE)*COIN) {
-                Q_EMIT message(tr("Send Coins"), tr("InstantSend doesn't support sending values that high yet. Transactions are currently limited to %1 AXE.").arg(sporkManager.GetSporkValue(SPORK_5_INSTANTSEND_MAX_VALUE)),
-                             CClientUIInterface::MSG_ERROR);
-                return TransactionCreationFailed;
-            }
-            if(newTx->tx->vin.size() > CTxLockRequest::WARN_MANY_INPUTS) {
-                Q_EMIT message(tr("Send Coins"), tr("Used way too many inputs (>%1) for this InstantSend transaction, fees could be huge.").arg(CTxLockRequest::WARN_MANY_INPUTS),
-                             CClientUIInterface::MSG_WARNING);
-            }
+        if(nVinSize > CTxLockRequest::WARN_MANY_INPUTS) {
+            Q_EMIT message(tr("Send Coins"), tr("Used way too many inputs (>%1) for this InstantSend transaction, fees could be huge.").arg(CTxLockRequest::WARN_MANY_INPUTS),
+                         CClientUIInterface::MSG_WARNING);
         }
-
-        if(!fCreated)
-        {
-            if(!fSubtractFeeFromAmount && (total + nFeeRequired) > nBalance)
-            {
-                return SendCoinsReturn(AmountWithFeeExceedsBalance);
-            }
-            Q_EMIT message(tr("Send Coins"), QString::fromStdString(strFailReason),
-                         CClientUIInterface::MSG_ERROR);
-            return TransactionCreationFailed;
-        }
-
-        // reject absurdly high fee. (This can never happen because the
-        // wallet caps the fee at maxTxFee. This merely serves as a
-        // belt-and-suspenders check)
-        if (nFeeRequired > maxTxFee)
-            return AbsurdFee;
     }
+
+    if(!fCreated)
+    {
+        if(!fSubtractFeeFromAmount && (total + nFeeRequired) > nBalance)
+        {
+            return SendCoinsReturn(AmountWithFeeExceedsBalance);
+        }
+        Q_EMIT message(tr("Send Coins"), QString::fromStdString(strFailReason),
+                     CClientUIInterface::MSG_ERROR);
+        return TransactionCreationFailed;
+    }
+
+    // reject absurdly high fee. (This can never happen because the
+    // wallet caps the fee at maxTxFee. This merely serves as a
+    // belt-and-suspenders check)
+    if (nFeeRequired > maxTxFee)
+        return AbsurdFee;
 
     return SendCoinsReturn(OK);
 }
@@ -755,7 +760,7 @@ bool WalletModel::transactionCanBeAbandoned(uint256 hash) const
 {
     LOCK2(cs_main, wallet->cs_wallet);
     const CWalletTx *wtx = wallet->GetWalletTx(hash);
-    if (!wtx || wtx->isAbandoned() || wtx->GetDepthInMainChain() > 0 || wtx->InMempool())
+    if (!wtx || wtx->isAbandoned() || wtx->GetDepthInMainChain() > 0 || wtx->IsLockedByInstantSend() || wtx->InMempool())
         return false;
     return true;
 }

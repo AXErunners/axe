@@ -629,11 +629,11 @@ However, there are some known issues:
 
 Testing commands, you can start multiple wallets up and all denominate
 on the same masternode for testing purposes:
-/darkcoin-qt -datadir=/home/user/.darkcoin -listen=0 -darksendrounds=8 -usemasternode="192.168.56.102:19999"
-/darkcoin-qt -datadir=/home/user/.darkcoin2 -listen=0 -darksendrounds=8 -usemasternode="192.168.56.102:19999"
+/darkcoin-qt -datadir=/home/user/.darkcoin -listen=0 -darksendrounds=8 -usemasternode="192.168.56.102:19937"
+/darkcoin-qt -datadir=/home/user/.darkcoin2 -listen=0 -darksendrounds=8 -usemasternode="192.168.56.102:19937"
 
 and even disable darksend auto-denom if wanted:
-/darkcoin-qt -datadir=/home/user/.darkcoin -listen=0 -darksendrounds=8 -usemasternode="192.168.56.102:19999" -disabledarksend=1
+/darkcoin-qt -datadir=/home/user/.darkcoin -listen=0 -darksendrounds=8 -usemasternode="192.168.56.102:19937" -disabledarksend=1
 
 
 0.10.12.7 Release notes
@@ -680,7 +680,7 @@ This is a pretty large update to the RC client.
   again through darksend for the next transactions. We'll see how it works.
 - usemasternode option, will override active masternode (only in RC, just for testing)
 
-0.11.1.5 Release notes
+0.10.12.3 Release notes
 -----------------------
 
 - min merged transactions

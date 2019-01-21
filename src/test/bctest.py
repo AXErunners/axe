@@ -77,12 +77,8 @@ def bctest(testDir, testObj, exeext):
             logging.error('Error parsing expected output %s as %s: %s' % (outputFn,outputType,e))
             raise
         # Compare data
-        #print(a_parsed)
-        #print(b_parsed)
         if a_parsed != b_parsed:
             logging.error("Output data mismatch for " + outputFn + " (format " + outputType + ")")
-            print(a_parsed)
-            print(b_parsed)
             raise Exception
         # Compare formatting
         if outs[0] != outputData:

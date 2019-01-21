@@ -1,7 +1,7 @@
-Protocol Documentation - 1.1
+Protocol Documentation - 1.2
 =====================================
 
-This document describes the protocol extensions for all additional functionality build into the AXE protocol. This doesn't include any of the Bitcoin protocol, which has been left intact in the AXE project. For more information about the core protocol, please see https://en.bitcoin.it/w/index.php?title#Protocol_documentation&action#edit
+This document describes the protocol extensions for all additional functionality build into the Axe protocol. This doesn't include any of the Bitcoin protocol, which has been left intact in the Axe project. For more information about the core protocol, please see https://en.bitcoin.it/w/index.php?title#Protocol_documentation&action#edit
 
 ## Common Structures
 
@@ -255,7 +255,7 @@ Spork
 | 10001 | 2 | INSTANTSEND_ENABLED | Turns on and off InstantSend network wide
 | 10002 | 3 | INSTANTSEND_BLOCK_FILTERING | Turns on and off InstantSend block filtering
 | 10004 | 5 | INSTANTSEND_MAX_VALUE | Controls the max value for an InstantSend transaction (currently 2000 axe)
-| 10005 | 6 | NEW_SIGS | Turns on and off new signature format for AXE-specific messages
+| 10005 | 6 | NEW_SIGS | Turns on and off new signature format for Axe-specific messages
 | 10007 | 8 | MASTERNODE_PAYMENT_ENFORCEMENT | Requires masternodes to be paid by miners when blocks are processed
 | 10008 | 9 | SUPERBLOCKS_ENABLED | Superblocks are enabled (the 10% comes to fund the axe treasury)
 | 10009 | 10 | MASTERNODE_PAY_UPDATED_NODES | Only current protocol version masternode's will be paid (not older nodes)

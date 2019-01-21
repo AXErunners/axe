@@ -62,11 +62,11 @@
         <translation>收款位址</translation>
     </message>
     <message>
-        <source>These are your AXE addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your Axe addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation>這些是你要付款過去的達世幣位址。在付錢之前，務必要檢查金額和收款位址是否正確。</translation>
     </message>
     <message>
-        <source>These are your AXE addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <source>These are your Axe addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
         <translation>這些是你用來收款的達世幣位址。建議在每次交易時，都使用一個新的收款位址。</translation>
     </message>
     <message>
@@ -242,11 +242,11 @@
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <source>A fatal error occurred. AXE Core can no longer continue safely and will quit.</source>
+        <source>A fatal error occurred. Axe Core can no longer continue safely and will quit.</source>
         <translation>發生致命錯誤。達世幣核心軟體不再能安全地繼續運行下去，程式將會關閉。</translation>
     </message>
     <message>
-        <source>AXE Core</source>
+        <source>Axe Core</source>
         <translation>達世幣核心</translation>
     </message>
     <message>
@@ -270,7 +270,7 @@
         <translation>發送(&amp;S)</translation>
     </message>
     <message>
-        <source>Send coins to a AXE address</source>
+        <source>Send coins to a Axe address</source>
         <translation>付錢給一個達世幣位址</translation>
     </message>
     <message>
@@ -306,7 +306,7 @@
         <translation>結束應用程式</translation>
     </message>
     <message>
-        <source>Show information about AXE Core</source>
+        <source>Show information about Axe Core</source>
         <translation>顯示達世幣核心的相關資訊</translation>
     </message>
     <message>
@@ -378,7 +378,7 @@
         <translation>簽署訊息(&amp;M)...</translation>
     </message>
     <message>
-        <source>Sign messages with your AXE addresses to prove you own them</source>
+        <source>Sign messages with your Axe addresses to prove you own them</source>
         <translation>用達世幣位址簽署訊息來證明位址是你的</translation>
     </message>
     <message>
@@ -386,7 +386,7 @@
         <translation>驗證訊息(&amp;V)...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified AXE addresses</source>
+        <source>Verify messages to ensure they were signed with specified Axe addresses</source>
         <translation>驗證訊息是用來確定訊息是用指定的達世幣位址簽署的</translation>
     </message>
     <message>
@@ -482,7 +482,7 @@
         <translation>命令列選項(&amp;C)</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible AXE command-line options</source>
+        <source>Show the %1 help message to get a list with possible Axe command-line options</source>
         <translation>顯示 %1 的說明訊息，來取得可用命令列選項的列表</translation>
     </message>
     <message>
@@ -518,7 +518,7 @@
         <translation>分頁工具列</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to AXE network</source>
+        <source>%n active connection(s) to Axe network</source>
         <translation><numerusform>%n 個運作中的達世幣網路連線</numerusform></translation>
     </message>
     <message>
@@ -794,8 +794,8 @@
         <translation>請切換到“列表模式”來使用此功能。</translation>
     </message>
     <message>
-        <source>Non-anonymized input selected. &lt;b&gt;PrivateSend will be disabled.&lt;/b&gt;&lt;br&gt;&lt;br&gt;If you still want to use PrivateSend, please deselect all non-nonymized inputs first and then check PrivateSend checkbox again.</source>
-        <translation>選擇了非匿名的輸入。 &lt;b&gt; 匿名發送將會被禁用。&lt;/ b&gt;&lt;br&gt; &lt;br&gt;如果你仍然想用匿名發送，請先取消選取所有非匿名的輸入，然後再勾選匿名發送的核取方塊</translation>
+        <source>Non-anonymized input selected. &lt;b&gt;PrivateSend will be disabled.&lt;/b&gt;&lt;br&gt;&lt;br&gt;If you still want to use PrivateSend, please deselect all non-anonymized inputs first and then check the PrivateSend checkbox again.</source>
+        <translation>選擇了非匿名的輸入。 &lt;b&gt;匿名發送將會被禁用。&lt;/b&gt;&lt;br&gt;&lt;br&gt;如果你仍然想用匿名發送，請先取消選取所有非匿名的輸入，然後再勾選匿名發送的核取方塊。</translation>
     </message>
     <message>
         <source>(%1 locked)</source>
@@ -814,8 +814,8 @@
         <translation>如果任何一個收款人收到的金額比當前零散錢的閾值還小的話，這個標籤將變為紅色。</translation>
     </message>
     <message>
-        <source>Can vary +/- %1 duff(s) per input.</source>
-        <translation>每組輸入可能有 +/- %1 個 duff(s) 的誤差。</translation>
+        <source>Can vary +/- %1 hak(s) per input.</source>
+        <translation>每組輸入可能有 +/- %1 個 hak(s) 的誤差。</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -832,73 +832,6 @@
     <message>
         <source>n/a</source>
         <translation>不適用</translation>
-    </message>
-</context>
-<context>
-    <name>DarksendConfig</name>
-    <message>
-        <source>Configure PrivateSend</source>
-        <translation>配置匿名發送</translation>
-    </message>
-    <message>
-        <source>Basic Privacy</source>
-        <translation>基本隱私</translation>
-    </message>
-    <message>
-        <source>High Privacy</source>
-        <translation>高度隱私</translation>
-    </message>
-    <message>
-        <source>Maximum Privacy</source>
-        <translation>最大隱私</translation>
-    </message>
-    <message>
-        <source>Please select a privacy level.</source>
-        <translation>請選擇穩私級別。</translation>
-    </message>
-    <message>
-        <source>Use 2 separate masternodes to mix funds up to 1000 AXE</source>
-        <translation>使用2個獨立的主節點來混合最高達1000達世幣的資金</translation>
-    </message>
-    <message>
-        <source>Use 8 separate masternodes to mix funds up to 1000 AXE</source>
-        <translation>使用8個獨立的主節點來混合最高達1000達世幣的資金</translation>
-    </message>
-    <message>
-        <source>Use 16 separate masternodes</source>
-        <translation>使用16個獨立的主節點</translation>
-    </message>
-    <message>
-        <source>This option is the quickest and will cost about ~0.025 AXE to anonymize 1000 AXE</source>
-        <translation>這個是最快的選項，將耗費約~0.025達世幣作為匿名處理1000達世幣的費用</translation>
-    </message>
-    <message>
-        <source>This option is moderately fast and will cost about 0.05 AXE to anonymize 1000 AXE</source>
-        <translation>這個是一般的選項，將耗費約0.05達世幣作為匿名處理1000達世幣的費用</translation>
-    </message>
-    <message>
-        <source>0.1 AXE per 1000 AXE you anonymize.</source>
-        <translation>每1000達世幣耗費0.1達世幣作為匿名處理費用</translation>
-    </message>
-    <message>
-        <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
-        <translation>這是最慢的和最安全的選頁。耗費最多的匿名處理費</translation>
-    </message>
-    <message>
-        <source>PrivateSend Configuration</source>
-        <translation>匿名發送配置</translation>
-    </message>
-    <message>
-        <source>PrivateSend was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening AXE's configuration screen.</source>
-        <translation>匿名發送已成功設置為一般(%1 到2次循環)。你可以隨時打開達世幣配置窗口來修改。</translation>
-    </message>
-    <message>
-        <source>PrivateSend was successfully set to high (%1 and 8 rounds). You can change this at any time by opening AXE's configuration screen.</source>
-        <translation>匿名發送已成功設置為高(%1 到8次循環)。你可以隨時打開達世幣配置窗口來修改。</translation>
-    </message>
-    <message>
-        <source>PrivateSend was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening AXE's configuration screen.</source>
-        <translation>匿名發送已成功設置為最高(%1 到16次循環)。你可以隨時打開達世幣配置窗口來修改。</translation>
     </message>
 </context>
 <context>
@@ -940,7 +873,7 @@
         <translation>編輯付款位址</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid AXE address.</source>
+        <source>The entered address "%1" is not a valid Axe address.</source>
         <translation>輸入的位址 %1 並不是有效的達世幣位址。</translation>
     </message>
     <message>
@@ -1038,8 +971,8 @@
         <translation>匿名發送資訊</translation>
     </message>
     <message>
-        <source>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the AXE in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.01 AXE, 0.1 AXE, 1 AXE and 10 AXE -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more info see &lt;a href="https://AXErunners.atlassian.net/wiki/display/DOC/PrivateSend"&gt;https://AXErunners.atlassian.net/wiki/display/DOC/PrivateSend&lt;/a&gt;         </source>
-        <translation>&lt;h3&gt;匿名發送基礎知識&lt;/h3&gt; 匿名發送通過隱藏您的資金來源為您提供真正的財務隱私。您的錢包中所有的達世幣都由不同的“輸入”組成，您可以將其視為分開的離散硬幣。&lt;br&gt; 匿名發送使用創新的方法將您的輸入與其他兩個人的輸入相結合，而過程中不會讓您的達世幣離開您的錢包。每時每刻，您仍然控制著您的錢。&lt;hr&gt; &lt;b&gt;匿名發送的運作原理如下:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;匿名發送首先將您的交易分柝成多個標準面額的交易。這些標準面額分別為0.01 AXE, 0.1 AXE, 1 AXE 和10 AXE --有點像您每天使用的紙幣。&lt;/li&gt; &lt;li&gt;您的錢包然後發送請求到網絡上有專門配置的軟件節點，稱為“主節點”。這些主節點會收到您希望混合一些資金的通知。沒有可識別的信息發送到主節點，所以他們永遠不會知道你是"誰"。&lt;/li&gt; &lt;li&gt;當另外兩個人發送類似的消息時，表示希望混合相同的面額的話，混合會話就會開始。相關的主節點會混合這些輸入，並指示所有三個用戶的錢包將已經轉換了輸入的交易支付給自己。你的錢包直接支付給自己，但是付給不同的位址 (稱之為找零位址)。&lt;/li&gt; &lt;li&gt;為了完全掩蓋您的資金來源，您的錢包必須以每個面額來重複此過程數次。每次這個過程完成後，都稱之為一個 "循環"。每個循環的匿名發送都會令確定您的資金來源的工作倍加困難。&lt;/li&gt; &lt;li&gt;這種混合過程發生在後台，而不需要您進行任何操作。當您想進行交易時，您的資金將已被匿名處理。不需再花額外的時間等待。&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;重要:&lt;/b&gt;您的錢包只能擁有1000個"找零位址。" 每次混合事件發生時，最多會使用9個找零位址。這意味著這1000個位址可以容許100次的混合事件。當其的中900個已經被使用後，您的錢包必須創建更多的位址。如果您啟用了自動備份，則只能夠這樣做。&lt;br&gt;因此，禁用備份的用戶也將禁用匿名發送。&lt;hr&gt;如欲了解更多信息請參閱&lt;a href="https://AXErunners.atlassian.net/wiki/display/DOC/PrivateSend"&gt;https://AXErunners.atlassian.net/wiki/display/DOC/PrivateSend&lt;/a&gt;</translation>
+        <source>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the Axe in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 AXE, 0.01 AXE, 0.1 AXE, 1 AXE and 10 AXE -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more information, see the &lt;a href="https://docs.axe.org/en/latest/wallets/axecore/privatesend-instantsend.html"&gt;PrivateSend documentation&lt;/a&gt;.</source>
+        <translation>&lt;h3&gt;匿名發送基礎知識&lt;/h3&gt; 匿名發送通過隱藏您的資金來源為您提供真正的財務隱私。您的錢包中所有的達世幣都由不同的“輸入”組成，您可以將其視為分開的離散硬幣。&lt;br&gt; 匿名發送使用創新的方法將您的輸入與其他兩個人的輸入相結合，而過程中不會讓您的達世幣離開您的錢包。每時每刻，您仍然控制著您的錢。&lt;hr&gt; &lt;b&gt;匿名發送的運作原理如下:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;匿名發送首先將您的交易分柝成多個標準面額的交易。這些標準面額分別為0.001 AXE, 0.01 AXE, 0.1 AXE, 1 AXE 和10 AXE --有點像您每天使用的紙幣。&lt;/li&gt; &lt;li&gt;您的錢包然後發送請求到網絡上有專門配置的軟件節點，稱為“主節點”。這些主節點會收到您希望混合一些資金的通知。沒有可識別的信息發送到主節點，所以他們永遠不會知道你是"誰"。&lt;/li&gt; &lt;li&gt;當另外兩個人發送類似的消息時，表示希望混合相同的面額的話，混合會話就會開始。相關的主節點會混合這些輸入，並指示所有三個用戶的錢包將已經轉換了輸入的交易支付給自己。你的錢包直接支付給自己，但是付給不同的位址 (稱之為找零位址)。&lt;/li&gt; &lt;li&gt;為了完全掩蓋您的資金來源，您的錢包必須以每個面額來重複此過程數次。每次這個過程完成後，都稱之為一個 "循環"。每個循環的匿名發送都會令確定您的資金來源的工作倍加困難。&lt;/li&gt; &lt;li&gt;這種混合過程發生在後台，而不需要您進行任何操作。當您想進行交易時，您的資金將已被匿名處理。不需再花額外的時間等待。&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;重要:&lt;/b&gt;您的錢包只能擁有1000個"找零位址。" 每次混合事件發生時，最多會使用9個找零位址。這意味著這1000個位址可以容許100次的混合事件。當其的中900個已經被使用後，您的錢包必須創建更多的位址。如果您啟用了自動備份，則只能夠這樣做。&lt;br&gt;因此，禁用備份的用戶也將禁用匿名發送。&lt;hr&gt;如欲了解更多信息請參閱&lt;a href="https://docs.axe.org/en/latest/wallets/axecore/privatesend-instantsend.html"&gt;匿名發送文檔&lt;/a&gt;。</translation>
     </message>
 </context>
 <context>
@@ -1057,7 +990,7 @@
         <translation>因為這是程式第一次啓動，你可以選擇 %1 儲存資料的地方。</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the AXE block chain. At least %2GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <source>%1 will download and store a copy of the Axe block chain. At least %2GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
         <translation>%1 會下載並儲存一份達世幣區塊鏈的副本。至少有 %2GB 的資料會儲存到這個目錄中，並且還會持續增長。另外錢包資料也會儲存在這個目錄。</translation>
     </message>
     <message>
@@ -1176,8 +1109,76 @@
         <translation>節點數:</translation>
     </message>
     <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Note: This list represents the legacy and non-deterministic masternode list. It is only active as long as DIP3 has not been fully activated. After SPORK15 activation, this list will be empty.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;注意: 此列表顯示遺留和非確定性的主節點列表。 這只有DIP3尚未完全激活時才會被激活。 在SPORK15激活後，此列表將變為空白。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <source>DIP3 Masternodes</source>
+        <translation>DIP3 主節點</translation>
+    </message>
+    <message>
+        <source>PoSe Score</source>
+        <translation>PoSe 評分</translation>
+    </message>
+    <message>
+        <source>Registered</source>
+        <translation>經己註冊</translation>
+    </message>
+    <message>
+        <source>Last Paid</source>
+        <translation>最後一次付款</translation>
+    </message>
+    <message>
+        <source>Next Payment</source>
+        <translation>下一次付款</translation>
+    </message>
+    <message>
+        <source>Operator Reward</source>
+        <translation>運營者獎勵</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Note: This list is not active yet and only for informational purposes. The network is still running in compatibility mode, which means that the non-deterministic masternode list is still active. Only after SPORK15 activation, this list will become the active one. Also, the values in the payment related fields are not used at the moment, but still updated for every block. Please ignore this until SPORK15 activation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;注意: 此列表尚未激活，其資料僅供參考。網絡仍在兼容模式下運行，這意味著非確定性的主節點列表仍處於活動狀態。 只有在SPORK15激活後，此列表才會成為活動列表。此外，此時不會使用付款字段中相關的值，但仍會針對每個區塊進行更新。 在SPORK15激活之前請忽略這一點。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
         <source>Start alias</source>
         <translation>啟動別名</translation>
+    </message>
+    <message>
+        <source>Copy ProTx Hash</source>
+        <translation>複製 ProTx 哈希</translation>
+    </message>
+    <message>
+        <source>Copy Collateral Outpoint</source>
+        <translation>複製抵押品出點</translation>
+    </message>
+    <message>
+        <source>ENABLED</source>
+        <translation>已啟用</translation>
+    </message>
+    <message>
+        <source>POSE_BANNED</source>
+        <translation>POSE_BANNED</translation>
+    </message>
+    <message>
+        <source>UNKNOWN</source>
+        <translation>未知</translation>
+    </message>
+    <message>
+        <source>to %1</source>
+        <translation>到 %1</translation>
+    </message>
+    <message>
+        <source>to UNKNOWN</source>
+        <translation>到未知</translation>
+    </message>
+    <message>
+        <source>but not claimed</source>
+        <translation>但無被認領</translation>
+    </message>
+    <message>
+        <source>NONE</source>
+        <translation>沒有</translation>
     </message>
     <message>
         <source>Confirm masternode start</source>
@@ -1243,6 +1244,10 @@
         <source>Sentinel</source>
         <translation>哨兵</translation>
     </message>
+    <message>
+        <source>Additional information for DIP3 Masternode %1</source>
+        <translation>關於DIP3主節點%1 的附加信息</translation>
+    </message>
 </context>
 <context>
     <name>ModalOverlay</name>
@@ -1251,11 +1256,11 @@
         <translation>表單</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the AXE network, as detailed below.</source>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the Axe network, as detailed below.</source>
         <translation>最近的交易可能尚未顯示，因此您的錢包的餘額可能不正確。 一旦你的錢包完成與達世幣網絡的同步，這個信息將是正確的，如下所述。</translation>
     </message>
     <message>
-        <source>Attempting to spend AXE that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
+        <source>Attempting to spend Axe that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
         <translation>假如您正在嘗試花費尚未顯示出來的結餘，這個交易將不會被網絡所接受。</translation>
     </message>
     <message>
@@ -1345,7 +1350,7 @@
         <translation>(0 表示程式自動決定，小於 0 表示保留處理器核心不用的數目)</translation>
     </message>
     <message>
-        <source>Amount of AXE to keep anonymized</source>
+        <source>Amount of Axe to keep anonymized</source>
         <translation>保持匿名的達世幣數量</translation>
     </message>
     <message>
@@ -1397,7 +1402,7 @@
         <translation>此金額為關閉匿名發送的門檻。</translation>
     </message>
     <message>
-        <source>Automatically open the AXE Core client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <source>Automatically open the Axe Core client port on the router. This only works when your router supports UPnP and it is enabled.</source>
         <translation>自動在路由器上開放達世幣核心客戶端的通訊埠。只有在你的路由器支援且開啓「通用即插即用」協定(UPnP)時才有作用。</translation>
     </message>
     <message>
@@ -1409,7 +1414,7 @@
         <translation>接受外來連線</translation>
     </message>
     <message>
-        <source>Connect to the AXE network through a SOCKS5 proxy.</source>
+        <source>Connect to the Axe network through a SOCKS5 proxy.</source>
         <translation>透過 SOCKS5 代理伺服器來連線到達世幣網路。</translation>
     </message>
     <message>
@@ -1447,6 +1452,14 @@
     <message>
         <source>Enable coin &amp;control features</source>
         <translation>開啟錢幣控制功能(&amp;C)</translation>
+    </message>
+    <message>
+        <source>Show system popups for PrivateSend mixing transactions&lt;br/&gt;just like for all other transaction types.</source>
+        <translation>顯示匿名發送混合交易的系統彈出窗口 &lt;br/&gt;就像所有其他交易類型一樣。</translation>
+    </message>
+    <message>
+        <source>Show popups for PrivateSend transactions</source>
+        <translation>顯示匿名發送交易的彈出式窗口</translation>
     </message>
     <message>
         <source>&amp;Spend unconfirmed change</source>
@@ -1497,7 +1510,7 @@
         <translation>Tor</translation>
     </message>
     <message>
-        <source>Connect to the AXE network through a separate SOCKS5 proxy for Tor hidden services.</source>
+        <source>Connect to the Axe network through a separate SOCKS5 proxy for Tor hidden services.</source>
         <translation>透過另一個SOCKS5 代理伺服器作為Tor隱藏服務來連線到達世幣網路。</translation>
     </message>
     <message>
@@ -1622,7 +1635,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>表單</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the AXE network after a connection is established, but this process has not completed yet.</source>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Axe network after a connection is established, but this process has not completed yet.</source>
         <translation>顯示的資訊可能是過期的。跟達世幣網路的連線建立後，你的錢包會自動和網路同步，但是這個步驟還沒完成。</translation>
     </message>
     <message>
@@ -1831,7 +1844,7 @@ https://www.transifex.com/projects/p/axe/</translation>
     </message>
     <message>
         <source>Note: You can turn this message off in options.</source>
-        <translation>注意 : 您在選項中關閉了這項訊息。</translation>
+        <translation>注意 : 您可以在選項中關閉這項訊息。</translation>
     </message>
     <message>
         <source>WARNING! Something went wrong on automatic backup</source>
@@ -1862,10 +1875,6 @@ https://www.transifex.com/projects/p/axe/</translation>
 </source>
         <translation>最近收到的匿名發送訊息:
 </translation>
-    </message>
-    <message>
-        <source>N/A</source>
-        <translation>不適用</translation>
     </message>
     <message>
         <source>PrivateSend was successfully reset.</source>
@@ -1907,7 +1916,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>無效的付款位址 %1</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid AXE address or malformed URI parameters.</source>
+        <source>URI cannot be parsed! This can be caused by an invalid Axe address or malformed URI parameters.</source>
         <translation>沒辦法解析 URI 位址！可能是因為達世幣位址無效，或是 URI 參數格式錯誤。</translation>
     </message>
     <message>
@@ -1997,7 +2006,7 @@ https://www.transifex.com/projects/p/axe/</translation>
 <context>
     <name>QObject</name>
     <message>
-        <source>AXE Core</source>
+        <source>Axe Core</source>
         <translation>達世幣核心</translation>
     </message>
     <message>
@@ -2013,7 +2022,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>金額</translation>
     </message>
     <message>
-        <source>Enter a AXE address (e.g. %1)</source>
+        <source>Enter a Axe address (e.g. %1)</source>
         <translation>輸入達世幣位址 (例如 %1)</translation>
     </message>
     <message>
@@ -2531,7 +2540,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>重複使用現有的收款位址(不建議)(&amp;e)</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the AXE network.</source>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Axe network.</source>
         <translation>附加在付款要求中的訊息，可以不填，打開要求內容時會顯示。注意: 這個訊息不會隨著付款送到達世幣網路上。</translation>
     </message>
     <message>
@@ -2543,7 +2552,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>跟新收款位址關聯的標記，可以不填。</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the AXE network.</source>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the Axe network.</source>
         <translation>附加在付款要求中的訊息，可以不填，打開要求內容時會顯示。&lt;br&gt;注意: 這個訊息不會隨著付款送到達世幣網路上。</translation>
     </message>
     <message>
@@ -3000,7 +3009,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation><numerusform>預計可在 %n 個區塊內開始確認。</numerusform></translation>
     </message>
     <message>
-        <source>Warning: Invalid AXE address</source>
+        <source>Warning: Invalid Axe address</source>
         <translation>警告: 無效的達世幣位址</translation>
     </message>
     <message>
@@ -3031,7 +3040,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>付給:(&amp;T)</translation>
     </message>
     <message>
-        <source>The AXE address to send the payment to</source>
+        <source>The Axe address to send the payment to</source>
         <translation>接收付款的達世幣位址</translation>
     </message>
     <message>
@@ -3067,7 +3076,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>金額:(&amp;A)</translation>
     </message>
     <message>
-        <source>The fee will be deducted from the amount being sent. The recipient will receive a lower amount of AXE than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
+        <source>The fee will be deducted from the amount being sent. The recipient will receive a lower amount of Axe than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation>手續費將從發送金額中扣除。接收者將收到的達世幣金額將會比您在金額字段中輸入的金額為少。 如果選擇了多個收款人，該費用將會被平均攤分。</translation>
     </message>
     <message>
@@ -3079,7 +3088,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>訊息:</translation>
     </message>
     <message>
-        <source>A message that was attached to the axe: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the AXE network.</source>
+        <source>A message that was attached to the axe: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Axe network.</source>
         <translation>附加在達世幣付款協議 URI 中的訊息，會和交易內容一起存起來，給你自己做參考。注意: 這個訊息不會送到達世幣網路上。</translation>
     </message>
     <message>
@@ -3132,11 +3141,11 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>簽署訊息(&amp;S)</translation>
     </message>
     <message>
-        <source>You can sign messages/agreements with your addresses to prove you can receive AXE sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
+        <source>You can sign messages/agreements with your addresses to prove you can receive Axe sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
         <translation>你可以用自己的位址簽署訊息/協議，來證明你對位址的所有權。但是請小心，不要簽署語意含糊不清的內容，因為釣魚式詐騙可能會用騙你簽署的手法來冒充是你。只有在語句中的細節你都同意時才簽署。</translation>
     </message>
     <message>
-        <source>The AXE address to sign the message with</source>
+        <source>The Axe address to sign the message with</source>
         <translation>用來簽署訊息的達世幣位址</translation>
     </message>
     <message>
@@ -3168,7 +3177,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>複製目前的簽章到系統剪貼簿</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this AXE address</source>
+        <source>Sign the message to prove you own this Axe address</source>
         <translation>簽署這個訊息來證明這個達世幣位址是你的</translation>
     </message>
     <message>
@@ -3192,11 +3201,11 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>請在下面輸入簽署的位址，訊息(請確定完整複製了所包含的換行，空格，跳位符號等等)，以及簽章，來驗證這個訊息。請小心，除了訊息內容以外，不要對簽章本身過度解讀，以避免被用「中間人攻擊法」詐騙。請注意，這僅僅是證明簽名方接收的地址，它不能證明任何交易的發送人！</translation>
     </message>
     <message>
-        <source>The AXE address the message was signed with</source>
+        <source>The Axe address the message was signed with</source>
         <translation>簽署這個訊息的達世幣位址</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified AXE address</source>
+        <source>Verify the message to ensure it was signed with the specified Axe address</source>
         <translation>驗證這個訊息來確定是用指定的達世幣位址簽署的</translation>
     </message>
     <message>
@@ -3607,6 +3616,10 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>決定是否有一個僅限查看的位址參與這次的交易</translation>
     </message>
     <message>
+        <source>Whether or not this transaction was locked by InstantSend.</source>
+        <translation>這交易是否被即時到帳鎖定。</translation>
+    </message>
+    <message>
         <source>User-defined intent/purpose of the transaction.</source>
         <translation>用戶定義的意圖/交易的目的。</translation>
     </message>
@@ -3620,6 +3633,14 @@ https://www.transifex.com/projects/p/axe/</translation>
     <message>
         <source>All</source>
         <translation>全部</translation>
+    </message>
+    <message>
+        <source>Locked by InstantSend</source>
+        <translation>被即時到帳鎖定</translation>
+    </message>
+    <message>
+        <source>Not locked by InstantSend</source>
+        <translation>沒有被即時到帳鎖定</translation>
     </message>
     <message>
         <source>Today</source>
@@ -4045,6 +4066,14 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>清掉錢包裡的所有交易資料，並且在下次啟動時，使用 -rescan 來從區塊鏈中復原回來。</translation>
     </message>
     <message>
+        <source>Enable publish raw transactions of attempted InstantSend double spend in &lt;address&gt;</source>
+        <translation>在&lt;address&gt;中啟用嘗試發布雙重花費的即時到帳交易的原始交易</translation>
+    </message>
+    <message>
+        <source>Enable publish transaction hashes of attempted InstantSend double spend in &lt;address&gt;</source>
+        <translation>在&lt;address&gt;中啟用嘗試發布雙重花費的即時到帳交易的哈希值</translation>
+    </message>
+    <message>
         <source>Error loading %s: You can't enable HD on a already existing non-HD wallet</source>
         <translation>加載%s時出錯: 您不能夠在非HD 錢包上啟用HD功能</translation>
     </message>
@@ -4089,6 +4118,14 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>輸出除錯資訊(預設值: %u, 不一定要指定 &lt;category&gt;)</translation>
     </message>
     <message>
+        <source>Overrides minimum spork signers to change spork value. Only useful for regtest and devnet. Using this on mainnet or testnet will ban you.</source>
+        <translation>覆蓋最小叉勺簽名來改變叉勺值。只對regtest和devnet有用。在mainnet或testnet上使用它的話將封鎖你。</translation>
+    </message>
+    <message>
+        <source>Use N separate masternodes in parallel to mix funds (%u-%u, default: %u)</source>
+        <translation>使用 N 個單獨的主節點來進行並聯混合資金 (%u-%u, 預設值: %u)</translation>
+    </message>
+    <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
         <translation>使用另外的 SOCK5 代理伺服器，來透過 Tor 隱藏服務跟節點聯繫(預設值: %s)</translation>
     </message>
@@ -4107,6 +4144,10 @@ https://www.transifex.com/projects/p/axe/</translation>
     <message>
         <source>You need to rebuild the database using -reindex-chainstate to change -txindex</source>
         <translation>改變 -txindex 參數後，必須要用 -reindex-chainstate 參數來重建資料庫</translation>
+    </message>
+    <message>
+        <source>You should specify a masternodeblsprivkey in the configuration. Please see documentation for help.</source>
+        <translation>您應該在配置文件中指定一個主節點私鑰。請參閱文檔以獲得幫助。</translation>
     </message>
     <message>
         <source>(default: %s)</source>
@@ -4221,6 +4262,14 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>設定 -paytxfee=&lt;金額&gt; 的金額無效: '%s' (至少要有 %s)</translation>
     </message>
     <message>
+        <source>Invalid masternodeblsprivkey. Please see documenation.</source>
+        <translation>無效的主節點私鑰。請參閱文檔。</translation>
+    </message>
+    <message>
+        <source>Invalid minimum number of spork signers specified with -minsporkkeys</source>
+        <translation>使用-minsporkkeys 指定的最低叉勺簽名者數目無效</translation>
+    </message>
+    <message>
         <source>Keypool ran out, please call keypoolrefill first</source>
         <translation>Keypool 用完了，請先調用 keypoolrefill </translation>
     </message>
@@ -4321,6 +4370,10 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>設定密鑰池大小為 &lt;n&gt; (預設值: %u)</translation>
     </message>
     <message>
+        <source>Set the masternode BLS private key</source>
+        <translation>設置主節點 BLS 私鑰</translation>
+    </message>
+    <message>
         <source>Set the number of threads to service RPC calls (default: %d)</source>
         <translation>設定處理 RPC 服務請求的執行緒數目(預設值: %d)</translation>
     </message>
@@ -4382,6 +4435,10 @@ https://www.transifex.com/projects/p/axe/</translation>
     </message>
     <message>
         <source>Too many %f denominations, removing.</source>
+        <translation>太多 %f 輸入金額，正在移除。</translation>
+    </message>
+    <message>
+        <source>Too many %f denominations, skipping.</source>
         <translation>太多 %f 輸入金額，正在移除。</translation>
     </message>
     <message>
@@ -4477,8 +4534,12 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>保留最多 &lt;n&gt; 個不可連接的交易於記憶體 (預設值: %u)</translation>
     </message>
     <message>
-        <source>Disable all AXE specific functionality (Masternodes, PrivateSend, InstantSend, Governance) (0-1, default: %u)</source>
+        <source>Disable all Axe specific functionality (Masternodes, PrivateSend, InstantSend, Governance) (0-1, default: %u)</source>
         <translation>禁止所有達世幣的附加功能 (主節點，匿名發送，即時到帳，預算案) (0-1，預設值: %u)</translation>
+    </message>
+    <message>
+        <source>%s file contains all private keys from this wallet. Do not share it with anyone!</source>
+        <translation>%s 文件包含此錢包中的所有私鑰。 不要與任何人分享!</translation>
     </message>
     <message>
         <source>Discover own IP addresses (default: 1 when listening and no -externalip or -proxy)</source>
@@ -4503,6 +4564,10 @@ https://www.transifex.com/projects/p/axe/</translation>
     <message>
         <source>Execute command when a wallet InstantSend transaction is successfully locked (%s in cmd is replaced by TxID)</source>
         <translation>當錢包有交易改變時要執行的指令(指令中的 %s 會被取代成交易識別碼)</translation>
+    </message>
+    <message>
+        <source>Extra transactions to keep in memory for compact block reconstructions (default: %u)</source>
+        <translation>為壓緊區塊重建而在內存中保留的額外交易 (預設值: %u)</translation>
     </message>
     <message>
         <source>Failed to create backup, file already exists! This could happen if you restarted wallet in less than 60 seconds. You can continue if you are ok with this.</source>
@@ -4585,6 +4650,10 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>網絡版本字符串的總長度  (%i) 超過最大長度 (%i)。減少uacomments參數的數量或大小。</translation>
     </message>
     <message>
+        <source>Transaction index can't be disabled in full mode. Either start with -litemode command line switch or enable transaction index.</source>
+        <translation>無法在完整模式下禁用事務索引。 要麼使用-litemode命令行選項，不然就啟用事務索引。</translation>
+    </message>
+    <message>
         <source>Tries to keep outbound traffic under the given target (in MiB per 24h), 0 = no limit (default: %d)</source>
         <translation>嘗試保持指定目標下的出站流量 (以每24小時多少MB計算), 0 = 沒有限制 (預設值: %d)</translation>
     </message>
@@ -4615,6 +4684,10 @@ https://www.transifex.com/projects/p/axe/</translation>
     <message>
         <source>Warning: Unknown block versions being mined! It's possible unknown rules are in effect</source>
         <translation>警告 : 正在開採未知版本的區塊。未知的規則可能正在生效</translation>
+    </message>
+    <message>
+        <source>You are starting in lite mode, all Axe-specific functionality is disabled.</source>
+        <translation>您正在使用精簡模式，故此所有與達世幣相關的特別功能已被禁用。</translation>
     </message>
     <message>
         <source>You need to rebuild the database using -reindex to go back to unpruned mode.  This will redownload the entire blockchain</source>
@@ -4661,6 +4734,14 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>在&lt;address&gt;啟用發布哈希區塊</translation>
     </message>
     <message>
+        <source>Enable publish hash of governance objects (like proposals) in &lt;address&gt;</source>
+        <translation>在 &lt;address&gt;中啟用發布治理對象的哈希值(例如 提案)</translation>
+    </message>
+    <message>
+        <source>Enable publish hash of governance votes in &lt;address&gt;</source>
+        <translation>在 &lt;address&gt;啟用發布治理投票的哈希值</translation>
+    </message>
+    <message>
         <source>Enable publish hash transaction (locked via InstantSend) in &lt;address&gt;</source>
         <translation>在 &lt;address&gt; 中啟用發布哈希交易 (通過InstantSend來鎖定)</translation>
     </message>
@@ -4681,10 +4762,6 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>在 &lt;address&gt; 中啟用發布原始交易</translation>
     </message>
     <message>
-        <source>Enable transaction replacement in the memory pool (default: %u)</source>
-        <translation>在內存池中啟用交易替換功能 (預設值: %u)</translation>
-    </message>
-    <message>
         <source>Error: A fatal internal error occurred, see debug.log for details</source>
         <translation>錯誤:發生一個致命的內部錯誤，請到debug.log查看更多細節</translation>
     </message>
@@ -4699,6 +4776,14 @@ https://www.transifex.com/projects/p/axe/</translation>
     <message>
         <source>Failed to delete backup, error: %s</source>
         <translation>無法刪除備份，錯誤: %s</translation>
+    </message>
+    <message>
+        <source>Failed to load InstantSend data cache from</source>
+        <translation>無法載入即時到帳數據緩存</translation>
+    </message>
+    <message>
+        <source>Failed to load sporks cache from</source>
+        <translation>無法載入勺叉緩存</translation>
     </message>
     <message>
         <source>Failed to parse host:port string</source>
@@ -4737,6 +4822,10 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>行: %d</translation>
     </message>
     <message>
+        <source>Loading InstantSend data cache...</source>
+        <translation>正在載入即時到帳數據緩存...</translation>
+    </message>
+    <message>
         <source>Loading addresses...</source>
         <translation>正在載入位址資料...</translation>
     </message>
@@ -4747,6 +4836,10 @@ https://www.transifex.com/projects/p/axe/</translation>
     <message>
         <source>Loading governance cache...</source>
         <translation>正在載入治理緩存...</translation>
+    </message>
+    <message>
+        <source>Loading sporks cache...</source>
+        <translation>正在載入勺叉緩存...</translation>
     </message>
     <message>
         <source>Loading wallet... (%3.2f %%)</source>
@@ -4889,6 +4982,10 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>交易必須至少要有一個收款人</translation>
     </message>
     <message>
+        <source>Transaction too large</source>
+        <translation>交易太大了</translation>
+    </message>
+    <message>
         <source>Trying to connect...</source>
         <translation>嘗試連接...</translation>
     </message>
@@ -4909,6 +5006,10 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>錢包除錯與測試選項:</translation>
     </message>
     <message>
+        <source>Wallet is not initialized</source>
+        <translation>錢包尚未初始化</translation>
+    </message>
+    <message>
         <source>Wallet needed to be rewritten: restart %s to complete</source>
         <translation>錢包需要重寫: 請重新啓動 %s 來完成</translation>
     </message>
@@ -4923,6 +5024,10 @@ https://www.transifex.com/projects/p/axe/</translation>
     <message>
         <source>Whether to operate in a blocks only mode (default: %u)</source>
         <translation>是否在區塊模式下操作 (預設值: %u)</translation>
+    </message>
+    <message>
+        <source>You can not start a masternode in lite mode.</source>
+        <translation>您無法在精簡模式下啟動主節點。</translation>
     </message>
     <message>
         <source>ZeroMQ notification options:</source>
@@ -4941,7 +5046,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>RPC 伺服器選項:</translation>
     </message>
     <message>
-        <source>AXE Core</source>
+        <source>Axe Core</source>
         <translation>達世幣核心</translation>
     </message>
     <message>
@@ -5011,10 +5116,6 @@ https://www.transifex.com/projects/p/axe/</translation>
     <message>
         <source>Set lowest fee rate (in %s/kB) for transactions to be included in block creation. (default: %s)</source>
         <translation>設定製造區塊時，所要包含交易每千位元組的最低手續費(單位是 %s)。(預設值: %s)</translation>
-    </message>
-    <message>
-        <source>Show N confirmations for a successfully locked transaction (%u-%u, default: %u)</source>
-        <translation>如果交易成功鎖定的話，則顯示N個確認信息 (%u-%u, 預設值: %u)</translation>
     </message>
     <message>
         <source>This is the transaction fee you may pay when fee estimates are not available.</source>

@@ -62,12 +62,12 @@
         <translation>Adresses de réception</translation>
     </message>
     <message>
-        <source>These are your AXE addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Voici vos adresses AXE pour l'envoi de paiements. Vérifiez toujours le montant et l'adresse de réception avant d'envoyer de l'argent.</translation>
+        <source>These are your Axe addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>Voici vos adresses Axe pour l'envoi de paiements. Vérifiez toujours le montant et l'adresse de réception avant d'envoyer de l'argent.</translation>
     </message>
     <message>
-        <source>These are your AXE addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Voici vos adresses AXE pour la réception de paiements. Il est recommandé d'utiliser une nouvelle adresse de réception pour chaque transaction.</translation>
+        <source>These are your Axe addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
+        <translation>Voici vos adresses Axe pour la réception de paiements. Il est recommandé d'utiliser une nouvelle adresse de réception pour chaque transaction.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -242,12 +242,12 @@
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <source>A fatal error occurred. AXE Core can no longer continue safely and will quit.</source>
-        <translation>Une erreur fatale est survenue. AXE ne peut plus continuer de façon sûre et va s'arrêter.</translation>
+        <source>A fatal error occurred. Axe Core can no longer continue safely and will quit.</source>
+        <translation>Une erreur fatale est survenue. Axe ne peut plus continuer de façon sûre et va s'arrêter.</translation>
     </message>
     <message>
-        <source>AXE Core</source>
-        <translation>AXE Core</translation>
+        <source>Axe Core</source>
+        <translation>Axe Core</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -270,8 +270,8 @@
         <translation>&amp;Envoyer</translation>
     </message>
     <message>
-        <source>Send coins to a AXE address</source>
-        <translation>Envoyer de l'argent à une adresse AXE</translation>
+        <source>Send coins to a Axe address</source>
+        <translation>Envoyer de l'argent à une adresse Axe</translation>
     </message>
     <message>
         <source>&amp;Receive</source>
@@ -279,7 +279,7 @@
     </message>
     <message>
         <source>Request payments (generates QR codes and axe: URIs)</source>
-        <translation>Demande de paiements (génère des QR-codes et des URIs AXE)</translation>
+        <translation>Demande de paiements (génère des QR-codes et des URIs Axe)</translation>
     </message>
     <message>
         <source>&amp;Transactions</source>
@@ -306,8 +306,8 @@
         <translation>Quitter l’application</translation>
     </message>
     <message>
-        <source>Show information about AXE Core</source>
-        <translation>Affichez des informations à propos de  AXE Core</translation>
+        <source>Show information about Axe Core</source>
+        <translation>Affichez des informations à propos de  Axe Core</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -378,16 +378,16 @@
         <translation>&amp;Signer le message...</translation>
     </message>
     <message>
-        <source>Sign messages with your AXE addresses to prove you own them</source>
-        <translation>Signer les messages avec votre adresses AXE pour prouver que vous en êtes l'auteur</translation>
+        <source>Sign messages with your Axe addresses to prove you own them</source>
+        <translation>Signer les messages avec votre adresses Axe pour prouver que vous en êtes l'auteur</translation>
     </message>
     <message>
         <source>&amp;Verify message...</source>
         <translation>&amp;Vérifier un message...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified AXE addresses</source>
-        <translation>Vérifier les messages pour vous assurer qu'ils ont été signés avec les adresses AXE spécifiées</translation>
+        <source>Verify messages to ensure they were signed with specified Axe addresses</source>
+        <translation>Vérifier les messages pour vous assurer qu'ils ont été signés avec les adresses Axe spécifiées</translation>
     </message>
     <message>
         <source>&amp;Information</source>
@@ -475,15 +475,15 @@
     </message>
     <message>
         <source>Open a axe: URI or payment request</source>
-        <translation>Ouvrir une URI ou demande de paiement AXE</translation>
+        <translation>Ouvrir une URI ou demande de paiement Axe</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
         <translation>Options de ligne de &amp;commande</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible AXE command-line options</source>
-        <translation>Afficher le message d’aide de %1 pour obtenir la liste des options de ligne de commande AXE possibles.</translation>
+        <source>Show the %1 help message to get a list with possible Axe command-line options</source>
+        <translation>Afficher le message d’aide de %1 pour obtenir la liste des options de ligne de commande Axe possibles.</translation>
     </message>
     <message>
         <source>%1 client</source>
@@ -518,8 +518,8 @@
         <translation>Barre d'outils des onglets</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to AXE network</source>
-        <translation><numerusform>%n connexion active au réseau AXE </numerusform><numerusform>%n connexions actives au réseau AXE </numerusform></translation>
+        <source>%n active connection(s) to Axe network</source>
+        <translation><numerusform>%n connexion active au réseau Axe </numerusform><numerusform>%n connexions actives au réseau Axe </numerusform></translation>
     </message>
     <message>
         <source>Network activity disabled</source>
@@ -794,7 +794,7 @@
         <translation>Veuillez passer en “mode liste” pour utiliser cette fonction.</translation>
     </message>
     <message>
-        <source>Non-anonymized input selected. &lt;b&gt;PrivateSend will be disabled.&lt;/b&gt;&lt;br&gt;&lt;br&gt;If you still want to use PrivateSend, please deselect all non-nonymized inputs first and then check PrivateSend checkbox again.</source>
+        <source>Non-anonymized input selected. &lt;b&gt;PrivateSend will be disabled.&lt;/b&gt;&lt;br&gt;&lt;br&gt;If you still want to use PrivateSend, please deselect all non-anonymized inputs first and then check the PrivateSend checkbox again.</source>
         <translation>Éléments non-anonymisés sélectionnés. &lt;b&gt;PrivateSend sera désactivé.&lt;/b&gt;&lt;br&gt;&lt;br&gt;Si vous voulez quand même utiliser PrivateSend, veuillez d'abord désélectionner tous les éléments non-anonymisés, puis recochez la case PrivateSend.</translation>
     </message>
     <message>
@@ -814,8 +814,8 @@
         <translation>Cette étiquette devient rouge si l'un des destinataires reçoit un montant inférieur au niveau de "poussière".</translation>
     </message>
     <message>
-        <source>Can vary +/- %1 duff(s) per input.</source>
-        <translation>Peut varier de ± %1 duff(s) par entrée.</translation>
+        <source>Can vary +/- %1 hak(s) per input.</source>
+        <translation>Peut varier de ± %1 hak(s) par entrée.</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -832,73 +832,6 @@
     <message>
         <source>n/a</source>
         <translation>n/a</translation>
-    </message>
-</context>
-<context>
-    <name>DarksendConfig</name>
-    <message>
-        <source>Configure PrivateSend</source>
-        <translation>Configurer PrivateSend</translation>
-    </message>
-    <message>
-        <source>Basic Privacy</source>
-        <translation>Confidentialité normale</translation>
-    </message>
-    <message>
-        <source>High Privacy</source>
-        <translation>Confidentialité élevée</translation>
-    </message>
-    <message>
-        <source>Maximum Privacy</source>
-        <translation>Confidentialité maximale</translation>
-    </message>
-    <message>
-        <source>Please select a privacy level.</source>
-        <translation>Veuillez choisir un niveau de confidentialité.</translation>
-    </message>
-    <message>
-        <source>Use 2 separate masternodes to mix funds up to 1000 AXE</source>
-        <translation>Utiliser 2 masternodes distincts pour mélanger jusqu'à 1000 AXE</translation>
-    </message>
-    <message>
-        <source>Use 8 separate masternodes to mix funds up to 1000 AXE</source>
-        <translation>Utiliser 8 masternodes distincts pour mélanger jusqu'à 1000 AXE</translation>
-    </message>
-    <message>
-        <source>Use 16 separate masternodes</source>
-        <translation>Utiliser 16 masternodes distincts</translation>
-    </message>
-    <message>
-        <source>This option is the quickest and will cost about ~0.025 AXE to anonymize 1000 AXE</source>
-        <translation>Cette option est la plus rapide et coûtera environ 0,025 AXE pour anonymiser 1000 AXE</translation>
-    </message>
-    <message>
-        <source>This option is moderately fast and will cost about 0.05 AXE to anonymize 1000 AXE</source>
-        <translation>Cette option est un peu moins rapide et coûtera environ 0,05 AXE pour anonymiser 1000 AXE</translation>
-    </message>
-    <message>
-        <source>0.1 AXE per 1000 AXE you anonymize.</source>
-        <translation>0,1 AXE par 1000 AXE anonymisés.</translation>
-    </message>
-    <message>
-        <source>This is the slowest and most secure option. Using maximum anonymity will cost</source>
-        <translation>Cette option est le plus lente et la plus sécurisée. Utiliser l'anonymisation maximale coûtera</translation>
-    </message>
-    <message>
-        <source>PrivateSend Configuration</source>
-        <translation>Configuration PrivateSend</translation>
-    </message>
-    <message>
-        <source>PrivateSend was successfully set to basic (%1 and 2 rounds). You can change this at any time by opening AXE's configuration screen.</source>
-        <translation>PrivateSend a bien été réglé sur “normale” (%1 et 2 cycles). Vous pouvez modifier cela à tout moment dans la fenêtre de configuration de AXE.</translation>
-    </message>
-    <message>
-        <source>PrivateSend was successfully set to high (%1 and 8 rounds). You can change this at any time by opening AXE's configuration screen.</source>
-        <translation>PrivateSend a bien été réglé sur “élevée” (%1 et 8 cycles). Vous pouvez modifier cela à tout moment dans la fenêtre de configuration de AXE.</translation>
-    </message>
-    <message>
-        <source>PrivateSend was successfully set to maximum (%1 and 16 rounds). You can change this at any time by opening AXE's configuration screen.</source>
-        <translation>PrivateSend a bien été réglé sur “maximale” (%1 et 16 cycles). Vous pouvez modifier cela à tout moment dans la fenêtre de configuration de AXE.</translation>
     </message>
 </context>
 <context>
@@ -940,8 +873,8 @@
         <translation>Modifier l’adresse d'envoi</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid AXE address.</source>
-        <translation>L'adresse d'entrée « %1 » n'est pas une adresse AXE valide</translation>
+        <source>The entered address "%1" is not a valid Axe address.</source>
+        <translation>L'adresse d'entrée « %1 » n'est pas une adresse Axe valide</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -1038,8 +971,8 @@
         <translation>Information PrivateSend</translation>
     </message>
     <message>
-        <source>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the AXE in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.01 AXE, 0.1 AXE, 1 AXE and 10 AXE -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more info see &lt;a href="https://AXErunners.atlassian.net/wiki/display/DOC/PrivateSend"&gt;https://AXErunners.atlassian.net/wiki/display/DOC/PrivateSend&lt;/a&gt;         </source>
-        <translation>&lt;h3&gt;Ce qu'il faut savoir sur PrivateSend&lt;/h3&gt; PrivateSend vous offre une véritable confidentialité financière en obscurcissant l'origine de vos fonds. Tous les axes de votre portefeuille sont répartis en différentes "entrées", qu'on peut se représenter comme des pièces distinctes.&lt;br&gt; PrivateSend est un procédé innovant qui mélange vos entrées avec les entrées de deux autres personnes, sans que vos fonds ne quittent jamais votre portefeuille. Vous gardez le contrôle de votre argent à tout moment.&lt;hr&gt; &lt;b&gt;La procédure PrivateSend fonctionne comme ceci :&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend commence par diviser vos entrées de transaction en coupures standard. Ces coupures sont de 0.01 AXE, 0.1 AXE, 1 AXE et 10 AXE -- un peu comme pour les billets de banque que vous utilisez tous les jours.&lt;/li&gt; &lt;li&gt;Votre portefeuille envoie alors des requêtes à des serveurs spécifiques sur le réseau, appelés "masternodes". Ces masternodes sont informés que vous souhaiteriez mélanger certaines coupures. Aucune information permettant de vous identifier n'est envoyée aux masternodes, qui ne savent donc jamais "qui" vous êtes.&lt;/li&gt; &lt;li&gt;Quand deux autres personnes envoient des requêtes similaires, indiquant qu'elles veulent mélanger les mêmes coupures, alors commence une session de mélange. Le masternode mélange les entrées et demande aux portefeuilles des trois utilisateurs de payer l'entrée, désormais transformée, à eux-mêmes. Votre portefeuille paie cette coupure directement à lui-même, mais à une adresse différente (appelée adresse de monnaie rendue).&lt;/li&gt; &lt;li&gt;Afin d'obscurcir complètement vos fonds, votre portefeuille doit répéter cette procédure un certain nombre de fois avec chaque coupure. Une procédure terminée s'appelle un "cycle". Chaque cycle PrivateSend rend exponentiellement plus difficile de savoir d'où viennent vos fonds.&lt;/li&gt; &lt;li&gt;Cette procédure de mélange intervient en arrière-plan, sans aucune intervention de votre part. Quand vous souhaiterez faire une transaction, vos fonds seront déjà anonymisés. Aucune autre attente ne sera nécessaire.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT :&lt;/b&gt; Votre portefeuille ne contient que 1000 de ces "adresses de monnaie rendue". À chaque opération de mélange, jusqu'à 9 de ces adresses sont utilisées. Cela signifie que ces 1000 adresses couvrent environ 100 opérations de mélange. Quand 900 d'entre elles sont utilisées, votre portefeuille doit créer de nouvelles adresses. Cependant il ne peut le faire que si vous avez activé les sauvegardes automatiques.&lt;br&gt; En conséquence, les utilisateurs qui ont désactivé les sauvegardes ont aussi PrivateSend désactivé. &lt;hr&gt;Pour en savoir plus, voir &lt;a href="https://AXErunners.atlassian.net/wiki/display/DOC/PrivateSend"&gt;https://AXErunners.atlassian.net/wiki/display/DOC/PrivateSend&lt;/a&gt;         </translation>
+        <source>&lt;h3&gt;PrivateSend Basics&lt;/h3&gt; PrivateSend gives you true financial privacy by obscuring the origins of your funds. All the Axe in your wallet is comprised of different "inputs" which you can think of as separate, discrete coins.&lt;br&gt; PrivateSend uses an innovative process to mix your inputs with the inputs of two other people, without having your coins ever leave your wallet. You retain control of your money at all times.&lt;hr&gt; &lt;b&gt;The PrivateSend process works like this:&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend begins by breaking your transaction inputs down into standard denominations. These denominations are 0.001 AXE, 0.01 AXE, 0.1 AXE, 1 AXE and 10 AXE -- sort of like the paper money you use every day.&lt;/li&gt; &lt;li&gt;Your wallet then sends requests to specially configured software nodes on the network, called "masternodes." These masternodes are informed then that you are interested in mixing a certain denomination. No identifiable information is sent to the masternodes, so they never know "who" you are.&lt;/li&gt; &lt;li&gt;When two other people send similar messages, indicating that they wish to mix the same denomination, a mixing session begins. The masternode mixes up the inputs and instructs all three users' wallets to pay the now-transformed input back to themselves. Your wallet pays that denomination directly to itself, but in a different address (called a change address).&lt;/li&gt; &lt;li&gt;In order to fully obscure your funds, your wallet must repeat this process a number of times with each denomination. Each time the process is completed, it's called a "round." Each round of PrivateSend makes it exponentially more difficult to determine where your funds originated.&lt;/li&gt; &lt;li&gt;This mixing process happens in the background without any intervention on your part. When you wish to make a transaction, your funds will already be anonymized. No additional waiting is required.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT:&lt;/b&gt; Your wallet only contains 1000 of these "change addresses." Every time a mixing event happens, up to 9 of your addresses are used up. This means those 1000 addresses last for about 100 mixing events. When 900 of them are used, your wallet must create more addresses. It can only do this, however, if you have automatic backups enabled.&lt;br&gt; Consequently, users who have backups disabled will also have PrivateSend disabled. &lt;hr&gt;For more information, see the &lt;a href="https://docs.axe.org/en/latest/wallets/axecore/privatesend-instantsend.html"&gt;PrivateSend documentation&lt;/a&gt;.</source>
+        <translation>&lt;h3&gt;Ce qu'il faut savoir sur PrivateSend&lt;/h3&gt; PrivateSend vous donne une véritable confidentialité financière en obscurcissant l'origine de vos fonds. Tous les axes de votre portefeuille sont répartis en différentes "entrées", qu'on peut se représenter comme des pièces distinctes.&lt;br&gt; PrivateSend utilise une procédure innovante pour mélanger vos entrées avec les entrées de deux autres personnes, sans que vos fonds ne quittent jamais votre portefeuille. Vous gardez le contrôle de votre argent à tout moment.&lt;hr&gt; &lt;b&gt;La procédure PrivateSend fonctionne comme ceci :&lt;/b&gt;&lt;ol type="1"&gt; &lt;li&gt;PrivateSend commence par diviser vos entrées de transaction en coupures standard. Ces coupures sont de 0.001 AXE, 0.01 AXE, 0.1 AXE, 1 AXE et 10 AXE -- un peu comme pour les billets de banque que vous utilisez tous les jours.&lt;/li&gt; &lt;li&gt;Votre portefeuille envoie alors des requêtes à des serveurs spécifiques sur le réseau, appelés "masternodes". Ces masternodes sont informés que vous souhaiteriez mélanger certaines coupures. Aucune information permettant de vous identifier n'est envoyée aux masternodes, qui ne savent donc jamais "qui" vous êtes.&lt;/li&gt; &lt;li&gt;Quand deux autres personnes envoient des requêtes similaires, indiquant qu'elles veulent mélanger les mêmes coupures, alors commence une session de mélange. Le masternode mélange les entrées et demande aux portefeuilles des trois utilisateurs de payer l'entrée, désormais transformée, à eux-mêmes. Votre portefeuille paie cette coupure directement à lui-même, mais à une adresse différente (appelée une adresse de monnaie rendue).&lt;/li&gt; &lt;li&gt;Afin d'obscurcir complètement vos fonds, votre portefeuille doit répéter cette procédure un certain nombre de fois avec chaque coupure. Une procédure terminée s'appelle un "cycle". Chaque cycle PrivateSend rend exponentiellement plus difficile de déterminer d'où viennent vos fonds.&lt;/li&gt; &lt;li&gt;Cette procédure de mélange intervient en arrière-plan, sans aucune intervention de votre part. Quand vous souhaiterez faire une transaction, vos fonds seront déjà anonymisés. Aucune autre attente ne sera nécessaire.&lt;/li&gt; &lt;/ol&gt; &lt;hr&gt;&lt;b&gt;IMPORTANT :&lt;/b&gt; Votre portefeuille ne contient que 1000 de ces "adresses de monnaie rendue". À chaque opération de mélange, jusqu'à 9 de ces adresses sont utilisées. Cela signifie que ces 1000 adresses couvrent environ 100 opérations de mélange. Quand 900 d'entre elles sont utilisées, votre portefeuille doit créer de nouvelles adresses. Cependant il ne peut le faire que si vous avez activé les sauvegardes automatiques.&lt;br&gt; En conséquence, les utilisateurs qui ont désactivé les sauvegardes ont aussi PrivateSend désactivé. &lt;hr&gt;Pour en savoir plus, voir la documentation PrivateSend.   </translation>
     </message>
 </context>
 <context>
@@ -1057,8 +990,8 @@
         <translation>Puisque c’est la première fois que le logiciel est lancé, vous pouvez choisir où %1 stockera ses données.</translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the AXE block chain. At least %2GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>%1 va maintenant télécharger et stocker une copie de la blockchain AXE.  Au moins %2GB de données seront stockés dans ce répertoire, et il grossira avec le temps. Le portefeuille sera également stocké dans ce répertoire.</translation>
+        <source>%1 will download and store a copy of the Axe block chain. At least %2GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
+        <translation>%1 va maintenant télécharger et stocker une copie de la blockchain Axe.  Au moins %2GB de données seront stockés dans ce répertoire, et il grossira avec le temps. Le portefeuille sera également stocké dans ce répertoire.</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -1176,8 +1109,76 @@
         <translation>Nombre de nœuds :</translation>
     </message>
     <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Note: This list represents the legacy and non-deterministic masternode list. It is only active as long as DIP3 has not been fully activated. After SPORK15 activation, this list will be empty.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Note : ceci est la liste des masternodes non-déterministes historiques. Elle restera active tant que la DIP3 n'aura pas été entièrement activée. Après l'activation SPORK15, cette liste sera vide.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <source>DIP3 Masternodes</source>
+        <translation>Masternodes DIP3</translation>
+    </message>
+    <message>
+        <source>PoSe Score</source>
+        <translation>Score PoSe</translation>
+    </message>
+    <message>
+        <source>Registered</source>
+        <translation>Enregistré</translation>
+    </message>
+    <message>
+        <source>Last Paid</source>
+        <translation>Dernier paiement</translation>
+    </message>
+    <message>
+        <source>Next Payment</source>
+        <translation>Prochain paiement</translation>
+    </message>
+    <message>
+        <source>Operator Reward</source>
+        <translation>Récompense opérateur</translation>
+    </message>
+    <message>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Note: This list is not active yet and only for informational purposes. The network is still running in compatibility mode, which means that the non-deterministic masternode list is still active. Only after SPORK15 activation, this list will become the active one. Also, the values in the payment related fields are not used at the moment, but still updated for every block. Please ignore this until SPORK15 activation.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Note : cette liste n'est pas encore active, elle n'est affichée qu'à titre informatif. Le réseau fonctionne encore en mode de compatibilité, ce qui signifie que la liste des masternodes non-déterministes est encore active. Ce n'est qu'après l'activation SPORK15 que cette liste deviendra la liste active. Par ailleurs, les valeurs des champs relatifs aux paiements ne sont pas encore utilisées, mais sont mises à jour avec chaque bloc. Veuillez ignorer cette liste avant l'activation SPORK15.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
         <source>Start alias</source>
         <translation>Start-alias</translation>
+    </message>
+    <message>
+        <source>Copy ProTx Hash</source>
+        <translation>Copier hachage ProTx</translation>
+    </message>
+    <message>
+        <source>Copy Collateral Outpoint</source>
+        <translation>Copier sortie caution</translation>
+    </message>
+    <message>
+        <source>ENABLED</source>
+        <translation>ACTIVÉ</translation>
+    </message>
+    <message>
+        <source>POSE_BANNED</source>
+        <translation>BANNI_PoSe</translation>
+    </message>
+    <message>
+        <source>UNKNOWN</source>
+        <translation>INCONNU</translation>
+    </message>
+    <message>
+        <source>to %1</source>
+        <translation>à %1</translation>
+    </message>
+    <message>
+        <source>to UNKNOWN</source>
+        <translation>à INCONNU</translation>
+    </message>
+    <message>
+        <source>but not claimed</source>
+        <translation>mais non réclamé</translation>
+    </message>
+    <message>
+        <source>NONE</source>
+        <translation>AUCUN</translation>
     </message>
     <message>
         <source>Confirm masternode start</source>
@@ -1243,6 +1244,10 @@
         <source>Sentinel</source>
         <translation>Sentinel</translation>
     </message>
+    <message>
+        <source>Additional information for DIP3 Masternode %1</source>
+        <translation>Infos supplémentaires pour le masternode DIP3 %1</translation>
+    </message>
 </context>
 <context>
     <name>ModalOverlay</name>
@@ -1251,11 +1256,11 @@
         <translation>Formulaire</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the AXE network, as detailed below.</source>
-        <translation>Les transactions récentes ne sont peut-être pas encore visibles ; le solde de votre portefeuille peut donc être incorrect. Ces informations seront correctes dès que votre portefeuille aura terminé sa synchronisation avec le réseau AXE, comme précisé ci-dessous.</translation>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the Axe network, as detailed below.</source>
+        <translation>Les transactions récentes ne sont peut-être pas encore visibles ; le solde de votre portefeuille peut donc être incorrect. Ces informations seront correctes dès que votre portefeuille aura terminé sa synchronisation avec le réseau Axe, comme précisé ci-dessous.</translation>
     </message>
     <message>
-        <source>Attempting to spend AXE that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
+        <source>Attempting to spend Axe that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
         <translation>Les tentatives de dépenser des axes affectés par des transactions non encore affichées seront rejetées par le réseau.</translation>
     </message>
     <message>
@@ -1345,8 +1350,8 @@
         <translation>(0 = auto, &lt; 0 = ne pas utiliser ce nombre de cœurs)</translation>
     </message>
     <message>
-        <source>Amount of AXE to keep anonymized</source>
-        <translation>Nombre de AXE à conserver anonymisés</translation>
+        <source>Amount of Axe to keep anonymized</source>
+        <translation>Nombre de axes à conserver anonymisés</translation>
     </message>
     <message>
         <source>W&amp;allet</source>
@@ -1397,8 +1402,8 @@
         <translation>Ce montant agit comme seuil de désactivation de PrivateSend, une fois atteint.</translation>
     </message>
     <message>
-        <source>Automatically open the AXE Core client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Ouvrir automatiquement le port du client AXE Core sur le routeur. Cela ne fonctionne que si votre routeur supporte UPnP et est activé.</translation>
+        <source>Automatically open the Axe Core client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Ouvrir automatiquement le port du client Axe Core sur le routeur. Cela ne fonctionne que si votre routeur supporte UPnP et est activé.</translation>
     </message>
     <message>
         <source>Accept connections from outside</source>
@@ -1409,8 +1414,8 @@
         <translation>Autoriser les connexions entrantes</translation>
     </message>
     <message>
-        <source>Connect to the AXE network through a SOCKS5 proxy.</source>
-        <translation>Se connecter au réseau AXE à travers un proxy SOCKS5.</translation>
+        <source>Connect to the Axe network through a SOCKS5 proxy.</source>
+        <translation>Se connecter au réseau Axe à travers un proxy SOCKS5.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1447,6 +1452,14 @@
     <message>
         <source>Enable coin &amp;control features</source>
         <translation>Activer les fonctions de &amp;contrôle des pièces</translation>
+    </message>
+    <message>
+        <source>Show system popups for PrivateSend mixing transactions&lt;br/&gt;just like for all other transaction types.</source>
+        <translation>Affiche des notifications système pour les transactions de mélange PrivateSend&lt;br/&gt;tout comme pour les autres types de transaction.</translation>
+    </message>
+    <message>
+        <source>Show popups for PrivateSend transactions</source>
+        <translation>Afficher des notifications pour les transactions PrivateSend</translation>
     </message>
     <message>
         <source>&amp;Spend unconfirmed change</source>
@@ -1497,8 +1510,8 @@
         <translation>Tor</translation>
     </message>
     <message>
-        <source>Connect to the AXE network through a separate SOCKS5 proxy for Tor hidden services.</source>
-        <translation>Se connecter au réseau AXE via un proxy SOCKS5 séparé pour les services cachés Tor.</translation>
+        <source>Connect to the Axe network through a separate SOCKS5 proxy for Tor hidden services.</source>
+        <translation>Se connecter au réseau Axe via un proxy SOCKS5 séparé pour les services cachés Tor.</translation>
     </message>
     <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services:</source>
@@ -1622,8 +1635,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Formulaire</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the AXE network after a connection is established, but this process has not completed yet.</source>
-        <translation>L'information affichée peut être obsolète. Votre portefeuille se synchronise automatiquement avec le réseau AXE lorsque la connection est établie, mais ce processus n'est pas encore terminé.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Axe network after a connection is established, but this process has not completed yet.</source>
+        <translation>L'information affichée peut être obsolète. Votre portefeuille se synchronise automatiquement avec le réseau Axe lorsque la connection est établie, mais ce processus n'est pas encore terminé.</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -1831,7 +1844,7 @@ https://www.transifex.com/projects/p/axe/</translation>
     </message>
     <message>
         <source>Note: You can turn this message off in options.</source>
-        <translation>Note : masquez ce message dans Options.</translation>
+        <translation>À noter : vous pouvez masquer ce message dans Options.</translation>
     </message>
     <message>
         <source>WARNING! Something went wrong on automatic backup</source>
@@ -1864,10 +1877,6 @@ https://www.transifex.com/projects/p/axe/</translation>
 </translation>
     </message>
     <message>
-        <source>N/A</source>
-        <translation>n.d.</translation>
-    </message>
-    <message>
         <source>PrivateSend was successfully reset.</source>
         <translation>PrivateSend a bien été réinitialisé.</translation>
     </message>
@@ -1892,7 +1901,7 @@ https://www.transifex.com/projects/p/axe/</translation>
     </message>
     <message>
         <source>Cannot start axe: click-to-pay handler</source>
-        <translation>Impossible de démarrer le gestionnaire AXE click-to-pay</translation>
+        <translation>Impossible de démarrer le gestionnaire Axe click-to-pay</translation>
     </message>
     <message>
         <source>URI handling</source>
@@ -1907,8 +1916,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Adresse de paiement %1 invalide</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid AXE address or malformed URI parameters.</source>
-        <translation>L'URI ne peut être analysée ! Cela peut provenir d'une adresse AXE invalide, ou de paramètres d'URI mal composés.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid Axe address or malformed URI parameters.</source>
+        <translation>L'URI ne peut être analysée ! Cela peut provenir d'une adresse Axe invalide, ou de paramètres d'URI mal composés.</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -1997,8 +2006,8 @@ https://www.transifex.com/projects/p/axe/</translation>
 <context>
     <name>QObject</name>
     <message>
-        <source>AXE Core</source>
-        <translation>AXE Core</translation>
+        <source>Axe Core</source>
+        <translation>Axe Core</translation>
     </message>
     <message>
         <source>%1 didn't yet exit safely...</source>
@@ -2013,8 +2022,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Montant</translation>
     </message>
     <message>
-        <source>Enter a AXE address (e.g. %1)</source>
-        <translation>Entrez une adresse AXE (e.g. %1)</translation>
+        <source>Enter a Axe address (e.g. %1)</source>
+        <translation>Entrez une adresse Axe (e.g. %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -2531,8 +2540,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Ré&amp;utiliser une adresse de réception existante (non recommandé)</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the AXE network.</source>
-        <translation>Un message optionnel à joindre à la demande de paiement, qui sera affiché quand la demande sera ouverte. Note : ce message ne sera pas envoyé avec le paiement à travers le réseau AXE.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Axe network.</source>
+        <translation>Un message optionnel à joindre à la demande de paiement, qui sera affiché quand la demande sera ouverte. Note : ce message ne sera pas envoyé avec le paiement à travers le réseau Axe.</translation>
     </message>
     <message>
         <source>&amp;Message:</source>
@@ -2543,8 +2552,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Une étiquette optionnelle à associer à la nouvelle adresse de réception.</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the AXE network.</source>
-        <translation>Un message optionnel à joindre à la demande de paiement, qui sera affiché quand la demande sera ouverte.&lt;br&gt;Note : ce message ne sera pas envoyé avec le paiement à travers le réseau AXE.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened.&lt;br&gt;Note: The message will not be sent with the payment over the Axe network.</source>
+        <translation>Un message optionnel à joindre à la demande de paiement, qui sera affiché quand la demande sera ouverte.&lt;br&gt;Note : ce message ne sera pas envoyé avec le paiement à travers le réseau Axe.</translation>
     </message>
     <message>
         <source>Use this form to request payments. All fields are &lt;b&gt;optional&lt;/b&gt;.</source>
@@ -3000,8 +3009,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation><numerusform>Le début de confirmation est estimé dans %n bloc.</numerusform><numerusform>Le début de confirmation est estimé dans les %n blocs.</numerusform></translation>
     </message>
     <message>
-        <source>Warning: Invalid AXE address</source>
-        <translation>Attention : adresse AXE invalide</translation>
+        <source>Warning: Invalid Axe address</source>
+        <translation>Attention : adresse Axe invalide</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -3031,8 +3040,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>&amp;Payer à :</translation>
     </message>
     <message>
-        <source>The AXE address to send the payment to</source>
-        <translation>L'adresse AXE à laquelle envoyer de la monnaie</translation>
+        <source>The Axe address to send the payment to</source>
+        <translation>L'adresse Axe à laquelle envoyer de la monnaie</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3067,7 +3076,7 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>&amp;Montant :</translation>
     </message>
     <message>
-        <source>The fee will be deducted from the amount being sent. The recipient will receive a lower amount of AXE than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
+        <source>The fee will be deducted from the amount being sent. The recipient will receive a lower amount of Axe than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation>Les frais vont être déduits du montant envoyé. Le destinataire recevra moins de axes que ce que vous avez indiqué dans la case montant. S'il y a plusieurs destinataires, les frais seront partagés équitablement.</translation>
     </message>
     <message>
@@ -3079,8 +3088,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Message :</translation>
     </message>
     <message>
-        <source>A message that was attached to the axe: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the AXE network.</source>
-        <translation>Un message joint à l'URI AXE qui sera sauvegardé avec la transaction pour référence. Note : ce message ne sera pas envoyé à travers le réseau AXE.</translation>
+        <source>A message that was attached to the axe: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Axe network.</source>
+        <translation>Un message joint à l'URI Axe qui sera sauvegardé avec la transaction pour référence. Note : ce message ne sera pas envoyé à travers le réseau Axe.</translation>
     </message>
     <message>
         <source>This is an unauthenticated payment request.</source>
@@ -3132,12 +3141,12 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>&amp;Signer un message</translation>
     </message>
     <message>
-        <source>You can sign messages/agreements with your addresses to prove you can receive AXE sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
+        <source>You can sign messages/agreements with your addresses to prove you can receive Axe sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
         <translation>Vous pouvez signer des messages ou contrats avec vos adresses, et ainsi prouver que vous pouvez y recevoir des axes. Faites attention de ne pas signer quoi que ce soit de vague ou d'aléatoire, car des attaques d'hameçonnage peuvent essayer d'usurper votre identité en utilisant votre signature. Ne signez que des déclarations très détaillées et avec lesquelles vous êtes entièrement d'accord.</translation>
     </message>
     <message>
-        <source>The AXE address to sign the message with</source>
-        <translation>L'adresse AXE avec laquelle signer le message</translation>
+        <source>The Axe address to sign the message with</source>
+        <translation>L'adresse Axe avec laquelle signer le message</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3168,8 +3177,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Copier la signature actuelle dans le presse-papier</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this AXE address</source>
-        <translation>Signer le message pour prouver que vous possédez cette adresse AXE</translation>
+        <source>Sign the message to prove you own this Axe address</source>
+        <translation>Signer le message pour prouver que vous possédez cette adresse Axe</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -3192,12 +3201,12 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Saisir ci-dessous l'adresse du destinataire, le message (assurez-vous d'avoir copié exactement les retours à la ligne, les espaces, tabulations, etc.) et la signature pour vérifier le message. Faites attention à ne pas déduire davantage de la signature que ce qui est contenu dans le message signé lui-même, pour éviter d'être trompé par une attaque "man in the middle". Gardez à l'esprit que cette opération prouve uniquement que le destinataire peut recevoir des fonds dans l'adresse donnée, cela ne prouve pas l'identité de l'expéditeur d'une transaction !</translation>
     </message>
     <message>
-        <source>The AXE address the message was signed with</source>
-        <translation>L'adresse AXE avec laquelle le message a été signé</translation>
+        <source>The Axe address the message was signed with</source>
+        <translation>L'adresse Axe avec laquelle le message a été signé</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified AXE address</source>
-        <translation>Vérifier le message pour s'assurer qu'il a été signé avec l'adresse AXE spécifiée</translation>
+        <source>Verify the message to ensure it was signed with the specified Axe address</source>
+        <translation>Vérifier le message pour s'assurer qu'il a été signé avec l'adresse Axe spécifiée</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -3607,6 +3616,10 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Si une adresse en lecture seule est impliquée dans cette transaction.</translation>
     </message>
     <message>
+        <source>Whether or not this transaction was locked by InstantSend.</source>
+        <translation>Si cette transaction est ou n'est pas verrouillée par InstantSend.</translation>
+    </message>
+    <message>
         <source>User-defined intent/purpose of the transaction.</source>
         <translation>Intention/raison de la transaction définie par l'utilisateur</translation>
     </message>
@@ -3620,6 +3633,14 @@ https://www.transifex.com/projects/p/axe/</translation>
     <message>
         <source>All</source>
         <translation>Toutes</translation>
+    </message>
+    <message>
+        <source>Locked by InstantSend</source>
+        <translation>Verrouillée par InstantSend</translation>
+    </message>
+    <message>
+        <source>Not locked by InstantSend</source>
+        <translation>Non verrouillée par InstantSend</translation>
     </message>
     <message>
         <source>Today</source>
@@ -4045,6 +4066,14 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Effacer toutes les transactions du portefeuille et récupérer celles qui font partie de la chaîne de blocs par un -rescan au démarrage</translation>
     </message>
     <message>
+        <source>Enable publish raw transactions of attempted InstantSend double spend in &lt;address&gt;</source>
+        <translation>Activer la publication des transactions brutes des tentatives de double dépense InstantSend dans &lt;address&gt;</translation>
+    </message>
+    <message>
+        <source>Enable publish transaction hashes of attempted InstantSend double spend in &lt;address&gt;</source>
+        <translation>Activer la publication des empreintes de transaction des tentatives de double dépense InstantSend dans &lt;address&gt;</translation>
+    </message>
+    <message>
         <source>Error loading %s: You can't enable HD on a already existing non-HD wallet</source>
         <translation>Erreur en chargeant %s : Impossible d'activer HD sur un portefeuille non-HD déjà existant</translation>
     </message>
@@ -4089,6 +4118,14 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Extraire les informations de débogage (par défaut : %u, fournir &lt;category&gt; est optionnel)</translation>
     </message>
     <message>
+        <source>Overrides minimum spork signers to change spork value. Only useful for regtest and devnet. Using this on mainnet or testnet will ban you.</source>
+        <translation>Ignore le nombre minimal de signataires spork pour la modification de la valeur de spork. Utile seulement pour les réseaux d'enregistrement et de développement. Utiliser ceci sur les réseaux principal ou de test entraînera votre bannissement.</translation>
+    </message>
+    <message>
+        <source>Use N separate masternodes in parallel to mix funds (%u-%u, default: %u)</source>
+        <translation>Utiliser en parallèle N masternodes distincts pour mélanger les fonds (%u-%u, par défaut : %u)</translation>
+    </message>
+    <message>
         <source>Use separate SOCKS5 proxy to reach peers via Tor hidden services (default: %s)</source>
         <translation>Utiliser un serveur proxy SOCKS5 séparé pour atteindre les pairs par les services cachés de Tor (par défaut : %s)</translation>
     </message>
@@ -4107,6 +4144,10 @@ https://www.transifex.com/projects/p/axe/</translation>
     <message>
         <source>You need to rebuild the database using -reindex-chainstate to change -txindex</source>
         <translation>Vous devez reconstruire la base de données en utilisant -reindex-chainstate pour modifier -txindex</translation>
+    </message>
+    <message>
+        <source>You should specify a masternodeblsprivkey in the configuration. Please see documentation for help.</source>
+        <translation>Vous devriez indiquer une "masternodeprivkey" dans la configuration. Veuillez consulter la documentation pour en savoir plus.</translation>
     </message>
     <message>
         <source>(default: %s)</source>
@@ -4221,6 +4262,14 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Montant invalide pour -paytxfee=&lt;montant&gt; : « %s » (minimum possible: %s)</translation>
     </message>
     <message>
+        <source>Invalid masternodeblsprivkey. Please see documenation.</source>
+        <translation>masternodeblsprivkey invalide. Veuillez vous référer à la documentation.</translation>
+    </message>
+    <message>
+        <source>Invalid minimum number of spork signers specified with -minsporkkeys</source>
+        <translation>Le nombre minimal de signataires spork spécifié avec -minsporkkeys est invalide</translation>
+    </message>
+    <message>
         <source>Keypool ran out, please call keypoolrefill first</source>
         <translation>La réserve de clefs est épuisée, veuillez d'abord utiliser keypoolrefill</translation>
     </message>
@@ -4321,6 +4370,10 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Définir la taille de la réserve de clefs à &lt;n&gt; (par défaut : %u)</translation>
     </message>
     <message>
+        <source>Set the masternode BLS private key</source>
+        <translation>Définir la clé privée BLS du masternode</translation>
+    </message>
+    <message>
         <source>Set the number of threads to service RPC calls (default: %d)</source>
         <translation>Définir le nombre de fils d’exécution pour desservir les appels RPC (par défaut : %d)</translation>
     </message>
@@ -4383,6 +4436,10 @@ https://www.transifex.com/projects/p/axe/</translation>
     <message>
         <source>Too many %f denominations, removing.</source>
         <translation>Trop de coupures %f, suppression en cours.</translation>
+    </message>
+    <message>
+        <source>Too many %f denominations, skipping.</source>
+        <translation>Trop de coupures %f, on ignore.</translation>
     </message>
     <message>
         <source>Tor control port password (default: empty)</source>
@@ -4477,8 +4534,12 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Garder au plus &lt;n&gt; transactions sans connexion en mémoire (par défaut : %u)</translation>
     </message>
     <message>
-        <source>Disable all AXE specific functionality (Masternodes, PrivateSend, InstantSend, Governance) (0-1, default: %u)</source>
-        <translation>Désactiver toutes les fonctionnalités liées à AXE (masternodes, PrivateSend, InstantSend, gouvernance) (0-1, par défaut : %u)</translation>
+        <source>Disable all Axe specific functionality (Masternodes, PrivateSend, InstantSend, Governance) (0-1, default: %u)</source>
+        <translation>Désactiver toutes les fonctionnalités liées à Axe (masternodes, PrivateSend, InstantSend, gouvernance) (0-1, par défaut : %u)</translation>
+    </message>
+    <message>
+        <source>%s file contains all private keys from this wallet. Do not share it with anyone!</source>
+        <translation>Le fichier %s contient toutes les clés privées de ce portefeuille. Ne le partagez avec personne !</translation>
     </message>
     <message>
         <source>Discover own IP addresses (default: 1 when listening and no -externalip or -proxy)</source>
@@ -4503,6 +4564,10 @@ https://www.transifex.com/projects/p/axe/</translation>
     <message>
         <source>Execute command when a wallet InstantSend transaction is successfully locked (%s in cmd is replaced by TxID)</source>
         <translation>Exécuter la commande lorsqu'une transaction InstantSend de portefeuille est bloquée avec succès (%s dans la commande est remplacée par TxID)</translation>
+    </message>
+    <message>
+        <source>Extra transactions to keep in memory for compact block reconstructions (default: %u)</source>
+        <translation>Transactions supplémentaires à conserver en mémoire pour les reconstructions de bloc compact (par défaut : %u)</translation>
     </message>
     <message>
         <source>Failed to create backup, file already exists! This could happen if you restarted wallet in less than 60 seconds. You can continue if you are ok with this.</source>
@@ -4585,6 +4650,10 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>La taille totale de la chaîne de version réseau (%i) dépasse la taille maximum (%i). Réduisez le nombre ou la taille des uacomments.</translation>
     </message>
     <message>
+        <source>Transaction index can't be disabled in full mode. Either start with -litemode command line switch or enable transaction index.</source>
+        <translation>L'index de transaction ne peut pas être désactivé en mode complet. Démarrez en ligne de commande avec l'argument -litemode, ou bien activez l'index de transaction.</translation>
+    </message>
+    <message>
         <source>Tries to keep outbound traffic under the given target (in MiB per 24h), 0 = no limit (default: %d)</source>
         <translation>Essaie de limiter le trafic sortant sous la cible indiquée (en Mio par 24h), 0 = sans limite (par défaut : %d)</translation>
     </message>
@@ -4594,7 +4663,7 @@ https://www.transifex.com/projects/p/axe/</translation>
     </message>
     <message>
         <source>Unsupported argument -socks found. Setting SOCKS version isn't possible anymore, only SOCKS5 proxies are supported.</source>
-        <translation>Paramètre obsolète -socks utilisé. Il n'est plus possible d'indiquer la version SOCKS, seul les proxy SOCKS5 sont supportés.</translation>
+        <translation>Paramètre obsolète -socks utilisé. Il n'est plus possible d'indiquer la version SOCKS, seuls les proxy SOCKS5 sont supportés.</translation>
     </message>
     <message>
         <source>Unsupported argument -whitelistalwaysrelay ignored, use -whitelistrelay and/or -whitelistforcerelay.</source>
@@ -4615,6 +4684,10 @@ https://www.transifex.com/projects/p/axe/</translation>
     <message>
         <source>Warning: Unknown block versions being mined! It's possible unknown rules are in effect</source>
         <translation>Attention : un bloc de version inconnue est en train d'être miné ! Il est possible que des règles inconnues soient en vigueur.</translation>
+    </message>
+    <message>
+        <source>You are starting in lite mode, all Axe-specific functionality is disabled.</source>
+        <translation>Vous démarrez en mode allégé : toutes les fonctionnalités propres à Axe sont désactivées.</translation>
     </message>
     <message>
         <source>You need to rebuild the database using -reindex to go back to unpruned mode.  This will redownload the entire blockchain</source>
@@ -4661,6 +4734,14 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Activer la publication du hachage de bloc dans &lt;address&gt;</translation>
     </message>
     <message>
+        <source>Enable publish hash of governance objects (like proposals) in &lt;address&gt;</source>
+        <translation>Activer la publication du hachage des objets de gouvernance (tels que les propositions budgétaires) dans &lt;address&gt;</translation>
+    </message>
+    <message>
+        <source>Enable publish hash of governance votes in &lt;address&gt;</source>
+        <translation>Activer la publication du hachage des votes de gouvernance dans &lt;address&gt;</translation>
+    </message>
+    <message>
         <source>Enable publish hash transaction (locked via InstantSend) in &lt;address&gt;</source>
         <translation>Activer la publication du hachage de transaction (verrouillée via InstantSend) dans &lt;address&gt; </translation>
     </message>
@@ -4681,10 +4762,6 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Activer la publication de la transaction brute dans &lt;address&gt; </translation>
     </message>
     <message>
-        <source>Enable transaction replacement in the memory pool (default: %u)</source>
-        <translation>Activer le remplacement de transaction dans la zone mémoire (par défaut : %u)</translation>
-    </message>
-    <message>
         <source>Error: A fatal internal error occurred, see debug.log for details</source>
         <translation>Erreur : Une erreur interne fatale est survenue, voir debug.log pour les détails</translation>
     </message>
@@ -4699,6 +4776,14 @@ https://www.transifex.com/projects/p/axe/</translation>
     <message>
         <source>Failed to delete backup, error: %s</source>
         <translation>La suppression de la sauvegarde a échoué, erreur : %s !</translation>
+    </message>
+    <message>
+        <source>Failed to load InstantSend data cache from</source>
+        <translation>Échec du chargement du cache de données InstantSend depuis</translation>
+    </message>
+    <message>
+        <source>Failed to load sporks cache from</source>
+        <translation>Échec du chargement du cache des sporks depuis</translation>
     </message>
     <message>
         <source>Failed to parse host:port string</source>
@@ -4737,6 +4822,10 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Ligne : %d</translation>
     </message>
     <message>
+        <source>Loading InstantSend data cache...</source>
+        <translation>Chargement du cache de données d'InstantSend…</translation>
+    </message>
+    <message>
         <source>Loading addresses...</source>
         <translation>Chargement des adresses...</translation>
     </message>
@@ -4747,6 +4836,10 @@ https://www.transifex.com/projects/p/axe/</translation>
     <message>
         <source>Loading governance cache...</source>
         <translation>Chargement du cache de gouvernance...</translation>
+    </message>
+    <message>
+        <source>Loading sporks cache...</source>
+        <translation>Chargement du cache des sporks…</translation>
     </message>
     <message>
         <source>Loading wallet... (%3.2f %%)</source>
@@ -4762,7 +4855,7 @@ https://www.transifex.com/projects/p/axe/</translation>
     </message>
     <message>
         <source>Make the wallet broadcast transactions</source>
-        <translation>Faire transmettre les transactions par le portefeuille</translation>
+        <translation>Diffuser les transactions via le portefeuille</translation>
     </message>
     <message>
         <source>Masternode cache is empty, skipping payments and governance cache...</source>
@@ -4889,6 +4982,10 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>La transaction doit comporter au moins un destinataire</translation>
     </message>
     <message>
+        <source>Transaction too large</source>
+        <translation>Transaction trop volumineuse</translation>
+    </message>
+    <message>
         <source>Trying to connect...</source>
         <translation>Tentative de connexion...</translation>
     </message>
@@ -4909,6 +5006,10 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Options de débogage/de test du porte-monnaie :</translation>
     </message>
     <message>
+        <source>Wallet is not initialized</source>
+        <translation>Le portefeuille n'est pas initialisé</translation>
+    </message>
+    <message>
         <source>Wallet needed to be rewritten: restart %s to complete</source>
         <translation>Le porte-monnaie devait être réécrit : redémarrer %s pour terminer l’opération.</translation>
     </message>
@@ -4925,12 +5026,16 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Opérer en mode blocs uniquement (par défaut : %u)</translation>
     </message>
     <message>
+        <source>You can not start a masternode in lite mode.</source>
+        <translation>Vous ne pouvez pas démarrer un masternode en mode allégé.</translation>
+    </message>
+    <message>
         <source>ZeroMQ notification options:</source>
         <translation>Options de notifications ZeroMQ :</translation>
     </message>
     <message>
         <source>no mixing available.</source>
-        <translation>pas de mélangeur disponible.</translation>
+        <translation>pas de mélange disponible.</translation>
     </message>
     <message>
         <source>see debug.log for details.</source>
@@ -4941,8 +5046,8 @@ https://www.transifex.com/projects/p/axe/</translation>
         <translation>Options du serveur RPC :</translation>
     </message>
     <message>
-        <source>AXE Core</source>
-        <translation>AXE Core</translation>
+        <source>Axe Core</source>
+        <translation>Axe Core</translation>
     </message>
     <message>
         <source>The %s developers</source>
@@ -5011,10 +5116,6 @@ https://www.transifex.com/projects/p/axe/</translation>
     <message>
         <source>Set lowest fee rate (in %s/kB) for transactions to be included in block creation. (default: %s)</source>
         <translation>Définir le taux minimal de frais (en %s/Ko) pour les transactions à inclure dans la création de blocs (par défaut : %s)</translation>
-    </message>
-    <message>
-        <source>Show N confirmations for a successfully locked transaction (%u-%u, default: %u)</source>
-        <translation>Afficher N confirmations pour une transaction verrouillée avec succès (%u-%u, par défaut : %u)</translation>
     </message>
     <message>
         <source>This is the transaction fee you may pay when fee estimates are not available.</source>
@@ -5290,7 +5391,7 @@ https://www.transifex.com/projects/p/axe/</translation>
     </message>
     <message>
         <source>Unknown state: id = %u</source>
-        <translation>État inconnu: id = %u</translation>
+        <translation>État inconnu : id = %u</translation>
     </message>
     <message>
         <source>Username for JSON-RPC connections</source>

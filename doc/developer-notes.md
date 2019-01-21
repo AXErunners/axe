@@ -138,7 +138,7 @@ that run in -regtest mode.
 
 **DEBUG_LOCKORDER**
 
-AXE Core is a multithreaded application, and deadlocks or other multithreading bugs
+Axe Core is a multithreaded application, and deadlocks or other multithreading bugs
 can be very difficult to track down. Compiling with -DDEBUG_LOCKORDER (configure
 CXXFLAGS="-DDEBUG_LOCKORDER -g") inserts run-time checks to keep track of which locks
 are held, and adds warnings to the debug.log file if inconsistencies are detected.
@@ -189,8 +189,6 @@ Threads
 
 - BitcoinMiner : Generates coins (if wallet is enabled).
 
-- ThreadCheckDarkSendPool : Runs masternode list and sync data update loops
-
 - Shutdown : Does an orderly shutdown of everything.
 
 Ignoring IDE/editor files
@@ -199,7 +197,7 @@ Ignoring IDE/editor files
 In closed-source environments in which everyone uses the same IDE it is common
 to add temporary files it produces to the project-wide `.gitignore` file.
 
-However, in open source software such as AXE Core, where everyone uses
+However, in open source software such as Axe Core, where everyone uses
 their own editors/IDE/tools, it is less common. Only you know what files your
 editor produces and this may change from version to version. The canonical way
 to do this is thus to create your local gitignore. Add this to `~/.gitconfig`:
@@ -229,9 +227,9 @@ Development guidelines
 ============================
 
 A few non-style-related recommendations for developers, as well as points to
-pay attention to for reviewers of AXE Core code.
+pay attention to for reviewers of Axe Core code.
 
-General AXE Core
+General Axe Core
 ----------------------
 
 - New features should be exposed on RPC first, then can be made available in the GUI
@@ -341,7 +339,7 @@ Strings and formatting
 
 - For `strprintf`, `LogPrint`, `LogPrintf` formatting characters don't need size specifiers
 
-  - *Rationale*: AXE Core uses tinyformat, which is type safe. Leave them out to avoid confusion
+  - *Rationale*: Axe Core uses tinyformat, which is type safe. Leave them out to avoid confusion
 
 Variable names
 --------------
@@ -429,7 +427,7 @@ directly upstream without being PRed directly against the project.  They will be
 subtree merge.
 
 Others are external projects without a tight relationship with our project.  Changes to these should also
-be sent upstream but bugfixes may also be prudent to PR against AXE Core so that they can be integrated
+be sent upstream but bugfixes may also be prudent to PR against Axe Core so that they can be integrated
 quickly.  Cosmetic changes should be purely taken upstream.
 
 There is a tool in contrib/devtools/git-subtree-check.sh to check a subtree directory for consistency with

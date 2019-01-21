@@ -1,6 +1,5 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2017-2018 The AXE Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -69,7 +68,7 @@ SendCoinsDialog::SendCoinsDialog(const PlatformStyle *_platformStyle, QWidget *p
     connect(ui->checkBoxCoinControlChange, SIGNAL(stateChanged(int)), this, SLOT(coinControlChangeChecked(int)));
     connect(ui->lineEditCoinControlChange, SIGNAL(textEdited(const QString &)), this, SLOT(coinControlChangeEdited(const QString &)));
 
-    // AXE specific
+    // Axe specific
     QSettings settings;
     if (!settings.contains("bUseDarkSend"))
         settings.setValue("bUseDarkSend", false);
@@ -257,10 +256,8 @@ void SendCoinsDialog::on_sendButton_clicked()
 
     QString strFunds = tr("using") + " <b>" + tr("anonymous funds") + "</b>";
     QString strFee = "";
-    recipients[0].inputType = ONLY_DENOMINATED;
 
     if(ui->checkUsePrivateSend->isChecked()) {
-        recipients[0].inputType = ONLY_DENOMINATED;
         strFunds = tr("using") + " <b>" + tr("anonymous funds") + "</b>";
         QString strNearestAmount(
             BitcoinUnits::formatWithUnit(
@@ -269,18 +266,18 @@ void SendCoinsDialog::on_sendButton_clicked()
             "(privatesend requires this amount to be rounded up to the nearest %1)."
         ).arg(strNearestAmount));
     } else {
-        recipients[0].inputType = ALL_COINS;
         strFunds = tr("using") + " <b>" + tr("any available funds (not anonymous)") + "</b>";
     }
 
     if(ui->checkUseInstantSend->isChecked()) {
-        recipients[0].fUseInstantSend = true;
         strFunds += " ";
         strFunds += tr("and InstantSend");
-    } else {
-        recipients[0].fUseInstantSend = false;
     }
 
+    for (SendCoinsRecipient& rcp : recipients) {
+        rcp.inputType = ui->checkUsePrivateSend->isChecked() ? ONLY_DENOMINATED : ALL_COINS;
+        rcp.fUseInstantSend = ui->checkUseInstantSend->isChecked();
+    }
 
     fNewRecipientAllowed = false;
     // request unlock only if was locked or unlocked for mixing:
@@ -884,7 +881,7 @@ void SendCoinsDialog::coinControlChangeEdited(const QString& text)
         }
         else if (!addr.IsValid()) // Invalid address
         {
-            ui->labelCoinControlChangeLabel->setText(tr("Warning: Invalid AXE address"));
+            ui->labelCoinControlChangeLabel->setText(tr("Warning: Invalid Axe address"));
         }
         else // Valid address
         {

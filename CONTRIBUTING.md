@@ -1,7 +1,7 @@
-Contributing to AXE Core
+Contributing to Axe Core
 ============================
 
-The AXE Core project operates an open contributor model where anyone is
+The Axe Core project operates an open contributor model where anyone is
 welcome to contribute towards development in the form of peer review, testing
 and patches. This document explains the practical process and guidelines for
 contributing.
@@ -157,11 +157,11 @@ where possible keep them short, uncomplex and easy to verify.
 "Decision Making" Process
 -------------------------
 
-The following applies to code changes to the AXE Core project (and related
-projects such as libsecp256k1), and is not to be confused with overall AXE
+The following applies to code changes to the Axe Core project (and related
+projects such as libsecp256k1), and is not to be confused with overall Axe
 Network Protocol consensus changes.
 
-Whether a pull request is merged into AXE Core rests with the project merge
+Whether a pull request is merged into Axe Core rests with the project merge
 maintainers and ultimately the project lead.
 
 Maintainers will take into consideration if a patch is in line with the general
@@ -174,12 +174,12 @@ In general, all pull requests must:
     the project (for example refactoring for modularisation);
   - be well peer reviewed;
   - have unit tests and functional tests where appropriate;
-  - follow code style guidelines;
+  - follow [code style guidelines](/doc/developer-notes.md);
   - not break the existing test suite;
   - where bugs are fixed, where possible, there should be unit tests
     demonstrating the bug and also proving the fix. This helps prevent regression.
 
-Patches that change AXE consensus rules are considerably more involved than
+Patches that change Axe consensus rules are considerably more involved than
 normal because they affect the entire ecosystem and so must be preceded by
 extensive mailing list discussions and have a numbered BIP. While each case will
 be different, one should be prepared to expend more time and effort than for
@@ -220,7 +220,7 @@ higher in terms of discussion and peer review requirements, keeping in mind that
 mistakes could be very costly to the wider community. This includes refactoring
 of consensus critical code.
 
-Where a patch set proposes to change the AXE consensus, it must have been
+Where a patch set proposes to change the Axe consensus, it must have been
 discussed extensively on the mailing list and IRC, be accompanied by a widely
 discussed BIP and have a generally widely perceived technical consensus of being
 a worthwhile change based on the judgement of the maintainers.
@@ -229,12 +229,12 @@ a worthwhile change based on the judgement of the maintainers.
 Release Policy
 --------------
 
-The project leader is the release manager for each AXE Core release.
+The project leader is the release manager for each Axe Core release.
 
 Copyright
 ---------
 
-By contributing to this repository, you agree to license your work under the 
-MIT license unless specified otherwise in `contrib/debian/copyright` or at 
-the top of the file itself. Any work contributed where you are not the original 
+By contributing to this repository, you agree to license your work under the
+MIT license unless specified otherwise in `contrib/debian/copyright` or at
+the top of the file itself. Any work contributed where you are not the original
 author must contain its license header with the original author(s) and source.

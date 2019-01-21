@@ -1,6 +1,5 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
 // Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2017-2018 The AXE Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -13,7 +12,7 @@ static const int MODEL_UPDATE_DELAY = 250;
 /* AskPassphraseDialog -- Maximum passphrase length */
 static const int MAX_PASSPHRASE_SIZE = 1024;
 
-/* AXEGUI -- Size of icons in status bar */
+/* AxeGUI -- Size of icons in status bar */
 static const int STATUSBAR_ICONSIZE = 16;
 
 static const bool DEFAULT_SPLASHSCREEN = true;
@@ -35,6 +34,8 @@ static const bool DEFAULT_SPLASHSCREEN = true;
 #define COLOR_TX_STATUS_DANGER QColor(200, 100, 100)
 /* Transaction list -- TX status decoration - default color */
 #define COLOR_BLACK QColor(0, 0, 0)
+/* Transaction list -- TX status decoration - LockedByInstantSend color */
+#define COLOR_TX_STATUS_LOCKED QColor(0, 128, 255)
 
 /* Tooltips longer than this (in characters) are converted into rich text,
    so that they can be word-wrapped.
@@ -50,10 +51,10 @@ static const int MAX_URI_LENGTH = 255;
 /* Number of frames in spinner animation */
 #define SPINNER_FRAMES 36
 
-#define QAPP_ORG_NAME "AXE"
-#define QAPP_ORG_DOMAIN "axerunners.com"
-#define QAPP_APP_NAME_DEFAULT "AXE-Qt"
-#define QAPP_APP_NAME_TESTNET "AXE-Qt-testnet"
-#define QAPP_APP_NAME_DEVNET "AXE-Qt-%s"
+#define QAPP_ORG_NAME "Axe"
+#define QAPP_ORG_DOMAIN "axe.org"
+#define QAPP_APP_NAME_DEFAULT "Axe-Qt"
+#define QAPP_APP_NAME_TESTNET "Axe-Qt-testnet"
+#define QAPP_APP_NAME_DEVNET "Axe-Qt-%s"
 
 #endif // BITCOIN_QT_GUICONSTANTS_H

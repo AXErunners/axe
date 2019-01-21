@@ -13,7 +13,7 @@
 - (NSString *)__bundleIdentifier
 {
     if (self == [NSBundle mainBundle]) {
-        return @"org.axe.AXE-Qt";
+        return @"org.axe.Axe-Qt";
     } else {
         return [self __bundleIdentifier];
     }
