@@ -65,7 +65,7 @@ elif [ "$BUILD_TARGET" = "linux64" ]; then
   export PACKAGES="bc python3-zmq"
   export DEP_OPTS="NO_QT=1 NO_UPNP=1 DEBUG=1"
   export BITCOIN_CONFIG="--enable-zmq --enable-glibc-back-compat --enable-reduce-exports"
-  export CPPFLAGS="-DDEBUG_LOCKORDER -DENABLE_AXE_DEBUG"
+  export CPPFLAGS="-DDEBUG_LOCKORDER -DENABLE_DASH_DEBUG"
   export PYZMQ=true
   export RUN_TESTS=true
 elif [ "$BUILD_TARGET" = "linux64_nowallet" ]; then
