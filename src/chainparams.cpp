@@ -428,6 +428,8 @@ public:
         assert(genesis.hashMerkleRoot == uint256S("0x987a08c31d7f04f47f1aeccdffc73ca4336e32a6615f619b94cc7109e7c2a7ac"));
 
         vFixedSeeds.clear();
+        vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_test, pnSeed6_test + ARRAYLEN(pnSeed6_test));
+
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
         vSeeds.push_back(CDNSSeedData("seed1.0313370.xyz", "seed2.0313370.xyz"));
