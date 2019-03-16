@@ -238,10 +238,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0003].nThreshold = 3226; // 80% of 4032
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000000033d11060839064c4"); // 196528
+        consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000000110b8d4b1f1f4a1bc"); // 224580
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x000000000000eba217d43e50e6fd8d1939eec2457ae46b3f5637e5d0e22da0e2"); // 196528
+        consensus.defaultAssumeValid = uint256S("0x00000000000053a0d53537c2f4923d006a2e5b667aedf008e320ce1d0a369203"); // 224580
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -329,11 +329,12 @@ public:
             ( 93105, uint256S("0x0000000000069b605e286b9c195bd400df907bd2fcf87398c2a0dfff5df0fbf3"))
             ( 100315, uint256S("0x0000000000002f905a48b6b6e26d77ea86483d07f02081d2ab1de5f6279a0311"))
             ( 161083, uint256S("0x0000000000092122485e390355bf4345ee51b0b14ba0d8c8ee6571ab41cca881"))
+            ( 224426, uint256S("0x00000000000007c736e43a5a953dc4fd98e70e886a9740a487ea1dc9cd25a29f"))
         };
 
         chainTxData = ChainTxData{
-            1542500827, // * UNIX timestamp of last known number of transactions
-            106525,    // * total number of transactions between genesis and that timestamp
+            1552505648, // * UNIX timestamp of last known number of transactions
+            95857,    // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the SetBestChain debug.log lines)
             0.1         // * estimated number of transactions per second after that timestamp
         };
@@ -427,6 +428,8 @@ public:
         assert(genesis.hashMerkleRoot == uint256S("0x987a08c31d7f04f47f1aeccdffc73ca4336e32a6615f619b94cc7109e7c2a7ac"));
 
         vFixedSeeds.clear();
+        vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_test, pnSeed6_test + ARRAYLEN(pnSeed6_test));
+
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
         vSeeds.push_back(CDNSSeedData("seed1.0313370.xyz", "seed2.0313370.xyz"));
