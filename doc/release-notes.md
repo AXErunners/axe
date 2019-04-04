@@ -46,11 +46,6 @@ A fix that was introduces in the last minor version caused creation of invalid m
 nodes to ban 1.2.3 nodes. This can be observed on mobile clients which have troubles maintaining connections. This
 release fixes this issue and should allow SPV/mobile clients to sync with upgraded nodes.
 
-Hardened spork15 value to 213696
----------------------------------
-We've hardened the spork15 block height to 213696, which makes sure that syncing from scratch will always work, no
-matter if spork15 is received in-time or not.
-
 Bug fixes/Other improvements
 ----------------------------
 There are few bug fixes in this release:
