@@ -32,6 +32,8 @@ the node.
 Notable changes
 ===============
 
+Instantsend Autolocks activated.
+
 Number of false-positives from anti virus software should be reduced
 --------------------------------------------------------------------
 We have removed all mining code from Windows and Mac binaries, which should avoid most of the false-positive alerts
