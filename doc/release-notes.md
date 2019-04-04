@@ -1,9 +1,9 @@
-Axe Core version 1.2.0.0
+Axe Core version 1.3.0.0
 ==========================
 
 Release is now available from:
 
-  <https://www.axerunners.com/downloads/#wallets>
+  <https://github.com/AXErunners/axe/releases>
 
 This is a new major version release, bringing new features, various bugfixes and other improvements.
 
@@ -690,21 +690,6 @@ Credits
 
 Thanks to everyone who directly contributed to this release:
 
-- Alexander Block
-- UdjinM6
-- PastaPastaPasta
-- gladcow
-- Nathan Marley
-- thephez
-- strophy
-- PaulieD
-- InhumanPerfection
-- Spencer Lievens
-- -k
-- Salisbury
-- Solar Designer
-- Oleg Girko
-- Anton Suprunchuk
 
 As well as everyone that submitted issues, reviewed pull requests or helped translating on
 [Transifex](https://www.transifex.com/projects/p/axe/).
