@@ -23,10 +23,7 @@ shut down (which might take a few minutes for older versions), then run the
 installer (on Windows) or just copy over /Applications/Axe-Qt (on Mac) or
 axed/axe-qt (on Linux). If you upgrade after DIP0003 activation you will
 have to reindex (start with -reindex-chainstate or -reindex) to make sure
-your wallet has all the new data synced.
-
-Downgrade warning
------------------
+your wallet has all the new data synced (only if you were using version < 1.2).
 
 ### Downgrade to a version < 1.2.0.0
 
