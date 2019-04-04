@@ -712,7 +712,7 @@ As well as everyone that submitted issues, reviewed pull requests or helped tran
 Older releases
 ==============
 
-Axe was previously known as Darkcoin.
+Dash was previously known as Darkcoin.
 
 Darkcoin tree 0.8.x was a fork of Litecoin tree 0.8, original name was XCoin
 which was first released on Jan/18/2014.
