@@ -1,8 +1,8 @@
 dnl require autoconf 2.60 (AS_ECHO/AS_ECHO_N)
 AC_PREREQ([2.60])
 define(_CLIENT_VERSION_MAJOR, 1)
-define(_CLIENT_VERSION_MINOR, 2)
-define(_CLIENT_VERSION_REVISION, 3)
+define(_CLIENT_VERSION_MINOR, 3)
+define(_CLIENT_VERSION_REVISION, 0)
 define(_CLIENT_VERSION_BUILD, 0)
 define(_CLIENT_VERSION_IS_RELEASE, true)
 define(_COPYRIGHT_YEAR, 2019)
@@ -191,6 +191,17 @@ AC_ARG_ENABLE([debug],
                     [use debug compiler flags and macros (default is no)])],
     [enable_debug=$enableval],
     [enable_debug=no])
+
+# Enable in-wallet miner
+AC_ARG_ENABLE([miner],
+    [AS_HELP_STRING([--enable-miner],
+                    [enable in-wallet miner (default is yes)])],
+    [enable_miner=$enableval],
+    [enable_miner=yes])
+AM_CONDITIONAL([ENABLE_MINER], [test x$enable_miner = xyes])
+if test "x$enable_miner" = xyes; then
+    AC_DEFINE(ENABLE_MINER, 1, [Define this symbol if in-wallet miner should be enabled])
+fi
 
 # Turn warnings into errors
 AC_ARG_ENABLE([werror],
@@ -1181,6 +1192,7 @@ echo "  with test     = $use_tests"
 echo "  with bench    = $use_bench"
 echo "  with upnp     = $use_upnp"
 echo "  debug enabled = $enable_debug"
+echo "  miner enabled = $enable_miner"
 echo "  werror        = $enable_werror"
 echo
 echo "  target os     = $TARGET_OS"
