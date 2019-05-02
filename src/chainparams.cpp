@@ -184,7 +184,7 @@ public:
         consensus.nMasternodePaymentsIncreasePeriod = 576*30;
         consensus.nInstantSendConfirmationsRequired = 6;
         consensus.nInstantSendKeepLock = 24;
-        consensus.nBudgetPaymentsStartBlock = 9999999;
+        consensus.nBudgetPaymentsStartBlock = 271350;
         consensus.nBudgetPaymentsCycleBlocks = 16616;
         consensus.nBudgetPaymentsWindowBlocks = 100;
         consensus.nSuperblockStartBlock = 9999999;
