@@ -1,11 +1,11 @@
-Axe Core version 1.3.0.0
+Axe Core version 1.3.1.0
 ==========================
 
 Release is now available from:
 
   <https://github.com/AXErunners/axe/releases>
 
-This is a new minor version release, bringing various bugfixes and other improvements.
+This is a new version release, bringing various bugfixes and other improvements.
 
 Please report bugs using the issue tracker at github:
 
@@ -32,22 +32,4 @@ the node.
 Notable changes
 ===============
 
-Instantsend Autolocks activated.
-
-Number of false-positives from anti virus software should be reduced
---------------------------------------------------------------------
-We have removed all mining code from Windows and Mac binaries, which should avoid most of the false-positive alerts
-from anti virus software. Linux builds are not affected. The mining code found in `axe-qt` and `axed` are only meant
-for regression/integration tests and devnets, so there is no harm in removing this code from non-linux builds.
-
-Fixed an issue with invalid merkle blocks causing SPV nodes to ban other nodes
-------------------------------------------------------------------------------
-A fix that was introduces in the last minor version caused creation of invalid merkle blocks, which in turn cause SPV
-nodes to ban 1.2.3 nodes. This can be observed on mobile clients which have troubles maintaining connections. This
-release fixes this issue and should allow SPV/mobile clients to sync with upgraded nodes.
-
-Bug fixes/Other improvements
-----------------------------
-There are few bug fixes in this release:
-- Fixed an issue with transaction sometimes not being fully zapped when `-zapwallettxes` is used
-- Fixed an issue with the `protx revoke` RPC and REASON_CHANGE_OF_KEYS
+Decentralized governance activated.
