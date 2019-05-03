@@ -25,7 +25,6 @@
 #include "miner.h"
 #include "netbase.h"
 #include "net.h"
-#include "netfulfilledman.h"
 #include "net_processing.h"
 #include "policy/policy.h"
 #include "rpc/server.h"
@@ -2035,7 +2034,8 @@ bool AppInitMain(boost::thread_group& threadGroup, CScheduler& scheduler)
 
     // LOAD SERIALIZED DAT FILES INTO DATA CACHES FOR INTERNAL USE
 
-    if (!fLiteMode) {
+    bool fIgnoreCacheFiles = fLiteMode || fReindex || fReindexChainState;
+    if (!fIgnoreCacheFiles) {
         boost::filesystem::path pathDB = GetDataDir();
         std::string strDBName;
 
