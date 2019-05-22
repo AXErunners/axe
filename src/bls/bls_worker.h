@@ -1,4 +1,4 @@
-// Copyright (c) 2018-2019 The Axe Core developers
+// Copyright (c) 2018 The Axe Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -53,6 +53,7 @@ public:
     CBLSWorker();
     ~CBLSWorker();
 
+    void Start();
     void Stop();
 
     bool GenerateContributions(int threshold, const BLSIdVector& ids, BLSVerificationVectorPtr& vvecRet, BLSSecretKeyVector& skShares);

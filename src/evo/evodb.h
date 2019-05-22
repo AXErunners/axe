@@ -1,4 +1,4 @@
-// Copyright (c) 2018-2019 The Axe Core developers
+// Copyright (c) 2018 The Axe Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -33,6 +33,11 @@ public:
         LOCK(cs);
         auto t = ScopedTransaction::Begin(curDBTransaction);
         return t;
+    }
+
+    CurTransaction& GetCurTransaction()
+    {
+        return curDBTransaction;
     }
 
     template <typename K, typename V>
