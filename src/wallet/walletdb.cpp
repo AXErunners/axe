@@ -572,7 +572,6 @@ ReadKeyValue(CWallet* pwallet, CDataStream& ssKey, CDataStream& ssValue,
     return true;
 }
 
-static bool IsKeyType(std::string strType)
 bool CWalletDB::IsKeyType(const std::string& strType)
 {
     return (strType== "key" || strType == "wkey" ||
