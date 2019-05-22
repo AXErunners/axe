@@ -53,7 +53,7 @@ elif [ "$BUILD_TARGET" = "linux32" ]; then
   export HOST=i686-pc-linux-gnu
   export PACKAGES="g++-multilib bc python3-zmq"
   export BITCOIN_CONFIG="--enable-zmq --enable-glibc-back-compat --enable-reduce-exports --enable-stacktraces LDFLAGS=-static-libstdc++"
-  export USE_SHELL="/bin/axe"
+  export USE_SHELL="/bin/dash"
   export PYZMQ=true
   export RUN_TESTS=true
 elif [ "$BUILD_TARGET" = "linux64" ]; then
