@@ -5,14 +5,24 @@
 #ifndef AXE_QUORUMS_INIT_H
 #define AXE_QUORUMS_INIT_H
 
+class CDBWrapper;
 class CEvoDB;
+class CScheduler;
 
 namespace llmq
 {
 
-void InitLLMQSystem(CEvoDB& evoDb);
+// If true, we will connect to all new quorums and watch their communication
+static const bool DEFAULT_WATCH_QUORUMS = false;
+
+// Init/destroy LLMQ globals
+void InitLLMQSystem(CEvoDB& evoDb, CScheduler* scheduler, bool unitTests, bool fWipe = false);
 void DestroyLLMQSystem();
 
+// Manage scheduled tasks, threads, listeners etc.
+void StartLLMQSystem();
+void StopLLMQSystem();
+void InterruptLLMQSystem();
 }
 
 #endif //AXE_QUORUMS_INIT_H
