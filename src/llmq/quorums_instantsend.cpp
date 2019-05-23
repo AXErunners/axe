@@ -993,12 +993,11 @@ void CInstantSendManager::SyncTransaction(const CTransactionRef& tx, const CBloc
     }
 
     bool inMempool = mempool.get(tx->GetHash()) != nullptr;
-    bool isDisconnect = pindex && posInBlock == CMainSignals::SYNC_TRANSACTION_NOT_IN_BLOCK;
 
     // Are we called from validation.cpp/MemPoolConflictRemovalTracker?
     // TODO refactor this when we backport the BlockConnected signal from Bitcoin, as it gives better info about
     // conflicted TXs
-    bool isConflictRemoved = !pindex && posInBlock == CMainSignals::SYNC_TRANSACTION_NOT_IN_BLOCK && !inMempool;
+    bool isConflictRemoved = pindex == nullptr && posInBlock == -1 && !inMempool;
 
     if (isConflictRemoved) {
         LOCK(cs);
@@ -1013,7 +1012,7 @@ void CInstantSendManager::SyncTransaction(const CTransactionRef& tx, const CBloc
 
         // update DB about when an IS lock was mined
         if (!islockHash.IsNull() && pindex) {
-            if (posInBlock == CMainSignals::SYNC_TRANSACTION_NOT_IN_BLOCK) {
+            if (posInBlock == -1) {
                 db.RemoveInstantSendLockMined(islockHash, pindex->nHeight);
             } else {
                 db.WriteInstantSendLockMined(islockHash, pindex->nHeight);
@@ -1034,7 +1033,7 @@ void CInstantSendManager::SyncTransaction(const CTransactionRef& tx, const CBloc
     if (!chainlocked && islockHash.IsNull()) {
         // TX is not locked, so make sure it is tracked
         AddNonLockedTx(tx);
-        nonLockedTxs.at(tx->GetHash()).pindexMined = posInBlock != CMainSignals::SYNC_TRANSACTION_NOT_IN_BLOCK ? pindex : nullptr;
+        nonLockedTxs.at(tx->GetHash()).pindexMined = posInBlock != -1 ? pindex : nullptr;
     } else {
         // TX is locked, so make sure we don't track it anymore
         RemoveNonLockedTx(tx->GetHash(), true);
