@@ -981,18 +981,18 @@ void CInstantSendManager::UpdateWalletTransaction(const CTransactionRef& tx, con
     mempool.AddTransactionsUpdated(1);
 }
 
-void CInstantSendManager::SyncTransaction(const CTransaction& tx, const CBlockIndex* pindex, int posInBlock)
+void CInstantSendManager::SyncTransaction(const CTransactionRef& tx, const CBlockIndex* pindex, int posInBlock)
 {
     if (!IsNewInstantSendEnabled()) {
         return;
     }
 
-    if (tx.IsCoinBase() || tx.vin.empty()) {
+    if (tx->IsCoinBase() || tx->vin.empty()) {
         // coinbase can't and TXs with no inputs be locked
         return;
     }
 
-    bool inMempool = mempool.get(tx.GetHash()) != nullptr;
+    bool inMempool = mempool.get(tx->GetHash()) != nullptr;
     bool isDisconnect = pindex && posInBlock == CMainSignals::SYNC_TRANSACTION_NOT_IN_BLOCK;
 
     // Are we called from validation.cpp/MemPoolConflictRemovalTracker?
@@ -1002,14 +1002,14 @@ void CInstantSendManager::SyncTransaction(const CTransaction& tx, const CBlockIn
 
     if (isConflictRemoved) {
         LOCK(cs);
-        RemoveConflictedTx(tx);
+        RemoveConflictedTx(*tx);
         return;
     }
 
     uint256 islockHash;
     {
         LOCK(cs);
-        islockHash = db.GetInstantSendLockHashByTxid(tx.GetHash());
+        islockHash = db.GetInstantSendLockHashByTxid(tx->GetHash());
 
         // update DB about when an IS lock was mined
         if (!islockHash.IsNull() && pindex) {
@@ -1028,17 +1028,17 @@ void CInstantSendManager::SyncTransaction(const CTransaction& tx, const CBlockIn
 
     bool chainlocked = pindex && chainLocksHandler->HasChainLock(pindex->nHeight, pindex->GetBlockHash());
     if (islockHash.IsNull() && !chainlocked) {
-        ProcessTx(tx, Params().GetConsensus());
+        ProcessTx(*tx, Params().GetConsensus());
     }
 
     LOCK(cs);
     if (!chainlocked && islockHash.IsNull()) {
         // TX is not locked, so make sure it is tracked
-        AddNonLockedTx(MakeTransactionRef(tx));
-        nonLockedTxs.at(tx.GetHash()).pindexMined = !isDisconnect ? pindex : nullptr;
+        AddNonLockedTx(tx);
+        nonLockedTxs.at(tx->GetHash()).pindexMined = !isDisconnect ? pindex : nullptr;
     } else {
         // TX is locked, so make sure we don't track it anymore
-        RemoveNonLockedTx(tx.GetHash(), true);
+        RemoveNonLockedTx(tx->GetHash(), true);
     }
 }
 
