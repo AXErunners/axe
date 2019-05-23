@@ -4,7 +4,7 @@ define(_CLIENT_VERSION_MAJOR, 1)
 define(_CLIENT_VERSION_MINOR, 4)
 define(_CLIENT_VERSION_REVISION, 0)
 define(_CLIENT_VERSION_BUILD, 0)
-define(_CLIENT_VERSION_IS_RELEASE, false)
+define(_CLIENT_VERSION_IS_RELEASE, true)
 define(_COPYRIGHT_YEAR, 2019)
 define(_COPYRIGHT_HOLDERS,[The %s developers])
 define(_COPYRIGHT_HOLDERS_SUBSTITUTION,[[Axe Core]])
@@ -1240,7 +1240,7 @@ case ${OS} in
    ;;
 esac
 
-echo 
+echo
 echo "Options used to compile and link:"
 echo "  with wallet         = $enable_wallet"
 echo "  with gui / qt       = $bitcoin_enable_qt"
@@ -1256,7 +1256,7 @@ echo "  debug enabled       = $enable_debug"
 echo "  stacktraces enabled = $enable_stacktraces"
 echo "  miner enabled       = $enable_miner"
 echo "  werror              = $enable_werror"
-echo 
+echo
 echo "  target os           = $TARGET_OS"
 echo "  build os            = $BUILD_OS"
 echo
@@ -1266,4 +1266,4 @@ echo "  CPPFLAGS            = $CPPFLAGS"
 echo "  CXX                 = $CXX"
 echo "  CXXFLAGS            = $CXXFLAGS"
 echo "  LDFLAGS             = $LDFLAGS"
-echo 
+echo
