@@ -1240,7 +1240,7 @@ case ${OS} in
    ;;
 esac
 
-echo 
+echo
 echo "Options used to compile and link:"
 echo "  with wallet         = $enable_wallet"
 echo "  with gui / qt       = $bitcoin_enable_qt"
@@ -1256,7 +1256,7 @@ echo "  debug enabled       = $enable_debug"
 echo "  stacktraces enabled = $enable_stacktraces"
 echo "  miner enabled       = $enable_miner"
 echo "  werror              = $enable_werror"
-echo 
+echo
 echo "  target os           = $TARGET_OS"
 echo "  build os            = $BUILD_OS"
 echo
@@ -1266,4 +1266,4 @@ echo "  CPPFLAGS            = $CPPFLAGS"
 echo "  CXX                 = $CXX"
 echo "  CXXFLAGS            = $CXXFLAGS"
 echo "  LDFLAGS             = $LDFLAGS"
-echo 
+echo
