@@ -40,9 +40,11 @@ QT_TRANSLATE_NOOP("axe-core", ""
 "Bind to given address and whitelist peers connecting to it. Use [host]:port "
 "notation for IPv6"),
 QT_TRANSLATE_NOOP("axe-core", ""
-"Bind to given address to listen for JSON-RPC connections. Use [host]:port "
-"notation for IPv6. This option can be specified multiple times (default: "
-"bind to all interfaces)"),
+"Bind to given address to listen for JSON-RPC connections. This option is "
+"ignored unless -rpcallowip is also passed. Port is optional and overrides -"
+"rpcport. Use [host]:port notation for IPv6. This option can be specified "
+"multiple times (default: 127.0.0.1 and ::1 i.e., localhost, or if -"
+"rpcallowip has been specified, 0.0.0.0 and :: i.e., all addresses)"),
 QT_TRANSLATE_NOOP("axe-core", ""
 "Cannot obtain a lock on data directory %s. %s is probably already running."),
 QT_TRANSLATE_NOOP("axe-core", ""
@@ -303,13 +305,6 @@ QT_TRANSLATE_NOOP("axe-core", ""
 "Wallet will not create transactions that violate mempool chain limits "
 "(default: %u)"),
 QT_TRANSLATE_NOOP("axe-core", ""
-"Warning: At least %d of %d masternodes are running on a newer software "
-"version. Please check latest releases, you might need to update too."),
-QT_TRANSLATE_NOOP("axe-core", ""
-"Warning: Every masternode (out of %d known ones) is running on a newer "
-"software version. Please check latest releases, it's very likely that you "
-"missed a major/critical update."),
-QT_TRANSLATE_NOOP("axe-core", ""
 "Warning: The network does not appear to fully agree! Some miners appear to "
 "be experiencing issues."),
 QT_TRANSLATE_NOOP("axe-core", ""
@@ -331,9 +326,6 @@ QT_TRANSLATE_NOOP("axe-core", ""
 QT_TRANSLATE_NOOP("axe-core", ""
 "You are starting in lite mode, all Axe-specific functionality is disabled."),
 QT_TRANSLATE_NOOP("axe-core", ""
-"You must specify a masternodeprivkey in the configuration. Please see "
-"documentation for help."),
-QT_TRANSLATE_NOOP("axe-core", ""
 "You need to rebuild the database using -reindex to go back to unpruned "
 "mode.  This will redownload the entire blockchain"),
 QT_TRANSLATE_NOOP("axe-core", ""
@@ -344,15 +336,14 @@ QT_TRANSLATE_NOOP("axe-core", ""
 QT_TRANSLATE_NOOP("axe-core", "%s corrupt, salvage failed"),
 QT_TRANSLATE_NOOP("axe-core", "%s is not a valid backup folder!"),
 QT_TRANSLATE_NOOP("axe-core", "%s is set very high!"),
-QT_TRANSLATE_NOOP("axe-core", "(%d could be used only on mainnet)"),
 QT_TRANSLATE_NOOP("axe-core", "(default: %s)"),
 QT_TRANSLATE_NOOP("axe-core", "(default: %u)"),
-QT_TRANSLATE_NOOP("axe-core", "(must be %d for mainnet)"),
 QT_TRANSLATE_NOOP("axe-core", "(press q to shutdown and continue later)"),
 QT_TRANSLATE_NOOP("axe-core", "-devnet can only be specified once"),
 QT_TRANSLATE_NOOP("axe-core", "-maxmempool must be at least %d MB"),
 QT_TRANSLATE_NOOP("axe-core", "-port must be specified when -devnet and -listen are specified"),
 QT_TRANSLATE_NOOP("axe-core", "-rpcport must be specified when -devnet and -server are specified"),
+QT_TRANSLATE_NOOP("axe-core", "-wallet parameter must only specify a filename (not a path)"),
 QT_TRANSLATE_NOOP("axe-core", "<category> can be:"),
 QT_TRANSLATE_NOOP("axe-core", "Accept command line and JSON-RPC commands"),
 QT_TRANSLATE_NOOP("axe-core", "Accept public REST requests (default: %u)"),
@@ -381,7 +372,6 @@ QT_TRANSLATE_NOOP("axe-core", "Connect to a node to retrieve peer addresses, and
 QT_TRANSLATE_NOOP("axe-core", "Connection options:"),
 QT_TRANSLATE_NOOP("axe-core", "Copyright (C)"),
 QT_TRANSLATE_NOOP("axe-core", "Corrupted block database detected"),
-QT_TRANSLATE_NOOP("axe-core", "Could not parse masternode.conf"),
 QT_TRANSLATE_NOOP("axe-core", "Debugging/Testing options:"),
 QT_TRANSLATE_NOOP("axe-core", "Do not load the wallet and disable wallet RPC calls"),
 QT_TRANSLATE_NOOP("axe-core", "Do you want to rebuild the block database now?"),
@@ -420,9 +410,7 @@ QT_TRANSLATE_NOOP("axe-core", "Failed to load InstantSend data cache from"),
 QT_TRANSLATE_NOOP("axe-core", "Failed to load fulfilled requests cache from"),
 QT_TRANSLATE_NOOP("axe-core", "Failed to load governance cache from"),
 QT_TRANSLATE_NOOP("axe-core", "Failed to load masternode cache from"),
-QT_TRANSLATE_NOOP("axe-core", "Failed to load masternode payments cache from"),
 QT_TRANSLATE_NOOP("axe-core", "Failed to load sporks cache from"),
-QT_TRANSLATE_NOOP("axe-core", "Failed to parse host:port string"),
 QT_TRANSLATE_NOOP("axe-core", "Failed to start a new mixing queue"),
 QT_TRANSLATE_NOOP("axe-core", "Fee (in %s/kB) to add to transactions you send (default: %s)"),
 QT_TRANSLATE_NOOP("axe-core", "Found enough users, signing ( waiting %s )"),
@@ -439,16 +427,15 @@ QT_TRANSLATE_NOOP("axe-core", "Initialization sanity check failed. %s is shuttin
 QT_TRANSLATE_NOOP("axe-core", "Input is not valid."),
 QT_TRANSLATE_NOOP("axe-core", "InstantSend options:"),
 QT_TRANSLATE_NOOP("axe-core", "Insufficient funds."),
-QT_TRANSLATE_NOOP("axe-core", "Invalid -onion address: '%s'"),
-QT_TRANSLATE_NOOP("axe-core", "Invalid -proxy address: '%s'"),
+QT_TRANSLATE_NOOP("axe-core", "Invalid -onion address or hostname: '%s'"),
+QT_TRANSLATE_NOOP("axe-core", "Invalid -proxy address or hostname: '%s'"),
 QT_TRANSLATE_NOOP("axe-core", "Invalid amount for -%s=<amount>: '%s'"),
 QT_TRANSLATE_NOOP("axe-core", "Invalid amount for -fallbackfee=<amount>: '%s'"),
 QT_TRANSLATE_NOOP("axe-core", "Invalid amount for -paytxfee=<amount>: '%s' (must be at least %s)"),
+QT_TRANSLATE_NOOP("axe-core", "Invalid characters in -wallet filename"),
 QT_TRANSLATE_NOOP("axe-core", "Invalid masternodeblsprivkey. Please see documenation."),
-QT_TRANSLATE_NOOP("axe-core", "Invalid masternodeprivkey. Please see documenation."),
 QT_TRANSLATE_NOOP("axe-core", "Invalid minimum number of spork signers specified with -minsporkkeys"),
 QT_TRANSLATE_NOOP("axe-core", "Invalid netmask specified in -whitelist: '%s'"),
-QT_TRANSLATE_NOOP("axe-core", "Invalid port detected in masternode.conf"),
 QT_TRANSLATE_NOOP("axe-core", "Invalid script detected."),
 QT_TRANSLATE_NOOP("axe-core", "Invalid spork address specified with -sporkaddr"),
 QT_TRANSLATE_NOOP("axe-core", "KeePassHttp id for the established association"),
@@ -459,25 +446,21 @@ QT_TRANSLATE_NOOP("axe-core", "Keep the transaction memory pool below <n> megaby
 QT_TRANSLATE_NOOP("axe-core", "Keypool ran out, please call keypoolrefill first"),
 QT_TRANSLATE_NOOP("axe-core", "Last PrivateSend was too recent."),
 QT_TRANSLATE_NOOP("axe-core", "Last successful PrivateSend action was too recent."),
-QT_TRANSLATE_NOOP("axe-core", "Line: %d"),
 QT_TRANSLATE_NOOP("axe-core", "Listen for JSON-RPC connections on <port> (default: %u or testnet: %u)"),
 QT_TRANSLATE_NOOP("axe-core", "Listen for connections on <port> (default: %u or testnet: %u)"),
 QT_TRANSLATE_NOOP("axe-core", "Loading InstantSend data cache..."),
-QT_TRANSLATE_NOOP("axe-core", "Loading addresses..."),
+QT_TRANSLATE_NOOP("axe-core", "Loading P2P addresses..."),
 QT_TRANSLATE_NOOP("axe-core", "Loading banlist..."),
 QT_TRANSLATE_NOOP("axe-core", "Loading block index..."),
 QT_TRANSLATE_NOOP("axe-core", "Loading fulfilled requests cache..."),
 QT_TRANSLATE_NOOP("axe-core", "Loading governance cache..."),
 QT_TRANSLATE_NOOP("axe-core", "Loading masternode cache..."),
-QT_TRANSLATE_NOOP("axe-core", "Loading masternode payment cache..."),
 QT_TRANSLATE_NOOP("axe-core", "Loading sporks cache..."),
 QT_TRANSLATE_NOOP("axe-core", "Loading wallet... (%3.2f %%)"),
 QT_TRANSLATE_NOOP("axe-core", "Loading wallet..."),
 QT_TRANSLATE_NOOP("axe-core", "Location of the auth cookie (default: data dir)"),
 QT_TRANSLATE_NOOP("axe-core", "Lock is already in place."),
-QT_TRANSLATE_NOOP("axe-core", "Lock masternodes from masternode configuration file (default: %u)"),
 QT_TRANSLATE_NOOP("axe-core", "Make the wallet broadcast transactions"),
-QT_TRANSLATE_NOOP("axe-core", "Masternode cache is empty, skipping payments and governance cache..."),
 QT_TRANSLATE_NOOP("axe-core", "Masternode options:"),
 QT_TRANSLATE_NOOP("axe-core", "Masternode queue is full."),
 QT_TRANSLATE_NOOP("axe-core", "Masternode:"),
@@ -502,7 +485,6 @@ QT_TRANSLATE_NOOP("axe-core", "Number of automatic wallet backups (default: %u)"
 QT_TRANSLATE_NOOP("axe-core", "Only connect to nodes in network <net> (ipv4, ipv6 or onion)"),
 QT_TRANSLATE_NOOP("axe-core", "Options:"),
 QT_TRANSLATE_NOOP("axe-core", "Password for JSON-RPC connections"),
-QT_TRANSLATE_NOOP("axe-core", "Port: %d"),
 QT_TRANSLATE_NOOP("axe-core", "Prepend debug output with timestamp (default: %u)"),
 QT_TRANSLATE_NOOP("axe-core", "Print this help message and exit"),
 QT_TRANSLATE_NOOP("axe-core", "Print version and exit"),
@@ -532,7 +514,6 @@ QT_TRANSLATE_NOOP("axe-core", "Set database cache size in megabytes (%d to %d, d
 QT_TRANSLATE_NOOP("axe-core", "Set key pool size to <n> (default: %u)"),
 QT_TRANSLATE_NOOP("axe-core", "Set maximum block size in bytes (default: %d)"),
 QT_TRANSLATE_NOOP("axe-core", "Set the masternode BLS private key"),
-QT_TRANSLATE_NOOP("axe-core", "Set the masternode private key"),
 QT_TRANSLATE_NOOP("axe-core", "Set the number of threads to service RPC calls (default: %d)"),
 QT_TRANSLATE_NOOP("axe-core", "Show all debugging options (usage: --help -help-debug)"),
 QT_TRANSLATE_NOOP("axe-core", "Shrink debug.log file on client startup (default: 1 when no -debug)"),
@@ -540,22 +521,19 @@ QT_TRANSLATE_NOOP("axe-core", "Signing transaction failed"),
 QT_TRANSLATE_NOOP("axe-core", "Specify configuration file (default: %s)"),
 QT_TRANSLATE_NOOP("axe-core", "Specify connection timeout in milliseconds (minimum: 1, default: %d)"),
 QT_TRANSLATE_NOOP("axe-core", "Specify data directory"),
-QT_TRANSLATE_NOOP("axe-core", "Specify masternode configuration file (default: %s)"),
 QT_TRANSLATE_NOOP("axe-core", "Specify pid file (default: %s)"),
 QT_TRANSLATE_NOOP("axe-core", "Specify wallet file (within data directory)"),
 QT_TRANSLATE_NOOP("axe-core", "Specify your own public address"),
 QT_TRANSLATE_NOOP("axe-core", "Spend unconfirmed change when sending transactions (default: %u)"),
 QT_TRANSLATE_NOOP("axe-core", "Starting network threads..."),
-QT_TRANSLATE_NOOP("axe-core", "Submitted following entries to masternode: %u / %d"),
-QT_TRANSLATE_NOOP("axe-core", "Submitted to masternode, waiting for more entries ( %u / %d ) %s"),
+QT_TRANSLATE_NOOP("axe-core", "Submitted following entries to masternode: %u"),
+QT_TRANSLATE_NOOP("axe-core", "Submitted to masternode, waiting for more entries ( %u ) %s"),
 QT_TRANSLATE_NOOP("axe-core", "Submitted to masternode, waiting in queue %s"),
-QT_TRANSLATE_NOOP("axe-core", "Synchroning blockchain..."),
 QT_TRANSLATE_NOOP("axe-core", "Synchronization failed"),
 QT_TRANSLATE_NOOP("axe-core", "Synchronization finished"),
 QT_TRANSLATE_NOOP("axe-core", "Synchronization pending..."),
+QT_TRANSLATE_NOOP("axe-core", "Synchronizing blockchain..."),
 QT_TRANSLATE_NOOP("axe-core", "Synchronizing governance objects..."),
-QT_TRANSLATE_NOOP("axe-core", "Synchronizing masternode payments..."),
-QT_TRANSLATE_NOOP("axe-core", "Synchronizing masternodes..."),
 QT_TRANSLATE_NOOP("axe-core", "The source code is available from %s."),
 QT_TRANSLATE_NOOP("axe-core", "The transaction amount is too small to pay the fee"),
 QT_TRANSLATE_NOOP("axe-core", "The wallet will avoid paying less than the minimum relay fee."),

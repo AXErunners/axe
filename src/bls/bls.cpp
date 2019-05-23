@@ -1,4 +1,4 @@
-// Copyright (c) 2018 The Axe Core developers
+// Copyright (c) 2018-2019 The Axe Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -424,6 +424,33 @@ bool CBLSSignature::Recover(const std::vector<CBLSSignature>& sigs, const std::v
 }
 
 #ifndef BUILD_BITCOIN_INTERNAL
+void CBLSLazySignature::SetSig(const CBLSSignature& _sig)
+{
+    std::unique_lock<std::mutex> l(mutex);
+    bufValid = false;
+    sigInitialized = true;
+    sig = _sig;
+}
+
+const CBLSSignature& CBLSLazySignature::GetSig() const
+{
+    std::unique_lock<std::mutex> l(mutex);
+    static CBLSSignature invalidSig;
+    if (!bufValid && !sigInitialized) {
+        return invalidSig;
+    }
+    if (!sigInitialized) {
+        sig.SetBuf(buf, sizeof(buf));
+        if (!sig.CheckMalleable(buf, sizeof(buf))) {
+            bufValid = false;
+            sigInitialized = false;
+            sig = invalidSig;
+        } else {
+            sigInitialized = true;
+        }
+    }
+    return sig;
+}
 
 static std::once_flag init_flag;
 static mt_pooled_secure_allocator<uint8_t>* secure_allocator_instance;
