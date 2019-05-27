@@ -106,13 +106,13 @@ void CDSNotificationInterface::BlockConnected(const std::shared_ptr<const CBlock
     }
 }
 
-void CDSNotificationInterface::BlockDisconnected(const std::shared_ptr<const CBlock>& pblock, const CBlockIndex* pindex)
+void CDSNotificationInterface::BlockDisconnected(const std::shared_ptr<const CBlock>& pblock, const CBlockIndex* pindexDisconnected)
 {
     llmq::quorumInstantSendManager->BlockDisconnected(pblock, pindexDisconnected);
     llmq::chainLocksHandler->BlockDisconnected(pblock, pindexDisconnected);
 
     for (const CTransactionRef& ptx : pblock->vtx) {
-        SyncTransaction(ptx, pindex, -1);
+        SyncTransaction(ptx, pindexDisconnected->pprev, -1);
     }
 }
 
