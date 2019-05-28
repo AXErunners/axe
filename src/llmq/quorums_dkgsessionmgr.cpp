@@ -200,12 +200,12 @@ bool CDKGSessionManager::GetPrematureCommitment(const uint256& hash, CDKGPrematu
 
 void CDKGSessionManager::WriteVerifiedVvecContribution(Consensus::LLMQType llmqType, const CBlockIndex* pindexQuorum, const uint256& proTxHash, const BLSVerificationVectorPtr& vvec)
 {
-    llmqDb.Write(std::make_tuple(DB_VVEC, (uint8_t) llmqType, pindexQuorum->GetBlockHash(), proTxHash), *vvec);
+    llmqDb.Write(std::make_tuple(DB_VVEC, llmqType, pindexQuorum->GetBlockHash(), proTxHash), *vvec);
 }
 
 void CDKGSessionManager::WriteVerifiedSkContribution(Consensus::LLMQType llmqType, const CBlockIndex* pindexQuorum, const uint256& proTxHash, const CBLSSecretKey& skContribution)
 {
-    llmqDb.Write(std::make_tuple(DB_SKCONTRIB, (uint8_t) llmqType, pindexQuorum->GetBlockHash(), proTxHash), skContribution);
+    llmqDb.Write(std::make_tuple(DB_SKCONTRIB, llmqType, pindexQuorum->GetBlockHash(), proTxHash), skContribution);
 }
 
 bool CDKGSessionManager::GetVerifiedContributions(Consensus::LLMQType llmqType, const CBlockIndex* pindexQuorum, const std::vector<bool>& validMembers, std::vector<uint16_t>& memberIndexesRet, std::vector<BLSVerificationVectorPtr>& vvecsRet, BLSSecretKeyVector& skContributionsRet)
@@ -248,10 +248,10 @@ bool CDKGSessionManager::GetVerifiedContribution(Consensus::LLMQType llmqType, c
     BLSVerificationVector vvec;
     BLSVerificationVectorPtr vvecPtr;
     CBLSSecretKey skContribution;
-    if (llmqDb.Read(std::make_tuple(DB_VVEC, (uint8_t) llmqType, pindexQuorum->GetBlockHash(), proTxHash), vvec)) {
+    if (llmqDb.Read(std::make_tuple(DB_VVEC, llmqType, pindexQuorum->GetBlockHash(), proTxHash), vvec)) {
         vvecPtr = std::make_shared<BLSVerificationVector>(std::move(vvec));
     }
-    llmqDb.Read(std::make_tuple(DB_SKCONTRIB, (uint8_t) llmqType, pindexQuorum->GetBlockHash(), proTxHash), skContribution);
+    llmqDb.Read(std::make_tuple(DB_SKCONTRIB, llmqType, pindexQuorum->GetBlockHash(), proTxHash), skContribution);
 
     it = contributionsCache.emplace(cacheKey, ContributionsCacheEntry{GetTimeMillis(), vvecPtr, skContribution}).first;
 
