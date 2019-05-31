@@ -1,4 +1,4 @@
-Axe Core version 1.4.0.0
+Axe Core version 1.4.1.0
 ==========================
 
 Release is now available from:
