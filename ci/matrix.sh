@@ -71,7 +71,7 @@ elif [ "$BUILD_TARGET" = "linux64" ]; then
   export RUN_INTEGRATIONTESTS=true
 elif [ "$BUILD_TARGET" = "linux64_nowallet" ]; then
   export HOST=x86_64-unknown-linux-gnu
-  export PACKAGES="python3"
+  export PACKAGES="python3 xvfb"
   export DEP_OPTS="NO_WALLET=1"
   export BITCOIN_CONFIG="--enable-glibc-back-compat --enable-reduce-exports"
   export RUN_UNITTESTS=true
