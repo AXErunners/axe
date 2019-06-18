@@ -406,6 +406,7 @@ bool CQuorumBlockProcessor::GetMinedCommitment(Consensus::LLMQType llmqType, con
     return true;
 }
 
+// The returned quorums are in reversed order, so the most recent one is at index 0
 std::vector<const CBlockIndex*> CQuorumBlockProcessor::GetMinedCommitmentsUntilBlock(Consensus::LLMQType llmqType, const CBlockIndex* pindex, size_t maxCount)
 {
     auto dbIt = evoDb.GetCurTransaction().NewIteratorUniquePtr();
@@ -447,6 +448,7 @@ std::vector<const CBlockIndex*> CQuorumBlockProcessor::GetMinedCommitmentsUntilB
     return ret;
 }
 
+// The returned quorums are in reversed order, so the most recent one is at index 0
 std::map<Consensus::LLMQType, std::vector<const CBlockIndex*>> CQuorumBlockProcessor::GetMinedAndActiveCommitmentsUntilBlock(const CBlockIndex* pindex)
 {
     std::map<Consensus::LLMQType, std::vector<const CBlockIndex*>> ret;
