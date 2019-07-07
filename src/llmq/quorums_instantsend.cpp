@@ -19,9 +19,6 @@
 #include "wallet/wallet.h"
 #endif
 
-// needed for AUTO_IX_MEMPOOL_THRESHOLD
-#include "instantsend.h"
-
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/thread.hpp>
 
@@ -473,18 +470,6 @@ bool CInstantSendManager::CheckCanLock(const CTransaction& tx, bool printDebug, 
 
         nValueIn += v;
     }
-
-    // TODO decide if we should limit max input values. This was ok to do in the old system, but in the new system
-    // where we want to have all TXs locked at some point, this is counterproductive (especially when ChainLocks later
-    // depend on all TXs being locked first)
-//    CAmount maxValueIn = sporkManager.GetSporkValue(SPORK_5_INSTANTSEND_MAX_VALUE);
-//    if (nValueIn > maxValueIn * COIN) {
-//        if (printDebug) {
-//            LogPrint(BCLog::INSTANTSEND, "CInstantSendManager::%s -- txid=%s: TX input value too high. nValueIn=%f, maxValueIn=%d", __func__,
-//                     tx.GetHash().ToString(), nValueIn / (double)COIN, maxValueIn);
-//        }
-//        return false;
-//    }
 
     return true;
 }
@@ -1494,11 +1479,6 @@ void CInstantSendManager::WorkThreadMain()
             }
         }
     }
-}
-
-bool IsOldInstantSendEnabled()
-{
-    return sporkManager.IsSporkActive(SPORK_2_INSTANTSEND_ENABLED) && !sporkManager.IsSporkActive(SPORK_20_INSTANTSEND_LLMQ_BASED);
 }
 
 bool IsInstantSendEnabled()
