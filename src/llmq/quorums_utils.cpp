@@ -16,7 +16,7 @@ std::vector<CDeterministicMNCPtr> CLLMQUtils::GetAllQuorumMembers(Consensus::LLM
 {
     auto& params = Params().GetConsensus().llmqs.at(llmqType);
     auto allMns = deterministicMNManager->GetListForBlock(pindexQuorum);
-    auto modifier = ::SerializeHash(std::make_pair( llmqType, pindexQuorum->GetBlockHash()));
+    auto modifier = ::SerializeHash(std::make_pair(llmqType, pindexQuorum->GetBlockHash()));
     return allMns.CalculateQuorum(params.size, modifier);
 }
 
@@ -89,7 +89,7 @@ std::set<size_t> CLLMQUtils::CalcDeterministicWatchConnections(Consensus::LLMQTy
     std::set<size_t> result;
     uint256 rnd = qwatchConnectionSeed;
     for (size_t i = 0; i < connectionCount; i++) {
-        rnd = ::SerializeHash(std::make_pair(rnd, std::make_pair( llmqType, pindexQuorum->GetBlockHash())));
+        rnd = ::SerializeHash(std::make_pair(rnd, std::make_pair(llmqType, pindexQuorum->GetBlockHash())));
         result.emplace(rnd.GetUint64(0) % memberCount);
     }
     return result;
