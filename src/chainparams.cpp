@@ -314,12 +314,13 @@ public:
         assert(consensus.hashGenesisBlock == uint256S("0x00000c33631ca6f2f61368991ce2dc03306b5bb50bf7cede5cfbba6db38e52e6"));
         assert(genesis.hashMerkleRoot == uint256S("0x987a08c31d7f04f47f1aeccdffc73ca4336e32a6615f619b94cc7109e7c2a7ac"));
 
-        vSeeds.emplace_back("seed1.0313370.xyz", "seed2.0313370.xyz");
-        vSeeds.emplace_back("207.246.65.114", "45.32.168.226");
-        vSeeds.emplace_back("45.77.149.231", "45.76.254.202");
-        vSeeds.emplace_back("198.13.50.26", "45.56.99.202");
-        vSeeds.emplace_back("45.77.101.51", "144.202.3.252");
-        vSeeds.emplace_back("23.95.245.52", "209.250.253.235");
+        vSeeds.emplace_back("seed1.0313370.xyz", true);
+        vSeeds.emplace_back("seed2.0313370.xyz", true);
+        vSeeds.emplace_back("207.246.65.114", true);
+        vSeeds.emplace_back("45.32.168.226", true);
+        vSeeds.emplace_back("45.77.149.231", true);
+        vSeeds.emplace_back("144.202.3.252", true);
+        vSeeds.emplace_back("23.95.245.52", true);
 
         // AXE addresses start with 'P'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,55);
@@ -495,8 +496,8 @@ public:
 
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.emplace_back("seed1.0313370.xyz", "seed2.0313370.xyz");
-        vSeeds.emplace_back("masternode.io", "test.dnsseed.masternode.io");
+        vSeeds.emplace_back("seed1.0313370.xyz", true);
+        vSeeds.emplace_back("seed2.0313370.xyz", true);
 
         // Testnet AXE addresses start with 'y'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,140);
