@@ -67,6 +67,6 @@ public:
     }
 };
 
-}
+} // namespace llmq
 
 #endif//AXE_QUORUMS_UTILS_H

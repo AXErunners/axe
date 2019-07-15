@@ -900,4 +900,4 @@ bool CSigningManager::VerifyRecoveredSig(Consensus::LLMQType llmqType, int signe
     return sig.VerifyInsecure(quorum->qc.quorumPublicKey, signHash);
 }
 
-}
+} // namespace llmq

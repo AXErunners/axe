@@ -186,6 +186,6 @@ public:
 
 extern CSigningManager* quorumSigningManager;
 
-}
+} // namespace llmq
 
 #endif //AXE_QUORUMS_SIGNING_H
