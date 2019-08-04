@@ -1,4 +1,4 @@
-// Copyright (c) 2018-2019 The Axe Core developers
+// Copyright (c) 2018-2019 The Dash Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -505,7 +505,7 @@ bool CDeterministicMNManager::ProcessBlock(const CBlock& block, const CBlockInde
     // Don't hold cs while calling signals
     if (diff.HasChanges()) {
         GetMainSignals().NotifyMasternodeListChanged(false, oldList, diff);
-        uiInterface.NotifyMasternodeListChanged();
+        uiInterface.NotifyMasternodeListChanged(newList);
     }
 
     if (nHeight == consensusParams.DIP0003EnforcementHeight) {
@@ -550,7 +550,7 @@ bool CDeterministicMNManager::UndoBlock(const CBlock& block, const CBlockIndex* 
     if (diff.HasChanges()) {
         auto inversedDiff = curList.BuildDiff(prevList);
         GetMainSignals().NotifyMasternodeListChanged(true, curList, inversedDiff);
-        uiInterface.NotifyMasternodeListChanged();
+        uiInterface.NotifyMasternodeListChanged(prevList);
     }
 
     const auto& consensusParams = Params().GetConsensus();
