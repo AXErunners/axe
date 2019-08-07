@@ -1,4 +1,4 @@
-// Copyright (c) 2018-2019 The Axe Core developers
+// Copyright (c) 2018-2019 The Dash Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -44,7 +44,7 @@ public:
     uint256 confirmedHashWithProRegTxHash;
 
     CKeyID keyIDOwner;
-    CBLSPublicKey pubKeyOperator;
+    CBLSLazyPublicKey pubKeyOperator;
     CKeyID keyIDVoting;
     CService addr;
     CScript scriptPayout;
@@ -55,7 +55,7 @@ public:
     CDeterministicMNState(const CProRegTx& proTx)
     {
         keyIDOwner = proTx.keyIDOwner;
-        pubKeyOperator = proTx.pubKeyOperator;
+        pubKeyOperator.Set(proTx.pubKeyOperator);
         keyIDVoting = proTx.keyIDVoting;
         addr = proTx.addr;
         scriptPayout = proTx.scriptPayout;
@@ -89,7 +89,7 @@ public:
 
     void ResetOperatorFields()
     {
-        pubKeyOperator = CBLSPublicKey();
+        pubKeyOperator.Set(CBLSPublicKey());
         addr = CService();
         scriptOperatorPayout = CScript();
         nRevocationReason = CProUpRevTx::REASON_NOT_SPECIFIED;
