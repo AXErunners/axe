@@ -278,7 +278,7 @@ libaxe_server_a_SOURCES = \
   httprpc.cpp \
   httpserver.cpp \
   init.cpp \
-  instantx.cpp \
+  instantsend.cpp \
   dbwrapper.cpp \
   governance/governance.cpp \
   governance/governance-classes.cpp \
