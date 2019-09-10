@@ -4,7 +4,7 @@
 
 #include "chainparams.h"
 #include "dsnotificationinterface.h"
-#include "instantx.h"
+#include "instantsend.h"
 #include "governance.h"
 #include "masternode-payments.h"
 #include "masternode-sync.h"

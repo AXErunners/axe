@@ -160,7 +160,7 @@ BITCOIN_CORE_H = \
   httpserver.h \
   indirectmap.h \
   init.h \
-  instantx.h \
+  instantsend.h \
   key.h \
   keepass.h \
   keystore.h \
@@ -279,7 +279,7 @@ libaxe_server_a_SOURCES = \
   httprpc.cpp \
   httpserver.cpp \
   init.cpp \
-  instantx.cpp \
+  instantsend.cpp \
   dbwrapper.cpp \
   governance.cpp \
   governance-classes.cpp \

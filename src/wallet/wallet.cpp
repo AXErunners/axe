@@ -29,7 +29,7 @@
 #include "utilmoneystr.h"
 
 #include "governance.h"
-#include "instantx.h"
+#include "instantsend.h"
 #include "keepass.h"
 #include "privatesend-client.h"
 #include "spork.h"

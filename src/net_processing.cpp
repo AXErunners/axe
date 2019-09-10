@@ -33,7 +33,7 @@
 
 #include "spork.h"
 #include "governance.h"
-#include "instantx.h"
+#include "instantsend.h"
 #include "masternode-payments.h"
 #include "masternode-sync.h"
 #include "masternode-meta.h"

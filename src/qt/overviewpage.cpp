@@ -18,7 +18,7 @@
 #include "utilitydialog.h"
 #include "walletmodel.h"
 
-#include "instantx.h"
+#include "instantsend.h"
 #include "masternode-sync.h"
 #include "privatesend-client.h"
 
