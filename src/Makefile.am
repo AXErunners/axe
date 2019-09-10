@@ -159,7 +159,7 @@ BITCOIN_CORE_H = \
   httpserver.h \
   indirectmap.h \
   init.h \
-  instantx.h \
+  instantsend.h \
   key.h \
   keepass.h \
   keystore.h \
