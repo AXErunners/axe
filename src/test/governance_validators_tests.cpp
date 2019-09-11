@@ -1,6 +1,6 @@
 // Copyright (c) 2014-2018 The Dash Core developers
 
-#include "governance-validators.h"
+#include "governance/governance-validators.h"
 #include "utilstrencodings.h"
 
 #include "data/proposals_valid.json.h"
@@ -28,7 +28,7 @@ std::string CreateEncodedProposalObject(const UniValue& objJSON)
 
     UniValue outerArray(UniValue::VARR);
     outerArray.push_back(innerArray);
-    
+
     std::string strData = outerArray.write();
     std::string strHex = HexStr(strData);
     return strHex;

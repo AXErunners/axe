@@ -25,9 +25,9 @@
 #include "utilstrencodings.h"
 #include "validation.h"
 
-#include "instantx.h"
-#include "masternode-sync.h"
-#include "privatesend.h"
+#include "instantsend.h"
+#include "masternode/masternode-sync.h"
+#include "privatesend/privatesend.h"
 #include "llmq/quorums_instantsend.h"
 
 #ifdef WIN32
@@ -1867,9 +1867,9 @@ void CConnman::ThreadOpenConnections()
         //  * Increase the number of connectable addresses in the tried table.
         //
         // Method:
-        //  * Choose a random address from new and attempt to connect to it if we can connect 
+        //  * Choose a random address from new and attempt to connect to it if we can connect
         //    successfully it is added to tried.
-        //  * Start attempting feeler connections only after node finishes making outbound 
+        //  * Start attempting feeler connections only after node finishes making outbound
         //    connections.
         //  * Only make a feeler connection once every few minutes.
         //

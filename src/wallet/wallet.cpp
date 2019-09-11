@@ -28,10 +28,10 @@
 #include "ui_interface.h"
 #include "utilmoneystr.h"
 
-#include "governance.h"
-#include "instantx.h"
+#include "governance/governance.h"
+#include "instantsend.h"
 #include "keepass.h"
-#include "privatesend-client.h"
+#include "privatesend/privatesend-client.h"
 #include "spork.h"
 
 #include "evo/providertx.h"
@@ -4010,7 +4010,7 @@ bool CWallet::SetDefaultKey(const CPubKey &vchPubKey)
 
 /**
  * Mark old keypool keys as used,
- * and generate all new keys 
+ * and generate all new keys
  */
 bool CWallet::NewKeyPool()
 {

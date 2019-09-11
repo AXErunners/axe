@@ -6,7 +6,7 @@
 #include "quorums_signing_shares.h"
 #include "quorums_utils.h"
 
-#include "activemasternode.h"
+#include "masternode/activemasternode.h"
 #include "bls/bls_batchverifier.h"
 #include "init.h"
 #include "net_processing.h"
@@ -676,7 +676,7 @@ void CSigSharesManager::ProcessSigShare(NodeId nodeId, const CSigShare& sigShare
         if (!sigShares.Add(sigShare.GetKey(), sigShare)) {
             return;
         }
-        
+
         sigSharesToAnnounce.Add(sigShare.GetKey(), true);
 
         auto it = timeSeenForSessions.find(sigShare.GetSignHash());

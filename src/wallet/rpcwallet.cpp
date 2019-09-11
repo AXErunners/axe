@@ -10,7 +10,7 @@
 #include "consensus/validation.h"
 #include "core_io.h"
 #include "init.h"
-#include "instantx.h"
+#include "instantsend.h"
 #include "net.h"
 #include "rpc/server.h"
 #include "timedata.h"
@@ -20,7 +20,7 @@
 #include "wallet.h"
 #include "walletdb.h"
 #include "keepass.h"
-#include "privatesend-client.h"
+#include "privatesend/privatesend-client.h"
 
 #include "llmq/quorums_chainlocks.h"
 #include "llmq/quorums_instantsend.h"
@@ -1903,7 +1903,7 @@ UniValue gettransaction(const JSONRPCRequest& request)
             "      \"fee\": x.xxx,                     (numeric) The amount of the fee in " + CURRENCY_UNIT + ". This is negative and only available for the \n"
             "                                           'send' category of transactions.\n"
             "      \"abandoned\": xxx                  (bool) 'true' if the transaction has been abandoned (inputs are respendable). Only available for the \n"
-            "                                           'send' category of transactions.\n"			
+            "                                           'send' category of transactions.\n"
             "    }\n"
             "    ,...\n"
             "  ],\n"
@@ -2473,7 +2473,7 @@ UniValue setprivatesendrounds(const JSONRPCRequest& request)
             "setprivatesendrounds rounds\n"
             "\nSet the number of rounds for PrivateSend mixing.\n"
             "\nArguments:\n"
-            "1. rounds         (numeric, required) The default number of rounds is " + std::to_string(DEFAULT_PRIVATESEND_ROUNDS) + 
+            "1. rounds         (numeric, required) The default number of rounds is " + std::to_string(DEFAULT_PRIVATESEND_ROUNDS) +
             " Cannot be more than " + std::to_string(MAX_PRIVATESEND_ROUNDS) + " nor less than " + std::to_string(MIN_PRIVATESEND_ROUNDS) +
             "\nExamples:\n"
             + HelpExampleCli("setprivatesendrounds", "4")
