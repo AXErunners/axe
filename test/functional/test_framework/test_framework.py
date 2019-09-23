@@ -274,13 +274,15 @@ class BitcoinTestFramework(object):
             for node in self.nodes:
                 coverage.write_all_rpc_commands(self.options.coveragedir, node.rpc)
 
+        return nodes
+
     def stop_node(self, i):
         """Stop a axed test node"""
         self.nodes[i].stop_node()
         while not self.nodes[i].is_node_stopped():
             time.sleep(0.1)
 
-    def stop_nodes(self, fast=True):
+    def stop_nodes(self):
         """Stop multiple axed test nodes"""
         for node in self.nodes:
             # Issue RPC to stop nodes
@@ -311,11 +313,6 @@ class BitcoinTestFramework(object):
                 else:
                     assert_msg = "axed should have exited with expected error " + expected_msg
                 raise AssertionError(assert_msg)
-
-    def wait_node(self, i):
-        return_code = self.bitcoind_processes[i].wait(timeout=BITCOIND_PROC_WAIT_TIMEOUT)
-        del self.bitcoind_processes[i]
-        assert_equal(return_code, 0)
 
     def wait_for_node_exit(self, i, timeout):
         self.nodes[i].process.wait(timeout)
