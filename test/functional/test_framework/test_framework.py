@@ -480,8 +480,7 @@ class MasternodeInfo:
 
 
 class AxeTestFramework(BitcoinTestFramework):
-    def __init__(self, num_nodes, masterodes_count, extra_args, fast_dip3_enforcement=False):
-        super().__init__()
+    def set_dash_test_params(self, num_nodes, masterodes_count, extra_args, fast_dip3_enforcement=False):
         self.mn_count = masterodes_count
         self.num_nodes = num_nodes
         self.mninfo = []
@@ -498,8 +497,8 @@ class AxeTestFramework(BitcoinTestFramework):
 
     def create_simple_node(self):
         idx = len(self.nodes)
-        args = self.extra_args
-        self.nodes.append(self.start_node(idx, self.options.tmpdir, args))
+        self.add_nodes(1, extra_args=[self.extra_args])
+        self.start_node(idx)
         for i in range(0, idx):
             connect_nodes(self.nodes[i], idx)
 
@@ -557,23 +556,21 @@ class AxeTestFramework(BitcoinTestFramework):
             copy_datadir(0, idx + start_idx, self.options.tmpdir)
 
         # restart faucet node
-        self.nodes[0] = self.start_node(0, self.options.tmpdir, self.extra_args)
+        self.start_node(0)
 
     def start_masternodes(self):
         start_idx = len(self.nodes)
 
-        for idx in range(0, self.mn_count):
-            self.nodes.append(None)
+        self.add_nodes(self.mn_count)
         executor = ThreadPoolExecutor(max_workers=20)
 
         def do_start(idx):
             args = ['-masternode=1',
                     '-masternodeblsprivkey=%s' % self.mninfo[idx].keyOperator] + self.extra_args
-            node = self.start_node(idx + start_idx, self.options.tmpdir, args)
+            self.start_node(idx + start_idx, extra_args=args)
             self.mninfo[idx].nodeIdx = idx + start_idx
-            self.mninfo[idx].node = node
-            self.nodes[idx + start_idx] = node
-            wait_to_sync(node, True)
+            self.mninfo[idx].node = self.nodes[idx + start_idx]
+            wait_to_sync(self.mninfo[idx].node, True)
 
         def do_connect(idx):
             for i in range(0, idx + 1):
@@ -604,9 +601,9 @@ class AxeTestFramework(BitcoinTestFramework):
         executor.shutdown()
 
     def setup_network(self):
-        self.nodes = []
         # create faucet node for collateral and transactions
-        self.nodes.append(self.start_node(0, self.options.tmpdir, self.extra_args))
+        self.add_nodes(1, extra_args=[self.extra_args])
+        self.start_node(0)
         required_balance = MASTERNODE_COLLATERAL * self.mn_count + 1
         while self.nodes[0].getbalance() < required_balance:
             self.bump_mocktime(1)
