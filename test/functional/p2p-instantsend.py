@@ -12,7 +12,6 @@ from test_framework.util import isolate_node, sync_mempools, set_node_times, rec
 p2p-instantsend.py
 
 Tests InstantSend functionality (prevent doublespend for unconfirmed transactions)
-
 '''
 
 class InstantSendTest(AxeTestFramework):
