@@ -1669,7 +1669,7 @@ void CPrivateSendClientManager::DoMaintenance(CConnman& connman)
     }
 }
 
-void CPrivateSendClientSession::ToJson(UniValue& obj) const
+void CPrivateSendClientSession::GetJsonInfo(UniValue& obj) const
 {
     obj.clear();
     obj.setObject();
@@ -1689,7 +1689,7 @@ void CPrivateSendClientSession::ToJson(UniValue& obj) const
     obj.push_back(Pair("entries",       GetEntriesCount()));
 }
 
-void CPrivateSendClientManager::ToJson(UniValue& obj) const
+void CPrivateSendClientManager::GetJsonInfo(UniValue& obj) const
 {
     LOCK(cs_deqsessions);
     obj.clear();
@@ -1707,7 +1707,7 @@ void CPrivateSendClientManager::ToJson(UniValue& obj) const
     for (const auto& session : deqSessions) {
         if (session.GetState() != POOL_STATE_IDLE) {
             UniValue objSession(UniValue::VOBJ);
-            session.ToJson(objSession);
+            session.GetJsonInfo(objSession);
             arrSessions.push_back(objSession);
         }
     }
