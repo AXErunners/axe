@@ -167,8 +167,7 @@ For more information, see the <a href=\"https://docs.axecore.net/en/master/walle
         ui->helpMessage->setVisible(false);
         ui->aboutLogo->setVisible(false);
     }
-    // Theme dependent Gfx in About popup
-    QString helpMessageGfx = ":/images/" + GUIUtil::getThemeName() + "/about";
+    QString helpMessageGfx = ":/images/about";
     QPixmap pixmap = QPixmap(helpMessageGfx);
     ui->aboutLogo->setPixmap(pixmap);
 }
