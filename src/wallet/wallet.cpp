@@ -2451,8 +2451,13 @@ CAmount CWallet::GetBalance() const
     CAmount nTotal = 0;
     {
         LOCK2(cs_main, cs_wallet);
-        for (std::map<uint256, CWalletTx>::const_iterator it = mapWallet.begin(); it != mapWallet.end(); ++it)
-        {
+        std::set<uint256> setWalletTxesCounted;
+        for (const auto& outpoint : setWalletUTXO) {
+            if (!setWalletTxesCounted.emplace(outpoint.hash).second) continue;
+
+            const auto it = mapWallet.find(outpoint.hash);
+            if (it == mapWallet.end()) continue;
+
             const CWalletTx* pcoin = &(*it).second;
             if (pcoin->IsTrusted())
                 nTotal += pcoin->GetAvailableCredit();
@@ -2578,8 +2583,13 @@ CAmount CWallet::GetUnconfirmedBalance() const
     CAmount nTotal = 0;
     {
         LOCK2(cs_main, cs_wallet);
-        for (std::map<uint256, CWalletTx>::const_iterator it = mapWallet.begin(); it != mapWallet.end(); ++it)
-        {
+        std::set<uint256> setWalletTxesCounted;
+        for (const auto& outpoint : setWalletUTXO) {
+            if (!setWalletTxesCounted.emplace(outpoint.hash).second) continue;
+
+            const auto it = mapWallet.find(outpoint.hash);
+            if (it == mapWallet.end()) continue;
+
             const CWalletTx* pcoin = &(*it).second;
             if (!pcoin->IsTrusted() && pcoin->GetDepthInMainChain() == 0 && !pcoin->IsLockedByInstantSend() && pcoin->InMempool())
                 nTotal += pcoin->GetAvailableCredit();
@@ -2593,8 +2603,13 @@ CAmount CWallet::GetImmatureBalance() const
     CAmount nTotal = 0;
     {
         LOCK2(cs_main, cs_wallet);
-        for (std::map<uint256, CWalletTx>::const_iterator it = mapWallet.begin(); it != mapWallet.end(); ++it)
-        {
+        std::set<uint256> setWalletTxesCounted;
+        for (const auto& outpoint : setWalletUTXO) {
+            if (!setWalletTxesCounted.emplace(outpoint.hash).second) continue;
+
+            const auto it = mapWallet.find(outpoint.hash);
+            if (it == mapWallet.end()) continue;
+
             const CWalletTx* pcoin = &(*it).second;
             nTotal += pcoin->GetImmatureCredit();
         }
@@ -2607,8 +2622,13 @@ CAmount CWallet::GetWatchOnlyBalance() const
     CAmount nTotal = 0;
     {
         LOCK2(cs_main, cs_wallet);
-        for (std::map<uint256, CWalletTx>::const_iterator it = mapWallet.begin(); it != mapWallet.end(); ++it)
-        {
+        std::set<uint256> setWalletTxesCounted;
+        for (const auto& outpoint : setWalletUTXO) {
+            if (!setWalletTxesCounted.emplace(outpoint.hash).second) continue;
+
+            const auto it = mapWallet.find(outpoint.hash);
+            if (it == mapWallet.end()) continue;
+
             const CWalletTx* pcoin = &(*it).second;
             if (pcoin->IsTrusted())
                 nTotal += pcoin->GetAvailableWatchOnlyCredit();
@@ -2623,8 +2643,13 @@ CAmount CWallet::GetUnconfirmedWatchOnlyBalance() const
     CAmount nTotal = 0;
     {
         LOCK2(cs_main, cs_wallet);
-        for (std::map<uint256, CWalletTx>::const_iterator it = mapWallet.begin(); it != mapWallet.end(); ++it)
-        {
+        std::set<uint256> setWalletTxesCounted;
+        for (const auto& outpoint : setWalletUTXO) {
+            if (!setWalletTxesCounted.emplace(outpoint.hash).second) continue;
+
+            const auto it = mapWallet.find(outpoint.hash);
+            if (it == mapWallet.end()) continue;
+
             const CWalletTx* pcoin = &(*it).second;
             if (!pcoin->IsTrusted() && pcoin->GetDepthInMainChain() == 0 && !pcoin->IsLockedByInstantSend() && pcoin->InMempool())
                 nTotal += pcoin->GetAvailableWatchOnlyCredit();
@@ -2638,8 +2663,13 @@ CAmount CWallet::GetImmatureWatchOnlyBalance() const
     CAmount nTotal = 0;
     {
         LOCK2(cs_main, cs_wallet);
-        for (std::map<uint256, CWalletTx>::const_iterator it = mapWallet.begin(); it != mapWallet.end(); ++it)
-        {
+        std::set<uint256> setWalletTxesCounted;
+        for (const auto& outpoint : setWalletUTXO) {
+            if (!setWalletTxesCounted.emplace(outpoint.hash).second) continue;
+
+            const auto it = mapWallet.find(outpoint.hash);
+            if (it == mapWallet.end()) continue;
+
             const CWalletTx* pcoin = &(*it).second;
             nTotal += pcoin->GetImmatureWatchOnlyCredit();
         }
@@ -2714,8 +2744,13 @@ void CWallet::AvailableCoins(std::vector<COutput> &vCoins, bool fOnlySafe, const
 
         CAmount nTotal = 0;
 
-        for (std::map<uint256, CWalletTx>::const_iterator it = mapWallet.begin(); it != mapWallet.end(); ++it)
-        {
+        std::set<uint256> setWalletTxesCounted;
+        for (const auto& outpoint : setWalletUTXO) {
+            if (!setWalletTxesCounted.emplace(outpoint.hash).second) continue;
+
+            const auto it = mapWallet.find(outpoint.hash);
+            if (it == mapWallet.end()) continue;
+
             const uint256& wtxid = it->first;
             const CWalletTx* pcoin = &(*it).second;
 
