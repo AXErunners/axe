@@ -100,7 +100,7 @@ class WalletDumpTest(BitcoinTestFramework):
         self.nodes[0].encryptwallet('test')
         bitcoind_processes[0].wait()
         self.nodes[0] = start_node(0, self.options.tmpdir, self.extra_args[0])
-        self.nodes[0].walletpassphrase('test', 10)
+        self.nodes[0].walletpassphrase('test', 30)
         # Should be a no-op:
         self.nodes[0].keypoolrefill()
         self.nodes[0].dumpwallet(tmpdir + "/node0/wallet.encrypted.dump")
