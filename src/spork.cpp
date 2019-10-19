@@ -26,9 +26,9 @@ std::map<int, int64_t> mapSporkDefaults = {
     {SPORK_12_RECONSIDER_BLOCKS,             0},             // 0 BLOCKS
     {SPORK_15_DETERMINISTIC_MNS_ENABLED,     0},             // ON
     {SPORK_16_INSTANTSEND_AUTOLOCKS,         0},             // ON
-    {SPORK_17_QUORUM_DKG_ENABLED,            0},             // ON
-    {SPORK_19_CHAINLOCKS_ENABLED,            362964},        // Hardcoded
-    {SPORK_20_INSTANTSEND_LLMQ_BASED,        362965},        // Hardcoded
+    {SPORK_17_QUORUM_DKG_ENABLED,            289023},        // Hardcoded to mainnet
+    {SPORK_19_CHAINLOCKS_ENABLED,            4070908800ULL}, // OFF
+    {SPORK_20_INSTANTSEND_LLMQ_BASED,        4070908800ULL}, // OFF
 };
 
 bool CSporkManager::SporkValueIsActive(int nSporkID, int64_t &nActiveValueRet) const
