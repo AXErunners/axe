@@ -32,15 +32,15 @@
 #include "validationinterface.h"
 
 #include "spork.h"
-#include "governance.h"
-#include "instantx.h"
-#include "masternode-payments.h"
-#include "masternode-sync.h"
-#include "masternode-meta.h"
+#include "governance/governance.h"
+#include "instantsend.h"
+#include "masternode/masternode-payments.h"
+#include "masternode/masternode-sync.h"
+#include "masternode/masternode-meta.h"
 #ifdef ENABLE_WALLET
-#include "privatesend-client.h"
+#include "privatesend/privatesend-client.h"
 #endif // ENABLE_WALLET
-#include "privatesend-server.h"
+#include "privatesend/privatesend-server.h"
 
 #include "evo/deterministicmns.h"
 #include "evo/mnauth.h"
@@ -2161,7 +2161,7 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
                 return true; // not an error
             }
 
-            auto dmn = deterministicMNManager->GetListAtChainTip().GetValidMNByCollateral(dstx.masternodeOutpoint);
+            auto dmn = deterministicMNManager->GetListAtChainTip().GetMNByCollateral(dstx.masternodeOutpoint);
             if(!dmn) {
                 LogPrint("privatesend", "DSTX -- Can't find masternode %s to verify %s\n", dstx.masternodeOutpoint.ToStringShort(), hashTx.ToString());
                 return false;
@@ -2174,7 +2174,7 @@ bool static ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStr
                 // we have no idea about (e.g we were offline)? How to handle them?
             }
 
-            if (!dstx.CheckSignature(dmn->pdmnState->pubKeyOperator)) {
+            if (!dstx.CheckSignature(dmn->pdmnState->pubKeyOperator.Get())) {
                 LogPrint("privatesend", "DSTX -- CheckSignature() failed for %s\n", hashTx.ToString());
                 return false;
             }

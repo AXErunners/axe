@@ -44,24 +44,24 @@
 #include "wallet/wallet.h"
 #endif
 
-#include "activemasternode.h"
+#include "masternode/activemasternode.h"
 #include "dsnotificationinterface.h"
 #include "flat-database.h"
-#include "governance.h"
-#include "instantx.h"
+#include "governance/governance.h"
+#include "instantsend.h"
 #ifdef ENABLE_WALLET
 #include "keepass.h"
 #endif
-#include "masternode-meta.h"
-#include "masternode-payments.h"
-#include "masternode-sync.h"
-#include "masternode-utils.h"
+#include "masternode/masternode-meta.h"
+#include "masternode/masternode-payments.h"
+#include "masternode/masternode-sync.h"
+#include "masternode/masternode-utils.h"
 #include "messagesigner.h"
 #include "netfulfilledman.h"
 #ifdef ENABLE_WALLET
-#include "privatesend-client.h"
+#include "privatesend/privatesend-client.h"
 #endif // ENABLE_WALLET
-#include "privatesend-server.h"
+#include "privatesend/privatesend-server.h"
 #include "spork.h"
 #include "warnings.h"
 
@@ -1830,6 +1830,8 @@ bool AppInitMain(boost::thread_group& threadGroup, CScheduler& scheduler)
                     strLoadError = _("You need to rebuild the database using -reindex to go back to unpruned mode.  This will redownload the entire blockchain");
                     break;
                 }
+
+                deterministicMNManager->UpgradeDBIfNeeded();
 
                 uiInterface.InitMessage(_("Verifying blocks..."));
                 if (fHavePruned && GetArg("-checkblocks", DEFAULT_CHECKBLOCKS) > MIN_BLOCKS_TO_KEEP) {
