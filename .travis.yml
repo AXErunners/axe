@@ -113,10 +113,6 @@ before_cache:
   # Save builder image
   - docker save axe-builder-$BUILD_TARGET-$TRAVIS_JOB_NUMBER $(docker history -q axe-builder-$BUILD_TARGET-$TRAVIS_JOB_NUMBER | grep -v \<missing\>) | gzip -2 > $HOME/cache/docker/axe-builder-$BUILD_TARGET.tar.gz
 
-before_install:
-  - travis_retry travis_apt_get_update
-  - travis_retry sudo apt-get -yq --no-install-suggests --no-install-recommends install docker-ce realpath
-
 install:
     # Fix annoying Travis bug: a branch with a single commit has an empty TRAVIS_COMMIT_RANGE sometimes
     - if [ -z "$TRAVIS_COMMIT_RANGE" ]; then export TRAVIS_COMMIT_RANGE="HEAD~..HEAD"; fi
