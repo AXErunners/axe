@@ -45,7 +45,7 @@ void CDKGPendingMessages::PushPendingMessage(NodeId from, CDataStream& vRecv)
     LOCK2(cs_main, cs);
 
     if (!seenMessages.emplace(hash).second) {
-        LogPrint("llmq-dkg", "CDKGPendingMessages::%s -- already seen %s, peer=%d", __func__, from);
+        LogPrint(BCLog::LLMQ_DKG, "CDKGPendingMessages::%s -- already seen %s, peer=%d", __func__, from);
         return;
     }
 
@@ -484,8 +484,8 @@ void CDKGSessionHandler::HandleDKGRound()
             }
         }
         if (!connections.empty()) {
-            if (LogAcceptCategory("llmq-dkg")) {
-                std::string debugMsg = strprintf("CDKGSessionManager::%s -- adding masternodes quorum connections for quorum %s:\n", __func__, curSession->pindexQuorum->GetBlockHash().ToString());
+            if (LogAcceptCategory(BCLog::LLMQ_DKG)) {
+                std::string debugMsg = strprintf("CDKGSessionManager::%s -- adding masternodes quorum connections for quorum %s:\n", __func__, curSession->quorumHash.ToString());
                 auto mnList = deterministicMNManager->GetListAtChainTip();
                 for (const auto& c : connections) {
                     auto dmn = mnList.GetValidMN(c);
@@ -495,7 +495,7 @@ void CDKGSessionHandler::HandleDKGRound()
                         debugMsg += strprintf("  %s (%s)\n", c.ToString(), dmn->pdmnState->addr.ToString(false));
                     }
                 }
-                LogPrint("llmq-dkg", debugMsg.c_str());
+                LogPrint(BCLog::LLMQ_DKG, debugMsg.c_str());
             }
             g_connman->AddMasternodeQuorumNodes(params.type, curQuorumHash, connections);
         }
@@ -555,7 +555,7 @@ void CDKGSessionHandler::PhaseHandlerThread()
                 status.aborted = true;
                 return true;
             });
-            LogPrint("llmq-dkg", "CDKGSessionHandler::%s -- aborted current DKG session for llmq=%s\n", __func__, params.name);
+            LogPrint(BCLog::LLMQ_DKG, "CDKGSessionHandler::%s -- aborted current DKG session for llmq=%s\n", __func__, params.name);
         }
     }
 }
