@@ -485,7 +485,7 @@ void CDKGSessionHandler::HandleDKGRound()
         }
         if (!connections.empty()) {
             if (LogAcceptCategory(BCLog::LLMQ_DKG)) {
-                std::string debugMsg = strprintf("CDKGSessionManager::%s -- adding masternodes quorum connections for quorum %s:\n", __func__, curSession->quorumHash.ToString());
+                std::string debugMsg = strprintf("CDKGSessionManager::%s -- adding masternodes quorum connections for quorum %s:\n", __func__, curSession->pindexQuorum->GetBlockHash().ToString());
                 auto mnList = deterministicMNManager->GetListAtChainTip();
                 for (const auto& c : connections) {
                     auto dmn = mnList.GetValidMN(c);
