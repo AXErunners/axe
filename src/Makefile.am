@@ -200,6 +200,7 @@ BITCOIN_CORE_H = \
   protocol.h \
   random.h \
   reverselock.h \
+  rpc/blockchain.h \
   rpc/client.h \
   rpc/protocol.h \
   rpc/server.h \
@@ -637,6 +638,7 @@ config/stamp-h1: $(top_srcdir)/$(subdir)/config/axe-config.h.in $(top_builddir)/
 	$(AM_V_at)$(MAKE) -C $(top_builddir) $(subdir)/$(@)
 $(top_srcdir)/$(subdir)/config/axe-config.h.in:  $(am__configure_deps)
 	$(AM_V_at)$(MAKE) -C $(top_srcdir) $(subdir)/config/axe-config.h.in
+
 
 clean-local:
 	-$(MAKE) -C secp256k1 clean
