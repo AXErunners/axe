@@ -139,7 +139,7 @@ public:
     bool ProcessPendingInstantSendLocks();
     std::unordered_set<uint256> ProcessPendingInstantSendLocks(int signHeight, const std::unordered_map<uint256, std::pair<NodeId, CInstantSendLock>>& pend, bool ban);
     void ProcessInstantSendLock(NodeId from, const uint256& hash, const CInstantSendLock& islock);
-    void UpdateWalletTransaction(const uint256& txid, const CTransactionRef& tx);
+    void UpdateWalletTransaction(const CTransactionRef& tx, const CInstantSendLock& islock);
 
     void SyncTransaction(const CTransaction &tx, const CBlockIndex *pindex, int posInBlock);
     void AddNonLockedTx(const CTransactionRef& tx);
