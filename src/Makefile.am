@@ -155,6 +155,7 @@ BITCOIN_CORE_H = \
   governance/governance-votedb.h \
   flat-database.h \
   hdchain.h \
+  fs.h \
   httprpc.h \
   httpserver.h \
   indirectmap.h \
@@ -495,6 +496,7 @@ libaxe_util_a_SOURCES = \
   compat/glibc_sanity.cpp \
   compat/glibcxx_sanity.cpp \
   compat/strnlen.cpp \
+  fs.cpp \
   random.cpp \
   rpc/protocol.cpp \
   stacktraces.cpp \
