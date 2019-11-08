@@ -112,7 +112,7 @@ For example:
   ./github-merge.py 3077
 
 (in any git repository) will help you merge pull request #3077 for the
-bitcoin/bitcoin repository.
+axerunners/axe repository.
 
 What it does:
 * Fetch master and the pull request.
@@ -132,14 +132,14 @@ Setup
 ---------
 Configuring the github-merge tool for the bitcoin repository is done in the following way:
 
-    git config githubmerge.repository bitcoin/bitcoin
+    git config githubmerge.repository axerunners/axe
     git config githubmerge.testcmd "make -j4 check" (adapt to whatever you want to use for testing)
     git config --global user.signingkey mykeyid (if you want to GPG sign)
 
 optimize-pngs.py
 ================
 
-A script to optimize png files in the bitcoin
+A script to optimize png files in the axe
 repository (requires pngcrush).
 
 security-check.py and test-security-check.py
@@ -156,7 +156,7 @@ still compatible with the minimum supported Linux distribution versions.
 
 Example usage after a gitian build:
 
-    find ../gitian-builder/build -type f -executable | xargs python contrib/devtools/symbol-check.py 
+    find ../gitian-builder/build -type f -executable | xargs python contrib/devtools/symbol-check.py
 
 If only supported symbols are used the return value will be 0 and the output will be empty.
 
