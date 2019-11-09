@@ -578,7 +578,7 @@ bool CBlockPolicyEstimator::Write(CAutoFile& fileout) const
 {
     try {
         LOCK(cs_feeEstimator);
-        fileout << 140100; // version required to read: 0.14.1 or later
+        fileout << 1040100; // version required to read: 1.4.1 or later
         fileout << CLIENT_VERSION; // version that wrote the file
         fileout << nBestSeenHeight;
         feeStats->Write(fileout);
