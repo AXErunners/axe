@@ -4,8 +4,6 @@
 
 `D`: [![Build Status](https://travis-ci.org/AXErunners/axe.svg?branch=development)](https://travis-ci.org/AXErunners/axe)
 
-
-
 What is Axe?
 -------------
 
