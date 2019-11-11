@@ -32,7 +32,7 @@ class ZMQTest (BitcoinTestFramework):
         config.read_file(open(os.path.dirname(__file__) + "/config.ini"))
 
         if not config["components"].getboolean("ENABLE_ZMQ"):
-            self.log.warning("dashd has not been built with zmq enabled. Skipping zmq tests!")
+            self.log.warning("axed has not been built with zmq enabled. Skipping zmq tests!")
             sys.exit(self.TEST_EXIT_SKIPPED)
 
         self.zmqContext = zmq.Context()
