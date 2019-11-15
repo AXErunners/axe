@@ -303,14 +303,14 @@ class BitcoinTestFramework(object):
                 if os.path.isdir(os.path.join(cachedir, "node" + str(i))):
                     shutil.rmtree(os.path.join(cachedir, "node" + str(i)))
 
-            # Create cache directories, run dashds:
+            # Create cache directories, run axeds:
             for i in range(MAX_NODES):
                 datadir = initialize_datadir(cachedir, i)
-                args = [os.getenv("DASHD", "dashd"), "-server", "-keypool=1", "-datadir=" + datadir, "-discover=0"]
+                args = [os.getenv("AXED", "axed"), "-server", "-keypool=1", "-datadir=" + datadir, "-discover=0"]
                 if i > 0:
                     args.append("-connect=127.0.0.1:" + str(p2p_port(0)))
                 bitcoind_processes[i] = subprocess.Popen(args)
-                self.log.debug("initialize_chain: dashd started, waiting for RPC to come up")
+                self.log.debug("initialize_chain: axed started, waiting for RPC to come up")
                 wait_for_bitcoind_start(bitcoind_processes[i], rpc_url(i), i)
                 self.log.debug("initialize_chain: RPC successfully started")
 
