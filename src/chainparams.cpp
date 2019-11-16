@@ -284,7 +284,6 @@ public:
         pchMessageStart[1] = 0xce;
         pchMessageStart[2] = 0x6b;
         pchMessageStart[3] = 0x04;
-        vAlertPubKey = ParseHex("0");
         nDefaultPort = 9937;
         nPruneAfterHeight = 100000;
 
@@ -464,7 +463,6 @@ public:
         pchMessageStart[1] = 0xe2;
         pchMessageStart[2] = 0xca;
         pchMessageStart[3] = 0xff;
-        vAlertPubKey = ParseHex("0");
         nDefaultPort = 19937;
         nPruneAfterHeight = 1000;
 
@@ -623,7 +621,6 @@ public:
         pchMessageStart[1] = 0xca;
         pchMessageStart[2] = 0xff;
         pchMessageStart[3] = 0xce;
-        vAlertPubKey = ParseHex("0");
         nDefaultPort = 19937;
         nPruneAfterHeight = 1000;
 
