@@ -25,6 +25,7 @@
 #include "wallet/wallet.h"
 
 #include "privatesend/privatesend.h"
+#include "privatesend/privatesend-client.h"
 
 #include <QFontMetrics>
 #include <QMessageBox>
@@ -76,24 +77,27 @@ SendCoinsDialog::SendCoinsDialog(const PlatformStyle *_platformStyle, QWidget *p
     if (!settings.contains("bUseInstantX"))
         settings.setValue("bUseInstantX", false);
 
-    bool fUsePrivateSend = settings.value("bUseDarkSend").toBool();
-    bool fUseInstantSend = settings.value("bUseInstantX").toBool();
-    if(fLiteMode) {
+    if (!privateSendClient.fEnablePrivateSend) {
         ui->checkUsePrivateSend->setChecked(false);
         ui->checkUsePrivateSend->setVisible(false);
-        ui->checkUseInstantSend->setVisible(false);
         CoinControlDialog::coinControl->fUsePrivateSend = false;
-        CoinControlDialog::coinControl->fUseInstantSend = false;
-    }
-    else{
+    } else {
+        bool fUsePrivateSend = settings.value("bUsePrivateSend").toBool();
         ui->checkUsePrivateSend->setChecked(fUsePrivateSend);
-        ui->checkUseInstantSend->setChecked(fUseInstantSend);
         CoinControlDialog::coinControl->fUsePrivateSend = fUsePrivateSend;
-        CoinControlDialog::coinControl->fUseInstantSend = fUseInstantSend;
+        connect(ui->checkUsePrivateSend, SIGNAL(stateChanged ( int )), this, SLOT(updateDisplayUnit()));
     }
 
-    connect(ui->checkUsePrivateSend, SIGNAL(stateChanged ( int )), this, SLOT(updateDisplayUnit()));
-    connect(ui->checkUseInstantSend, SIGNAL(stateChanged ( int )), this, SLOT(updateInstantSend()));
+    if (fLiteMode) {
+        ui->checkUseInstantSend->setChecked(false);
+        ui->checkUseInstantSend->setVisible(false);
+        CoinControlDialog::coinControl->fUseInstantSend = false;
+    } else{
+        bool fUseInstantSend = settings.value("bUseInstantSend").toBool();
+        ui->checkUseInstantSend->setChecked(fUseInstantSend);
+        CoinControlDialog::coinControl->fUseInstantSend = fUseInstantSend;
+        connect(ui->checkUseInstantSend, SIGNAL(stateChanged ( int )), this, SLOT(updateInstantSend()));
+    }
 
     // Coin Control: clipboard actions
     QAction *clipboardQuantityAction = new QAction(tr("Copy quantity"), this);
