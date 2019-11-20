@@ -3,6 +3,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "amount.h"
+#include "policy/feerate.h"
 #include "test/test_axe.h"
 
 #include <boost/test/unit_test.hpp>

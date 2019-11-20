@@ -189,6 +189,7 @@ BITCOIN_CORE_H = \
   netfulfilledman.h \
   netmessagemaker.h \
   noui.h \
+  policy/feerate.h \
   policy/fees.h \
   policy/policy.h \
   pow.h \
@@ -452,7 +453,6 @@ libaxe_consensus_a_SOURCES = \
 libaxe_common_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
 libaxe_common_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
 libaxe_common_a_SOURCES = \
-  amount.cpp \
   base58.cpp \
   bip39.cpp \
   chainparams.cpp \
@@ -465,6 +465,7 @@ libaxe_common_a_SOURCES = \
   keystore.cpp \
   netaddress.cpp \
   netbase.cpp \
+  policy/feerate.cpp \
   protocol.cpp \
   saltedhasher.cpp \
   scheduler.cpp \
