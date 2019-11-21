@@ -186,7 +186,7 @@ QT_TRANSLATE_NOOP("axe-core", ""
 "about the software."),
 QT_TRANSLATE_NOOP("axe-core", ""
 "PrivateSend uses exact denominated amounts to send funds, you might simply "
-"need to anonymize some more coins."),
+"need to mix some more coins."),
 QT_TRANSLATE_NOOP("axe-core", ""
 "Prune configured below the minimum of %d MiB.  Please use a higher number."),
 QT_TRANSLATE_NOOP("axe-core", ""
@@ -444,7 +444,7 @@ QT_TRANSLATE_NOOP("axe-core", "Invalid script detected."),
 QT_TRANSLATE_NOOP("axe-core", "Invalid spork address specified with -sporkaddr"),
 QT_TRANSLATE_NOOP("axe-core", "KeePassHttp id for the established association"),
 QT_TRANSLATE_NOOP("axe-core", "KeePassHttp key for AES encrypted communication with KeePass"),
-QT_TRANSLATE_NOOP("axe-core", "Keep N AXE anonymized (%u-%u, default: %u)"),
+QT_TRANSLATE_NOOP("axe-core", "Keep N AXE mixed (%u-%u, default: %u)"),
 QT_TRANSLATE_NOOP("axe-core", "Keep at most <n> unconnectable transactions in memory (default: %u)"),
 QT_TRANSLATE_NOOP("axe-core", "Keep the transaction memory pool below <n> megabytes (default: %u)"),
 QT_TRANSLATE_NOOP("axe-core", "Keypool ran out, please call keypoolrefill first"),
@@ -482,7 +482,7 @@ QT_TRANSLATE_NOOP("axe-core", "Node relay options:"),
 QT_TRANSLATE_NOOP("axe-core", "Non-standard public key detected."),
 QT_TRANSLATE_NOOP("axe-core", "Not compatible with existing transactions."),
 QT_TRANSLATE_NOOP("axe-core", "Not enough file descriptors available."),
-QT_TRANSLATE_NOOP("axe-core", "Not enough funds to anonymize."),
+QT_TRANSLATE_NOOP("axe-core", "Not enough funds to mix."),
 QT_TRANSLATE_NOOP("axe-core", "Not in the Masternode list."),
 QT_TRANSLATE_NOOP("axe-core", "Number of automatic wallet backups (default: %u)"),
 QT_TRANSLATE_NOOP("axe-core", "Only connect to nodes in network <net> (ipv4, ipv6 or onion)"),
