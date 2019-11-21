@@ -16,8 +16,6 @@
 
 #include <assert.h>
 
-#include <boost/assign/list_of.hpp>
-
 #include "chainparamsseeds.h"
 
 static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesisOutputScript, uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
@@ -84,7 +82,7 @@ static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits
 }
 
 
-void CChainParams::UpdateBIP9Parameters(Consensus::DeploymentPos d, int64_t nStartTime, int64_t nTimeout, int64_t nWindowSize, int64_t nThreshold)
+void CChainParams::UpdateVersionBitsParameters(Consensus::DeploymentPos d, int64_t nStartTime, int64_t nTimeout, int64_t nWindowSize, int64_t nThreshold)
 {
     consensus.vDeployments[d].nStartTime = nStartTime;
     consensus.vDeployments[d].nTimeout = nTimeout;
@@ -332,10 +330,10 @@ public:
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,16);
         // AXE private keys start with '7' or 'X'
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,204);
-        // AXE BIP32 pubkeys start with 'xpub' (Bitcoin defaults)
-        base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x88)(0xB2)(0x1E).convert_to_container<std::vector<unsigned char> >();
-        // AXE BIP32 prvkeys start with 'xprv' (Bitcoin defaults)
-        base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x88)(0xAD)(0xE4).convert_to_container<std::vector<unsigned char> >();
+        // Axe BIP32 pubkeys start with 'xpub' (Bitcoin defaults)
+        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x88, 0xB2, 0x1E};
+        // Axe BIP32 prvkeys start with 'xprv' (Bitcoin defaults)
+        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x88, 0xAD, 0xE4};
 
         // AXE BIP44 coin type is '4242'
         nExtCoinType = 4242;
@@ -365,30 +363,31 @@ public:
         fBIP9CheckMasternodesUpgraded = true;
 
         checkpointData = (CCheckpointData) {
-            boost::assign::map_list_of
-            (     0, uint256S("0x00000c33631ca6f2f61368991ce2dc03306b5bb50bf7cede5cfbba6db38e52e6"))
-            (  1000, uint256S("0x000001c94f32e43dc459bc522e343b41f179b7b486e155e819c3f251ee4a6d8d"))
-            (  5000, uint256S("0x0000002e22464e17a0140f686bfdd7794ade570f71d884098302cba16b6059d5"))
-            ( 10000, uint256S("0x00000000009994b68f4fb71d5e3d21fa92b259c41c7734e1b10ab7d8fcabe78b"))
-            ( 12860, uint256S("0x000000000002aae6fac2e55b094bcba9ded463d14bd81fa76f29623fa35d2261"))
-            ( 13500, uint256S("0x0000000000028510da80feb2ec0804f3fdbf62744ca5979d93f56514bbc45396"))
-            ( 14385, uint256S("0x000000000001af010a1dabf2dc45b4738c23453532c3c4d9b47903f8610a70b8"))
-            ( 15120, uint256S("0x000000000002eea846d5d97fa085ac6336d3e69832703c3ebeda89fdcfbcb7e4"))
-            ( 20000, uint256S("0x00000000000363c860c63cc8e9baf1cb93010385f697e91c538a4ea9df178a07"))
-            ( 23965, uint256S("0x00000000000bd575ee988f5768e931c4b8e3ca74d8f0fe0721ff9558e34944b7"))
-            ( 27119, uint256S("0x00000000000f139246bbe4022bec06387527d55972fd1a2619aaee5ed43b36c0"))
-            ( 29425, uint256S("0x0000000000033abb70490884e1bc0eac1d36341f1afe2e66a148b4ff6feec6bf"))
-            ( 32749, uint256S("0x00000000000c74050c24bdef66854a6489021316dd0bce146c9b1aba2755381c"))
-            ( 40282, uint256S("0x000000000018ea87170b4590c45b67624512125e45bd1711f8f89746d8af2904"))
-            ( 52509, uint256S("0x0000000000030ef66793b68d55e161dd7b8dc94c59a8c9ae42f757e38a1fa479"))
-            ( 65392, uint256S("0x000000000005668c10dc846ba6859cafe052ffa8b6d8a6888272fd84b45a95f0"))
-            ( 71723, uint256S("0x000000000021d50c7f8d564aa446e56c9ca63dacebdca74218c78dad73a1ea53"))
-            ( 86382, uint256S("0x00000000003badda6d1a8eeed581ccb67d6b556be55c5ec85e9a0329dfc56f74"))
-            ( 93105, uint256S("0x0000000000069b605e286b9c195bd400df907bd2fcf87398c2a0dfff5df0fbf3"))
-            ( 100315, uint256S("0x0000000000002f905a48b6b6e26d77ea86483d07f02081d2ab1de5f6279a0311"))
-            ( 161083, uint256S("0x0000000000092122485e390355bf4345ee51b0b14ba0d8c8ee6571ab41cca881"))
-            ( 224426, uint256S("0x00000000000007c736e43a5a953dc4fd98e70e886a9740a487ea1dc9cd25a29f"))
-            ( 335882, uint256S("0x000000000000024b3200646b6f26f2f1ab1591a9f130e7fcf61cb3fadb07624a"))
+            {
+                {     0, uint256S("0x00000c33631ca6f2f61368991ce2dc03306b5bb50bf7cede5cfbba6db38e52e6")},
+                {  1000, uint256S("0x000001c94f32e43dc459bc522e343b41f179b7b486e155e819c3f251ee4a6d8d")},
+                {  5000, uint256S("0x0000002e22464e17a0140f686bfdd7794ade570f71d884098302cba16b6059d5")},
+                { 10000, uint256S("0x00000000009994b68f4fb71d5e3d21fa92b259c41c7734e1b10ab7d8fcabe78b")},
+                { 12860, uint256S("0x000000000002aae6fac2e55b094bcba9ded463d14bd81fa76f29623fa35d2261")},
+                { 13500, uint256S("0x0000000000028510da80feb2ec0804f3fdbf62744ca5979d93f56514bbc45396")},
+                { 14385, uint256S("0x000000000001af010a1dabf2dc45b4738c23453532c3c4d9b47903f8610a70b8")},
+                { 15120, uint256S("0x000000000002eea846d5d97fa085ac6336d3e69832703c3ebeda89fdcfbcb7e4")},
+                { 20000, uint256S("0x00000000000363c860c63cc8e9baf1cb93010385f697e91c538a4ea9df178a07")},
+                { 23965, uint256S("0x00000000000bd575ee988f5768e931c4b8e3ca74d8f0fe0721ff9558e34944b7")},
+                { 27119, uint256S("0x00000000000f139246bbe4022bec06387527d55972fd1a2619aaee5ed43b36c0")},
+                { 29425, uint256S("0x0000000000033abb70490884e1bc0eac1d36341f1afe2e66a148b4ff6feec6bf")},
+                { 32749, uint256S("0x00000000000c74050c24bdef66854a6489021316dd0bce146c9b1aba2755381c")},
+                { 40282, uint256S("0x000000000018ea87170b4590c45b67624512125e45bd1711f8f89746d8af2904")},
+                { 52509, uint256S("0x0000000000030ef66793b68d55e161dd7b8dc94c59a8c9ae42f757e38a1fa479")},
+                { 65392, uint256S("0x000000000005668c10dc846ba6859cafe052ffa8b6d8a6888272fd84b45a95f0")},
+                { 71723, uint256S("0x000000000021d50c7f8d564aa446e56c9ca63dacebdca74218c78dad73a1ea53")},
+                { 86382, uint256S("0x00000000003badda6d1a8eeed581ccb67d6b556be55c5ec85e9a0329dfc56f74")},
+                { 93105, uint256S("0x0000000000069b605e286b9c195bd400df907bd2fcf87398c2a0dfff5df0fbf3")},
+                { 100315, uint256S("0x0000000000002f905a48b6b6e26d77ea86483d07f02081d2ab1de5f6279a0311")},
+                { 161083, uint256S("0x0000000000092122485e390355bf4345ee51b0b14ba0d8c8ee6571ab41cca881")},
+                { 224426, uint256S("0x00000000000007c736e43a5a953dc4fd98e70e886a9740a487ea1dc9cd25a29f")},
+                { 335882, uint256S("0x000000000000024b3200646b6f26f2f1ab1591a9f130e7fcf61cb3fadb07624a")},
+            }
         };
 
         chainTxData = ChainTxData{
@@ -510,10 +509,10 @@ public:
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,19);
         // Testnet private keys start with '9' or 'c' (Bitcoin defaults)
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
-        // Testnet AXE BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
-        base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x35)(0x87)(0xCF).convert_to_container<std::vector<unsigned char> >();
-        // Testnet AXE BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
-        base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x35)(0x83)(0x94).convert_to_container<std::vector<unsigned char> >();
+        // Testnet Axe BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
+        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF};
+        // Testnet Axe BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
+        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94};
 
         // Testnet AXE BIP44 coin type is '1' (All coin's testnet default)
         nExtCoinType = 1;
@@ -541,11 +540,12 @@ public:
         fBIP9CheckMasternodesUpgraded = true;
 
         checkpointData = (CCheckpointData) {
-            boost::assign::map_list_of
-            (    261, uint256S("0x00000c26026d0815a7e2ce4fa270775f61403c040647ff2c3091f99e894a4618"))
-            (   1999, uint256S("0x00000052e538d27fa53693efe6fb6892a0c1d26c0235f599171c48a3cce553b1"))
-            (   2999, uint256S("0x0000024bc3f4f4cb30d29827c13d921ad77d2c6072e586c7f60d83c2722cdcc5"))
-            (  96090, uint256S("0x00000000033df4b94d17ab43e999caaf6c4735095cc77703685da81254d09bba"))
+            {
+                {261, uint256S("0x00000c26026d0815a7e2ce4fa270775f61403c040647ff2c3091f99e894a4618")},
+                {1999, uint256S("0x00000052e538d27fa53693efe6fb6892a0c1d26c0235f599171c48a3cce553b1")},
+                {2999, uint256S("0x0000024bc3f4f4cb30d29827c13d921ad77d2c6072e586c7f60d83c2722cdcc5")},
+                {96090, uint256S("0x00000000033df4b94d17ab43e999caaf6c4735095cc77703685da81254d09bba")},
+            }
         };
 
         chainTxData = ChainTxData{
@@ -666,10 +666,10 @@ public:
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,19);
         // Testnet private keys start with '9' or 'c' (Bitcoin defaults)
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
-        // Testnet AXE BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
-        base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x35)(0x87)(0xCF).convert_to_container<std::vector<unsigned char> >();
-        // Testnet AXE BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
-        base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x35)(0x83)(0x94).convert_to_container<std::vector<unsigned char> >();
+        // Testnet Axe BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
+        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF};
+        // Testnet Axe BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
+        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94};
 
         // Testnet AXE BIP44 coin type is '1' (All coin's testnet default)
         nExtCoinType = 1;
@@ -697,9 +697,10 @@ public:
         fBIP9CheckMasternodesUpgraded = false;
 
         checkpointData = (CCheckpointData) {
-            boost::assign::map_list_of
-            (      0, uint256S("0x0be2d8c839cc6ef84840be6845e96ce43ab995d2eb239b3afe2ee81fda9585ba"))
-            (      1, devnetGenesis.GetHash())
+            {
+                { 0, uint256S("0x0be2d8c839cc6ef84840be6845e96ce43ab995d2eb239b3afe2ee81fda9585ba")},
+                { 1, devnetGenesis.GetHash() },
+            }
         };
 
         chainTxData = ChainTxData{
@@ -821,9 +822,10 @@ public:
         // regtest usually has no masternodes in most tests, so don't check for upgraged MNs
         fBIP9CheckMasternodesUpgraded = false;
 
-        checkpointData = (CCheckpointData){
-            boost::assign::map_list_of
-            ( 0, uint256S("0x0be2d8c839cc6ef84840be6845e96ce43ab995d2eb239b3afe2ee81fda9585ba"))
+        checkpointData = (CCheckpointData) {
+            {
+                {0, uint256S("0x0be2d8c839cc6ef84840be6845e96ce43ab995d2eb239b3afe2ee81fda9585ba")},
+            }
         };
 
         chainTxData = ChainTxData{
@@ -838,10 +840,10 @@ public:
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,19);
         // Regtest private keys start with '9' or 'c' (Bitcoin defaults)
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
-        // Regtest AXE BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
-        base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x35)(0x87)(0xCF).convert_to_container<std::vector<unsigned char> >();
-        // Regtest AXE BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
-        base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x35)(0x83)(0x94).convert_to_container<std::vector<unsigned char> >();
+        // Regtest Axe BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
+        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF};
+        // Regtest Axe BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
+        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94};
 
         // Regtest AXE BIP44 coin type is '1' (All coin's testnet default)
         nExtCoinType = 1;
@@ -880,9 +882,9 @@ void SelectParams(const std::string& network)
     globalChainParams = CreateChainParams(network);
 }
 
-void UpdateBIP9Parameters(Consensus::DeploymentPos d, int64_t nStartTime, int64_t nTimeout, int64_t nWindowSize, int64_t nThreshold)
+void UpdateVersionBitsParameters(Consensus::DeploymentPos d, int64_t nStartTime, int64_t nTimeout, int64_t nWindowSize, int64_t nThreshold)
 {
-    globalChainParams->UpdateBIP9Parameters(d, nStartTime, nTimeout, nWindowSize, nThreshold);
+    globalChainParams->UpdateVersionBitsParameters(d, nStartTime, nTimeout, nWindowSize, nThreshold);
 }
 
 void UpdateDIP3Parameters(int nActivationHeight, int nEnforcementHeight)
