@@ -230,8 +230,6 @@ public:
         consensus.nInstantSendKeepLock = 24;
         consensus.nBudgetPaymentsStartBlock = 271350;
         consensus.nBudgetPaymentsCycleBlocks = 16616;
-        consensus.nInstantSendSigsRequired = 6;
-        consensus.nInstantSendSigsTotal = 10;
         consensus.nBudgetPaymentsWindowBlocks = 100;
         consensus.nSuperblockStartBlock = 304800;
         consensus.nSuperblockStartHash = uint256S("");
@@ -412,8 +410,6 @@ public:
         consensus.nMasternodePaymentsIncreasePeriod = 10;
         consensus.nInstantSendConfirmationsRequired = 2;
         consensus.nInstantSendKeepLock = 6;
-        consensus.nInstantSendSigsRequired = 6;
-        consensus.nInstantSendSigsTotal = 10;
         consensus.nBudgetPaymentsStartBlock = 4100;
         consensus.nBudgetPaymentsCycleBlocks = 50;
         consensus.nBudgetPaymentsWindowBlocks = 10;
@@ -571,8 +567,6 @@ public:
         consensus.nMasternodePaymentsIncreasePeriod = 10;
         consensus.nInstantSendConfirmationsRequired = 2;
         consensus.nInstantSendKeepLock = 6;
-        consensus.nInstantSendSigsRequired = 6;
-        consensus.nInstantSendSigsTotal = 10;
         consensus.nBudgetPaymentsStartBlock = 4100;
         consensus.nBudgetPaymentsCycleBlocks = 50;
         consensus.nBudgetPaymentsWindowBlocks = 10;
@@ -737,8 +731,6 @@ public:
         consensus.nMasternodePaymentsIncreasePeriod = 10;
         consensus.nInstantSendConfirmationsRequired = 2;
         consensus.nInstantSendKeepLock = 6;
-        consensus.nInstantSendSigsRequired = 3;
-        consensus.nInstantSendSigsTotal = 5;
         consensus.nBudgetPaymentsStartBlock = 1000;
         consensus.nBudgetPaymentsCycleBlocks = 50;
         consensus.nBudgetPaymentsWindowBlocks = 10;

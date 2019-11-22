@@ -64,31 +64,20 @@ void URITests::uriTests()
     uri.setUrl(QString("axe:PPvrqyQCVHD4MZL3fFFKn4FDQo38ji24cV?amount=1,000.0&label=Some Example"));
     QVERIFY(!GUIUtil::parseBitcoinURI(uri, &rv));
 
-    uri.setUrl(QString("axe:PPvrqyQCVHD4MZL3fFFKn4FDQo38ji24cV?amount=100&label=Some Example&message=Some Example Message&IS=1"));
+    uri.setUrl(QString("axe:PPvrqyQCVHD4MZL3fFFKn4FDQo38ji24cV?amount=100&label=Some Example&message=Some Example Message"));
     QVERIFY(GUIUtil::parseBitcoinURI(uri, &rv));
     QVERIFY(rv.address == QString("PPvrqyQCVHD4MZL3fFFKn4FDQo38ji24cV"));
     QVERIFY(rv.amount == 10000000000LL);
     QVERIFY(rv.label == QString("Some Example"));
     QVERIFY(rv.message == QString("Some Example Message"));
-    QVERIFY(rv.fUseInstantSend == 1);
 
-    uri.setUrl(QString("axe:PPvrqyQCVHD4MZL3fFFKn4FDQo38ji24cV?amount=100&label=Some Example&message=Some Example Message&IS=Something Invalid"));
-    QVERIFY(GUIUtil::parseBitcoinURI(uri, &rv));
-    QVERIFY(rv.address == QString("PPvrqyQCVHD4MZL3fFFKn4FDQo38ji24cV"));
-    QVERIFY(rv.amount == 10000000000LL);
-    QVERIFY(rv.label == QString("Some Example"));
-    QVERIFY(rv.message == QString("Some Example Message"));
-    QVERIFY(rv.fUseInstantSend != 1);
-
+    // Verify that IS=xxx does not lead to an error (we ignore the field)
     uri.setUrl(QString("axe:PPvrqyQCVHD4MZL3fFFKn4FDQo38ji24cV?IS=1"));
     QVERIFY(GUIUtil::parseBitcoinURI(uri, &rv));
-    QVERIFY(rv.fUseInstantSend == 1);
 
-    uri.setUrl(QString("axe:PPvrqyQCVHD4MZL3fFFKn4FDQo38ji24cV?IS=0"));
+    uri.setUrl(QString("axe:PPvrqyQCVHD4MZL3fFFKn4FDQo38ji24cV?req-IS=1"));
     QVERIFY(GUIUtil::parseBitcoinURI(uri, &rv));
-    QVERIFY(rv.fUseInstantSend != 1);
 
     uri.setUrl(QString("axe:PPvrqyQCVHD4MZL3fFFKn4FDQo38ji24cV"));
     QVERIFY(GUIUtil::parseBitcoinURI(uri, &rv));
-    QVERIFY(rv.fUseInstantSend != 1);
 }
