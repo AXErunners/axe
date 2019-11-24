@@ -70,29 +70,29 @@ options. Run `test_runner.py -h` to see them all.
 
 ##### Resource contention
 
-The P2P and RPC ports used by the dashd nodes-under-test are chosen to make
-conflicts with other processes unlikely. However, if there is another dashd
+The P2P and RPC ports used by the axed nodes-under-test are chosen to make
+conflicts with other processes unlikely. However, if there is another axed
 process running on the system (perhaps from a previous test which hasn't successfully
-killed all its dashd nodes), then there may be a port conflict which will
+killed all its axed nodes), then there may be a port conflict which will
 cause the test to fail. It is recommended that you run the tests on a system
-where no other dashd processes are running.
+where no other axed processes are running.
 
 On linux, the test_framework will warn if there is another
-dashd process running when the tests are started.
+axed process running when the tests are started.
 
-If there are zombie dashd processes after test failure, you can kill them
+If there are zombie axed processes after test failure, you can kill them
 by running the following commands. **Note that these commands will kill all
-dashd processes running on the system, so should not be used if any non-test
-dashd processes are being run.**
+axed processes running on the system, so should not be used if any non-test
+axed processes are being run.**
 
 ```bash
-killall dashd
+killall axed
 ```
 
 or
 
 ```bash
-pkill -9 dashd
+pkill -9 axed
 ```
 
 
@@ -103,7 +103,7 @@ functional test is run and is stored in test/cache. This speeds up
 test startup times since new blockchains don't need to be generated for
 each test. However, the cache may get into a bad state, in which case
 tests will fail. If this happens, remove the cache directory (and make
-sure dashd processes are stopped as above):
+sure axed processes are stopped as above):
 
 ```bash
 rm -rf cache
@@ -120,13 +120,13 @@ default:
 - when run directly, *all* logs are written to `test_framework.log` and INFO
   level and above are output to the console.
 - when run on Travis, no logs are output to the console. However, if a test
-  fails, the `test_framework.log` and dashd `debug.log`s will all be dumped
+  fails, the `test_framework.log` and axed `debug.log`s will all be dumped
   to the console to help troubleshooting.
 
 To change the level of logs output to the console, use the `-l` command line
 argument.
 
-`test_framework.log` and dashd `debug.log`s can be combined into a single
+`test_framework.log` and axed `debug.log`s can be combined into a single
 aggregate log by running the `combine_logs.py` script. The output can be plain
 text, colorized text or html. For example:
 
@@ -153,7 +153,7 @@ import pdb; pdb.set_trace()
 ```
 
 anywhere in the test. You will then be able to inspect variables, as well as
-call methods that interact with the dashd nodes-under-test.
+call methods that interact with the axed nodes-under-test.
 
 ### Util tests
 
