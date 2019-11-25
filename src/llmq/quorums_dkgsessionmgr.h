@@ -74,6 +74,6 @@ private:
 
 extern CDKGSessionManager* quorumDKGSessionManager;
 
-}
+} // namespace llmq
 
 #endif //AXE_QUORUMS_DKGSESSIONMGR_H

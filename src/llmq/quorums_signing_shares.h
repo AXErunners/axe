@@ -424,6 +424,6 @@ private:
 
 extern CSigSharesManager* quorumSigSharesManager;
 
-}
+} // namespace llmq
 
 #endif //AXE_QUORUMS_SIGNING_SHARES_H

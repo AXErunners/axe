@@ -92,6 +92,8 @@
 #include <openssl/rand.h>
 #include <openssl/conf.h>
 
+// Application startup time (used for uptime calculation)
+const int64_t nStartupTime = GetTime();
 
 //Axe only features
 bool fMasternodeMode = false;
@@ -514,7 +516,9 @@ void ArgsManager::ParseParameters(int argc, const char* const argv[])
 std::vector<std::string> ArgsManager::GetArgs(const std::string& strArg)
 {
     LOCK(cs_args);
-    return mapMultiArgs.at(strArg);
+    if (IsArgSet(strArg))
+        return mapMultiArgs.at(strArg);
+    return {};
 }
 
 bool ArgsManager::IsArgSet(const std::string& strArg)
@@ -1097,4 +1101,11 @@ std::string SafeIntVersionToString(uint32_t nVersion)
     {
         return "invalid_version";
     }
+}
+
+
+// Obtain the application startup time (used for uptime calculation)
+int64_t GetStartupTime()
+{
+    return nStartupTime;
 }

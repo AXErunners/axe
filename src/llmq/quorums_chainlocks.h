@@ -118,6 +118,6 @@ private:
 extern CChainLocksHandler* chainLocksHandler;
 
 
-}
+} // namespace llmq
 
 #endif //AXE_QUORUMS_CHAINLOCKS_H

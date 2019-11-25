@@ -106,6 +106,6 @@ public:
 
 extern CDKGDebugManager* quorumDKGDebugManager;
 
-}
+} // namespace llmq
 
 #endif //AXE_QUORUMS_DEBUG_H
