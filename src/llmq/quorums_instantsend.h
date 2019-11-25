@@ -172,6 +172,6 @@ extern CInstantSendManager* quorumInstantSendManager;
 
 bool IsInstantSendEnabled();
 
-}
+} // namespace llmq
 
 #endif//AXE_QUORUMS_INSTANTSEND_H
