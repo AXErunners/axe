@@ -369,6 +369,8 @@ crypto_libaxe_crypto_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS) $(PIC_FLAGS)
 crypto_libaxe_crypto_a_SOURCES = \
   crypto/aes.cpp \
   crypto/aes.h \
+  crypto/chacha_poly_aead.h \
+  crypto/chacha_poly_aead.cpp \
   crypto/chacha20.h \
   crypto/chacha20.cpp \
   crypto/common.h \
@@ -376,6 +378,8 @@ crypto_libaxe_crypto_a_SOURCES = \
   crypto/hmac_sha256.h \
   crypto/hmac_sha512.cpp \
   crypto/hmac_sha512.h \
+  crypto/poly1305.h \
+  crypto/poly1305.cpp \
   crypto/ripemd160.cpp \
   crypto/aes_helper.c \
   crypto/ripemd160.h \
@@ -592,7 +596,7 @@ axe_tx_LDADD += $(BACKTRACE_LIB) $(BOOST_LIBS) $(CRYPTO_LIBS) $(BLS_LIBS)
 # axeconsensus library #
 if BUILD_BITCOIN_LIBS
 include_HEADERS = script/axeconsensus.h
-libaxeconsensus_la_SOURCES = $(crypto_libaxe_crypto_a_SOURCES) $(libaxe_consensus_a_SOURCES)
+libaxeconsensus_la_SOURCES = support/cleanse.cpp $(crypto_libaxe_crypto_a_SOURCES) $(libaxe_consensus_a_SOURCES)
 
 if GLIBC_BACK_COMPAT
   libaxeconsensus_la_SOURCES += compat/glibc_compat.cpp
