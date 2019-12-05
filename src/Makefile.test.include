@@ -5,6 +5,7 @@
 
 TESTS += test/test_axe
 bin_PROGRAMS += test/test_axe
+noinst_PROGRAMS += test/test_axe_fuzzy
 TEST_SRCDIR = test
 TEST_BINARY=test/test_axe$(EXEEXT)
 
@@ -24,6 +25,7 @@ RAW_TEST_FILES =
 
 GENERATED_TEST_FILES = $(JSON_TEST_FILES:.json=.json.h) $(RAW_TEST_FILES:.raw=.raw.h)
 
+# test_axe binary #
 BITCOIN_TESTS =\
   test/arith_uint256_tests.cpp \
   test/scriptnum10.h \
@@ -120,6 +122,25 @@ test_test_axe_LDFLAGS = $(LDFLAGS_WRAP_EXCEPTIONS) $(RELDFLAGS) $(AM_LDFLAGS) $(
 if ENABLE_ZMQ
 test_test_axe_LDADD += $(ZMQ_LIBS)
 endif
+#
+
+# test_axe_fuzzy binary #
+test_test_axe_fuzzy_SOURCES = test/test_axe_fuzzy.cpp
+test_test_axe_fuzzy_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES)
+test_test_axe_fuzzy_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+test_test_axe_fuzzy_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+
+test_test_axe_fuzzy_LDADD = \
+  $(LIBUNIVALUE) \
+  $(LIBBITCOIN_SERVER) \
+  $(LIBBITCOIN_COMMON) \
+  $(LIBBITCOIN_UTIL) \
+  $(LIBBITCOIN_CONSENSUS) \
+  $(LIBBITCOIN_CRYPTO) \
+  $(LIBSECP256K1)
+
+test_test_axe_fuzzy_LDADD += $(BOOST_LIBS) $(CRYPTO_LIBS) $(BACKTRACE_LIB)
+#
 
 nodist_test_test_axe_SOURCES = $(GENERATED_TEST_FILES)
 
