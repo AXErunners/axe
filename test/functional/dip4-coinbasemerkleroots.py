@@ -38,7 +38,7 @@ class TestNode(NodeConnCB):
 
 class LLMQCoinbaseCommitmentsTest(AxeTestFramework):
     def set_test_params(self):
-        self.set_axe_test_params(6, 5, [], fast_dip3_enforcement=True)
+        self.set_axe_test_params(6, 5, fast_dip3_enforcement=True)
 
     def run_test(self):
         self.test_node = TestNode()
