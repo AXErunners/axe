@@ -12,7 +12,7 @@
 #include "rpc/server.h"
 #include "rpcconsole.h"
 #include "test/testutil.h"
-#include "test/test_dash.h"
+#include "test/test_axe.h"
 #include "univalue.h"
 #include "util.h"
 
