@@ -16,18 +16,20 @@
 
 CAmount GetDustThreshold(const CTxOut& txout, const CFeeRate& dustRelayFeeIn)
 {
-    // "Dust" is defined in terms of CTransaction::minRelayTxFee, which has units haks-per-kilobyte.
-    // If you'd pay more than 1/3 in fees to spend something, then we consider it dust.
-    // A typical spendable txout is 34 bytes big, and will need a CTxIn of at least 148 bytes to spend
-    // i.e. total is 148 + 34 = 182 bytes. Default -minrelaytxfee is 1000 haks per kB
-    // and that means that fee per spendable txout is 182 * 1000 / 1000 = 182 haks.
-    // So dust is a spendable txout less than 546 * minRelayTxFee / 1000 (in haks)
-    // i.e. 182 * 3 = 546 haks with default -minrelaytxfee = minRelayTxFee = 1000 haks per kB.
+    // "Dust" is defined in terms of dustRelayFee,
+    // which has units haks-per-kilobyte.
+    // If you'd pay more in fees than the value of the output
+    // to spend something, then we consider it dust.
+    // A typical spendable txout is 34 bytes big, and will
+    // need a CTxIn of at least 148 bytes to spend:
+    // so dust is a spendable txout less than
+    // 182*dustRelayFee/1000 (in haks).
+    // 546 haks at the default rate of 3000 hak/kB.
     if (txout.scriptPubKey.IsUnspendable())
         return 0;
 
     size_t nSize = GetSerializeSize(txout, SER_DISK, 0)+148u;
-    return 3 * dustRelayFeeIn.GetFee(nSize);
+    return dustRelayFeeIn.GetFee(nSize);
 }
 
 bool IsDust(const CTxOut& txout, const CFeeRate& dustRelayFeeIn)
@@ -38,7 +40,7 @@ bool IsDust(const CTxOut& txout, const CFeeRate& dustRelayFeeIn)
     /**
      * Check transaction inputs to mitigate two
      * potential denial-of-service attacks:
-     * 
+     *
      * 1. scriptSigs with extra data stuffed into them,
      *    not consumed by scriptPubKey (or P2SH script)
      * 2. P2SH scripts with a crazy number of expensive
