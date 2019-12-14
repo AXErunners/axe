@@ -14,7 +14,7 @@ InstantSendTest -- test InstantSend functionality (prevent doublespend for uncon
 
 class InstantSendTest(AxeTestFramework):
     def set_test_params(self):
-        self.set_dash_test_params(9, 5, [], fast_dip3_enforcement=True)
+        self.set_axe_test_params(9, 5, [], fast_dip3_enforcement=True)
         # set sender,  receiver,  isolated nodes
         self.isolated_idx = 1
         self.receiver_idx = 2

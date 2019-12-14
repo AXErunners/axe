@@ -246,7 +246,7 @@ class BitcoinTestFramework(object):
             self.nodes.append(TestNode(old_num_nodes + i, self.options.tmpdir, extra_args[i], rpchost, timewait=timewait, binary=binary[i], stderr=stderr, mocktime=self.mocktime, coverage_dir=self.options.coveragedir))
 
     def start_node(self, i, extra_args=None, stderr=None):
-        """Start a dashd"""
+        """Start a axed"""
 
         node = self.nodes[i]
 
@@ -480,7 +480,7 @@ class MasternodeInfo:
 
 
 class AxeTestFramework(BitcoinTestFramework):
-    def set_dash_test_params(self, num_nodes, masterodes_count, extra_args, fast_dip3_enforcement=False):
+    def set_axe_test_params(self, num_nodes, masterodes_count, extra_args, fast_dip3_enforcement=False):
         self.mn_count = masterodes_count
         self.num_nodes = num_nodes
         self.mninfo = []

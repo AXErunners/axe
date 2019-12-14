@@ -15,7 +15,7 @@ Simulate and check DKG errors
 
 class LLMQDKGErrors(AxeTestFramework):
     def set_test_params(self):
-        self.set_dash_test_params(6, 5, [], fast_dip3_enforcement=True)
+        self.set_axe_test_params(6, 5, [], fast_dip3_enforcement=True)
 
     def run_test(self):
 
