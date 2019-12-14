@@ -78,6 +78,7 @@ BITCOIN_TESTS =\
   test/script_P2PK_tests.cpp \
   test/script_P2PKH_tests.cpp \
   test/script_tests.cpp \
+  test/script_standard_tests.cpp \
   test/scriptnum_tests.cpp \
   test/serialize_tests.cpp \
   test/sigopcount_tests.cpp \
@@ -87,8 +88,6 @@ BITCOIN_TESTS =\
   test/test_axe.cpp \
   test/test_axe.h \
   test/test_axe_main.cpp \
-  test/testutil.cpp \
-  test/testutil.h \
   test/timedata_tests.cpp \
   test/torcontrol_tests.cpp \
   test/transaction_tests.cpp \
@@ -160,7 +159,7 @@ axe_test_clean : FORCE
 
 #check-local:
 #	@echo "Running test/util/bitcoin-util-test.py..."
-#	$(top_builddir)/test/util/bitcoin-util-test.py
+#	$(PYTHON) $(top_builddir)/test/util/bitcoin-util-test.py
 #	$(AM_V_at)$(MAKE) $(AM_MAKEFLAGS) -C secp256k1 check
 #if EMBEDDED_UNIVALUE
 #	$(AM_V_at)$(MAKE) $(AM_MAKEFLAGS) -C univalue check
