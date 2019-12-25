@@ -67,7 +67,6 @@ BASE_SCRIPTS= [
     'wallet-accounts.py',
     'wallet-dump.py',
     'listtransactions.py',
-    #'multikeysporks.py',
     'llmq-signing.py', # NOTE: needs axe_hash to pass
     'llmq-chainlocks.py', # NOTE: needs axe_hash to pass
     'llmq-simplepose.py', # NOTE: needs axe_hash to pass
@@ -127,7 +126,6 @@ BASE_SCRIPTS= [
     'listsinceblock.py',
     'p2p-leaktests.py',
     'p2p-compactblocks.py',
-    #'sporks.py',
     'rpc_getblockstats.py',
     'p2p-fingerprint.py',
     'wallet-encryption.py',
