@@ -91,7 +91,7 @@ public:
         vOutpoints.assign(setSelected.begin(), setSelected.end());
     }
 
-    // Dash-specific helpers
+    // Axe-specific helpers
 
     void UsePrivateSend(bool fUsePrivateSend)
     {
