@@ -804,7 +804,7 @@ min-height:30px;
 
 QWidget .QFrame#frame .QLabel#label_5 { /* Wallet Label */
 min-width:180px;
-color:#008de4;
+color:#f8f6f6;
 margin-top:0;
 margin-right:5px;
 padding-right:5px;
@@ -936,7 +936,7 @@ min-width: 421px;
 QWidget .QFrame#framePrivateSend .QLabel#labelPrivateSendHeader { /* PrivateSend Header */
 qproperty-alignment: 'AlignVCenter | AlignLeft';
 min-width:180px;
-color:#008de4;
+color:#f8f6f6;
 margin-top:0;
 margin-right:5px;
 padding-right:5px;
