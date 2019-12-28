@@ -25,7 +25,7 @@ background-color:#fff;
 
 QMenuBar::item:selected {
 background-color: #ffffff;
-color: #ff2424;
+color: #E52020;
 }
 
 QMenu {
@@ -38,18 +38,18 @@ color:#333;
 
 QMenu::item:selected {
 background-color: #ffffff;
-color: #ff2424;
+color: #E52020;
 }
 
 QToolBar {
-background-color:#ff2424;
+background-color:#E52020;
 border:0;
 padding:0;
 margin:0;
 }
 
 QToolBar > QToolButton {
-background-color:#ff2424;
+background-color:#E52020;
 border:0;
 font-size: 14px;
 min-width: 70px;
@@ -110,7 +110,7 @@ background-color:#f2f2f2;
 /*******************************************************/
 
 QPushButton { /* Global Button Style */
-background-color: #ff2424;
+background-color: #E52020;
 border:0;
 border-radius:8px;
 color:#ffffff;
@@ -285,7 +285,7 @@ background-color:transparent;
 
 QHeaderView::section { /* Table Header Sections */
 qproperty-alignment:center;
-background-color: #ff2424;
+background-color: #E52020;
 color:#fff;
 min-height:25px;
 font-weight:bold;
@@ -804,7 +804,7 @@ min-height:30px;
 
 QWidget .QFrame#frame .QLabel#label_5 { /* Wallet Label */
 min-width:180px;
-color:#ff2424;
+color:#E52020;
 margin-top:0;
 margin-right:5px;
 padding-right:5px;
@@ -843,7 +843,7 @@ min-height:35px;
 
 QWidget .QFrame#frame .QLabel#labelBalance { /* Available Balance */
 qproperty-alignment: 'AlignVCenter | AlignLeft';
-color:#1c75bc;
+color:#000000;
 font-size:16px;
 font-weight: bold;
 margin-left:0px;
@@ -936,7 +936,7 @@ min-width: 421px;
 QWidget .QFrame#framePrivateSend .QLabel#labelPrivateSendHeader { /* PrivateSend Header */
 qproperty-alignment: 'AlignVCenter | AlignLeft';
 min-width:180px;
-color:#ff2424;
+color:#E52020;
 margin-top:0;
 margin-right:5px;
 padding-right:5px;
@@ -992,7 +992,7 @@ color:#818181;
 }
 
 QWidget .QFrame#framePrivateSend #privateSendFormLayoutWidget .QProgressBar#privateSendProgress::chunk {
-background-color: #ff2424;
+background-color: #E52020;
 width:1px;
 }
 
@@ -1081,7 +1081,7 @@ margin-top:0;
 
 QWidget .QFrame#frame_2 .QLabel#label_4 { /* Recent Transactions Label */
 min-width:180px;
-color: #ff2424;
+color: #E52020;
 margin-left:67px;
 margin-top:0;
 margin-right:5px;
