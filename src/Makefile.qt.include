@@ -21,6 +21,7 @@ QT_TS = \
   qt/locale/axe_nl.ts \
   qt/locale/axe_pl.ts \
   qt/locale/axe_pt.ts \
+  qt/locale/axe_ro.ts \
   qt/locale/axe_ru.ts \
   qt/locale/axe_sk.ts \
   qt/locale/axe_sv.ts \
