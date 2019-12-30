@@ -7,7 +7,7 @@
 What is Axe?
 -------------
 
-Axe is an experimental digital currency that enables anonymous, instant
+Axe is an experimental digital currency that enables instant, private
 payments to anyone, anywhere in the world. Axe uses peer-to-peer technology
 to operate with no central authority: managing transactions and issuing money
 are carried out collectively by the network. Axe Core is the name of the open
