@@ -1,5 +1,5 @@
 ---
-name: "axe-win-1.4"
+name: "axe-win-1.5"
 enable_cache: true
 suites:
 - "bionic"
