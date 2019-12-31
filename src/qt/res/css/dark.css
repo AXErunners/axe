@@ -26,7 +26,7 @@ background-color: #333;
 
 QMenuBar::item:selected {
 background-color: #333;
-color: #1c75bc; /* aka Strong Blue */
+color: #E52020; /* aka Strong Blue */
 }
 
 QMenu {
@@ -43,14 +43,14 @@ color: #ddd;
 }
 
 QToolBar {
-background-color: #1c75bc;
+background-color: #E52020;
 border: 0;
 padding:0;
 margin:0;
 }
 
 QToolBar > QToolButton {
-background-color: #1c75bc;
+background-color: #E52020;
 border: 0;
 font-size: 14px;
 min-width: 70px;
@@ -92,7 +92,7 @@ background-color:transparent;
 }
 
 .QValidatedLineEdit, .QLineEdit { /* Text Entry Fields */
-border: 1px solid #1c75bc;
+border: 1px solid #E52020;
 font-size:11px;
 min-height:31px;
 outline:0;
@@ -126,7 +126,7 @@ selection-background-color: #999;
 /*******************************************************/
 
 QPushButton { /* Global Button Style */
-background-color: #1c75bc;
+background-color: #E52020;
 border: 0;
 border-radius:8px;
 color:#ffffff;
@@ -157,7 +157,7 @@ background-color: #666;
 }
 
 QComboBox { /* Dropdown Menus */
-border: 1px solid #1c75bc;
+border: 1px solid #E52020;
 padding: 0px 5px 0px 5px;
 background: #333;
 min-height:31px;
@@ -169,7 +169,7 @@ background: #3e3e3e;
 }
 
 QComboBox:editable {
-background: #1c75bc;
+background: #E52020;
 color:#616161;
 border:0px solid transparent;
 }
@@ -212,7 +212,7 @@ selection-color:transparent;
 }
 
 QAbstractSpinBox {
-border: 1px solid #1c75bc;
+border: 1px solid #E52020;
 padding: 0px 5px 0px 5px;
 background: #333;
 min-height:31px;
@@ -225,8 +225,8 @@ subcontrol-position: top right;
 width:21px;
 background: #333;
 border-left:0px;
-border-right: 1px solid #1c75bc;
-border-top: 1px solid #1c75bc;
+border-right: 1px solid #E52020;
+border-top: 1px solid #E52020;
 border-bottom:0px;
 padding-right:1px;
 padding-left:5px;
@@ -244,8 +244,8 @@ width:21px;
 background: #333;
 border-top:0px;
 border-left:0px;
-border-right: 1px solid #1c75bc;
-border-bottom: 1px solid #1c75bc;
+border-right: 1px solid #E52020;
+border-bottom: 1px solid #E52020;
 padding-right:1px;
 padding-left:5px;
 padding-bottom:2px;
@@ -304,7 +304,7 @@ background-color:transparent;
 
 QHeaderView::section { /* Table Header Sections */
 qproperty-alignment:center;
-background-color: #1c75bc;
+background-color: #E52020;
 color: #ccc;
 min-height:25px;
 font-weight:bold;
@@ -465,7 +465,7 @@ padding-right:10px;
 }
 
 QDialog#SignVerifyMessageDialog QPlainTextEdit { /* Message Signing Text */
-border: 1px solid #1c75bc;
+border: 1px solid #E52020;
 background-color: #444;
 color: #ccc;
 }
@@ -708,7 +708,7 @@ background-color:#ff0000;
 }
 
 QWidget#RPCConsole QWidget#tab_peers QLabel#peerHeading { /* Peers Info Header */
-color: #1c75bc;
+color: #E52020;
 }
 
 QWidget#RPCConsole QWidget#tab_peers QTableView { /* Peers Tables */
