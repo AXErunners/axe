@@ -771,7 +771,7 @@ min-height:30px;
 
 QWidget .QFrame#frame .QLabel#label_5 { /* Wallet Label */
 min-width:180px;
-color:#008de4;
+color:#E52020;
 margin-top:0;
 margin-right:5px;
 padding-right:5px;
@@ -811,7 +811,7 @@ min-height:35px;
 
 QWidget .QFrame#frame .QLabel#labelBalance { /* Available Balance */
 qproperty-alignment: 'AlignVCenter | AlignLeft';
-color: #008de4;
+color: #000000;
 font-size:16px;
 font-weight: bold;
 margin-left:0px;
@@ -904,7 +904,7 @@ min-width: 421px;
 QWidget .QFrame#framePrivateSend .QLabel#labelPrivateSendHeader { /* PrivateSend Header */
 qproperty-alignment: 'AlignVCenter | AlignLeft';
 min-width:180px;
-color:#008de4;
+color:#E52020;
 margin-top:0;
 margin-right:5px;
 padding-right:5px;
@@ -961,7 +961,7 @@ color: #aaa;
 }
 
 QWidget .QFrame#framePrivateSend #privateSendFormLayoutWidget .QProgressBar#privateSendProgress::chunk {
-background-color: #008de4;
+background-color: #E52020;
 width:1px;
 }
 
@@ -1050,7 +1050,7 @@ margin-top:0;
 
 QWidget .QFrame#frame_2 .QLabel#label_4 { /* Recent Transactions Label */
 min-width:180px;
-color: #008de4;
+color: #E52020;
 margin-left:67px;
 margin-top:0;
 margin-right:5px;
@@ -1575,7 +1575,7 @@ QLabel#transactionSumLabel { /* Example of setObjectName for widgets without nam
 color: #ccc;
 font-weight:bold;
 }
- 
+
 QLabel#transactionSum { /* Example of setObjectName for widgets without name */
 color: #ccc;
 }
