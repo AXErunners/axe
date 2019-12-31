@@ -140,7 +140,7 @@ padding-bottom:5px;
 }
 
 QPushButton:hover {
-background-color: #005c96; /* aka Dark Blue */
+background-color: #262626; /* aka Dark Blue */
 }
 
 QPushButton:focus {
@@ -811,7 +811,7 @@ min-height:35px;
 
 QWidget .QFrame#frame .QLabel#labelBalance { /* Available Balance */
 qproperty-alignment: 'AlignVCenter | AlignLeft';
-color: #000000;
+color: #cccccc;
 font-size:16px;
 font-weight: bold;
 margin-left:0px;
