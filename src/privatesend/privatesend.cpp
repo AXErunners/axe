@@ -317,6 +317,8 @@ bool CPrivateSendBaseSession::IsValidInOuts(const std::vector<CTxIn>& vin, const
         nMessageIDRet = ERR_FEES;
         return false;
     }
+
+    return true;
 }
 
 // Definitions for static data members
