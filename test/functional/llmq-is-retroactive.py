@@ -4,7 +4,7 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 from test_framework.mininode import *
-from test_framework.test_framework import DashTestFramework
+from test_framework.test_framework import AxeTestFramework
 from test_framework.util import sync_blocks, set_node_times, \
     isolate_node, reconnect_isolated_node
 
@@ -18,10 +18,10 @@ Mempool inconsistencies are simulated via disconnecting/reconnecting node 3
 and by having a higher relay fee on nodes 4 and 5.
 '''
 
-class LLMQ_IS_RetroactiveSigning(DashTestFramework):
+class LLMQ_IS_RetroactiveSigning(AxeTestFramework):
     def set_test_params(self):
         # -whitelist is needed to avoid the trickling logic on node0
-        self.set_dash_test_params(6, 5, [["-whitelist=127.0.0.1"], [], [], [], ["-minrelaytxfee=0.001"], ["-minrelaytxfee=0.001"]], fast_dip3_enforcement=True)
+        self.set_axe_test_params(6, 5, [["-whitelist=127.0.0.1"], [], [], [], ["-minrelaytxfee=0.001"], ["-minrelaytxfee=0.001"]], fast_dip3_enforcement=True)
 
     def run_test(self):
         while self.nodes[0].getblockchaininfo()["bip9_softforks"]["dip0008"]["status"] != "active":
