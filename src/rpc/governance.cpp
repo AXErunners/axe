@@ -1098,7 +1098,7 @@ static const CRPCCommand commands[] =
     { "axe",               "getgovernanceinfo",      &getgovernanceinfo,      {} },
     { "axe",               "getsuperblockbudget",    &getsuperblockbudget,    {"index"} },
     { "axe",               "gobject",                &gobject,                {} },
-    { "axe",               "voteraw",                &voteraw,                {} },
+    { "axe",               "voteraw",                &voteraw,                {"tx_hash","tx_index","gov_hash","signal","outcome","time","sig"} },
 
 };
 

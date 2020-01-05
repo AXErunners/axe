@@ -1307,7 +1307,7 @@ static const CRPCCommand commands[] =
 
     /* Axe features */
     { "axe",               "mnsync",                 &mnsync,                 {} },
-    { "axe",               "spork",                  &spork,                  {"value"} },
+    { "axe",               "spork",                  &spork,                  {"arg0","value"} },
 
     /* Not shown in help */
     { "hidden",             "setmocktime",            &setmocktime,            {"timestamp"}},
