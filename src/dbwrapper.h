@@ -415,7 +415,7 @@ private:
     bool curIsParent{false};
 
 public:
-    CDBTransactionIterator(CDBTransaction& _transaction) :
+    explicit CDBTransactionIterator(CDBTransaction& _transaction) :
             transaction(_transaction),
             parentKey(SER_DISK, CLIENT_VERSION)
     {
