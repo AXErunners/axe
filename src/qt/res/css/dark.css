@@ -733,16 +733,16 @@ border: 1px solid #333;
 color: #ccc;
 }
 
-/* About Dash Dialog */
+/* About Axe Dialog */
 QDialog#AboutDialog {
 background-color: #555;
 }
 
-QDialog#AboutDialog QLabel#label, QDialog#AboutDialog QLabel#copyrightLabel, QDialog#AboutDialog QLabel#label_2 { /* About Dash Contents */
+QDialog#AboutDialog QLabel#label, QDialog#AboutDialog QLabel#copyrightLabel, QDialog#AboutDialog QLabel#label_2 { /* About Axe Contents */
 margin-left:10px;
 }
 
-QDialog#AboutDialog QLabel#label_2 { /* Margin for About Dash text */
+QDialog#AboutDialog QLabel#label_2 { /* Margin for About Axe text */
 margin-right:10px;
 }
 
