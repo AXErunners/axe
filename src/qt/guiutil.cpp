@@ -922,25 +922,34 @@ void migrateQtSettings()
 // Open CSS when configured
 QString loadStyleSheet()
 {
-    QString styleSheet;
     QSettings settings;
-    QString cssName;
+    bool fValidTheme{false};
+
     QString theme = settings.value("theme", "").toString();
 
-    if(!theme.isEmpty()){
-        cssName = QString(":/css/") + theme;
-    }
-    else {
-        cssName = QString(":/css/light");
-        settings.setValue("theme", "light");
+    if (!theme.isEmpty()) {
+        // Make sure settings are pointing to an existent theme
+        QDir themes(":themes");
+        for (const QString &entry : themes.entryList()) {
+            if (entry == theme) {
+                fValidTheme = true;
+                break;
+            }
+        }
     }
 
-    QFile qFile(cssName);
+    // Set "Light" theme by default if settings are missing or incorrect
+    if(!fValidTheme) {
+        theme = "Light";
+        settings.setValue("theme", theme);
+    }
+
+    QFile qFile(":themes/" + theme);
     if (qFile.open(QFile::ReadOnly)) {
-        styleSheet = QLatin1String(qFile.readAll());
+        return QLatin1String(qFile.readAll());
     }
 
-    return styleSheet;
+    return QString();
 }
 
 void setClipboard(const QString& str)
