@@ -36,5 +36,6 @@ static const int MAX_URI_LENGTH = 255;
 #define QAPP_APP_NAME_DEFAULT "Axe-Qt"
 #define QAPP_APP_NAME_TESTNET "Axe-Qt-testnet"
 #define QAPP_APP_NAME_DEVNET "Axe-Qt-%s"
+#define QAPP_APP_NAME_REGTEST "Axe-Qt-regtest"
 
 #endif // BITCOIN_QT_GUICONSTANTS_H
