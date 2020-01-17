@@ -16,7 +16,6 @@
         <file alias="ro">locale/axe_ro.qm</file>
         <file alias="ru">locale/axe_ru.qm</file>
         <file alias="sk">locale/axe_sk.qm</file>
-        <file alias="sv">locale/axe_sv.qm</file>
         <file alias="th">locale/axe_th.qm</file>
         <file alias="tr">locale/axe_tr.qm</file>
         <file alias="vi">locale/axe_vi.qm</file>
