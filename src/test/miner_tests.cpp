@@ -42,36 +42,36 @@ struct {
     unsigned char extranonce;
     unsigned int nonce;
 } blockinfo[] = {
-    {0, 0x0017f257}, {0, 0x000d4581}, {0, 0x0048042c}, {0, 0x0025bff0},
-    {0, 0x2002d3f8}, {0, 0x6001161f}, {0, 0xe000c5e5}, {0, 0x2000cce2},
-    {0, 0x40004753}, {0, 0x80025297}, {0, 0x600009de}, {0, 0x6005780c},
-    {0, 0x40025ae9}, {0, 0xc000341c}, {0, 0xc0053062}, {0, 0x40002f90},
-    {0, 0xc00047ae}, {0, 0xa0015716}, {0, 0x2000d499}, {0, 0x80009b45},
-    {0, 0xc000a7c9}, {0, 0x8001f8ba}, {0, 0xc000d147}, {0, 0x60018ac3},
-    {0, 0xc000a9ac}, {0, 0xa003f6e6}, {0, 0x2007436e}, {0, 0xc0013f28},
-    {0, 0x00010892}, {0, 0xa0000027}, {0, 0x40008de9}, {0, 0x400019f3},
-    {0, 0x00025b86}, {0, 0x80002799}, {0, 0xc001eb0e}, {0, 0xe003e950},
-    {0, 0xe001ff87}, {0, 0x000158b0}, {0, 0x600189da}, {0, 0x0000028c},
-    {0, 0x600014ca}, {0, 0x60000e4d}, {0, 0xc0000820}, {0, 0xa005184e},
-    {0, 0x40012b22}, {0, 0xe0028f6b}, {0, 0xe0027bce}, {0, 0xa0007b51},
-    {0, 0x8002496d}, {0, 0xc001f211}, {0, 0x00032bf0}, {0, 0x4002d767},
-    {0, 0x6008410a}, {0, 0x800361c3}, {0, 0xe000f80d}, {0, 0xe009ac97},
-    {0, 0x80002103}, {0, 0x6001fab4}, {0, 0x4002843b}, {0, 0x6002b67c},
-    {0, 0xa000faf3}, {0, 0x6000949e}, {0, 0x80000f1f}, {0, 0x6000c946},
-    {0, 0xe00314b3}, {0, 0x20012bbf}, {0, 0x00009c7e}, {0, 0x2003e63a},
-    {0, 0x20025157}, {0, 0x80041ff5}, {0, 0x60012a6c}, {0, 0x4000119b},
-    {0, 0xc000a454}, {0, 0x20042c4b}, {0, 0x0003003c}, {0, 0x000558b2},
-    {0, 0x2000198c}, {0, 0x200b0b3e}, {0, 0x4001c1e4}, {0, 0x80000034},
-    {0, 0xe00039d1}, {0, 0xc001ded3}, {0, 0x80006740}, {0, 0xc0014546},
-    {0, 0x00036a1a}, {0, 0xa001ae9c}, {0, 0x6000a148}, {0, 0xe001fd73},
-    {0, 0xa001cebb}, {0, 0xa000d4b8}, {0, 0xe00154b3}, {0, 0x40004bec},
-    {0, 0xc003f230}, {0, 0xe0069a26}, {0, 0xa00072b4}, {0, 0xc002e1b2},
-    {0, 0x20009a02}, {0, 0xc0004a10}, {0, 0xe0045a11}, {0, 0x60034d09},
-    {0, 0x000073ff}, {0, 0x00003f1c}, {0, 0x4002c4fd}, {0, 0x2000bb60},
-    {0, 0x4000b6b6}, {0, 0x6000ea25}, {0, 0x400989d9}, {0, 0xc000877f},
-    {0, 0x6000d17c}, {0, 0xc0009228}, {0, 0x4002827f}, {0, 0x80056a85},
-    {0, 0x40045af7}, {0, 0x6000df7a}, {0, 0xe00131a1}, {0, 0x40021386},
-    {0, 0xa00891b5}, {0, 0x60007854}, {0, 0x60021730}
+    {0, 0x0007a8bc}, {0, 0x0003171d}, {0, 0x0025ca45}, {0, 0x000040ff},
+    {0, 0x0000020b}, {0, 0x0004690f}, {0, 0x000e4dff}, {0, 0x003a5f42},
+    {0, 0x0007007c}, {0, 0x00075b52}, {0, 0x0009d0d9}, {0, 0x00202593},
+    {0, 0x0012b806}, {0, 0x000449db}, {0, 0x002ad837}, {0, 0x000049c7},
+    {0, 0x002198d6}, {0, 0x00085e06}, {0, 0x000fbbeb}, {0, 0x000abf32},
+    {0, 0x00486f19}, {0, 0x00035ca7}, {0, 0x000a6c9c}, {0, 0x000800b3},
+    {0, 0x00145e3b}, {0, 0x00018322}, {0, 0x000dee76}, {0, 0x0014d1b1},
+    {0, 0x00220501}, {0, 0x0002bd0f}, {0, 0x002e2ef0}, {0, 0x00270ddf},
+    {0, 0x00034e79}, {0, 0x0042f9f3}, {0, 0x0007a42b}, {0, 0x0009df0a},
+    {0, 0x002aba18}, {0, 0x00347072}, {0, 0x00157a46}, {0, 0x000f005a},
+    {0, 0x0011751e}, {0, 0x0009a576}, {0, 0x0010c9ec}, {0, 0x00008696},
+    {0, 0x000bd239}, {0, 0x001be69e}, {0, 0x0000918d}, {0, 0x0003d6ca},
+    {0, 0x00110a6f}, {0, 0x0001bc0f}, {0, 0x000136fd}, {0, 0x000cd039},
+    {0, 0x00023d17}, {0, 0x003a32cb}, {0, 0x00000dce}, {0, 0x0005803a},
+    {0, 0x001a5273}, {0, 0x00027558}, {0, 0x000f7686}, {0, 0x0011b530},
+    {0, 0x0005e347}, {0, 0x0001a16e}, {0, 0x0003997b}, {0, 0x001fa919},
+    {0, 0x000202fd}, {0, 0x000663e4}, {0, 0x002fc6e3}, {0, 0x0000c9fc},
+    {0, 0x00075ae3}, {0, 0x0006fdbd}, {0, 0x0008b85b}, {0, 0x0001dcb6},
+    {0, 0x00014b1c}, {0, 0x000b6404}, {0, 0x0005c5e9}, {0, 0x000a00d0},
+    {0, 0x0036bf64}, {0, 0x0009bd65}, {0, 0x00036aea}, {0, 0x00002e84},
+    {0, 0x0006b01e}, {0, 0x001150e9}, {0, 0x00061a0d}, {0, 0x0006b519},
+    {0, 0x000044b0}, {0, 0x000dd26e}, {0, 0x000829e7}, {0, 0x000a1165},
+    {0, 0x001707d3}, {0, 0x000b33ea}, {0, 0x00054e13}, {0, 0x000505c3},
+    {0, 0x001dafa2}, {0, 0x0023ba1e}, {0, 0x0056c30a}, {0, 0x001e8e67},
+    {0, 0x00088d19}, {0, 0x0013fc75}, {0, 0x000688ca}, {0, 0x00155a2b},
+    {0, 0x0001d010}, {0, 0x0017f64d}, {0, 0x0004a509}, {0, 0x001de2fc},
+    {0, 0x000cff99}, {0, 0x0009e34a}, {0, 0x000316f3}, {0, 0x000085c1},
+    {0, 0x000ee43b}, {0, 0x00039c32}, {0, 0x00033d01}, {0, 0x00180496},
+    {0, 0x00230d5c}, {0, 0x0000ffb5}, {0, 0x00028cc7}, {0, 0x002a28d0},
+    {0, 0x0000b535}, {0, 0x0008bd95}, {0, 0x000021c2}
 };
 
 CBlockIndex CreateBlockIndex(int nHeight)
@@ -225,7 +225,7 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
         CBlock *pblock = &pemptyblocktemplate->block; // pointer for convenience
         {
             LOCK(cs_main);
-            pblock->nVersion = 2;
+            pblock->nVersion = 4;
             pblock->nTime = chainActive.Tip()->GetMedianTimePast()+1;
             CMutableTransaction txCoinbase(*pblock->vtx[0]);
             txCoinbase.nVersion = 1;
@@ -268,7 +268,7 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
     const CAmount HIGHFEE = COIN;
     const CAmount HIGHERFEE = 4*COIN;
 
-    // block sigops > limit: 1000 CHECKMULTISIG + 1
+    // block sigops > limit: 2000 CHECKMULTISIG + 1
     tx.vin.resize(1);
     // NOTE: OP_NOP is used to force 20 SigOps for the CHECKMULTISIG
     tx.vin[0].scriptSig = CScript() << OP_0 << OP_0 << OP_0 << OP_NOP << OP_CHECKMULTISIG << OP_1;
@@ -276,7 +276,7 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
     tx.vin[0].prevout.n = 0;
     tx.vout.resize(1);
     tx.vout[0].nValue = BLOCKSUBSIDY;
-    for (unsigned int i = 0; i < 1001; ++i)
+    for (unsigned int i = 0; i < 2001; ++i)
     {
         tx.vout[0].nValue -= LOWFEE;
         hash = tx.GetHash();
@@ -290,7 +290,7 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
 
     tx.vin[0].prevout.hash = txFirst[0]->GetHash();
     tx.vout[0].nValue = BLOCKSUBSIDY;
-    for (unsigned int i = 0; i < 1001; ++i)
+    for (unsigned int i = 0; i < 2001; ++i)
     {
         tx.vout[0].nValue -= LOWFEE;
         hash = tx.GetHash();
