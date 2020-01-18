@@ -2,7 +2,7 @@
 // It's very important to not execute any scripts outside of the builder container, as it's our protection against
 // external developers bringing in harmful code into Jenkins.
 // Jenkins will only run the build if this Jenkinsfile was not modified in an external pull request. Only branches
-// which are part of the AXE repo will allow modification to the Jenkinsfile.
+// which are part of the Axe repo will allow modification to the Jenkinsfile.
 
 def targets = [
   'win32',
