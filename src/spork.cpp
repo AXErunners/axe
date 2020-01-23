@@ -222,9 +222,9 @@ bool CSporkManager::UpdateSpork(SporkId nSporkID, int64_t nValue, CConnman& conn
 
 bool CSporkManager::IsSporkActive(SporkId nSporkID)
 {
-    if(nSporkID == SPORK_19_CHAINLOCKS_ENABLED && (Params().NetworkIDString() == CBaseChainParams::REGTEST || Params().NetworkIDString() == CBaseChainParams::DEVNET))
-        return false;
     int64_t nSporkValue = GetSporkValue(nSporkID);
+    if(nSporkID == SPORK_19_CHAINLOCKS_ENABLED && nSporkValue == 0 && (Params().NetworkIDString() == CBaseChainParams::REGTEST || Params().NetworkIDString() == CBaseChainParams::DEVNET))
+        return false;
     return nSporkValue < GetAdjustedTime();
 }
 
