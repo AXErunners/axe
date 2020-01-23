@@ -17,8 +17,8 @@
                 "reqSigs": 2,
                 "type": "multisig",
                 "addresses": [
-                    "PPPSB1WwJBX5996uvggSP7qbaqHTMvKjPP",
-                    "PP8597iKBDrxP4e3ynZHkBByn65GDgZysa",
+                    "PPPSB1WwJBX5996uvggSP7qbaqHTMvKjPP", 
+                    "PP8597iKBDrxP4e3ynZHkBByn65GDgZysa", 
                     "PBw5ju12eT3jGw8eL7vh9JhR4eagRCFwqz"
                 ]
             }
