@@ -163,13 +163,13 @@ axe_test_check: $(TEST_BINARY) FORCE
 axe_test_clean : FORCE
 	rm -f $(CLEAN_BITCOIN_TEST) $(test_test_axe_OBJECTS) $(TEST_BINARY)
 
-#check-local:
-#	@echo "Running test/util/bitcoin-util-test.py..."
-#	$(PYTHON) $(top_builddir)/test/util/bitcoin-util-test.py
-#	$(AM_V_at)$(MAKE) $(AM_MAKEFLAGS) -C secp256k1 check
-#if EMBEDDED_UNIVALUE
-#	$(AM_V_at)$(MAKE) $(AM_MAKEFLAGS) -C univalue check
-#endif
+check-local:
+	@echo "Running test/util/bitcoin-util-test.py..."
+	$(PYTHON) $(top_builddir)/test/util/bitcoin-util-test.py
+	$(AM_V_at)$(MAKE) $(AM_MAKEFLAGS) -C secp256k1 check
+if EMBEDDED_UNIVALUE
+	$(AM_V_at)$(MAKE) $(AM_MAKEFLAGS) -C univalue check
+endif
 
 test/data/%.json.h: test/data/%.json
 	@$(MKDIR_P) $(@D)
