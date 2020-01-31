@@ -24,7 +24,7 @@ std::vector<CSporkDef> sporkDefs = {
     MAKE_SPORK_DEF(SPORK_15_DETERMINISTIC_MNS_ENABLED,     0),             // ON
     MAKE_SPORK_DEF(SPORK_16_INSTANTSEND_AUTOLOCKS,         0),             // ON
     MAKE_SPORK_DEF(SPORK_17_QUORUM_DKG_ENABLED,            0),             // ON
-    MAKE_SPORK_DEF(SPORK_19_CHAINLOCKS_ENABLED,            4070908800ULL), // OFF
+    MAKE_SPORK_DEF(SPORK_19_CHAINLOCKS_ENABLED,            0),             // ON
     MAKE_SPORK_DEF(SPORK_20_INSTANTSEND_LLMQ_BASED,        0),             // ON
 };
 
@@ -234,6 +234,10 @@ int64_t CSporkManager::GetSporkValue(SporkId nSporkID)
     if (SporkValueIsActive(nSporkID, nSporkValue)) {
         return nSporkValue;
     }
+
+    // Return 4070908800ULL as a default value of SPORK_19 in REGTEST and DEVNET
+    if (nSporkID == SPORK_19_CHAINLOCKS_ENABLED && (Params().NetworkIDString() == CBaseChainParams::REGTEST || Params().NetworkIDString() == CBaseChainParams::DEVNET))
+        return 4070908800ULL;
 
     auto it = sporkDefsById.find(nSporkID);
     if (it != sporkDefsById.end()) {
