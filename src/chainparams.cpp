@@ -507,7 +507,6 @@ public:
 
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.emplace_back("seed1.0313370.xyz", true);
         vSeeds.emplace_back("seed2.0313370.xyz", true);
 
         // Testnet AXE addresses start with 'y'
