@@ -453,34 +453,34 @@ public:
 
         // Deployment of BIP68, BIP112, and BIP113.
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].bit = 0;
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1580489212; // Jan 31th, 2020
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1612082538; // Jan 31th, 2021
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1580489212; // Jan 31st, 2020
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1612082538; // Jan 31st, 2021
 
         // Deployment of DIP0001
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].bit = 1;
-        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nStartTime = 1580489212; // Jan 31th, 2020
-        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nTimeout = 1612082538; // Jan 31th, 2021
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nStartTime = 1580489212; // Jan 31st, 2020
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nTimeout = 1612082538; // Jan 31st, 2021
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nWindowSize = 100;
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nThreshold = 50; // 50% of 100
 
         // Deployment of BIP147
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].bit = 2;
-        consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nStartTime = 1580489212; // Jan 31th, 2020
-        consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nTimeout = 1612082538; // Jan 31th, 2021
+        consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nStartTime = 1580489212; // Jan 31st, 2020
+        consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nTimeout = 1612082538; // Jan 31st, 2021
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nWindowSize = 100;
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nThreshold = 50; // 50% of 100
 
         // Deployment of DIP0003
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0003].bit = 3;
-        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0003].nStartTime = 1580489212; // Jan 1th, 2020
-        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0003].nTimeout = 1612082538; // Jan 31th, 2021
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0003].nStartTime = 1580489212; // Jan 31st, 2020
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0003].nTimeout = 1612082538; // Jan 31sr, 2021
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0003].nWindowSize = 100;
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0003].nThreshold = 50; // 50% of 100
 
         // Deployment of DIP0008
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0008].bit = 4;
-        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0008].nStartTime = 1584088938; // Mar 13st, 2020
-        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0008].nTimeout = 1615624938; // Mar 13st, 2021
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0008].nStartTime = 1584088938; // Mar 13th, 2020
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0008].nTimeout = 1615624938; // Mar 13th, 2021
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0008].nWindowSize = 100;
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0008].nThreshold = 50; // 50% of 100
 
