@@ -437,7 +437,7 @@ public:
         consensus.DIP0001Height = 5500;
         consensus.DIP0003Height = 7000;
         consensus.DIP0003EnforcementHeight = 7300;
-        consensus.DIP0003EnforcementHash = uint256S("00000055ebc0e974ba3a3fb785c5ad4365a39637d4df168169ee80d313612f8f");
+        consensus.DIP0003EnforcementHash = uint256S("");
         consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); // ~uint256(0) >> 20
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Axe: 1 day
         consensus.nPowTargetSpacing = 2.5 * 60; // Axe: 2.5 minutes
@@ -453,34 +453,34 @@ public:
 
         // Deployment of BIP68, BIP112, and BIP113.
         consensus.vDeployments[Consensus::DEPLOYMENT_CSV].bit = 0;
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1506556800; // September 28th, 2017
-        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1538092800; // September 28th, 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nStartTime = 1580489212; // Jan 31st, 2020
+        consensus.vDeployments[Consensus::DEPLOYMENT_CSV].nTimeout = 1612082538; // Jan 31st, 2021
 
         // Deployment of DIP0001
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].bit = 1;
-        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nStartTime = 1505692800; // Sep 18th, 2017
-        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nTimeout = 1537228800; // Sep 18th, 2018
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nStartTime = 1580489212; // Jan 31st, 2020
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nTimeout = 1612082538; // Jan 31st, 2021
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nWindowSize = 100;
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0001].nThreshold = 50; // 50% of 100
 
         // Deployment of BIP147
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].bit = 2;
-        consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nStartTime = 1517792400; // Feb 5th, 2018
-        consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nTimeout = 1549328400; // Feb 5th, 2019
+        consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nStartTime = 1580489212; // Jan 31st, 2020
+        consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nTimeout = 1612082538; // Jan 31st, 2021
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nWindowSize = 100;
         consensus.vDeployments[Consensus::DEPLOYMENT_BIP147].nThreshold = 50; // 50% of 100
 
         // Deployment of DIP0003
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0003].bit = 3;
-        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0003].nStartTime = 1544655600; // Dec 13th, 2018
-        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0003].nTimeout = 1576191600; // Dec 13th, 2019
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0003].nStartTime = 1580489212; // Jan 31st, 2020
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0003].nTimeout = 1612082538; // Jan 31sr, 2021
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0003].nWindowSize = 100;
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0003].nThreshold = 50; // 50% of 100
 
         // Deployment of DIP0008
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0008].bit = 4;
-        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0008].nStartTime = 1553126400; // Mar 21st, 2019
-        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0008].nTimeout = 1584748800; // Mar 21st, 2020
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0008].nStartTime = 1584088938; // Mar 13th, 2020
+        consensus.vDeployments[Consensus::DEPLOYMENT_DIP0008].nTimeout = 1615624938; // Mar 13th, 2021
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0008].nWindowSize = 100;
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0008].nThreshold = 50; // 50% of 100
 
@@ -497,9 +497,9 @@ public:
         nDefaultPort = 19937;
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1518140232, 272457, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1580749200UL, 3866775508UL, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x00000381388b90aff350a4d5913d4a50fed79159a3a687470e01ca1527e87568"));
+        assert(consensus.hashGenesisBlock == uint256S("0x000005b709662e7bc5e89c71d3aba6c9d4623b4bbf44ac205caec55f4cefb483"));
         assert(genesis.hashMerkleRoot == uint256S("0x987a08c31d7f04f47f1aeccdffc73ca4336e32a6615f619b94cc7109e7c2a7ac"));
 
         vFixedSeeds.clear();
@@ -507,8 +507,10 @@ public:
 
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.emplace_back("seed1.0313370.xyz", true);
         vSeeds.emplace_back("seed2.0313370.xyz", true);
+        vSeeds.emplace_back("104.238.131.87", true);
+        vSeeds.emplace_back("207.148.15.191", true);
+        vSeeds.emplace_back("45.77.1.27", true);
 
         // Testnet AXE addresses start with 'y'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,140);
@@ -548,15 +550,12 @@ public:
 
         checkpointData = (CCheckpointData) {
             {
-                {261, uint256S("0x00000c26026d0815a7e2ce4fa270775f61403c040647ff2c3091f99e894a4618")},
-                {1999, uint256S("0x00000052e538d27fa53693efe6fb6892a0c1d26c0235f599171c48a3cce553b1")},
-                {2999, uint256S("0x0000024bc3f4f4cb30d29827c13d921ad77d2c6072e586c7f60d83c2722cdcc5")},
-                {96090, uint256S("0x00000000033df4b94d17ab43e999caaf6c4735095cc77703685da81254d09bba")},
+                {0, uint256S("0x000005b709662e7bc5e89c71d3aba6c9d4623b4bbf44ac205caec55f4cefb483")},
             }
         };
 
         chainTxData = ChainTxData{
-            1518140232, // * UNIX timestamp of last known number of transactions
+            1580749200, // * UNIX timestamp of last known number of transactions
             0,    // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the SetBestChain debug.log lines)
             0.01        // * estimated number of transactions per second after that timestamp
@@ -653,9 +652,9 @@ public:
         nDefaultPort = 19769;
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1529231337, 1096451, 0x207fffff, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1417713337, 1096447, 0x207fffff, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x0be2d8c839cc6ef84840be6845e96ce43ab995d2eb239b3afe2ee81fda9585ba"));
+        assert(consensus.hashGenesisBlock == uint256S("0x2026b8850f3774a0536152ba868c4dcbde9aef5ffc28a5d23f76f80e9b46e565"));
         assert(genesis.hashMerkleRoot == uint256S("0x987a08c31d7f04f47f1aeccdffc73ca4336e32a6615f619b94cc7109e7c2a7ac"));
 
         devnetGenesis = FindDevNetGenesisBlock(consensus, genesis, 50 * COIN);
@@ -703,7 +702,7 @@ public:
 
         checkpointData = (CCheckpointData) {
             {
-                { 0, uint256S("0x0be2d8c839cc6ef84840be6845e96ce43ab995d2eb239b3afe2ee81fda9585ba")},
+                { 0, uint256S("0x2026b8850f3774a0536152ba868c4dcbde9aef5ffc28a5d23f76f80e9b46e565")},
                 { 1, devnetGenesis.GetHash() },
             }
         };
@@ -787,9 +786,9 @@ public:
         nDefaultPort = 19869;
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1529231337, 1096451, 0x207fffff, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1417713337, 1096447, 0x207fffff, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x0be2d8c839cc6ef84840be6845e96ce43ab995d2eb239b3afe2ee81fda9585ba"));
+        assert(consensus.hashGenesisBlock == uint256S("0x2026b8850f3774a0536152ba868c4dcbde9aef5ffc28a5d23f76f80e9b46e565"));
         assert(genesis.hashMerkleRoot == uint256S("0x987a08c31d7f04f47f1aeccdffc73ca4336e32a6615f619b94cc7109e7c2a7ac"));
 
         vFixedSeeds.clear(); //!< Regtest mode doesn't have any fixed seeds.
@@ -814,7 +813,7 @@ public:
 
         checkpointData = (CCheckpointData) {
             {
-                {0, uint256S("0x0be2d8c839cc6ef84840be6845e96ce43ab995d2eb239b3afe2ee81fda9585ba")},
+                {0, uint256S("0x2026b8850f3774a0536152ba868c4dcbde9aef5ffc28a5d23f76f80e9b46e565")},
             }
         };
 

@@ -223,8 +223,6 @@ bool CSporkManager::UpdateSpork(SporkId nSporkID, int64_t nValue, CConnman& conn
 bool CSporkManager::IsSporkActive(SporkId nSporkID)
 {
     int64_t nSporkValue = GetSporkValue(nSporkID);
-    if(nSporkID == SPORK_19_CHAINLOCKS_ENABLED && nSporkValue == 0 && (Params().NetworkIDString() == CBaseChainParams::REGTEST || Params().NetworkIDString() == CBaseChainParams::DEVNET))
-        return false;
     return nSporkValue < GetAdjustedTime();
 }
 
@@ -236,6 +234,10 @@ int64_t CSporkManager::GetSporkValue(SporkId nSporkID)
     if (SporkValueIsActive(nSporkID, nSporkValue)) {
         return nSporkValue;
     }
+
+    // Return 4070908800ULL as a default value of SPORK_19 in REGTEST and DEVNET
+    if (nSporkID == SPORK_19_CHAINLOCKS_ENABLED && (Params().NetworkIDString() == CBaseChainParams::REGTEST || Params().NetworkIDString() == CBaseChainParams::DEVNET))
+        return 4070908800ULL;
 
     auto it = sporkDefsById.find(nSporkID);
     if (it != sporkDefsById.end()) {
