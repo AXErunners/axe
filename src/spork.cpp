@@ -235,8 +235,8 @@ int64_t CSporkManager::GetSporkValue(SporkId nSporkID)
         return nSporkValue;
     }
 
-    // Return 4070908800ULL as a default value of SPORK_19 in REGTEST and DEVNET
-    if (nSporkID == SPORK_19_CHAINLOCKS_ENABLED && (Params().NetworkIDString() == CBaseChainParams::REGTEST || Params().NetworkIDString() == CBaseChainParams::DEVNET))
+    // Return 4070908800ULL as a default value of all sporks in REGTEST and DEVNET
+    if (Params().NetworkIDString() == CBaseChainParams::REGTEST || Params().NetworkIDString() == CBaseChainParams::DEVNET)
         return 4070908800ULL;
 
     auto it = sporkDefsById.find(nSporkID);
