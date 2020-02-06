@@ -235,7 +235,7 @@ int64_t CSporkManager::GetSporkValue(SporkId nSporkID)
         return nSporkValue;
     }
 
-    // Return 4070908800ULL as a default value of all sporks in REGTEST and DEVNET
+    //XXX Return 4070908800ULL as a default value of all sporks in REGTEST and DEVNET
     if (Params().NetworkIDString() == CBaseChainParams::REGTEST || Params().NetworkIDString() == CBaseChainParams::DEVNET)
         return 4070908800ULL;
 
