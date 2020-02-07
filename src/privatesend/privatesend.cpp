@@ -507,29 +507,6 @@ int CPrivateSend::GetDenominations(const std::vector<CTxOut>& vecTxOut, bool fSi
     return nDenom;
 }
 
-bool CPrivateSend::GetDenominationsBits(int nDenom, std::vector<int>& vecBitsRet)
-{
-    // ( bit on if present, 4 denominations example )
-    // bit 0 - 100AXE+1
-    // bit 1 - 10AXE+1
-    // bit 2 - 1AXE+1
-    // bit 3 - .1AXE+1
-
-    int nMaxDenoms = vecStandardDenominations.size();
-
-    if (nDenom >= (1 << nMaxDenoms)) return false;
-
-    vecBitsRet.clear();
-
-    for (int i = 0; i < nMaxDenoms; ++i) {
-        if (nDenom & (1 << i)) {
-            vecBitsRet.push_back(i);
-        }
-    }
-
-    return !vecBitsRet.empty();
-}
-
 bool CPrivateSend::IsDenominatedAmount(CAmount nInputAmount)
 {
     for (const auto& nDenomValue : vecStandardDenominations) {
