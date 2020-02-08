@@ -431,7 +431,7 @@ public:
         consensus.nGovernanceFilterElements = 500;
         consensus.nMasternodeMinimumConfirmations = 1;
         consensus.BIP34Height = 76;
-        consensus.BIP34Hash = uint256S("");
+        consensus.BIP34Hash = uint256S("0x0000089e0534a57c39fc9d89f6a27bea52b8d2d0c3ec348d61e7f7e36844e0ea");
         consensus.BIP65Height = 2431;
         consensus.BIP66Height = 2075;
         consensus.DIP0001Height = 5500;
