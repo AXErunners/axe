@@ -400,8 +400,8 @@ public:
         };
 
         chainTxData = ChainTxData{
-            1570140907, // * UNIX timestamp of last known number of transactions
-            99324,    // * total number of transactions between genesis and that timestamp
+            1581201248, // * UNIX timestamp of last known number of transactions
+            613539,    // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the SetBestChain debug.log lines)
             0.1         // * estimated number of transactions per second after that timestamp
         };
@@ -550,13 +550,14 @@ public:
 
         checkpointData = (CCheckpointData) {
             {
-                {0, uint256S("0x000005b709662e7bc5e89c71d3aba6c9d4623b4bbf44ac205caec55f4cefb483")},
+                {     0, uint256S("0x000005b709662e7bc5e89c71d3aba6c9d4623b4bbf44ac205caec55f4cefb483")},
+                {  3845, uint256S("0x000000001c5d59248ddced69c0030c1e77ec4523c79d89ca5278d5aebb84821d")},
             }
         };
 
         chainTxData = ChainTxData{
-            1580749200, // * UNIX timestamp of last known number of transactions
-            0,    // * total number of transactions between genesis and that timestamp
+            1581201671, // * UNIX timestamp of last known number of transactions
+            3859,    // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the SetBestChain debug.log lines)
             0.01        // * estimated number of transactions per second after that timestamp
         };
