@@ -798,7 +798,7 @@ bool CDeterministicMNManager::BuildNewListFromBlock(const CBlock& block, const C
                 assert(false); // this should have been handled already
             }
             if (!qc.commitment.IsNull()) {
-                const auto& params = Params().GetConsensus().llmqs.at((Consensus::LLMQType)qc.commitment.llmqType);
+                const auto& params = Params().GetConsensus().llmqs.at(qc.commitment.llmqType);
                 int quorumHeight = qc.nHeight - (qc.nHeight % params.dkgInterval);
                 auto quorumIndex = pindexPrev->GetAncestor(quorumHeight);
                 if (!quorumIndex || quorumIndex->GetBlockHash() != qc.commitment.quorumHash) {
