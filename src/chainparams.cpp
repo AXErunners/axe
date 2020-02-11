@@ -508,6 +508,8 @@ public:
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
         vSeeds.emplace_back("seed2.0313370.xyz", true);
+        vSeeds.emplace_back("149.248.61.149", true);
+        vSeeds.emplace_back("45.76.117.5", true);
         vSeeds.emplace_back("104.238.131.87", true);
         vSeeds.emplace_back("207.148.15.191", true);
         vSeeds.emplace_back("45.77.1.27", true);
