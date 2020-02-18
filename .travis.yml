@@ -25,30 +25,7 @@ env:
     - DOCKER_BUILD=false
 
 stages:
-  - build depends
-  - build src
-  - run tests
   - build docker
-
-builddepends: &builddepends
-  stage: build depends
-  script:
-    - $DOCKER_RUN_IN_BUILDER ./ci/build_depends.sh
-
-buildsrc: &buildsrc
-  stage: build src
-  script:
-    - $DOCKER_RUN_IN_BUILDER ./ci/build_depends.sh
-    - $DOCKER_RUN_IN_BUILDER ./ci/build_src.sh
-
-runtests: &runtests
-  stage: run tests
-  script:
-    - $DOCKER_RUN_IN_BUILDER ./ci/build_depends.sh
-    - $DOCKER_RUN_IN_BUILDER ./ci/build_src.sh
-    - $DOCKER_RUN_IN_BUILDER ./ci/test_unittests.sh
-    - if [ "$TRAVIS_EVENT_TYPE" = "cron" ]; then extended="--extended --exclude pruning,dbcrash"; fi
-    - $DOCKER_RUN_IN_BUILDER ./ci/test_integrationtests.sh --jobs=3 ${extended}
 
 builddocker: &builddocker
   stage: build docker
@@ -58,53 +35,6 @@ builddocker: &builddocker
 
 jobs:
   include:
-    # build depends
-    - <<: *builddepends
-      env: BUILD_TARGET=arm-linux
-    - <<: *builddepends
-      env: BUILD_TARGET=win32
-    - <<: *builddepends
-      env: BUILD_TARGET=win64
-    - <<: *builddepends
-      env: BUILD_TARGET=linux32
-    - <<: *builddepends
-      env: BUILD_TARGET=linux64
-    - <<: *builddepends
-      env: BUILD_TARGET=linux64_nowallet
-    - <<: *builddepends
-      env: BUILD_TARGET=linux64_release DOCKER_BUILD=true
-    - <<: *builddepends
-      env: BUILD_TARGET=mac
-    # build source
-    - <<: *buildsrc
-      env: BUILD_TARGET=arm-linux
-    - <<: *buildsrc
-      env: BUILD_TARGET=win32
-    - <<: *buildsrc
-      env: BUILD_TARGET=win64
-    - <<: *buildsrc
-      env: BUILD_TARGET=linux32
-    - <<: *buildsrc
-      env: BUILD_TARGET=linux64
-    - <<: *buildsrc
-      env: BUILD_TARGET=linux64_nowallet
-    - <<: *buildsrc
-      env: BUILD_TARGET=linux64_release DOCKER_BUILD=true
-    - <<: *buildsrc
-      env: BUILD_TARGET=mac
-    # run tests (no tests for arm-linux and mac)
-    - <<: *runtests
-      env: BUILD_TARGET=win32
-    - <<: *runtests
-      env: BUILD_TARGET=win64
-    - <<: *runtests
-      env: BUILD_TARGET=linux32
-    - <<: *runtests
-      env: BUILD_TARGET=linux64
-    - <<: *runtests
-      env: BUILD_TARGET=linux64_nowallet
-    - <<: *runtests
-      env: BUILD_TARGET=linux64_release DOCKER_BUILD=true
     # build docker
     - <<: *builddocker
       env: BUILD_TARGET=linux64_release DOCKER_BUILD=true
@@ -137,6 +67,10 @@ before_script:
     # See https://github.com/travis-ci/travis-ci/issues/4704. If this gets fixed, this line can also be removed.
     - python3 -c 'import os,sys,fcntl; flags = fcntl.fcntl(sys.stdout, fcntl.F_GETFL); fcntl.fcntl(sys.stdout, fcntl.F_SETFL, flags&~os.O_NONBLOCK);'
     # Build docker image only for development branch of the main repo
+    - echo TRAVIS_REPO_SLUG=$TRAVIS_REPO_SLUG
+    - echo TRAVIS_BRANCH=$TRAVIS_BRANCH
+    - echo TRAVIS_PULL_REQUEST=$TRAVIS_PULL_REQUEST
+    - echo DOCKER_BUILD=$DOCKER_BUILD
     - if [ "$TRAVIS_REPO_SLUG" != "axerunners/axe" -o "$TRAVIS_BRANCH" != "development" -o "$TRAVIS_PULL_REQUEST" != "false" ]; then export DOCKER_BUILD="false"; echo DOCKER_BUILD=$DOCKER_BUILD; fi
 after_script:
     - echo $TRAVIS_COMMIT_RANGE
