@@ -4,10 +4,9 @@
 
 #include "dbwrapper.h"
 
+#include "fs.h"
 #include "util.h"
 #include "random.h"
-
-#include <boost/filesystem.hpp>
 
 #include <leveldb/cache.h>
 #include <leveldb/env.h>
@@ -21,8 +20,9 @@ public:
     // This code is adapted from posix_logger.h, which is why it is using vsprintf.
     // Please do not do this in normal code
     virtual void Logv(const char * format, va_list ap) override {
-            if (!LogAcceptCategory("leveldb"))
+            if (!LogAcceptCategory(BCLog::LEVELDB)) {
                 return;
+            }
             char buffer[500];
             for (int iter = 0; iter < 2; iter++) {
                 char* base;
@@ -90,9 +90,9 @@ static leveldb::Options GetOptions(size_t nCacheSize)
     return options;
 }
 
-CDBWrapper::CDBWrapper(const boost::filesystem::path& path, size_t nCacheSize, bool fMemory, bool fWipe, bool obfuscate)
+CDBWrapper::CDBWrapper(const fs::path& path, size_t nCacheSize, bool fMemory, bool fWipe, bool obfuscate)
 {
-    penv = NULL;
+    penv = nullptr;
     readoptions.verify_checksums = true;
     iteroptions.verify_checksums = true;
     iteroptions.fill_cache = false;
@@ -108,14 +108,14 @@ CDBWrapper::CDBWrapper(const boost::filesystem::path& path, size_t nCacheSize, b
             leveldb::Status result = leveldb::DestroyDB(path.string(), options);
             dbwrapper_private::HandleError(result);
         }
-        TryCreateDirectory(path);
+        TryCreateDirectories(path);
         LogPrintf("Opening LevelDB in %s\n", path.string());
     }
     leveldb::Status status = leveldb::DB::Open(options, path.string(), &pdb);
     dbwrapper_private::HandleError(status);
     LogPrintf("Opened LevelDB successfully\n");
 
-    if (GetBoolArg("-forcecompactdb", false)) {
+    if (gArgs.GetBoolArg("-forcecompactdb", false)) {
         LogPrintf("Starting database compaction of %s\n", path.string());
         pdb->CompactRange(nullptr, nullptr);
         LogPrintf("Finished database compaction of %s\n", path.string());
@@ -144,15 +144,15 @@ CDBWrapper::CDBWrapper(const boost::filesystem::path& path, size_t nCacheSize, b
 CDBWrapper::~CDBWrapper()
 {
     delete pdb;
-    pdb = NULL;
+    pdb = nullptr;
     delete options.filter_policy;
-    options.filter_policy = NULL;
+    options.filter_policy = nullptr;
     delete options.info_log;
-    options.info_log = NULL;
+    options.info_log = nullptr;
     delete options.block_cache;
-    options.block_cache = NULL;
+    options.block_cache = nullptr;
     delete penv;
-    options.env = NULL;
+    options.env = nullptr;
 }
 
 bool CDBWrapper::WriteBatch(CDBBatch& batch, bool fSync)
@@ -215,4 +215,4 @@ const std::vector<unsigned char>& GetObfuscateKey(const CDBWrapper &w)
     return w.obfuscate_key;
 }
 
-};
+} // namespace dbwrapper_private

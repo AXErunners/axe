@@ -1,134 +1,95 @@
 #!/usr/bin/env python3
 # Copyright (c) 2014-2016 The Bitcoin Core developers
+# Copyright (c) 2014-2020 The Dash Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Base class for RPC testing."""
 
+from collections import deque
+from enum import Enum
 import logging
 import optparse
 import os
-import sys
+import pdb
 import shutil
+import sys
 import tempfile
 import time
 import traceback
 from concurrent.futures import ThreadPoolExecutor
-from time import time, sleep
 
+from .authproxy import JSONRPCException
+from . import coverage
+from .test_node import TestNode
 from .util import (
+    PortSeed,
+    MAX_NODES,
     assert_equal,
-    initialize_chain,
-    start_node,
-    start_nodes,
+    check_json_precision,
     connect_nodes_bi,
     connect_nodes,
+    copy_datadir,
+    disconnect_nodes,
+    force_finish_mnsync,
+    initialize_datadir,
+    log_filename,
+    p2p_port,
+    set_node_times,
+    satoshi_round,
     sync_blocks,
     sync_mempools,
-    sync_masternodes,
-    stop_nodes,
-    stop_node,
-    enable_coverage,
-    check_json_precision,
-    initialize_chain_clean,
-    PortSeed,
-    set_cache_mocktime,
-    set_genesis_mocktime,
-    get_mocktime,
-    set_mocktime,
-    set_node_times,
-    p2p_port,
-    satoshi_round,
-    wait_to_sync,
-    copy_datadir)
-from .authproxy import JSONRPCException
+    wait_until,
+)
 
+class TestStatus(Enum):
+    PASSED = 1
+    FAILED = 2
+    SKIPPED = 3
+
+TEST_EXIT_PASSED = 0
+TEST_EXIT_FAILED = 1
+TEST_EXIT_SKIPPED = 77
+
+GENESISTIME = 1417713337
 
 class BitcoinTestFramework(object):
+    """Base class for a bitcoin test script.
+
+    Individual bitcoin test scripts should subclass this class and override the set_test_params() and run_test() methods.
+
+    Individual tests can also override the following methods to customize the test setup:
+
+    - add_options()
+    - setup_chain()
+    - setup_network()
+    - setup_nodes()
+
+    The __init__() and main() methods should not be overridden.
+
+    This class also contains various public and private helper methods."""
 
     def __init__(self):
-        self.num_nodes = 4
+        """Sets test framework defaults. Do not override this method. Instead, override the set_test_params() method"""
         self.setup_clean_chain = False
-        self.nodes = None
+        self.nodes = []
+        self.mocktime = 0
+        self.set_test_params()
 
-    def run_test(self):
-        raise NotImplementedError
-
-    def add_options(self, parser):
-        pass
-
-    def setup_chain(self):
-        self.log.info("Initializing test directory "+self.options.tmpdir)
-        if self.setup_clean_chain:
-            initialize_chain_clean(self.options.tmpdir, self.num_nodes)
-            set_genesis_mocktime()
-        else:
-            initialize_chain(self.options.tmpdir, self.num_nodes, self.options.cachedir)
-            set_cache_mocktime()
-
-    def stop_node(self, num_node):
-        stop_node(self.nodes[num_node], num_node)
-
-    def setup_nodes(self):
-        return start_nodes(self.num_nodes, self.options.tmpdir)
-
-    def setup_network(self, split = False):
-        self.nodes = self.setup_nodes()
-
-        # Connect the nodes as a "chain".  This allows us
-        # to split the network between nodes 1 and 2 to get
-        # two halves that can work on competing chains.
-
-        # If we joined network halves, connect the nodes from the joint
-        # on outward.  This ensures that chains are properly reorganised.
-        if not split:
-            connect_nodes_bi(self.nodes, 1, 2)
-            sync_blocks(self.nodes[1:3])
-            sync_mempools(self.nodes[1:3])
-
-        connect_nodes_bi(self.nodes, 0, 1)
-        connect_nodes_bi(self.nodes, 2, 3)
-        self.is_network_split = split
-        self.sync_all()
-
-    def split_network(self):
-        """
-        Split the network of four nodes into nodes 0/1 and 2/3.
-        """
-        assert not self.is_network_split
-        stop_nodes(self.nodes)
-        self.setup_network(True)
-
-    def sync_all(self):
-        if self.is_network_split:
-            sync_blocks(self.nodes[:2])
-            sync_blocks(self.nodes[2:])
-            sync_mempools(self.nodes[:2])
-            sync_mempools(self.nodes[2:])
-        else:
-            sync_blocks(self.nodes)
-            sync_mempools(self.nodes)
-
-    def join_network(self):
-        """
-        Join the (previously split) network halves together.
-        """
-        assert self.is_network_split
-        stop_nodes(self.nodes)
-        self.setup_network(False)
+        assert hasattr(self, "num_nodes"), "Test must set self.num_nodes in set_test_params()"
 
     def main(self):
+        """Main function. This should not be overridden by the subclass test scripts."""
 
         parser = optparse.OptionParser(usage="%prog [options]")
         parser.add_option("--nocleanup", dest="nocleanup", default=False, action="store_true",
                           help="Leave axeds and test.* datadir on exit or error")
         parser.add_option("--noshutdown", dest="noshutdown", default=False, action="store_true",
                           help="Don't stop axeds after the test execution")
-        parser.add_option("--srcdir", dest="srcdir", default=os.path.normpath(os.path.dirname(os.path.realpath(__file__))+"/../../../src"),
+        parser.add_option("--srcdir", dest="srcdir", default=os.path.normpath(os.path.dirname(os.path.realpath(__file__)) + "/../../../src"),
                           help="Source directory containing axed/axe-cli (default: %default)")
-        parser.add_option("--cachedir", dest="cachedir", default=os.path.normpath(os.path.dirname(os.path.realpath(__file__))+"/../../cache"),
+        parser.add_option("--cachedir", dest="cachedir", default=os.path.normpath(os.path.dirname(os.path.realpath(__file__)) + "/../../cache"),
                           help="Directory for caching pregenerated datadirs")
-        parser.add_option("--tmpdir", dest="tmpdir", default=tempfile.mkdtemp(prefix="test"),
-                          help="Root directory for datadirs")
+        parser.add_option("--tmpdir", dest="tmpdir", help="Root directory for datadirs")
         parser.add_option("-l", "--loglevel", dest="loglevel", default="INFO",
                           help="log events at this level and higher to the console. Can be set to DEBUG, INFO, WARNING, ERROR or CRITICAL. Passing --loglevel DEBUG will output all logs to console. Note that logs at all levels are always written to the test_framework.log file in the temporary test directory.")
         parser.add_option("--tracerpc", dest="trace_rpc", default=False, action="store_true",
@@ -137,34 +98,41 @@ class BitcoinTestFramework(object):
                           help="The seed to use for assigning port numbers (default: current process id)")
         parser.add_option("--coveragedir", dest="coveragedir",
                           help="Write tested RPC commands into this directory")
+        parser.add_option("--configfile", dest="configfile",
+                          help="Location of the test framework config file")
+        parser.add_option("--pdbonfailure", dest="pdbonfailure", default=False, action="store_true",
+                          help="Attach a python debugger if test fails")
         self.add_options(parser)
         (self.options, self.args) = parser.parse_args()
 
-        # backup dir variable for removal at cleanup
-        self.options.root, self.options.tmpdir = self.options.tmpdir, self.options.tmpdir + '/' + str(self.options.port_seed)
-
-        if self.options.coveragedir:
-            enable_coverage(self.options.coveragedir)
-
         PortSeed.n = self.options.port_seed
 
-        os.environ['PATH'] = self.options.srcdir+":"+self.options.srcdir+"/qt:"+os.environ['PATH']
+        os.environ['PATH'] = self.options.srcdir + ":" + self.options.srcdir + "/qt:" + os.environ['PATH']
 
         check_json_precision()
 
+        self.options.cachedir = os.path.abspath(self.options.cachedir)
+
         # Set up temp directory and start logging
-        os.makedirs(self.options.tmpdir, exist_ok=False)
+        if self.options.tmpdir:
+            self.options.tmpdir = os.path.abspath(self.options.tmpdir)
+            os.makedirs(self.options.tmpdir, exist_ok=False)
+        else:
+            self.options.tmpdir = tempfile.mkdtemp(prefix="test")
         self._start_logging()
 
-        success = False
+        success = TestStatus.FAILED
 
         try:
             self.setup_chain()
             self.setup_network()
             self.run_test()
-            success = True
+            success = TestStatus.PASSED
         except JSONRPCException as e:
             self.log.exception("JSONRPC error")
+        except SkipTest as e:
+            self.log.warning("Test Skipped: %s" % e.message)
+            success = TestStatus.SKIPPED
         except AssertionError as e:
             self.log.exception("Assertion failed")
         except KeyError as e:
@@ -174,40 +142,222 @@ class BitcoinTestFramework(object):
         except KeyboardInterrupt as e:
             self.log.warning("Exiting after keyboard interrupt")
 
+        if success == TestStatus.FAILED and self.options.pdbonfailure:
+            print("Testcase failed. Attaching python debugger. Enter ? for help")
+            pdb.set_trace()
+
         if not self.options.noshutdown:
             self.log.info("Stopping nodes")
             try:
-                stop_nodes(self.nodes)
+                if self.nodes:
+                    self.stop_nodes()
             except BaseException as e:
                 success = False
                 self.log.exception("Unexpected exception caught during shutdown")
         else:
             self.log.info("Note: axeds were not stopped and may still be running")
 
-        if not self.options.nocleanup and not self.options.noshutdown and success:
+        if not self.options.nocleanup and not self.options.noshutdown and success != TestStatus.FAILED:
             self.log.info("Cleaning up")
             shutil.rmtree(self.options.tmpdir)
-            if not os.listdir(self.options.root):
-                os.rmdir(self.options.root)
         else:
             self.log.warning("Not cleaning up dir %s" % self.options.tmpdir)
             if os.getenv("PYTHON_DEBUG", ""):
                 # Dump the end of the debug logs, to aid in debugging rare
                 # travis failures.
                 import glob
-                filenames = glob.glob(self.options.tmpdir + "/node*/regtest/debug.log")
+                filenames = [self.options.tmpdir + "/test_framework.log"]
+                filenames += glob.glob(self.options.tmpdir + "/node*/regtest/debug.log")
                 MAX_LINES_TO_PRINT = 1000
-                for f in filenames:
-                    print("From" , f, ":")
-                    from collections import deque
-                    print("".join(deque(open(f), MAX_LINES_TO_PRINT)))
-        if success:
+                for fn in filenames:
+                    try:
+                        with open(fn, 'r') as f:
+                            print("From", fn, ":")
+                            print("".join(deque(f, MAX_LINES_TO_PRINT)))
+                    except OSError:
+                        print("Opening file %s failed." % fn)
+                        traceback.print_exc()
+
+        if success == TestStatus.PASSED:
             self.log.info("Tests successful")
-            sys.exit(0)
+            sys.exit(TEST_EXIT_PASSED)
+        elif success == TestStatus.SKIPPED:
+            self.log.info("Test skipped")
+            sys.exit(TEST_EXIT_SKIPPED)
         else:
             self.log.error("Test failed. Test logging available at %s/test_framework.log", self.options.tmpdir)
             logging.shutdown()
-            sys.exit(1)
+            sys.exit(TEST_EXIT_FAILED)
+
+    # Methods to override in subclass test scripts.
+    def set_test_params(self):
+        """Tests must this method to change default values for number of nodes, topology, etc"""
+        raise NotImplementedError
+
+    def add_options(self, parser):
+        """Override this method to add command-line options to the test"""
+        pass
+
+    def setup_chain(self):
+        """Override this method to customize blockchain setup"""
+        self.log.info("Initializing test directory " + self.options.tmpdir)
+        if self.setup_clean_chain:
+            self._initialize_chain_clean()
+            self.set_genesis_mocktime()
+        else:
+            self._initialize_chain()
+            self.set_cache_mocktime()
+
+    def setup_network(self):
+        """Override this method to customize test network topology"""
+        self.setup_nodes()
+
+        # Connect the nodes as a "chain".  This allows us
+        # to split the network between nodes 1 and 2 to get
+        # two halves that can work on competing chains.
+        for i in range(self.num_nodes - 1):
+            connect_nodes_bi(self.nodes, i, i + 1)
+        self.sync_all()
+
+    def setup_nodes(self):
+        """Override this method to customize test node setup"""
+        extra_args = None
+        stderr = None
+        if hasattr(self, "extra_args"):
+            extra_args = self.extra_args
+        if hasattr(self, "stderr"):
+            stderr = self.stderr
+        self.add_nodes(self.num_nodes, extra_args, stderr=stderr)
+        self.start_nodes()
+
+    def run_test(self):
+        """Tests must override this method to define test logic"""
+        raise NotImplementedError
+
+    # Public helper methods. These can be accessed by the subclass test scripts.
+
+    def add_nodes(self, num_nodes, extra_args=None, rpchost=None, timewait=None, binary=None, stderr=None):
+        """Instantiate TestNode objects"""
+
+        if extra_args is None:
+            extra_args = [[]] * num_nodes
+        if binary is None:
+            binary = [None] * num_nodes
+        assert_equal(len(extra_args), num_nodes)
+        assert_equal(len(binary), num_nodes)
+        old_num_nodes = len(self.nodes)
+        for i in range(num_nodes):
+            self.nodes.append(TestNode(old_num_nodes + i, self.options.tmpdir, extra_args[i], rpchost, timewait=timewait, binary=binary[i], stderr=stderr, mocktime=self.mocktime, coverage_dir=self.options.coveragedir))
+
+    def start_node(self, i, extra_args=None, stderr=None):
+        """Start a axed"""
+
+        node = self.nodes[i]
+
+        node.start(extra_args, stderr)
+        node.wait_for_rpc_connection()
+
+        if self.options.coveragedir is not None:
+            coverage.write_all_rpc_commands(self.options.coveragedir, node.rpc)
+
+    def start_nodes(self, extra_args=None, stderr=None):
+        """Start multiple axeds"""
+
+        if extra_args is None:
+            extra_args = [None] * self.num_nodes
+        assert_equal(len(extra_args), self.num_nodes)
+        try:
+            for i, node in enumerate(self.nodes):
+                node.start(extra_args[i], stderr)
+            for node in self.nodes:
+                node.wait_for_rpc_connection()
+        except:
+            # If one node failed to start, stop the others
+            self.stop_nodes()
+            raise
+
+        if self.options.coveragedir is not None:
+            for node in self.nodes:
+                coverage.write_all_rpc_commands(self.options.coveragedir, node.rpc)
+
+    def stop_node(self, i, wait=0):
+        """Stop a axed test node"""
+        self.nodes[i].stop_node(wait=wait)
+        self.nodes[i].wait_until_stopped()
+
+    def stop_nodes(self, wait=0):
+        """Stop multiple axed test nodes"""
+        for node in self.nodes:
+            # Issue RPC to stop nodes
+            node.stop_node(wait=wait)
+
+        for node in self.nodes:
+            # Wait for nodes to stop
+            node.wait_until_stopped()
+
+    def assert_start_raises_init_error(self, i, extra_args=None, expected_msg=None):
+        with tempfile.SpooledTemporaryFile(max_size=2**16) as log_stderr:
+            try:
+                self.start_node(i, extra_args, stderr=log_stderr)
+                self.stop_node(i)
+            except Exception as e:
+                assert 'axed exited' in str(e)  # node must have shutdown
+                self.nodes[i].running = False
+                self.nodes[i].process = None
+                if expected_msg is not None:
+                    log_stderr.seek(0)
+                    stderr = log_stderr.read().decode('utf-8')
+                    if expected_msg not in stderr:
+                        raise AssertionError("Expected error \"" + expected_msg + "\" not found in:\n" + stderr)
+            else:
+                if expected_msg is None:
+                    assert_msg = "axed should have exited with an error"
+                else:
+                    assert_msg = "axed should have exited with expected error " + expected_msg
+                raise AssertionError(assert_msg)
+
+    def wait_for_node_exit(self, i, timeout):
+        self.nodes[i].process.wait(timeout)
+
+    def split_network(self):
+        """
+        Split the network of four nodes into nodes 0/1 and 2/3.
+        """
+        disconnect_nodes(self.nodes[1], 2)
+        disconnect_nodes(self.nodes[2], 1)
+        self.sync_all([self.nodes[:2], self.nodes[2:]])
+
+    def join_network(self):
+        """
+        Join the (previously split) network halves together.
+        """
+        connect_nodes_bi(self.nodes, 1, 2)
+        self.sync_all()
+
+    def sync_all(self, node_groups=None):
+        if not node_groups:
+            node_groups = [self.nodes]
+
+        for group in node_groups:
+            sync_blocks(group)
+            sync_mempools(group)
+
+    def disable_mocktime(self):
+        self.mocktime = 0
+
+    def bump_mocktime(self, t):
+        self.mocktime += t
+
+    def set_cache_mocktime(self):
+        # For backwared compatibility of the python scripts
+        # with previous versions of the cache, set MOCKTIME
+        # to regtest genesis time + (201 * 156)
+        self.mocktime = GENESISTIME + (201 * 156)
+
+    def set_genesis_mocktime(self):
+        self.mocktime = GENESISTIME
+
+    # Private helper methods. These should not be accessed by the subclass test scripts.
 
     def _start_logging(self):
         # Add logger and logging handlers
@@ -221,8 +371,8 @@ class BitcoinTestFramework(object):
         # User can provide log level as a number or string (eg DEBUG). loglevel was caught as a string, so try to convert it to an int
         ll = int(self.options.loglevel) if self.options.loglevel.isdigit() else self.options.loglevel.upper()
         ch.setLevel(ll)
-        # Format logs the same as bitcoind's debug.log with microprecision (so log files can be concatenated and sorted)
-        formatter = logging.Formatter(fmt = '%(asctime)s.%(msecs)03d000 %(name)s (%(levelname)s): %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
+        # Format logs the same as axed's debug.log with microprecision (so log files can be concatenated and sorted)
+        formatter = logging.Formatter(fmt='%(asctime)s.%(msecs)03d000 %(name)s (%(levelname)s): %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
         formatter.converter = time.gmtime
         fh.setFormatter(formatter)
         ch.setFormatter(formatter)
@@ -237,6 +387,84 @@ class BitcoinTestFramework(object):
             rpc_handler.setLevel(logging.DEBUG)
             rpc_logger.addHandler(rpc_handler)
 
+    def _initialize_chain(self, extra_args=None, stderr=None):
+        """Initialize a pre-mined blockchain for use by the test.
+
+        Create a cache of a 200-block-long chain (with wallet) for MAX_NODES
+        Afterward, create num_nodes copies from the cache."""
+
+        assert self.num_nodes <= MAX_NODES
+        create_cache = False
+        for i in range(MAX_NODES):
+            if not os.path.isdir(os.path.join(self.options.cachedir, 'node' + str(i))):
+                create_cache = True
+                break
+
+        if create_cache:
+            self.log.debug("Creating data directories from cached datadir")
+
+            # find and delete old cache directories if any exist
+            for i in range(MAX_NODES):
+                if os.path.isdir(os.path.join(self.options.cachedir, "node" + str(i))):
+                    shutil.rmtree(os.path.join(self.options.cachedir, "node" + str(i)))
+
+            # Create cache directories, run axeds:
+            self.set_genesis_mocktime()
+            for i in range(MAX_NODES):
+                datadir = initialize_datadir(self.options.cachedir, i)
+                args = [os.getenv("AXED", "axed"), "-server", "-keypool=1", "-datadir=" + datadir, "-discover=0", "-mocktime="+str(GENESISTIME)]
+                if i > 0:
+                    args.append("-connect=127.0.0.1:" + str(p2p_port(0)))
+                if extra_args is not None:
+                    args.extend(extra_args)
+                self.nodes.append(TestNode(i, self.options.cachedir, extra_args=[], rpchost=None, timewait=None, binary=None, stderr=stderr, mocktime=self.mocktime, coverage_dir=None))
+                self.nodes[i].args = args
+                self.start_node(i)
+
+            # Wait for RPC connections to be ready
+            for node in self.nodes:
+                node.wait_for_rpc_connection()
+
+            # Create a 200-block-long chain; each of the 4 first nodes
+            # gets 25 mature blocks and 25 immature.
+            # Note: To preserve compatibility with older versions of
+            # initialize_chain, only 4 nodes will generate coins.
+            #
+            # blocks are created with timestamps 10 minutes apart
+            # starting from 2010 minutes in the past
+            block_time = GENESISTIME
+            for i in range(2):
+                for peer in range(4):
+                    for j in range(25):
+                        set_node_times(self.nodes, block_time)
+                        self.nodes[peer].generate(1)
+                        block_time += 156
+                    # Must sync before next peer starts generating blocks
+                    sync_blocks(self.nodes)
+
+            # Shut them down, and clean up cache directories:
+            self.stop_nodes()
+            self.nodes = []
+            self.disable_mocktime()
+            for i in range(MAX_NODES):
+                os.remove(log_filename(self.options.cachedir, i, "debug.log"))
+                os.remove(log_filename(self.options.cachedir, i, "db.log"))
+                os.remove(log_filename(self.options.cachedir, i, "peers.dat"))
+                os.remove(log_filename(self.options.cachedir, i, "fee_estimates.dat"))
+
+        for i in range(self.num_nodes):
+            from_dir = os.path.join(self.options.cachedir, "node" + str(i))
+            to_dir = os.path.join(self.options.tmpdir, "node" + str(i))
+            shutil.copytree(from_dir, to_dir)
+            initialize_datadir(self.options.tmpdir, i)  # Overwrite port/rpcport in axe.conf
+
+    def _initialize_chain_clean(self):
+        """Initialize empty blockchain for use by the test.
+
+        Create an empty blockchain and num_nodes wallets.
+        Useful if a test case wants complete control over initialization."""
+        for i in range(self.num_nodes):
+            initialize_datadir(self.options.tmpdir, i)
 
 MASTERNODE_COLLATERAL = 1000
 
@@ -254,30 +482,32 @@ class MasternodeInfo:
 
 
 class AxeTestFramework(BitcoinTestFramework):
-    def __init__(self, num_nodes, masterodes_count, extra_args, fast_dip3_enforcement=False):
-        super().__init__()
+    def set_axe_test_params(self, num_nodes, masterodes_count, extra_args=None, fast_dip3_enforcement=False):
         self.mn_count = masterodes_count
         self.num_nodes = num_nodes
         self.mninfo = []
         self.setup_clean_chain = True
         self.is_network_split = False
         # additional args
+        if extra_args is None:
+            extra_args = [[]] * num_nodes
+        assert_equal(len(extra_args), num_nodes)
         self.extra_args = extra_args
-
-        self.extra_args += ["-sporkkey=cP4EKFyJsHT39LDqgdcB43Y3YXjNyjb5Fuas1GQSeAtjnZWmZEQK"]
-
+        self.extra_args[0] += ["-sporkkey=cP4EKFyJsHT39LDqgdcB43Y3YXjNyjb5Fuas1GQSeAtjnZWmZEQK"]
         self.fast_dip3_enforcement = fast_dip3_enforcement
         if fast_dip3_enforcement:
-            self.extra_args += ["-dip3params=30:50"]
+            for i in range(0, num_nodes):
+                self.extra_args[i] += ["-dip3params=30:50"]
 
     def create_simple_node(self):
         idx = len(self.nodes)
-        args = self.extra_args
-        self.nodes.append(start_node(idx, self.options.tmpdir, args))
+        self.add_nodes(1, extra_args=[self.extra_args[idx]])
+        self.start_node(idx)
         for i in range(0, idx):
             connect_nodes(self.nodes[i], idx)
 
     def prepare_masternodes(self):
+        self.log.info("Preparing %d masternodes" % self.mn_count)
         for idx in range(0, self.mn_count):
             self.prepare_masternode(idx)
 
@@ -313,6 +543,8 @@ class AxeTestFramework(BitcoinTestFramework):
         self.mninfo.append(MasternodeInfo(proTxHash, ownerAddr, votingAddr, bls['public'], bls['secret'], address, txid, collateral_vout))
         self.sync_all()
 
+        self.log.info("Prepared masternode %d: collateral_txid=%s, collateral_vout=%d, protxHash=%s" % (idx, txid, collateral_vout, proTxHash))
+
     def remove_mastermode(self, idx):
         mn = self.mninfo[idx]
         rawtx = self.nodes[0].createrawtransaction([{"txid": mn.collateral_txid, "vout": mn.collateral_vout}], {self.nodes[0].getnewaddress(): 999.9999})
@@ -322,36 +554,37 @@ class AxeTestFramework(BitcoinTestFramework):
         self.sync_all()
         self.mninfo.remove(mn)
 
+        self.log.info("Removed masternode %d", idx)
+
     def prepare_datadirs(self):
         # stop faucet node so that we can copy the datadir
-        stop_node(self.nodes[0], 0)
+        self.stop_node(0)
 
         start_idx = len(self.nodes)
         for idx in range(0, self.mn_count):
             copy_datadir(0, idx + start_idx, self.options.tmpdir)
 
         # restart faucet node
-        self.nodes[0] = start_node(0, self.options.tmpdir, self.extra_args)
+        self.start_node(0)
 
     def start_masternodes(self):
+        self.log.info("Starting %d masternodes", self.mn_count)
+
         start_idx = len(self.nodes)
 
-        for idx in range(0, self.mn_count):
-            self.nodes.append(None)
+        self.add_nodes(self.mn_count)
         executor = ThreadPoolExecutor(max_workers=20)
 
         def do_start(idx):
-            args = ['-masternode=1',
-                    '-masternodeblsprivkey=%s' % self.mninfo[idx].keyOperator] + self.extra_args
-            node = start_node(idx + start_idx, self.options.tmpdir, args)
+            args = ['-masternodeblsprivkey=%s' % self.mninfo[idx].keyOperator] + self.extra_args[idx + start_idx]
+            self.start_node(idx + start_idx, extra_args=args)
             self.mninfo[idx].nodeIdx = idx + start_idx
-            self.mninfo[idx].node = node
-            self.nodes[idx + start_idx] = node
-            wait_to_sync(node, True)
+            self.mninfo[idx].node = self.nodes[idx + start_idx]
+            force_finish_mnsync(self.mninfo[idx].node)
 
         def do_connect(idx):
-            for i in range(0, idx + 1):
-                connect_nodes(self.nodes[idx + start_idx], i)
+            # Connect to the control node only, masternodes should take care of intra-quorum connections themselves
+            connect_nodes(self.mninfo[idx].node, 0)
 
         jobs = []
 
@@ -373,25 +606,24 @@ class AxeTestFramework(BitcoinTestFramework):
             job.result()
         jobs.clear()
 
-        sync_masternodes(self.nodes, True)
-
         executor.shutdown()
 
     def setup_network(self):
-        self.nodes = []
-        # create faucet node for collateral and transactions
-        self.nodes.append(start_node(0, self.options.tmpdir, self.extra_args))
+        self.log.info("Creating and starting controller node")
+        self.add_nodes(1, extra_args=[self.extra_args[0]])
+        self.start_node(0)
         required_balance = MASTERNODE_COLLATERAL * self.mn_count + 1
+        self.log.info("Generating %d coins" % required_balance)
         while self.nodes[0].getbalance() < required_balance:
-            set_mocktime(get_mocktime() + 1)
-            set_node_times(self.nodes, get_mocktime())
+            self.bump_mocktime(1)
+            set_node_times(self.nodes, self.mocktime)
             self.nodes[0].generate(1)
-        # create connected simple nodes
-        for i in range(0, self.num_nodes - self.mn_count - 1):
+        num_simple_nodes = self.num_nodes - self.mn_count - 1
+        self.log.info("Creating and starting %s simple nodes", num_simple_nodes)
+        for i in range(0, num_simple_nodes):
             self.create_simple_node()
-        sync_masternodes(self.nodes, True)
 
-        # activate DIP3
+        self.log.info("Activating DIP3")
         if not self.fast_dip3_enforcement:
             while self.nodes[0].getblockcount() < 500:
                 self.nodes[0].generate(10)
@@ -402,78 +634,23 @@ class AxeTestFramework(BitcoinTestFramework):
         self.prepare_datadirs()
         self.start_masternodes()
 
-        set_mocktime(get_mocktime() + 1)
-        set_node_times(self.nodes, get_mocktime())
+        # non-masternodes where disconnected from the control node during prepare_datadirs,
+        # let's reconnect them back to make sure they receive updates
+        for i in range(0, num_simple_nodes):
+            connect_nodes(self.nodes[i+1], 0)
+
+        self.bump_mocktime(1)
+        set_node_times(self.nodes, self.mocktime)
         self.nodes[0].generate(1)
         # sync nodes
         self.sync_all()
-        set_mocktime(get_mocktime() + 1)
-        set_node_times(self.nodes, get_mocktime())
+        self.bump_mocktime(1)
+        set_node_times(self.nodes, self.mocktime)
 
         mn_info = self.nodes[0].masternodelist("status")
         assert (len(mn_info) == self.mn_count)
         for status in mn_info.values():
             assert (status == 'ENABLED')
-
-    def get_autois_bip9_status(self, node):
-        info = node.getblockchaininfo()
-        # we reuse the dip3 deployment
-        return info['bip9_softforks']['dip0003']['status']
-
-    def activate_autois_bip9(self, node):
-        # sync nodes periodically
-        # if we sync them too often, activation takes too many time
-        # if we sync them too rarely, nodes failed to update its state and
-        # bip9 status is not updated
-        # so, in this code nodes are synced once per 20 blocks
-        counter = 0
-        sync_period = 10
-
-        while self.get_autois_bip9_status(node) == 'defined':
-            set_mocktime(get_mocktime() + 1)
-            set_node_times(self.nodes, get_mocktime())
-            node.generate(1)
-            counter += 1
-            if counter % sync_period == 0:
-                # sync nodes
-                self.sync_all()
-
-        while self.get_autois_bip9_status(node) == 'started':
-            set_mocktime(get_mocktime() + 1)
-            set_node_times(self.nodes, get_mocktime())
-            node.generate(1)
-            counter += 1
-            if counter % sync_period == 0:
-                # sync nodes
-                self.sync_all()
-
-        while self.get_autois_bip9_status(node) == 'locked_in':
-            set_mocktime(get_mocktime() + 1)
-            set_node_times(self.nodes, get_mocktime())
-            node.generate(1)
-            counter += 1
-            if counter % sync_period == 0:
-                # sync nodes
-                self.sync_all()
-
-        # sync nodes
-        self.sync_all()
-
-        assert(self.get_autois_bip9_status(node) == 'active')
-
-    def get_autois_spork_state(self, node):
-        info = node.spork('active')
-        return info['SPORK_16_INSTANTSEND_AUTOLOCKS']
-
-    def set_autois_spork_state(self, node, state):
-        # Increment mocktime as otherwise nodes will not update sporks
-        set_mocktime(get_mocktime() + 1)
-        set_node_times(self.nodes, get_mocktime())
-        if state:
-            value = 0
-        else:
-            value = 4070908800
-        node.spork('SPORK_16_INSTANTSEND_AUTOLOCKS', value)
 
     def create_raw_tx(self, node_from, node_to, amount, min_inputs, max_inputs):
         assert (min_inputs <= max_inputs)
@@ -522,68 +699,49 @@ class AxeTestFramework(BitcoinTestFramework):
         ret = {**decoded, **ret}
         return ret
 
-    # sends regular instantsend with high fee
-    def send_regular_instantsend(self, sender, receiver, check_fee = True):
-        receiver_addr = receiver.getnewaddress()
-        txid = sender.instantsendtoaddress(receiver_addr, 1.0)
-        if (check_fee):
-            MIN_FEE = satoshi_round(-0.0001)
-            fee = sender.gettransaction(txid)['fee']
-            expected_fee = MIN_FEE * len(sender.getrawtransaction(txid, True)['vin'])
-            assert_equal(fee, expected_fee)
-        return self.wait_for_instantlock(txid, sender)
-
-    # sends simple tx, it should become locked if autolocks are allowed
-    def send_simple_tx(self, sender, receiver):
-        raw_tx = self.create_raw_tx(sender, receiver, 1.0, 1, 4)
-        txid = self.nodes[0].sendrawtransaction(raw_tx['hex'])
-        self.sync_all()
-        return self.wait_for_instantlock(txid, sender)
-
-    # sends complex tx, it should never become locked for old instentsend
-    def send_complex_tx(self, sender, receiver):
-        raw_tx = self.create_raw_tx(sender, receiver, 1.0, 5, 100)
-        txid = sender.sendrawtransaction(raw_tx['hex'])
-        self.sync_all()
-        return self.wait_for_instantlock(txid, sender)
-
-    def wait_for_instantlock(self, txid, node):
-        # wait for instantsend locks
-        start = time()
-        locked = False
-        while True:
+    def wait_for_tx(self, txid, node, expected=True, timeout=15):
+        def check_tx():
             try:
-                is_tx = node.getrawtransaction(txid, True)
-                if is_tx['instantlock']:
-                    locked = True
-                    break
+                return node.getrawtransaction(txid)
             except:
-                # TX not received yet?
-                pass
-            if time() > start + 10:
-                break
-            sleep(0.5)
-        return locked
+                return False
+        if wait_until(check_tx, timeout=timeout, sleep=0.5, do_assert=expected) and not expected:
+            raise AssertionError("waiting unexpectedly succeeded")
+
+    def wait_for_instantlock(self, txid, node, expected=True, timeout=15):
+        def check_instantlock():
+            try:
+                return node.getrawtransaction(txid, True)["instantlock"]
+            except:
+                return False
+        if wait_until(check_instantlock, timeout=timeout, sleep=0.5, do_assert=expected) and not expected:
+            raise AssertionError("waiting unexpectedly succeeded")
+
+    def wait_for_chainlocked_block(self, node, block_hash, expected=True, timeout=15):
+        def check_chainlocked_block():
+            try:
+                block = node.getblock(block_hash)
+                return block["confirmations"] > 0 and block["chainlock"]
+            except:
+                return False
+        if wait_until(check_chainlocked_block, timeout=timeout, sleep=0.1, do_assert=expected) and not expected:
+            raise AssertionError("waiting unexpectedly succeeded")
+
+    def wait_for_chainlocked_block_all_nodes(self, block_hash, timeout=15):
+        for node in self.nodes:
+            self.wait_for_chainlocked_block(node, block_hash, timeout=timeout)
+
+    def wait_for_best_chainlock(self, node, block_hash, timeout=15):
+        wait_until(lambda: node.getbestchainlock()["blockhash"] == block_hash, timeout=timeout, sleep=0.1)
 
     def wait_for_sporks_same(self, timeout=30):
-        st = time()
-        while time() < st + timeout:
-            if self.check_sporks_same():
-                return
-            sleep(0.5)
-        raise AssertionError("wait_for_sporks_same timed out")
-
-    def check_sporks_same(self):
-        sporks = self.nodes[0].spork('show')
-        for node in self.nodes[1:]:
-            sporks2 = node.spork('show')
-            if sporks != sporks2:
-                return False
-        return True
+        def check_sporks_same():
+            sporks = self.nodes[0].spork('show')
+            return all(node.spork('show') == sporks for node in self.nodes[1:])
+        wait_until(check_sporks_same, timeout=timeout, sleep=0.5)
 
     def wait_for_quorum_phase(self, phase, check_received_messages, check_received_messages_count, timeout=30):
-        t = time()
-        while time() - t < timeout:
+        def check_dkg_session():
             all_ok = True
             for mn in self.mninfo:
                 s = mn.node.quorum("dkgstatus")["session"]
@@ -601,14 +759,11 @@ class AxeTestFramework(BitcoinTestFramework):
                     if s[check_received_messages] < check_received_messages_count:
                         all_ok = False
                         break
-            if all_ok:
-                return
-            sleep(0.1)
-        raise AssertionError("wait_for_quorum_phase timed out")
+            return all_ok
+        wait_until(check_dkg_session, timeout=timeout, sleep=0.1)
 
     def wait_for_quorum_commitment(self, timeout = 15):
-        t = time()
-        while time() - t < timeout:
+        def check_dkg_comitments():
             all_ok = True
             for node in self.nodes:
                 s = node.quorum("dkgstatus")
@@ -619,94 +774,109 @@ class AxeTestFramework(BitcoinTestFramework):
                 if "llmq_5_60" not in s:
                     all_ok = False
                     break
-            if all_ok:
-                return
-            sleep(0.1)
-        raise AssertionError("wait_for_quorum_commitment timed out")
+            return all_ok
+        wait_until(check_dkg_comitments, timeout=timeout, sleep=0.1)
 
     def mine_quorum(self, expected_contributions=5, expected_complaints=0, expected_justifications=0, expected_commitments=5):
+        self.log.info("Mining quorum: expected_contributions=%d, expected_complaints=%d, expected_justifications=%d, "
+                      "expected_commitments=%d" % (expected_contributions, expected_complaints,
+                                                   expected_justifications, expected_commitments))
+
         quorums = self.nodes[0].quorum("list")
 
         # move forward to next DKG
         skip_count = 24 - (self.nodes[0].getblockcount() % 24)
         if skip_count != 0:
-            set_mocktime(get_mocktime() + 1)
-            set_node_times(self.nodes, get_mocktime())
+            self.bump_mocktime(1)
+            set_node_times(self.nodes, self.mocktime)
             self.nodes[0].generate(skip_count)
         sync_blocks(self.nodes)
 
-        # Make sure all reached phase 1 (init)
+        self.log.info("Waiting for phase 1 (init)")
         self.wait_for_quorum_phase(1, None, 0)
         # Give nodes some time to connect to neighbors
-        sleep(2)
-        set_mocktime(get_mocktime() + 1)
-        set_node_times(self.nodes, get_mocktime())
+        time.sleep(2)
+        self.bump_mocktime(1)
+        set_node_times(self.nodes, self.mocktime)
         self.nodes[0].generate(2)
         sync_blocks(self.nodes)
 
-        # Make sure all reached phase 2 (contribute) and received all contributions
+        self.log.info("Waiting for phase 2 (contribute)")
         self.wait_for_quorum_phase(2, "receivedContributions", expected_contributions)
-        set_mocktime(get_mocktime() + 1)
-        set_node_times(self.nodes, get_mocktime())
+        self.bump_mocktime(1)
+        set_node_times(self.nodes, self.mocktime)
         self.nodes[0].generate(2)
         sync_blocks(self.nodes)
 
-        # Make sure all reached phase 3 (complain) and received all complaints
+        self.log.info("Waiting for phase 3 (complain)")
         self.wait_for_quorum_phase(3, "receivedComplaints", expected_complaints)
-        set_mocktime(get_mocktime() + 1)
-        set_node_times(self.nodes, get_mocktime())
+        self.bump_mocktime(1)
+        set_node_times(self.nodes, self.mocktime)
         self.nodes[0].generate(2)
         sync_blocks(self.nodes)
 
-        # Make sure all reached phase 4 (justify)
+        self.log.info("Waiting for phase 4 (justify)")
         self.wait_for_quorum_phase(4, "receivedJustifications", expected_justifications)
-        set_mocktime(get_mocktime() + 1)
-        set_node_times(self.nodes, get_mocktime())
+        self.bump_mocktime(1)
+        set_node_times(self.nodes, self.mocktime)
         self.nodes[0].generate(2)
         sync_blocks(self.nodes)
 
-        # Make sure all reached phase 5 (commit)
+        self.log.info("Waiting for phase 5 (commit)")
         self.wait_for_quorum_phase(5, "receivedPrematureCommitments", expected_commitments)
-        set_mocktime(get_mocktime() + 1)
-        set_node_times(self.nodes, get_mocktime())
+        self.bump_mocktime(1)
+        set_node_times(self.nodes, self.mocktime)
         self.nodes[0].generate(2)
         sync_blocks(self.nodes)
 
-        # Make sure all reached phase 6 (mining)
+        self.log.info("Waiting for phase 6 (mining)")
         self.wait_for_quorum_phase(6, None, 0)
 
-        # Wait for final commitment
+        self.log.info("Waiting final commitment")
         self.wait_for_quorum_commitment()
 
-        # mine the final commitment
-        set_mocktime(get_mocktime() + 1)
-        set_node_times(self.nodes, get_mocktime())
+        self.log.info("Mining final commitment")
+        self.bump_mocktime(1)
+        set_node_times(self.nodes, self.mocktime)
         self.nodes[0].generate(1)
         while quorums == self.nodes[0].quorum("list"):
-            sleep(2)
-            set_mocktime(get_mocktime() + 1)
-            set_node_times(self.nodes, get_mocktime())
+            time.sleep(2)
+            self.bump_mocktime(1)
+            set_node_times(self.nodes, self.mocktime)
             self.nodes[0].generate(1)
             sync_blocks(self.nodes)
         new_quorum = self.nodes[0].quorum("list", 1)["llmq_5_60"][0]
+        quorum_info = self.nodes[0].quorum("info", 100, new_quorum)
 
         # Mine 8 (SIGN_HEIGHT_OFFSET) more blocks to make sure that the new quorum gets eligable for signing sessions
         self.nodes[0].generate(8)
 
         sync_blocks(self.nodes)
 
+        self.log.info("New quorum: height=%d, quorumHash=%s, minedBlock=%s" % (quorum_info["height"], new_quorum, quorum_info["minedBlock"]))
+
         return new_quorum
 
-# Test framework for doing p2p comparison testing, which sets up some bitcoind
-# binaries:
-# 1 binary: test binary
-# 2 binaries: 1 test binary, 1 ref binary
-# n>2 binaries: 1 test binary, n-1 ref binaries
+    def wait_for_mnauth(self, node, count, timeout=10):
+        def test():
+            pi = node.getpeerinfo()
+            c = 0
+            for p in pi:
+                if "verified_proregtx_hash" in p and p["verified_proregtx_hash"] != "":
+                    c += 1
+            return c >= count
+        wait_until(test, timeout=timeout)
+
 
 class ComparisonTestFramework(BitcoinTestFramework):
+    """Test framework for doing p2p comparison testing
 
-    def __init__(self):
-        super().__init__()
+    Sets up some axed binaries:
+    - 1 binary: test binary
+    - 2 binaries: 1 test binary, 1 ref binary
+    - n>2 binaries: 1 test binary, n-1 ref binaries"""
+
+    def set_test_params(self):
         self.num_nodes = 2
         self.setup_clean_chain = True
 
@@ -719,8 +889,15 @@ class ComparisonTestFramework(BitcoinTestFramework):
                           help="axed binary to use for reference nodes (if any)")
 
     def setup_network(self):
-        self.nodes = start_nodes(
-            self.num_nodes, self.options.tmpdir,
-            extra_args=[['-whitelist=127.0.0.1']] * self.num_nodes,
-            binary=[self.options.testbinary] +
-            [self.options.refbinary]*(self.num_nodes-1))
+        extra_args = [['-whitelist=127.0.0.1']] * self.num_nodes
+        if hasattr(self, "extra_args"):
+            extra_args = self.extra_args
+        self.add_nodes(self.num_nodes, extra_args,
+                       binary=[self.options.testbinary] +
+                       [self.options.refbinary] * (self.num_nodes - 1))
+        self.start_nodes()
+
+class SkipTest(Exception):
+    """This exception is raised to skip a test"""
+    def __init__(self, message):
+        self.message = message

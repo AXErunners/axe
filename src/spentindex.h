@@ -9,6 +9,7 @@
 #include "uint256.h"
 #include "amount.h"
 #include "script/script.h"
+#include "serialize.h"
 
 struct CSpentIndexKey {
     uint256 txid;
@@ -94,6 +95,11 @@ struct CSpentIndexKeyCompare
             return a.txid < b.txid;
         }
     }
+};
+
+struct CSpentIndexTxInfo
+{
+    std::map<CSpentIndexKey, CSpentIndexValue, CSpentIndexKeyCompare> mSpentInfo;
 };
 
 struct CTimestampIndexIteratorKey {

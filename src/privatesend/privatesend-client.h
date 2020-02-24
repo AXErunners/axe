@@ -14,24 +14,22 @@
 class CPrivateSendClientManager;
 class CConnman;
 class CNode;
-
+class UniValue;
 
 static const int MIN_PRIVATESEND_SESSIONS = 1;
 static const int MIN_PRIVATESEND_ROUNDS = 2;
 static const int MIN_PRIVATESEND_AMOUNT = 2;
 static const int MIN_PRIVATESEND_DENOMS = 10;
-static const int MIN_PRIVATESEND_LIQUIDITY = 0;
 static const int MAX_PRIVATESEND_SESSIONS = 10;
 static const int MAX_PRIVATESEND_ROUNDS = 16;
 static const int MAX_PRIVATESEND_DENOMS = 100000;
 static const int MAX_PRIVATESEND_AMOUNT = MAX_MONEY / COIN;
-static const int MAX_PRIVATESEND_LIQUIDITY = 100;
 static const int DEFAULT_PRIVATESEND_SESSIONS = 4;
 static const int DEFAULT_PRIVATESEND_ROUNDS = 4;
 static const int DEFAULT_PRIVATESEND_AMOUNT = 1000;
 static const int DEFAULT_PRIVATESEND_DENOMS = 300;
-static const int DEFAULT_PRIVATESEND_LIQUIDITY = 0;
 
+static const bool DEFAULT_PRIVATESEND_AUTOSTART = false;
 static const bool DEFAULT_PRIVATESEND_MULTISESSION = false;
 
 // Warn user if mixing in gui or try to create backup if mixing in daemon mode
@@ -90,9 +88,6 @@ class CPrivateSendClientSession : public CPrivateSendBaseSession
 private:
     std::vector<COutPoint> vecOutPointLocked;
 
-    int nEntriesCount;
-    bool fLastEntryAccepted;
-
     std::string strLastMessage;
     std::string strAutoDenomResult;
 
@@ -121,7 +116,7 @@ private:
     bool SendDenominate(const std::vector<std::pair<CTxDSIn, CTxOut> >& vecPSInOutPairsIn, CConnman& connman);
 
     /// Get Masternode updates about the progress of mixing
-    bool CheckPoolStateUpdate(PoolState nStateNew, int nEntriesCountNew, PoolStatusUpdate nStatusUpdate, PoolMessage nMessageID, int nSessionIDNew = 0);
+    bool CheckPoolStateUpdate(CPrivateSendStatusUpdate psssup);
     // Set the 'state' value, with some logging and capturing when the state changed
     void SetState(PoolState nStateNew);
 
@@ -139,8 +134,6 @@ private:
 public:
     CPrivateSendClientSession() :
         vecOutPointLocked(),
-        nEntriesCount(0),
-        fLastEntryAccepted(false),
         strLastMessage(),
         strAutoDenomResult(),
         mixingMasternode(),
@@ -169,6 +162,8 @@ public:
     bool ProcessPendingDsaRequest(CConnman& connman);
 
     bool CheckTimeout();
+
+    void GetJsonInfo(UniValue& obj) const;
 };
 
 /** Used to keep track of current status of mixing pool
@@ -202,8 +197,8 @@ public:
     int nPrivateSendRounds;
     int nPrivateSendAmount;
     int nPrivateSendDenoms;
-    int nLiquidityProvider;
     bool fEnablePrivateSend;
+    bool fPrivateSendRunning;
     bool fPrivateSendMultiSession;
 
     int nCachedNumBlocks;    //used for the overview screen
@@ -220,8 +215,8 @@ public:
         nPrivateSendRounds(DEFAULT_PRIVATESEND_ROUNDS),
         nPrivateSendAmount(DEFAULT_PRIVATESEND_AMOUNT),
         nPrivateSendDenoms(DEFAULT_PRIVATESEND_DENOMS),
-        nLiquidityProvider(DEFAULT_PRIVATESEND_LIQUIDITY),
         fEnablePrivateSend(false),
+        fPrivateSendRunning(false),
         fPrivateSendMultiSession(DEFAULT_PRIVATESEND_MULTISESSION),
         nCachedNumBlocks(std::numeric_limits<int>::max()),
         fCreateAutoBackups(true)
@@ -233,8 +228,6 @@ public:
     bool IsDenomSkipped(const CAmount& nDenomValue);
     void AddSkippedDenom(const CAmount& nDenomValue);
     void RemoveSkippedDenom(const CAmount& nDenomValue);
-
-    void SetMinBlocksToWait(int nMinBlocksToWaitIn) { nMinBlocksToWait = nMinBlocksToWaitIn; }
 
     void ResetPool();
 
@@ -258,6 +251,8 @@ public:
     void UpdatedBlockTip(const CBlockIndex* pindex);
 
     void DoMaintenance(CConnman& connman);
+
+    void GetJsonInfo(UniValue& obj) const;
 };
 
 #endif

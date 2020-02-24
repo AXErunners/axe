@@ -50,9 +50,9 @@ void DestroyLLMQSystem()
     delete quorumSigSharesManager;
     quorumSigSharesManager = nullptr;
     delete quorumManager;
-    quorumManager = NULL;
+    quorumManager = nullptr;
     delete quorumDKGSessionManager;
-    quorumDKGSessionManager = NULL;
+    quorumDKGSessionManager = nullptr;
     delete quorumBlockProcessor;
     quorumBlockProcessor = nullptr;
     delete quorumDKGDebugManager;
@@ -115,4 +115,4 @@ void InterruptLLMQSystem()
     }
 }
 
-}
+} // namespace llmq

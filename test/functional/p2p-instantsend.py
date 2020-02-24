@@ -1,20 +1,22 @@
 #!/usr/bin/env python3
-# Copyright (c) 2018 The Axe Core developers
+# Copyright (c) 2018-2020 The Dash Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 from test_framework.mininode import *
 from test_framework.test_framework import AxeTestFramework
-from test_framework.util import *
-from time import *
+from test_framework.util import isolate_node, sync_mempools, set_node_times, reconnect_isolated_node, assert_equal, \
+    assert_raises_rpc_error
 
 '''
-InstantSendTest -- test InstantSend functionality (prevent doublespend for unconfirmed transactions)
+p2p-instantsend.py
+
+Tests InstantSend functionality (prevent doublespend for unconfirmed transactions)
 '''
 
 class InstantSendTest(AxeTestFramework):
-    def __init__(self):
-        super().__init__(9, 5, [], fast_dip3_enforcement=True)
+    def set_test_params(self):
+        self.set_axe_test_params(9, 5, fast_dip3_enforcement=True)
         # set sender,  receiver,  isolated nodes
         self.isolated_idx = 1
         self.receiver_idx = 2
@@ -25,17 +27,10 @@ class InstantSendTest(AxeTestFramework):
         self.wait_for_sporks_same()
         self.mine_quorum()
 
-        self.log.info("Test old InstantSend")
-        self.test_block_doublespend()
-
-        # Generate 6 block to avoid retroactive signing overloading Travis
-        self.nodes[0].generate(6)
-        sync_blocks(self.nodes)
-
-        self.nodes[0].spork("SPORK_20_INSTANTSEND_LLMQ_BASED", 0)
+        self.nodes[0].spork("SPORK_2_INSTANTSEND_ENABLED", 0)
+        self.nodes[0].spork("SPORK_3_INSTANTSEND_BLOCK_FILTERING", 0)
         self.wait_for_sporks_same()
 
-        self.log.info("Test new InstantSend")
         self.test_mempool_doublespend()
         self.test_block_doublespend()
 
@@ -47,6 +42,8 @@ class InstantSendTest(AxeTestFramework):
         # feed the sender with some balance
         sender_addr = sender.getnewaddress()
         self.nodes[0].sendtoaddress(sender_addr, 1)
+        self.bump_mocktime(1)
+        set_node_times(self.nodes, self.mocktime)
         self.nodes[0].generate(2)
         self.sync_all()
 
@@ -56,15 +53,18 @@ class InstantSendTest(AxeTestFramework):
         isolate_node(isolated)
         # instantsend to receiver
         receiver_addr = receiver.getnewaddress()
-        is_id = sender.instantsendtoaddress(receiver_addr, 0.9)
-        for node in self.nodes:
-            if node is not isolated:
-                self.wait_for_instantlock(is_id, node)
+        is_id = sender.sendtoaddress(receiver_addr, 0.9)
+        # wait for the transaction to propagate
+        connected_nodes = self.nodes.copy()
+        del connected_nodes[self.isolated_idx]
+        sync_mempools(connected_nodes)
+        for node in connected_nodes:
+            self.wait_for_instantlock(is_id, node)
         # send doublespend transaction to isolated node
         isolated.sendrawtransaction(dblspnd_tx['hex'])
         # generate block on isolated node with doublespend transaction
-        set_mocktime(get_mocktime() + 1)
-        set_node_times(self.nodes, get_mocktime())
+        self.bump_mocktime(1)
+        set_node_times(self.nodes, self.mocktime)
         isolated.generate(1)
         wrong_block = isolated.getbestblockhash()
         # connect isolated block to network
@@ -78,10 +78,13 @@ class InstantSendTest(AxeTestFramework):
             assert (res['hash'] != wrong_block)
             # wait for long time only for first node
             timeout = 1
+        # send coins back to the controller node without waiting for confirmations
+        receiver.sendtoaddress(self.nodes[0].getnewaddress(), 0.9, "", "", True)
+        assert_equal(receiver.getwalletinfo()["balance"], 0)
         # mine more blocks
         # TODO: mine these blocks on an isolated node
-        set_mocktime(get_mocktime() + 1)
-        set_node_times(self.nodes, get_mocktime())
+        self.bump_mocktime(1)
+        set_node_times(self.nodes, self.mocktime)
         self.nodes[0].generate(2)
         self.sync_all()
 
@@ -93,6 +96,8 @@ class InstantSendTest(AxeTestFramework):
         # feed the sender with some balance
         sender_addr = sender.getnewaddress()
         self.nodes[0].sendtoaddress(sender_addr, 1)
+        self.bump_mocktime(1)
+        set_node_times(self.nodes, self.mocktime)
         self.nodes[0].generate(2)
         self.sync_all()
 
@@ -108,14 +113,24 @@ class InstantSendTest(AxeTestFramework):
         reconnect_isolated_node(isolated, 0)
         for node in self.nodes:
             if node is not isolated:
-                assert_raises_jsonrpc(-5, "No such mempool or blockchain transaction", node.getrawtransaction, dblspnd_txid)
+                assert_raises_rpc_error(-5, "No such mempool or blockchain transaction", node.getrawtransaction, dblspnd_txid)
         # instantsend to receiver. The previously isolated node should prune the doublespend TX and request the correct
         # TX from other nodes.
         receiver_addr = receiver.getnewaddress()
-        is_id = sender.instantsendtoaddress(receiver_addr, 0.9)
+        is_id = sender.sendtoaddress(receiver_addr, 0.9)
+        # wait for the transaction to propagate
+        sync_mempools(self.nodes)
         for node in self.nodes:
             self.wait_for_instantlock(is_id, node)
-        assert_raises_jsonrpc(-5, "No such mempool or blockchain transaction", isolated.getrawtransaction, dblspnd_txid)
+        assert_raises_rpc_error(-5, "No such mempool or blockchain transaction", isolated.getrawtransaction, dblspnd_txid)
+        # send coins back to the controller node without waiting for confirmations
+        receiver.sendtoaddress(self.nodes[0].getnewaddress(), 0.9, "", "", True)
+        assert_equal(receiver.getwalletinfo()["balance"], 0)
+        # mine more blocks
+        self.bump_mocktime(1)
+        set_node_times(self.nodes, self.mocktime)
+        self.nodes[0].generate(2)
+        self.sync_all()
 
 if __name__ == '__main__':
     InstantSendTest().main()

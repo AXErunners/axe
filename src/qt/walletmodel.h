@@ -51,10 +51,6 @@ public:
     // Todo: This is a hack, should be replaced with a cleaner solution!
     QString address;
     QString label;
-#ifdef ENABLE_WALLET
-    AvailableCoinsType inputType;
-#endif // ENABLE_WALLET
-    bool fUseInstantSend;
     CAmount amount;
     // If from a payment request, this is used for storing the memo
     QString message;
@@ -137,7 +133,7 @@ public:
     TransactionTableModel *getTransactionTableModel();
     RecentRequestsTableModel *getRecentRequestsTableModel();
 
-    CAmount getBalance(const CCoinControl *coinControl = NULL) const;
+    CAmount getBalance(const CCoinControl *coinControl = nullptr) const;
     CAmount getUnconfirmedBalance() const;
     CAmount getImmatureBalance() const;
     CAmount getAnonymizedBalance() const;
@@ -163,7 +159,7 @@ public:
     };
 
     // prepare transaction for getting txfee before sending coins
-    SendCoinsReturn prepareTransaction(WalletModelTransaction &transaction, const CCoinControl *coinControl = NULL);
+    SendCoinsReturn prepareTransaction(WalletModelTransaction &transaction, const CCoinControl& coinControl);
 
     // Send coins to a list of recipients
     SendCoinsReturn sendCoins(WalletModelTransaction &transaction);
@@ -201,8 +197,8 @@ public:
     UnlockContext requestUnlock(bool fForMixingOnly=false);
 
     bool getPubKey(const CKeyID &address, CPubKey& vchPubKeyOut) const;
-    bool havePrivKey(const CKeyID &address) const;
-    bool havePrivKey(const CScript& script) const;
+    bool IsSpendable(const CTxDestination& dest) const;
+    bool IsSpendable(const CScript& script) const;
     bool getPrivKey(const CKeyID &address, CKey& vchPrivKeyOut) const;
     void getOutputs(const std::vector<COutPoint>& vOutpoints, std::vector<COutput>& vOutputs);
     bool isSpent(const COutPoint& outpoint) const;
@@ -227,8 +223,6 @@ public:
 
     int getDefaultConfirmTarget() const;
     int getNumISLocks() const;
-
-    bool IsOldInstantSendEnabled() const;
 
 private:
     CWallet *wallet;

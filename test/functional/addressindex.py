@@ -15,19 +15,18 @@ import binascii
 
 class AddressIndexTest(BitcoinTestFramework):
 
-    def __init__(self):
-        super().__init__()
+    def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 4
 
     def setup_network(self):
-        self.nodes = []
+        self.add_nodes(self.num_nodes)
         # Nodes 0/1 are "wallet" nodes
-        self.nodes.append(start_node(0, self.options.tmpdir, ["-relaypriority=0"]))
-        self.nodes.append(start_node(1, self.options.tmpdir, ["-addressindex"]))
+        self.start_node(0, ["-relaypriority=0"])
+        self.start_node(1, ["-addressindex"])
         # Nodes 2/3 are used for testing
-        self.nodes.append(start_node(2, self.options.tmpdir, ["-addressindex", "-relaypriority=0"]))
-        self.nodes.append(start_node(3, self.options.tmpdir, ["-addressindex"]))
+        self.start_node(2, ["-addressindex", "-relaypriority=0"])
+        self.start_node(3, ["-addressindex"])
         connect_nodes(self.nodes[0], 1)
         connect_nodes(self.nodes[0], 2)
         connect_nodes(self.nodes[0], 3)
@@ -36,6 +35,18 @@ class AddressIndexTest(BitcoinTestFramework):
         self.sync_all()
 
     def run_test(self):
+        self.log.info("Test that settings can't be changed without -reindex...")
+        self.stop_node(1)
+        self.assert_start_raises_init_error(1, ["-addressindex=0"], 'You need to rebuild the database using -reindex to change -addressindex')
+        self.start_node(1, ["-addressindex=0", "-reindex"])
+        connect_nodes(self.nodes[0], 1)
+        self.sync_all()
+        self.stop_node(1)
+        self.assert_start_raises_init_error(1, ["-addressindex"], 'You need to rebuild the database using -reindex to change -addressindex')
+        self.start_node(1, ["-addressindex", "-reindex"])
+        connect_nodes(self.nodes[0], 1)
+        self.sync_all()
+
         self.log.info("Mining blocks...")
         self.nodes[0].generate(105)
         self.sync_all()
@@ -203,8 +214,8 @@ class AddressIndexTest(BitcoinTestFramework):
         self.nodes[2].invalidateblock(best_hash)
         self.nodes[3].invalidateblock(best_hash)
         # Allow some time for the reorg to start
-        set_mocktime(get_mocktime() + 2)
-        set_node_times(self.nodes, get_mocktime())
+        self.bump_mocktime(2)
+        set_node_times(self.nodes, self.mocktime)
         self.sync_all()
 
         balance4 = self.nodes[1].getaddressbalance(address2)
@@ -247,8 +258,8 @@ class AddressIndexTest(BitcoinTestFramework):
         tx.rehash()
         signed_tx = self.nodes[2].signrawtransaction(binascii.hexlify(tx.serialize()).decode("utf-8"))
         memtxid1 = self.nodes[2].sendrawtransaction(signed_tx["hex"], True)
-        set_mocktime(get_mocktime() + 2)
-        set_node_times(self.nodes, get_mocktime())
+        self.bump_mocktime(2)
+        set_node_times(self.nodes, self.mocktime)
 
         tx2 = CTransaction()
         tx2.vin = [CTxIn(COutPoint(int(unspent[1]["txid"], 16), unspent[1]["vout"]))]
@@ -262,8 +273,8 @@ class AddressIndexTest(BitcoinTestFramework):
         tx2.rehash()
         signed_tx2 = self.nodes[2].signrawtransaction(binascii.hexlify(tx2.serialize()).decode("utf-8"))
         memtxid2 = self.nodes[2].sendrawtransaction(signed_tx2["hex"], True)
-        set_mocktime(get_mocktime() + 2)
-        set_node_times(self.nodes, get_mocktime())
+        self.bump_mocktime(2)
+        set_node_times(self.nodes, self.mocktime)
 
         mempool = self.nodes[2].getaddressmempool({"addresses": [address3]})
         assert_equal(len(mempool), 3)
@@ -290,8 +301,8 @@ class AddressIndexTest(BitcoinTestFramework):
         self.nodes[2].importprivkey(privKey3)
         signed_tx3 = self.nodes[2].signrawtransaction(binascii.hexlify(tx.serialize()).decode("utf-8"))
         memtxid3 = self.nodes[2].sendrawtransaction(signed_tx3["hex"], True)
-        set_mocktime(get_mocktime() + 2)
-        set_node_times(self.nodes, get_mocktime())
+        self.bump_mocktime(2)
+        set_node_times(self.nodes, self.mocktime)
 
         mempool3 = self.nodes[2].getaddressmempool({"addresses": [address3]})
         assert_equal(len(mempool3), 2)

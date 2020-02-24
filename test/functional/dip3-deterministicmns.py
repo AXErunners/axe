@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-# Copyright (c) 2015-2018 The Axe Core developers
+# Copyright (c) 2015-2020 The Dash Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #
 # Test deterministic masternodes
 #
+import sys
 
 from test_framework.blocktools import create_block, create_coinbase, get_masternode_payment
 from test_framework.mininode import CTransaction, ToHex, FromHex, CTxOut, COIN, CCbTx
@@ -16,8 +17,7 @@ class Masternode(object):
     pass
 
 class DIP3Test(BitcoinTestFramework):
-    def __init__(self):
-        super().__init__()
+    def set_test_params(self):
         self.num_initial_mn = 11 # Should be >= 11 to make sure quorums are not always the same MNs
         self.num_nodes = 1 + self.num_initial_mn + 2 # +1 for controller, +1 for mn-qt, +1 for mn created after dip3 activation
         self.setup_clean_chain = True
@@ -26,26 +26,22 @@ class DIP3Test(BitcoinTestFramework):
         self.extra_args += ["-sporkkey=cP4EKFyJsHT39LDqgdcB43Y3YXjNyjb5Fuas1GQSeAtjnZWmZEQK"]
         self.extra_args += ["-dip3params=135:150"]
 
-    def setup_network(self):
-        disable_mocktime()
-        self.start_controller_node()
-        self.is_network_split = False
 
-    def start_controller_node(self, extra_args=None):
+    def setup_network(self):
+        self.disable_mocktime()
+        self.add_nodes(1)
+        self.start_controller_node()
+
+    def start_controller_node(self):
         self.log.info("starting controller node")
-        if self.nodes is None:
-            self.nodes = [None]
-        args = self.extra_args
-        if extra_args is not None:
-            args += extra_args
-        self.nodes[0] = start_node(0, self.options.tmpdir, extra_args=args)
+        self.start_node(0, extra_args=self.extra_args)
         for i in range(1, self.num_nodes):
-            if i < len(self.nodes) and self.nodes[i] is not None:
+            if i < len(self.nodes) and self.nodes[i] is not None and self.nodes[i].process is not None:
                 connect_nodes_bi(self.nodes, 0, i)
 
     def stop_controller_node(self):
         self.log.info("stopping controller node")
-        stop_node(self.nodes[0], 0)
+        self.stop_node(0)
 
     def restart_controller_node(self):
         self.stop_controller_node()
@@ -114,9 +110,6 @@ class DIP3Test(BitcoinTestFramework):
             self.sync_all()
             self.assert_mnlists(mns)
 
-        self.log.info("testing instant send")
-        self.test_instantsend(10, 3)
-
         self.log.info("test that MNs disappear from the list when the ProTx collateral is spent")
         spend_mns_count = 3
         mns_tmp = [] + mns
@@ -145,7 +138,7 @@ class DIP3Test(BitcoinTestFramework):
         for i in range(20):
             node = self.nodes[i % len(self.nodes)]
             self.test_invalid_mn_payment(node)
-            node.generate(1)
+            self.nodes[0].generate(1)
             self.sync_all()
 
         self.log.info("testing ProUpServTx")
@@ -191,8 +184,24 @@ class DIP3Test(BitcoinTestFramework):
             self.start_mn(new_mn)
             self.sync_all()
 
-        self.log.info("testing instant send with replaced MNs")
-        self.test_instantsend(10, 3, timeout=20)
+        self.log.info("testing masternode status updates")
+        # change voting address and see if changes are reflected in `masternode status` rpc output
+        mn = mns[0]
+        node = self.nodes[0]
+        old_dmnState = mn.node.masternode("status")["dmnState"]
+        old_voting_address = old_dmnState["votingAddress"]
+        new_voting_address = node.getnewaddress()
+        assert(old_voting_address != new_voting_address)
+        # also check if funds from payout address are used when no fee source address is specified
+        node.sendtoaddress(mn.rewards_address, 0.001)
+        node.protx('update_registrar', mn.protx_hash, "", new_voting_address, "")
+        node.generate(1)
+        self.sync_all()
+        new_dmnState = mn.node.masternode("status")["dmnState"]
+        new_voting_address_from_rpc = new_dmnState["votingAddress"]
+        assert(new_voting_address_from_rpc == new_voting_address)
+        # make sure payoutAddress is the same as before
+        assert(old_dmnState["payoutAddress"] == new_dmnState["payoutAddress"])
 
     def prepare_mn(self, node, idx, alias):
         mn = Masternode()
@@ -250,16 +259,15 @@ class DIP3Test(BitcoinTestFramework):
 
     def start_mn(self, mn):
         while len(self.nodes) <= mn.idx:
-            self.nodes.append(None)
-        extra_args = ['-masternode=1', '-masternodeblsprivkey=%s' % mn.blsMnkey]
-        n = start_node(mn.idx, self.options.tmpdir, self.extra_args + extra_args, redirect_stderr=True)
-        self.nodes[mn.idx] = n
-        for i in range(0, self.num_nodes):
-            if i < len(self.nodes) and self.nodes[i] is not None and i != mn.idx:
+            self.add_nodes(1)
+        extra_args = ['-masternodeblsprivkey=%s' % mn.blsMnkey]
+        self.start_node(mn.idx, extra_args = self.extra_args + extra_args)
+        force_finish_mnsync(self.nodes[mn.idx])
+        for i in range(0, len(self.nodes)):
+            if i < len(self.nodes) and self.nodes[i] is not None and self.nodes[i].process is not None and i != mn.idx:
                 connect_nodes_bi(self.nodes, mn.idx, i)
         mn.node = self.nodes[mn.idx]
         self.sync_all()
-        self.force_finish_mnsync(mn.node)
 
     def spend_mn_collateral(self, mn, with_dummy_input_output=False):
         return self.spend_input(mn.collateral_txid, mn.collateral_vout, 1000, with_dummy_input_output)
@@ -287,76 +295,6 @@ class DIP3Test(BitcoinTestFramework):
         self.nodes[0].protx('update_service', mn.protx_hash, '127.0.0.1:%d' % mn.p2p_port, mn.blsMnkey, "", mn.fundsAddr)
         self.nodes[0].generate(1)
 
-    def force_finish_mnsync(self, node):
-        while True:
-            s = node.mnsync('next')
-            if s == 'sync updated to MASTERNODE_SYNC_FINISHED':
-                break
-            time.sleep(0.1)
-
-    def force_finish_mnsync_list(self, node):
-        if node.mnsync('status')['AssetName'] == 'MASTERNODE_SYNC_WAITING':
-            node.mnsync('next')
-
-        while True:
-            mnlist = node.masternode('list', 'status')
-            if len(mnlist) != 0:
-                time.sleep(0.5)
-                self.force_finish_mnsync(node)
-                return
-            time.sleep(0.1)
-
-    def test_instantsend(self, tx_count, repeat, timeout=20):
-        self.nodes[0].spork('SPORK_2_INSTANTSEND_ENABLED', 0)
-        self.wait_for_sporks()
-
-        # give all nodes some coins first
-        for i in range(tx_count):
-            outputs = {}
-            for node in self.nodes[1:]:
-                outputs[node.getnewaddress()] = 1
-            rawtx = self.nodes[0].createrawtransaction([], outputs)
-            rawtx = self.nodes[0].fundrawtransaction(rawtx)['hex']
-            rawtx = self.nodes[0].signrawtransaction(rawtx)['hex']
-            self.nodes[0].sendrawtransaction(rawtx)
-            self.nodes[0].generate(1)
-        self.sync_all()
-
-        for j in range(repeat):
-            for i in range(tx_count):
-                while True:
-                    from_node_idx = random.randint(1, len(self.nodes) - 1)
-                    from_node = self.nodes[from_node_idx]
-                    if from_node is not None:
-                        break
-                while True:
-                    to_node_idx = random.randint(0, len(self.nodes) - 1)
-                    to_node = self.nodes[to_node_idx]
-                    if to_node is not None and from_node is not to_node:
-                        break
-                to_address = to_node.getnewaddress()
-                txid = from_node.instantsendtoaddress(to_address, 0.1)
-                for node in self.nodes:
-                    if node is not None:
-                        self.wait_for_instant_lock(node, to_node_idx, txid, timeout=timeout)
-            self.nodes[0].generate(6)
-            self.sync_all()
-
-    def wait_for_instant_lock(self, node, node_idx, txid, timeout=10):
-        st = time.time()
-        while time.time() < st + timeout:
-            try:
-                tx = node.getrawtransaction(txid, 1)
-            except:
-                tx = None
-            if tx is None:
-                time.sleep(0.5)
-                continue
-            if tx['instantlock']:
-                return
-            time.sleep(0.5)
-        raise AssertionError("wait_for_instant_lock timed out for: {} on node {}".format(txid, node_idx))
-
     def assert_mnlists(self, mns):
         for node in self.nodes:
             self.assert_mnlist(node, mns)
@@ -369,22 +307,6 @@ class DIP3Test(BitcoinTestFramework):
             self.log.error('mnlist: ' + str(node.masternode('list', 'status')))
             self.log.error('expected: ' + str(expected))
             raise AssertionError("mnlists does not match provided mns")
-
-    def wait_for_sporks(self, timeout=30):
-        st = time.time()
-        while time.time() < st + timeout:
-            if self.compare_sporks():
-                return
-            time.sleep(0.5)
-        raise AssertionError("wait_for_sporks timed out")
-
-    def compare_sporks(self):
-        sporks = self.nodes[0].spork('show')
-        for node in self.nodes[1:]:
-            sporks2 = node.spork('show')
-            if sporks != sporks2:
-                return False
-        return True
 
     def compare_mnlist(self, node, mns):
         mnlist = node.masternode('list', 'status')
@@ -434,7 +356,7 @@ class DIP3Test(BitcoinTestFramework):
 
         coinbasevalue = bt['coinbasevalue']
         if miner_address is None:
-            miner_address = node.getnewaddress()
+            miner_address = self.nodes[0].getnewaddress()
         if mn_payee is None:
             if isinstance(bt['masternode'], list):
                 mn_payee = bt['masternode'][0]['payee']

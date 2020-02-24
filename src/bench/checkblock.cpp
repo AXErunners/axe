@@ -20,7 +20,7 @@ static void DeserializeBlockTest(benchmark::State& state)
     CDataStream stream((const char*)raw_bench::block813851,
             (const char*)&raw_bench::block813851[sizeof(raw_bench::block813851)],
             SER_NETWORK, PROTOCOL_VERSION);
-    char a;
+    char a = '\0';
     stream.write(&a, 1); // Prevent compaction
 
     while (state.KeepRunning()) {
@@ -35,10 +35,10 @@ static void DeserializeAndCheckBlockTest(benchmark::State& state)
     CDataStream stream((const char*)raw_bench::block813851,
             (const char*)&raw_bench::block813851[sizeof(raw_bench::block813851)],
             SER_NETWORK, PROTOCOL_VERSION);
-    char a;
+    char a = '\0';
     stream.write(&a, 1); // Prevent compaction
 
-    Consensus::Params params = Params(CBaseChainParams::MAIN).GetConsensus();
+    const auto chainParams = CreateChainParams(CBaseChainParams::MAIN);
 
     while (state.KeepRunning()) {
         CBlock block; // Note that CBlock caches its checked state, so we need to recreate it here
@@ -46,7 +46,7 @@ static void DeserializeAndCheckBlockTest(benchmark::State& state)
         assert(stream.Rewind(sizeof(raw_bench::block813851)));
 
         CValidationState validationState;
-        assert(CheckBlock(block, validationState, params, block.GetBlockTime()));
+        assert(CheckBlock(block, validationState, chainParams->GetConsensus(), block.GetBlockTime()));
     }
 }
 

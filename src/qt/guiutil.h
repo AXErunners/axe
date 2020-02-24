@@ -6,6 +6,7 @@
 #define BITCOIN_QT_GUIUTIL_H
 
 #include "amount.h"
+#include "fs.h"
 
 #include <QEvent>
 #include <QHeaderView>
@@ -15,8 +16,6 @@
 #include <QString>
 #include <QTableView>
 #include <QLabel>
-
-#include <boost/filesystem.hpp>
 
 class QValidatedLineEdit;
 class SendCoinsRecipient;
@@ -34,6 +33,47 @@ QT_END_NAMESPACE
  */
 namespace GUIUtil
 {
+    /* Enumeration of possible "colors" */
+    enum class ThemedColor {
+        /* Transaction list -- TX status decoration - default color */
+        DEFAULT,
+        /* Transaction list -- unconfirmed transaction */
+        UNCONFIRMED,
+        /* Transaction list -- negative amount */
+        NEGATIVE,
+        /* Transaction list -- bare address (without label) */
+        BAREADDRESS,
+        /* Transaction list -- TX status decoration - open until date */
+        TX_STATUS_OPENUNTILDATE,
+        /* Transaction list -- TX status decoration - offline */
+        TX_STATUS_OFFLINE,
+        /* Transaction list -- TX status decoration - danger, tx needs attention */
+        TX_STATUS_DANGER,
+        /* Transaction list -- TX status decoration - LockedByInstantSend color */
+        TX_STATUS_LOCKED,
+    };
+
+    /* Enumeration of possible "styles" */
+    enum class ThemedStyle {
+        /* Invalid field background style */
+        TS_INVALID,
+        /* Failed operation text style */
+        TS_ERROR,
+        /* Failed operation text style */
+        TS_SUCCESS,
+        /* Comand text style */
+        TS_COMMAND,
+        /* General text styles */
+        TS_PRIMARY,
+        TS_SECONDARY,
+    };
+
+    /** Helper to get colors for various themes which can't be applied via css for some reason */
+    QColor getThemedQColor(ThemedColor color);
+
+    /** Helper to get css style strings which are injected into rich text through qt */
+    QString getThemedStyleQString(ThemedStyle style);
+
     // Create human-readable string from date
     QString dateTimeStr(const QDateTime &datetime);
     QString dateTimeStr(qint64 nTime);
@@ -186,22 +226,14 @@ namespace GUIUtil
     /** Modify Qt network specific settings on migration */
     void migrateQtSettings();
 
-    /** Save window size and position */
-    void saveWindowGeometry(const QString& strSetting, QWidget *parent);
-    /** Restore window size and position */
-    void restoreWindowGeometry(const QString& strSetting, const QSize &defaultSizeIn, QWidget *parent);
-
     /** Load global CSS theme */
     QString loadStyleSheet();
 
-    /** Return name of current CSS theme */
-    QString getThemeName();
-    
     /* Convert QString to OS specific boost path through UTF-8 */
-    boost::filesystem::path qstringToBoostPath(const QString &path);
+    fs::path qstringToBoostPath(const QString &path);
 
     /* Convert OS specific boost path to QString through UTF-8 */
-    QString boostPathToQString(const boost::filesystem::path &path);
+    QString boostPathToQString(const fs::path &path);
 
     /* Convert seconds into a QString with days, hours, mins, secs */
     QString formatDurationStr(int secs);

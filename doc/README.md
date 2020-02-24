@@ -1,5 +1,5 @@
-Axe Core 1.4.0
-=====================
+Axe Core
+==========
 
 This is the official reference wallet for AXE digital currency and comprises the backbone of the AXE peer-to-peer network. You can [download AXE Core](https://axerunners.com/) or [build it yourself](#building) using the guides below.
 
@@ -63,6 +63,7 @@ The Axe Core repo's [root README](/README.md) contains relevant information on t
 ### Miscellaneous
 - [Assets Attribution](assets-attribution.md)
 - [Files](files.md)
+- [Fuzz-testing](fuzzing.md)
 - [Reduce Traffic](reduce-traffic.md)
 - [Tor Support](tor.md)
 - [Init Scripts (systemd/upstart/openrc)](init.md)

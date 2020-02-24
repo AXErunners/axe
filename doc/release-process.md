@@ -8,7 +8,7 @@ Release Process
 Before every minor and major release:
 
 * Update [bips.md](bips.md) to account for changes since the last release.
-* Update version in sources (see below)
+* Update version in `configure.ac` (don't forget to set `CLIENT_VERSION_IS_RELEASE` to `true`)
 * Write release notes (see below)
 * Update `src/chainparams.cpp` nMinimumChainWork with information from the getblockchaininfo rpc.
 * Update `src/chainparams.cpp` defaultAssumeValid  with information from the getblockhash rpc.
@@ -22,6 +22,7 @@ Before every major release:
 * Update hardcoded [seeds](/contrib/seeds/README.md). TODO: Give example PR for Axe
 * Update [`BLOCK_CHAIN_SIZE`](/src/qt/intro.cpp) to the current size plus some overhead.
 * Update `src/chainparams.cpp` chainTxData with statistics about the transaction count and rate.
+* Update version of `contrib/gitian-descriptors/*.yml`: usually one'd want to do this on master after branching off the release - but be sure to at least do it before a new major release
 
 ### First time / New builders
 
@@ -35,21 +36,7 @@ Check out the source code in the following directory hierarchy.
 	git clone https://github.com/devrandom/gitian-builder.git
 	git clone https://github.com/axerunners/axe.git
 
-### Axe Core maintainers/release engineers, update (commit) version in sources
-
-- `configure.ac`:
-    - `_CLIENT_VERSION_MAJOR`
-    - `_CLIENT_VERSION_MINOR`
-    - `_CLIENT_VERSION_REVISION`
-    - Don't forget to set `_CLIENT_VERSION_IS_RELEASE` to `true`
-- `src/clientversion.h`: (this mirrors `configure.ac` - see issue #3539)
-    - `CLIENT_VERSION_MAJOR`
-    - `CLIENT_VERSION_MINOR`
-    - `CLIENT_VERSION_REVISION`
-    - Don't forget to set `CLIENT_VERSION_IS_RELEASE` to `true`
-- `doc/README.md` and `doc/README_windows.txt`
-- `doc/Doxyfile`: `PROJECT_NUMBER` contains the full version
-- `contrib/gitian-descriptors/*.yml`: usually one'd want to do this on master after branching off the release - but be sure to at least do it before a new major release
+### Axe Core maintainers/release engineers, suggestion for writing release notes
 
 Write release notes. git shortlog helps a lot, for example:
 
@@ -93,8 +80,8 @@ Ensure gitian-builder is up-to-date:
 
     pushd ./gitian-builder
     mkdir -p inputs
-    wget -P inputs https://bitcoincore.org/cfields/osslsigncode-Backports-to-1.7.1.patch
-    wget -P inputs http://downloads.sourceforge.net/project/osslsigncode/osslsigncode/osslsigncode-1.7.1.tar.gz
+    wget -O inputs/osslsigncode-2.0.tar.gz https://github.com/mtrojnar/osslsigncode/archive/2.0.tar.gz
+    echo '5a60e0a4b3e0b4d655317b2f12a810211c50242138322b16e7e01c6fbb89d92f inputs/osslsigncode-2.0.tar.gz' | sha256sum -c
     popd
 
 Create the OS X SDK tarball, see the [OS X readme](README_osx.md) for details, and copy it into the inputs directory.
@@ -120,16 +107,16 @@ The gbuild invocations below <b>DO NOT DO THIS</b> by default.
 ### Build and sign Axe Core for Linux, Windows, and OS X:
 
     pushd ./gitian-builder
-    ./bin/gbuild --memory 3000 --commit axe=v${VERSION} ../axe/contrib/gitian-descriptors/gitian-linux.yml
+    ./bin/gbuild --num-make 2 --memory 3000 --commit axe=v${VERSION} ../axe/contrib/gitian-descriptors/gitian-linux.yml
     ./bin/gsign --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs/ ../axe/contrib/gitian-descriptors/gitian-linux.yml
     mv build/out/axe-*.tar.gz build/out/src/axe-*.tar.gz ../
 
-    ./bin/gbuild --memory 3000 --commit axe=v${VERSION} ../axe/contrib/gitian-descriptors/gitian-win.yml
+    ./bin/gbuild --num-make 2 --memory 3000 --commit axe=v${VERSION} ../axe/contrib/gitian-descriptors/gitian-win.yml
     ./bin/gsign --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs/ ../axe/contrib/gitian-descriptors/gitian-win.yml
     mv build/out/axe-*-win-unsigned.tar.gz inputs/axe-win-unsigned.tar.gz
     mv build/out/axe-*.zip build/out/axe-*.exe ../
 
-    ./bin/gbuild --memory 3000 --commit axe=v${VERSION} ../axe/contrib/gitian-descriptors/gitian-osx.yml
+    ./bin/gbuild --num-make 2 --memory 3000 --commit axe=v${VERSION} ../axe/contrib/gitian-descriptors/gitian-osx.yml
     ./bin/gsign --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs/ ../axe/contrib/gitian-descriptors/gitian-osx.yml
     mv build/out/axe-*-osx-unsigned.tar.gz inputs/axe-osx-unsigned.tar.gz
     mv build/out/axe-*.tar.gz build/out/axe-*.dmg ../
@@ -178,7 +165,7 @@ Codesigner only: Sign the osx binary:
 
     transfer axecore-osx-unsigned.tar.gz to osx for signing
     tar xf axecore-osx-unsigned.tar.gz
-    ./detached-sig-create.sh -s "Key ID"
+    ./detached-sig-create.sh -s "Key ID" -o runtime
     Enter the keychain password and authorize the signature
     Move signature-osx.tar.gz back to the gitian host
 

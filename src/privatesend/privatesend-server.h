@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019 The Dash Core developers
+// Copyright (c) 2014-2020 The Dash Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -9,6 +9,7 @@
 #include "privatesend.h"
 
 class CPrivateSendServer;
+class UniValue;
 
 // The main object for accessing mixing
 extern CPrivateSendServer privateSendServer;
@@ -28,7 +29,7 @@ private:
     bool fUnitTest;
 
     /// Add a clients entry to the pool
-    bool AddEntry(const CPrivateSendEntry& entryNew, PoolMessage& nMessageIDRet);
+    bool AddEntry(CConnman& connman, const CPrivateSendEntry& entry, PoolMessage& nMessageIDRet);
     /// Add signature to a txin
     bool AddScriptSig(const CTxIn& txin);
 
@@ -36,6 +37,8 @@ private:
     void ChargeFees(CConnman& connman);
     /// Rarely charge fees to pay miners
     void ChargeRandomFees(CConnman& connman);
+    /// Consume collateral in cases when peer misbehaved
+    void ConsumeCollateral(CConnman& connman, const CTransactionRef& txref);
 
     /// Check for process
     void CheckPool(CConnman& connman);
@@ -54,8 +57,6 @@ private:
     bool IsSignaturesComplete();
     /// Check to make sure a given input matches an input in the pool and its scriptSig is valid
     bool IsInputScriptSigValid(const CTxIn& txin);
-    /// Are these outputs compatible with other client in the pool?
-    bool IsOutputsCompatibleWithSessionDenom(const std::vector<CTxOut>& vecTxOut);
 
     // Set the 'state' value, with some logging and capturing when the state changed
     void SetState(PoolState nStateNew);
@@ -80,6 +81,8 @@ public:
     void CheckForCompleteQueue(CConnman& connman);
 
     void DoMaintenance(CConnman& connman);
+
+    void GetJsonInfo(UniValue& obj) const;
 };
 
 #endif

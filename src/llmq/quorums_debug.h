@@ -47,7 +47,7 @@ public:
 class CDKGDebugSessionStatus
 {
 public:
-    uint8_t llmqType{Consensus::LLMQ_NONE};
+    Consensus::LLMQType llmqType{Consensus::LLMQ_NONE};
     uint256 quorumHash;
     uint32_t quorumHeight{0};
     uint8_t phase{0};
@@ -79,7 +79,7 @@ class CDKGDebugStatus
 public:
     int64_t nTime{0};
 
-    std::map<uint8_t, CDKGDebugSessionStatus> sessions;
+    std::map<Consensus::LLMQType, CDKGDebugSessionStatus> sessions;
 
 public:
     UniValue ToJson(int detailLevel) const;
@@ -99,13 +99,12 @@ public:
     void ResetLocalSessionStatus(Consensus::LLMQType llmqType);
     void InitLocalSessionStatus(Consensus::LLMQType llmqType, const uint256& quorumHash, int quorumHeight);
 
-    void UpdateLocalStatus(std::function<bool(CDKGDebugStatus& status)>&& func);
     void UpdateLocalSessionStatus(Consensus::LLMQType llmqType, std::function<bool(CDKGDebugSessionStatus& status)>&& func);
     void UpdateLocalMemberStatus(Consensus::LLMQType llmqType, size_t memberIdx, std::function<bool(CDKGDebugMemberStatus& status)>&& func);
 };
 
 extern CDKGDebugManager* quorumDKGDebugManager;
 
-}
+} // namespace llmq
 
 #endif //AXE_QUORUMS_DEBUG_H

@@ -1,5 +1,5 @@
-// Copyright (c) 2014-2017 The Dash Core developers
-// Copyright (c) 2017-2018 The AXE Core developers
+// Copyright (c) 2014-2020 The Dash Core developers
+// Copyright (c) 2017-2018 The Axe Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -102,11 +102,11 @@ CKeePassIntegrator::CKeePassIntegrator()
 // Initialze from application context
 void CKeePassIntegrator::init()
 {
-    bIsActive = GetBoolArg("-keepass", false);
-    nPort = GetArg("-keepassport", DEFAULT_KEEPASS_HTTP_PORT);
-    sKeyBase64 = SecureString(GetArg("-keepasskey", "").c_str());
-    strKeePassId = GetArg("-keepassid", "");
-    strKeePassEntryName = GetArg("-keepassname", "");
+    bIsActive = gArgs.GetBoolArg("-keepass", false);
+    nPort = gArgs.GetArg("-keepassport", DEFAULT_KEEPASS_HTTP_PORT);
+    sKeyBase64 = SecureString(gArgs.GetArg("-keepasskey", "").c_str());
+    strKeePassId = gArgs.GetArg("-keepassid", "");
+    strKeePassEntryName = gArgs.GetArg("-keepassname", "");
     // Convert key if available
     if(sKeyBase64.size() > 0)
     {
@@ -118,8 +118,6 @@ void CKeePassIntegrator::init()
         sUrl = SecureString("http://");
         sUrl += SecureString(strKeePassEntryName.c_str());
         sUrl += SecureString("/");
-        //sSubmitUrl = "http://";
-        //sSubmitUrl += SecureString(strKeePassEntryName.c_str());
     }
 }
 
@@ -265,8 +263,8 @@ static void http_request_done(struct evhttp_request *req, void *ctx)
 {
     HTTPReply *reply = static_cast<HTTPReply*>(ctx);
 
-    if (req == NULL) {
-        /* If req is NULL, it means an error occurred while connecting, but
+    if (req == nullptr) {
+        /* If req is nullptr, it means an error occurred while connecting, but
          * I'm not sure how to find out which one. We also don't really care.
          */
         reply->nStatus = 0;
@@ -289,86 +287,32 @@ static void http_request_done(struct evhttp_request *req, void *ctx)
 // Send RPC message to KeePassHttp
 void CKeePassIntegrator::doHTTPPost(const std::string& sRequest, int& nStatusRet, std::string& strResponseRet)
 {
-//    // Prepare communication
-//    boost::asio::io_service io_service;
-
-//    // Get a list of endpoints corresponding to the server name.
-//    tcp::resolver resolver(io_service);
-//    tcp::resolver::query query(KEEPASS_HTTP_HOST, boost::lexical_cast<std::string>(nPort));
-//    tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
-//    tcp::resolver::iterator end;
-
-//    // Try each endpoint until we successfully establish a connection.
-//    tcp::socket socket(io_service);
-//    boost::system::error_code error = boost::asio::error::host_not_found;
-//    while (error && endpoint_iterator != end)
-//    {
-//      socket.close();
-//      socket.connect(*endpoint_iterator++, error);
-//    }
-
-//    if(error)
-//    {
-//        throw boost::system::system_error(error);
-//    }
     // Create event base
     struct event_base *base = event_base_new(); // TODO RAII
     if (!base)
         throw std::runtime_error("cannot create event_base");
 
     // Synchronously look up hostname
-    struct evhttp_connection *evcon = evhttp_connection_base_new(base, NULL, KEEPASS_HTTP_HOST, DEFAULT_KEEPASS_HTTP_PORT); // TODO RAII
-    if (evcon == NULL)
+    struct evhttp_connection *evcon = evhttp_connection_base_new(base, nullptr, KEEPASS_HTTP_HOST, DEFAULT_KEEPASS_HTTP_PORT); // TODO RAII
+    if (evcon == nullptr)
         throw std::runtime_error("create connection failed");
     evhttp_connection_set_timeout(evcon, KEEPASS_HTTP_CONNECT_TIMEOUT);
 
-    // Form the request.
-//    std::map<std::string, std::string> mapRequestHeaders;
-//    std::string strPost = constructHTTPPost(sRequest, mapRequestHeaders);
-
     HTTPReply response;
     struct evhttp_request *req = evhttp_request_new(http_request_done, (void*)&response); // TODO RAII
-    if (req == NULL)
+    if (req == nullptr)
         throw std::runtime_error("create http request failed");
 
     struct evkeyvalq *output_headers = evhttp_request_get_output_headers(req);
     assert(output_headers);
-//    s << "POST / HTTP/1.1\r\n"
     evhttp_add_header(output_headers, "User-Agent", ("axe-json-rpc/" + FormatFullVersion()).c_str());
     evhttp_add_header(output_headers, "Host", KEEPASS_HTTP_HOST);
     evhttp_add_header(output_headers, "Accept", "application/json");
     evhttp_add_header(output_headers, "Content-Type", "application/json");
-//    evhttp_add_header(output_headers, "Content-Length", itostr(strMsg.size()).c_str());
     evhttp_add_header(output_headers, "Connection", "close");
 
-    // Logging of actual post data disabled as to not write passphrase in debug.log. Only enable temporarily when needed
-    //LogPrint("keepass", "CKeePassIntegrator::doHTTPPost -- send POST data: %s\n", strPost);
-    LogPrint("keepass", "CKeePassIntegrator::doHTTPPost -- send POST data\n");
+    LogPrint(BCLog::KEEPASS, "CKeePassIntegrator::doHTTPPost -- send POST data\n");
 
-//    boost::asio::streambuf request;
-//    std::ostream request_stream(&request);
-//    request_stream << strPost;
-
-//    // Send the request.
-//    boost::asio::write(socket, request);
-
-//    LogPrint("keepass", "CKeePassIntegrator::doHTTPPost -- request written\n");
-
-//    // Read the response status line. The response streambuf will automatically
-//    // grow to accommodate the entire line. The growth may be limited by passing
-//    // a maximum size to the streambuf constructor.
-//    boost::asio::streambuf response;
-//    boost::asio::read_until(socket, response, "\r\n");
-
-//    LogPrint("keepass", "CKeePassIntegrator::doHTTPPost -- request status line read\n");
-
-//    // Receive HTTP reply status
-//    int nProto = 0;
-//    std::istream response_stream(&response);
-//    nStatus = ReadHTTPStatus(response_stream, nProto);
-
-    // Attach request data
-//    std::string sRequest = JSONRPCRequest(strMethod, params, 1);
     struct evbuffer * output_buffer = evhttp_request_get_output_buffer(req);
     assert(output_buffer);
     evbuffer_add(output_buffer, sRequest.data(), sRequest.size());
@@ -383,25 +327,6 @@ void CKeePassIntegrator::doHTTPPost(const std::string& sRequest, int& nStatusRet
     event_base_dispatch(base);
     evhttp_connection_free(evcon);
     event_base_free(base);
-
-//    LogPrint("keepass", "CKeePassIntegrator::doHTTPPost -- reading response body start\n");
-//    // Read until EOF, writing data to output as we go.
-//    while (boost::asio::read(socket, response, boost::asio::transfer_at_least(1), error))
-//    {
-//        if (error != boost::asio::error::eof)
-//        {
-//            if (error != 0)
-//            { // 0 is success
-//                throw boost::system::system_error(error);
-//            }
-//        }
-//    }
-//    LogPrint("keepass", "CKeePassIntegrator::doHTTPPost -- reading response body end\n");
-//
-//    // Receive HTTP reply message headers and body
-//    std::map<std::string, std::string> mapHeaders;
-//    ReadHTTPMessage(response_stream, mapHeaders, strResponse, nProto, std::numeric_limits<size_t>::max());
-//    LogPrint("keepass", "CKeePassIntegrator::doHTTPPost -- Processed body\n");
 
     nStatusRet = response.nStatus;
     if (response.nStatus == 0)
@@ -432,7 +357,7 @@ void CKeePassIntegrator::rpcTestAssociation(bool bTriggerUnlock)
 
     doHTTPPost(request.getJson(), nStatus, strResponse);
 
-    LogPrint("keepass", "CKeePassIntegrator::rpcTestAssociation -- send result: status: %d response: %s\n", nStatus, strResponse);
+    LogPrint(BCLog::KEEPASS, "CKeePassIntegrator::rpcTestAssociation -- send result: status: %d response: %s\n", nStatus, strResponse);
 }
 
 std::vector<CKeePassIntegrator::CKeePassEntry> CKeePassIntegrator::rpcGetLogins()
@@ -452,9 +377,7 @@ std::vector<CKeePassIntegrator::CKeePassEntry> CKeePassIntegrator::rpcGetLogins(
 
     doHTTPPost(request.getJson(), nStatus, strResponse);
 
-    // Logging of actual response data disabled as to not write passphrase in debug.log. Only enable temporarily when needed
-    //LogPrint("keepass", "CKeePassIntegrator::rpcGetLogins -- send result: status: %d response: %s\n", nStatus, strResponse);
-    LogPrint("keepass", "CKeePassIntegrator::rpcGetLogins -- send result: status: %d\n", nStatus);
+    LogPrint(BCLog::KEEPASS, "CKeePassIntegrator::rpcGetLogins -- send result: status: %d\n", nStatus);
 
     if(nStatus != 200)
     {
@@ -489,7 +412,7 @@ void CKeePassIntegrator::rpcSetLogin(const SecureString& sWalletPass, const Secu
     request.addStrParameter("Id", strKeePassId);
     request.addStrParameter("Url", sUrl);
 
-    LogPrint("keepass", "CKeePassIntegrator::rpcSetLogin -- send Url: %s\n", sUrl);
+    LogPrint(BCLog::KEEPASS, "CKeePassIntegrator::rpcSetLogin -- send Url: %s\n", sUrl);
 
     //request.addStrParameter("SubmitUrl", sSubmitUrl); // Is used to construct the entry title
     request.addStrParameter("Login", SecureString("axe"));
@@ -505,7 +428,7 @@ void CKeePassIntegrator::rpcSetLogin(const SecureString& sWalletPass, const Secu
     doHTTPPost(request.getJson(), nStatus, strResponse);
 
 
-    LogPrint("keepass", "CKeePassIntegrator::rpcSetLogin -- send result: status: %d response: %s\n", nStatus, strResponse);
+    LogPrint(BCLog::KEEPASS, "CKeePassIntegrator::rpcSetLogin -- send result: status: %d response: %s\n", nStatus, strResponse);
 
     if(nStatus != 200)
     {
@@ -548,7 +471,7 @@ void CKeePassIntegrator::rpcAssociate(std::string& strIdRet, SecureString& sKeyB
 
     doHTTPPost(request.getJson(), nStatus, strResponse);
 
-    LogPrint("keepass", "CKeePassIntegrator::rpcAssociate -- send result: status: %d response: %s\n", nStatus, strResponse);
+    LogPrint(BCLog::KEEPASS, "CKeePassIntegrator::rpcAssociate -- send result: status: %d response: %s\n", nStatus, strResponse);
 
     if(nStatus != 200)
     {

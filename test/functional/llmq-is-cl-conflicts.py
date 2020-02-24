@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
-# Copyright (c) 2015-2018 The Axe Core developers
+# Copyright (c) 2015-2020 The Dash Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
+import time
+from decimal import Decimal
+
+from test_framework import mininode
 from test_framework.blocktools import get_masternode_payment, create_coinbase, create_block
 from test_framework.mininode import *
 from test_framework.test_framework import AxeTestFramework
-from test_framework.util import *
-from time import *
+from test_framework.util import sync_blocks, sync_mempools, p2p_port, assert_raises_rpc_error, set_node_times
 
 '''
 llmq-is-cl-conflicts.py
@@ -15,9 +18,9 @@ Checks conflict handling between ChainLocks and InstantSend
 
 '''
 
-class TestNode(SingleNodeConnCB):
+class TestNode(NodeConnCB):
     def __init__(self):
-        SingleNodeConnCB.__init__(self)
+        super().__init__()
         self.clsigs = {}
         self.islocks = {}
 
@@ -44,8 +47,8 @@ class TestNode(SingleNodeConnCB):
 
 
 class LLMQ_IS_CL_Conflicts(AxeTestFramework):
-    def __init__(self):
-        super().__init__(6, 5, [], fast_dip3_enforcement=True)
+    def set_test_params(self):
+        self.set_axe_test_params(6, 5, fast_dip3_enforcement=True)
         #disable_mocktime()
 
     def run_test(self):
@@ -61,14 +64,15 @@ class LLMQ_IS_CL_Conflicts(AxeTestFramework):
 
         self.nodes[0].spork("SPORK_17_QUORUM_DKG_ENABLED", 0)
         self.nodes[0].spork("SPORK_19_CHAINLOCKS_ENABLED", 0)
-        self.nodes[0].spork("SPORK_20_INSTANTSEND_LLMQ_BASED", 0)
+        self.nodes[0].spork("SPORK_2_INSTANTSEND_ENABLED", 0)
+        self.nodes[0].spork("SPORK_3_INSTANTSEND_BLOCK_FILTERING", 0)
         self.wait_for_sporks_same()
 
         self.mine_quorum()
 
         # mine single block, wait for chainlock
         self.nodes[0].generate(1)
-        self.wait_for_chainlock_tip_all_nodes()
+        self.wait_for_chainlocked_block_all_nodes(self.nodes[0].getbestblockhash())
 
         self.test_chainlock_overrides_islock(False)
         self.test_chainlock_overrides_islock(True)
@@ -98,31 +102,38 @@ class LLMQ_IS_CL_Conflicts(AxeTestFramework):
         rawtx4 = self.nodes[0].signrawtransaction(rawtx4)['hex']
         rawtx4_txid = self.nodes[0].sendrawtransaction(rawtx4)
 
+        # wait for transactions to propagate
+        sync_mempools(self.nodes)
         for node in self.nodes:
             self.wait_for_instantlock(rawtx1_txid, node)
             self.wait_for_instantlock(rawtx4_txid, node)
 
         block = self.create_block(self.nodes[0], [rawtx2_obj])
         if test_block_conflict:
+            # The block shouldn't be accepted/connected but it should be known to node 0 now
             submit_result = self.nodes[0].submitblock(ToHex(block))
             assert(submit_result == "conflict-tx-lock")
 
         cl = self.create_chainlock(self.nodes[0].getblockcount() + 1, block.sha256)
         self.test_node.send_clsig(cl)
 
-        # Give the CLSIG some time to propagate. We unfortunately can't check propagation here as "getblock/getblockheader"
-        # is required to check for CLSIGs, but this requires the block header to be propagated already
-        sleep(1)
+        for node in self.nodes:
+            self.wait_for_best_chainlock(node, "%064x" % block.sha256)
 
-        # The block should get accepted now, and at the same time prune the conflicting ISLOCKs
+        sync_blocks(self.nodes)
+
+        # At this point all nodes should be in sync and have the same "best chainlock"
+
         submit_result = self.nodes[1].submitblock(ToHex(block))
         if test_block_conflict:
+            # Node 1 should receive the block from node 0 and should not accept it again via submitblock
             assert(submit_result == "duplicate")
         else:
+            # The block should get accepted now, and at the same time prune the conflicting ISLOCKs
             assert(submit_result is None)
 
         for node in self.nodes:
-            self.wait_for_chainlock(node, "%064x" % block.sha256)
+            self.wait_for_chainlocked_block(node, "%064x" % block.sha256)
 
         # Create a chained TX on top of tx2
         inputs = []
@@ -134,13 +145,15 @@ class LLMQ_IS_CL_Conflicts(AxeTestFramework):
         rawtx5 = self.nodes[0].createrawtransaction(inputs, {self.nodes[0].getnewaddress(): 0.999})
         rawtx5 = self.nodes[0].signrawtransaction(rawtx5)['hex']
         rawtx5_txid = self.nodes[0].sendrawtransaction(rawtx5)
+        # wait for the transaction to propagate
+        sync_mempools(self.nodes)
         for node in self.nodes:
             self.wait_for_instantlock(rawtx5_txid, node)
 
         # Lets verify that the ISLOCKs got pruned
         for node in self.nodes:
-            assert_raises_jsonrpc(-5, "No such mempool or blockchain transaction", node.getrawtransaction, rawtx1_txid, True)
-            assert_raises_jsonrpc(-5, "No such mempool or blockchain transaction", node.getrawtransaction, rawtx4_txid, True)
+            assert_raises_rpc_error(-5, "No such mempool or blockchain transaction", node.getrawtransaction, rawtx1_txid, True)
+            assert_raises_rpc_error(-5, "No such mempool or blockchain transaction", node.getrawtransaction, rawtx4_txid, True)
             rawtx = node.getrawtransaction(rawtx2_txid, True)
             assert(rawtx['chainlock'])
             assert(rawtx['instantlock'])
@@ -167,8 +180,8 @@ class LLMQ_IS_CL_Conflicts(AxeTestFramework):
         self.nodes[0].sendrawtransaction(rawtx1)
 
         # fast forward 11 minutes, so that the TX is considered safe and included in the next block
-        set_mocktime(get_mocktime() + int(60 * 11))
-        set_node_times(self.nodes, get_mocktime())
+        self.bump_mocktime(int(60 * 11))
+        set_node_times(self.nodes, self.mocktime)
 
         # Mine the conflicting TX into a block
         good_tip = self.nodes[0].getbestblockhash()
@@ -177,12 +190,12 @@ class LLMQ_IS_CL_Conflicts(AxeTestFramework):
 
         # Assert that the conflicting tx got mined and the locked TX is not valid
         assert(self.nodes[0].getrawtransaction(rawtx1_txid, True)['confirmations'] > 0)
-        assert_raises_jsonrpc(-25, "Missing inputs", self.nodes[0].sendrawtransaction, rawtx2)
+        assert_raises_rpc_error(-25, "Missing inputs", self.nodes[0].sendrawtransaction, rawtx2)
 
         # Send the ISLOCK, which should result in the last 2 blocks to be invalidated, even though the nodes don't know
         # the locked transaction yet
         self.test_node.send_islock(islock)
-        sleep(5)
+        time.sleep(5)
 
         assert(self.nodes[0].getbestblockhash() == good_tip)
         assert(self.nodes[1].getbestblockhash() == good_tip)
@@ -198,28 +211,6 @@ class LLMQ_IS_CL_Conflicts(AxeTestFramework):
         assert(self.nodes[1].getrawtransaction(rawtx2_txid, True)['instantlock'])
         assert(self.nodes[0].getbestblockhash() != good_tip)
         assert(self.nodes[1].getbestblockhash() != good_tip)
-
-    def wait_for_chainlock_tip_all_nodes(self):
-        for node in self.nodes:
-            tip = node.getbestblockhash()
-            self.wait_for_chainlock(node, tip)
-
-    def wait_for_chainlock_tip(self, node):
-        tip = node.getbestblockhash()
-        self.wait_for_chainlock(node, tip)
-
-    def wait_for_chainlock(self, node, block_hash):
-        t = time()
-        while time() - t < 15:
-            try:
-                block = node.getblockheader(block_hash)
-                if block["confirmations"] > 0 and block["chainlock"]:
-                    return
-            except:
-                # block might not be on the node yet
-                pass
-            sleep(0.1)
-        raise AssertionError("wait_for_chainlock timed out")
 
     def create_block(self, node, vtx=[]):
         bt = node.getblocktemplate()
@@ -292,13 +283,13 @@ class LLMQ_IS_CL_Conflicts(AxeTestFramework):
 
         recSig = None
 
-        t = time()
-        while time() - t < 10:
+        t = time.time()
+        while time.time() - t < 10:
             try:
                 recSig = self.nodes[0].quorum('getrecsig', 100, request_id, message_hash)
                 break
             except:
-                sleep(0.1)
+                time.sleep(0.1)
         assert(recSig is not None)
 
         clsig = msg_clsig(height, blockHash, hex_str_to_bytes(recSig['sig']))
@@ -321,13 +312,13 @@ class LLMQ_IS_CL_Conflicts(AxeTestFramework):
 
         recSig = None
 
-        t = time()
-        while time() - t < 10:
+        t = time.time()
+        while time.time() - t < 10:
             try:
                 recSig = self.nodes[0].quorum('getrecsig', 100, request_id, message_hash)
                 break
             except:
-                sleep(0.1)
+                time.sleep(0.1)
         assert(recSig is not None)
 
         islock = msg_islock(inputs, tx.sha256, hex_str_to_bytes(recSig['sig']))

@@ -27,76 +27,49 @@ from test_framework.mininode import *
 from test_framework.test_framework import BitcoinTestFramework
 from test_framework.util import *
 
-class TestNode(SingleNodeConnCB):
-    def __init__(self):
-        SingleNodeConnCB.__init__(self)
-        self.connected = False
-        self.received_version = False
-
-    def on_open(self, conn):
-        self.connected = True
-
-    def on_close(self, conn):
-        self.connected = False
-
+class TestNode(NodeConnCB):
     def on_version(self, conn, message):
         # Don't send a verack in response
-        self.received_version = True
+        pass
 
 class TimeoutsTest(BitcoinTestFramework):
-    def __init__(self):
-        super().__init__()
+    def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 1
 
-    def setup_network(self):
-        self.nodes = []
-
-        # Start up node0 to be a version 1, pre-segwit node.
-        self.nodes = start_nodes(self.num_nodes, self.options.tmpdir)
-
     def run_test(self):
         # Setup the p2p connections and start up the network thread.
-        self.no_verack_node = TestNode() # never send verack
-        self.no_version_node = TestNode() # never send version (just ping)
-        self.no_send_node = TestNode() # never send anything
+        no_verack_node = self.nodes[0].add_p2p_connection(TestNode())
+        no_version_node = self.nodes[0].add_p2p_connection(TestNode(), send_version=False)
+        no_send_node = self.nodes[0].add_p2p_connection(TestNode(), send_version=False)
 
-        connections = []
-        connections.append(NodeConn('127.0.0.1', p2p_port(0), self.nodes[0], self.no_verack_node))
-        connections.append(NodeConn('127.0.0.1', p2p_port(0), self.nodes[0], self.no_version_node, send_version=False))
-        connections.append(NodeConn('127.0.0.1', p2p_port(0), self.nodes[0], self.no_send_node, send_version=False))
-        self.no_verack_node.add_connection(connections[0])
-        self.no_version_node.add_connection(connections[1])
-        self.no_send_node.add_connection(connections[2])
-
-        NetworkThread().start()  # Start up network handling in another thread
+        network_thread_start()
 
         sleep(1)
 
-        assert(self.no_verack_node.connected)
-        assert(self.no_version_node.connected)
-        assert(self.no_send_node.connected)
+        assert no_verack_node.connected
+        assert no_version_node.connected
+        assert no_send_node.connected
 
-        ping_msg = msg_ping()
-        connections[0].send_message(ping_msg)
-        connections[1].send_message(ping_msg)
+        no_verack_node.send_message(msg_ping())
+        no_version_node.send_message(msg_ping())
 
         sleep(30)
 
-        assert(self.no_verack_node.received_version)
+        assert "version" in no_verack_node.last_message
 
-        assert(self.no_verack_node.connected)
-        assert(self.no_version_node.connected)
-        assert(self.no_send_node.connected)
+        assert no_verack_node.connected
+        assert no_version_node.connected
+        assert no_send_node.connected
 
-        connections[0].send_message(ping_msg)
-        connections[1].send_message(ping_msg)
+        no_verack_node.send_message(msg_ping())
+        no_version_node.send_message(msg_ping())
 
         sleep(31)
 
-        assert(not self.no_verack_node.connected)
-        assert(not self.no_version_node.connected)
-        assert(not self.no_send_node.connected)
+        assert not no_verack_node.connected
+        assert not no_version_node.connected
+        assert not no_send_node.connected
 
 if __name__ == '__main__':
     TimeoutsTest().main()

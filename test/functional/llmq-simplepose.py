@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-# Copyright (c) 2015-2018 The Axe Core developers
+# Copyright (c) 2015-2020 The Dash Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+import time
+
 from test_framework.test_framework import AxeTestFramework
 from test_framework.util import *
-from time import *
 
 '''
 llmq-simplepose.py
@@ -15,8 +16,8 @@ Checks simple PoSe system based on LLMQ commitments
 '''
 
 class LLMQSimplePoSeTest(AxeTestFramework):
-    def __init__(self):
-        super().__init__(6, 5, [], fast_dip3_enforcement=True)
+    def set_test_params(self):
+        self.set_axe_test_params(6, 5, fast_dip3_enforcement=True)
 
     def run_test(self):
 
@@ -36,8 +37,8 @@ class LLMQSimplePoSeTest(AxeTestFramework):
             self.stop_node(mn.nodeIdx)
             self.nodes.remove(mn.node)
 
-            t = time()
-            while (not self.check_punished(mn) or not self.check_banned(mn)) and (time() - t) < 120:
+            t = time.time()
+            while (not self.check_punished(mn) or not self.check_banned(mn)) and (time.time() - t) < 120:
                 self.mine_quorum(expected_contributions=i-1, expected_complaints=i-1, expected_commitments=i-1)
 
             assert(self.check_punished(mn) and self.check_banned(mn))

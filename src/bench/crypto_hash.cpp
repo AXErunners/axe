@@ -1,5 +1,5 @@
 // Copyright (c) 2016 The Bitcoin Core developers
-// Copyright (c) 2018-2019 The Axe Core developers
+// Copyright (c) 2018-2020 The Dash Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -8,6 +8,7 @@
 #include "bench.h"
 #include "bloom.h"
 #include "hash.h"
+#include "random.h"
 #include "uint256.h"
 #include "utiltime.h"
 #include "crypto/ripemd160.h"
@@ -70,6 +71,14 @@ static void HASH_DSHA256_0032b(benchmark::State& state)
     }
 }
 
+static void HASH_SHA256D64_1024(benchmark::State& state)
+{
+    std::vector<uint8_t> in(64 * 1024, 0);
+    while (state.KeepRunning()) {
+        SHA256D64(in.data(), in.data(), 1024);
+    }
+}
+
 static void HASH_SHA512(benchmark::State& state)
 {
     uint8_t hash[CSHA512::OUTPUT_SIZE];
@@ -84,6 +93,28 @@ static void HASH_SipHash_0032b(benchmark::State& state)
     while (state.KeepRunning()) {
         for (int i = 0; i < 1000000; i++) {
             *((uint64_t*)x.begin()) = SipHashUint256(0, i, x);
+        }
+    }
+}
+
+static void FastRandom_32bit(benchmark::State& state)
+{
+    FastRandomContext rng(true);
+    uint32_t x = 0;
+    while (state.KeepRunning()) {
+        for (int i = 0; i < 1000000; i++) {
+            x += rng.rand32();
+        }
+    }
+}
+
+static void FastRandom_1bit(benchmark::State& state)
+{
+    FastRandomContext rng(true);
+    uint32_t x = 0;
+    while (state.KeepRunning()) {
+        for (int i = 0; i < 1000000; i++) {
+            x += rng.randbool();
         }
     }
 }
@@ -196,6 +227,7 @@ BENCHMARK(HASH_X11);
 BENCHMARK(HASH_SHA256_0032b);
 BENCHMARK(HASH_DSHA256_0032b);
 BENCHMARK(HASH_SipHash_0032b);
+BENCHMARK(HASH_SHA256D64_1024/*, 7400*/);
 
 BENCHMARK(HASH_DSHA256_0032b_single);
 BENCHMARK(HASH_DSHA256_0080b_single);
@@ -209,3 +241,5 @@ BENCHMARK(HASH_X11_0128b_single);
 BENCHMARK(HASH_X11_0512b_single);
 BENCHMARK(HASH_X11_1024b_single);
 BENCHMARK(HASH_X11_2048b_single);
+BENCHMARK(FastRandom_32bit);
+BENCHMARK(FastRandom_1bit);

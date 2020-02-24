@@ -3,9 +3,11 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the dumpwallet RPC."""
+import os
+import sys
 
 from test_framework.test_framework import BitcoinTestFramework
-from test_framework.util import *
+from test_framework.util import (assert_equal, assert_raises_rpc_error)
 
 
 def read_dump(file_name, addrs, hd_master_addr_old):
@@ -54,25 +56,24 @@ def read_dump(file_name, addrs, hd_master_addr_old):
 
 
 class WalletDumpTest(BitcoinTestFramework):
-
-    def __init__(self):
-        super().__init__()
-        self.setup_clean_chain = False
+    def set_test_params(self):
+        self.setup_clean_chain = True
         self.num_nodes = 1
         self.extra_args = [["-keypool=90", "-usehd=1"]]
 
-    def setup_chain(self):
+    def setup_network(self):
         # TODO remove this when usehd=1 becomes the default
         # use our own cache and -usehd=1 as extra arg as the default cache is run with -usehd=0
-        initialize_chain(self.options.tmpdir, self.num_nodes, self.options.cachedir + "/hd", ["-usehd=1"], redirect_stderr=True)
-        set_cache_mocktime()
-
-    def setup_network(self, split=False):
+        self.options.tmpdir = os.path.join(self.options.tmpdir, 'hd')
+        self.options.cachedir = os.path.join(self.options.cachedir, 'hd')
+        self._initialize_chain(extra_args=self.extra_args[0], stderr=sys.stdout)
+        self.set_cache_mocktime()
         # Use 1 minute timeout because the initial getnewaddress RPC can take
         # longer than the default 30 seconds due to an expensive
         # CWallet::TopUpKeyPool call, and the encryptwallet RPC made later in
         # the test often takes even longer.
-        self.nodes = start_nodes(self.num_nodes, self.options.tmpdir, self.extra_args, timewait=60, redirect_stderr=True)
+        self.add_nodes(self.num_nodes, self.extra_args, timewait=60, stderr=sys.stdout)
+        self.start_nodes()
 
     def run_test (self):
         tmpdir = self.options.tmpdir
@@ -97,9 +98,8 @@ class WalletDumpTest(BitcoinTestFramework):
         assert_equal(found_addr_rsv, 180)  # keypool size (external+internal)
 
         #encrypt wallet, restart, unlock and dump
-        self.nodes[0].encryptwallet('test')
-        bitcoind_processes[0].wait()
-        self.nodes[0] = start_node(0, self.options.tmpdir, self.extra_args[0])
+        self.nodes[0].node_encrypt_wallet('test')
+        self.start_node(0)
         self.nodes[0].walletpassphrase('test', 30)
         # Should be a no-op:
         self.nodes[0].keypoolrefill()
@@ -111,6 +111,9 @@ class WalletDumpTest(BitcoinTestFramework):
         # TODO clarify if we want the behavior that is tested below in Axe (only when HD seed was generated and not user-provided)
         # assert_equal(found_addr_chg, 180 + 50)  # old reserve keys are marked as change now
         assert_equal(found_addr_rsv, 180)  # keypool size
+
+        # Overwriting should fail
+        assert_raises_rpc_error(-8, "already exists", self.nodes[0].dumpwallet, tmpdir + "/node0/wallet.unencrypted.dump")
 
 if __name__ == '__main__':
     WalletDumpTest().main ()

@@ -44,7 +44,6 @@ static const int64_t GOVERNANCE_ORPHAN_EXPIRATION_TIME = 10 * 60;
 // FOR SEEN MAP ARRAYS - GOVERNANCE OBJECTS AND VOTES
 static const int SEEN_OBJECT_IS_VALID = 0;
 static const int SEEN_OBJECT_ERROR_INVALID = 1;
-static const int SEEN_OBJECT_ERROR_IMMATURE = 2;
 static const int SEEN_OBJECT_EXECUTED = 3; //used for triggers
 static const int SEEN_OBJECT_UNKNOWN = 4;  // the default
 
@@ -107,10 +106,6 @@ struct vote_rec_t {
 
 class CGovernanceObject
 {
-    friend class CGovernanceManager;
-    friend class CGovernanceTriggerManager;
-    friend class CSuperblock;
-
 public: // Types
     typedef std::map<COutPoint, vote_rec_t> vote_m_t;
 
@@ -180,9 +175,6 @@ private:
 
     vote_m_t mapCurrentMNVotes;
 
-    /// Limited map of votes orphaned by MN
-    vote_cmm_t cmmapOrphanVotes;
-
     CGovernanceObjectVoteFile fileVotes;
 
 public:
@@ -249,6 +241,11 @@ public:
         return fExpired;
     }
 
+    void SetExpired()
+    {
+        fExpired = true;
+    }
+
     const CGovernanceObjectVoteFile& GetVoteFile() const
     {
         return fileVotes;
@@ -260,14 +257,13 @@ public:
     bool Sign(const CBLSSecretKey& key);
     bool CheckSignature(const CBLSPublicKey& pubKey) const;
 
-    std::string GetSignatureMessage() const;
     uint256 GetSignatureHash() const;
 
     // CORE OBJECT FUNCTIONS
 
     bool IsValidLocally(std::string& strError, bool fCheckCollateral) const;
 
-    bool IsValidLocally(std::string& strError, bool& fMissingMasternode, bool& fMissingConfirmations, bool fCheckCollateral) const;
+    bool IsValidLocally(std::string& strError, bool& fMissingConfirmations, bool fCheckCollateral) const;
 
     /// Check the collateral transaction for the budget proposal/finalized budget
     bool IsCollateralValid(std::string& strError, bool& fMissingConfirmations) const;
@@ -275,6 +271,14 @@ public:
     void UpdateLocalValidity();
 
     void UpdateSentinelVariables();
+
+    void PrepareDeletion(int64_t nDeletionTime_)
+    {
+        fCachedDelete = true;
+        if (nDeletionTime == 0) {
+            nDeletionTime = nDeletionTime_;
+        }
+    }
 
     CAmount GetMinCollateralFee() const;
 
@@ -321,18 +325,17 @@ public:
         }
         if (s.GetType() & SER_DISK) {
             // Only include these for the disk file format
-            LogPrint("gobject", "CGovernanceObject::SerializationOp Reading/writing votes from/to disk\n");
+            LogPrint(BCLog::GOBJECT, "CGovernanceObject::SerializationOp Reading/writing votes from/to disk\n");
             READWRITE(nDeletionTime);
             READWRITE(fExpired);
             READWRITE(mapCurrentMNVotes);
             READWRITE(fileVotes);
-            LogPrint("gobject", "CGovernanceObject::SerializationOp hash = %s, vote count = %d\n", GetHash().ToString(), fileVotes.GetVoteCount());
+            LogPrint(BCLog::GOBJECT, "CGovernanceObject::SerializationOp hash = %s, vote count = %d\n", GetHash().ToString(), fileVotes.GetVoteCount());
         }
 
         // AFTER DESERIALIZATION OCCURS, CACHED VARIABLES MUST BE CALCULATED MANUALLY
     }
 
-private:
     // FUNCTIONS FOR DEALING WITH DATA STRING
     void LoadData();
     void GetData(UniValue& objResult);
@@ -350,8 +353,6 @@ private:
     // also for MNs that were removed from the list completely.
     // Returns deleted vote hashes.
     std::set<uint256> RemoveInvalidVotes(const COutPoint& mnOutpoint);
-
-    void CheckOrphanVotes(CConnman& connman);
 };
 
 

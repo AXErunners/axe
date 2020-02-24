@@ -17,6 +17,7 @@ from test_framework.comptool import TestManager, TestInstance, RejectResult
 from test_framework.blocktools import *
 from test_framework.key import CECKey
 from test_framework.script import *
+from test_framework.mininode import network_thread_start
 import struct
 
 class PreviousSpendableOutput(object):
@@ -48,24 +49,19 @@ class CBrokenBlock(CBlock):
         return r
 
 class FullBlockTest(ComparisonTestFramework):
-
     # Can either run this test as 1 node with expected answers, or two and compare them.
     # Change the "outcome" variable from each TestInstance object to only do the comparison.
-    def __init__(self):
-        super().__init__()
+    def set_test_params(self):
         self.num_nodes = 1
+        self.setup_clean_chain = True
         self.block_heights = {}
         self.coinbase_key = CECKey()
         self.coinbase_key.set_secretbytes(b"horsebattery")
         self.coinbase_pubkey = self.coinbase_key.get_pubkey()
         self.tip = None
         self.blocks = {}
-
-    def setup_network(self):
         # Must set '-dip3params=2000:2000' to create pre-dip3 blocks only
-        self.nodes = start_nodes(self.num_nodes, self.options.tmpdir,
-                                 extra_args=[['-whitelist=127.0.0.1', '-dip3params=2000:2000']],
-                                 binary=[self.options.testbinary])
+        self.extra_args = [['-whitelist=127.0.0.1', '-dip3params=2000:2000']]
 
     def add_options(self, parser):
         super().add_options(parser)
@@ -74,8 +70,7 @@ class FullBlockTest(ComparisonTestFramework):
     def run_test(self):
         self.test = TestManager(self, self.options.tmpdir)
         self.test.add_all_connections(self.nodes)
-        NetworkThread().start() # Start up network handling in another thread
-        sync_masternodes(self.nodes, True)
+        network_thread_start()
         self.test.run()
 
     def add_transactions_to_block(self, block, tx_list):
@@ -106,7 +101,7 @@ class FullBlockTest(ComparisonTestFramework):
     def next_block(self, number, spend=None, additional_coinbase_value=0, script=CScript([OP_TRUE]), solve=True):
         if self.tip == None:
             base_block_hash = self.genesis_hash
-            block_time = get_mocktime() + 1
+            block_time = self.mocktime + 1
         else:
             base_block_hash = self.tip.sha256
             block_time = self.tip.nTime + 1
@@ -404,7 +399,7 @@ class FullBlockTest(ComparisonTestFramework):
 
         # Extend the b26 chain to make sure bitcoind isn't accepting b26
         b27 = block(27, spend=out[7])
-        yield rejected(RejectResult(0, b'bad-prevblk'))
+        yield rejected(False)
 
         # Now try a too-large-coinbase script
         tip(15)
@@ -416,7 +411,7 @@ class FullBlockTest(ComparisonTestFramework):
 
         # Extend the b28 chain to make sure bitcoind isn't accepting b28
         b29 = block(29, spend=out[7])
-        yield rejected(RejectResult(0, b'bad-prevblk'))
+        yield rejected(False)
 
         # b30 has a max-sized coinbase scriptSig.
         tip(23)
@@ -676,7 +671,7 @@ class FullBlockTest(ComparisonTestFramework):
         # A block with timestamp > 2 hrs in the future
         tip(44)
         b48 = block(48, solve=False)
-        b48.nTime = get_mocktime() + 60 * 60 * 3
+        b48.nTime = self.mocktime + 60 * 60 * 3
         b48.solve()
         yield rejected(RejectResult(16, b'time-too-new'))
 

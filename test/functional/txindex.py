@@ -15,19 +15,18 @@ import binascii
 
 class TxIndexTest(BitcoinTestFramework):
 
-    def __init__(self):
-        super().__init__()
+    def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 4
 
     def setup_network(self):
-        self.nodes = []
+        self.add_nodes(self.num_nodes)
         # Nodes 0/1 are "wallet" nodes
-        self.nodes.append(start_node(0, self.options.tmpdir))
-        self.nodes.append(start_node(1, self.options.tmpdir, ["-txindex"]))
+        self.start_node(0)
+        self.start_node(1, ["-txindex"])
         # Nodes 2/3 are used for testing
-        self.nodes.append(start_node(2, self.options.tmpdir, ["-txindex"]))
-        self.nodes.append(start_node(3, self.options.tmpdir, ["-txindex"]))
+        self.start_node(2, ["-txindex"])
+        self.start_node(3, ["-txindex"])
         connect_nodes(self.nodes[0], 1)
         connect_nodes(self.nodes[0], 2)
         connect_nodes(self.nodes[0], 3)
@@ -36,6 +35,18 @@ class TxIndexTest(BitcoinTestFramework):
         self.sync_all()
 
     def run_test(self):
+        self.log.info("Test that settings can't be changed without -reindex...")
+        self.stop_node(1)
+        self.assert_start_raises_init_error(1, ["-txindex=0"], 'You need to rebuild the database using -reindex to change -txindex')
+        self.start_node(1, ["-txindex=0", "-reindex"])
+        connect_nodes(self.nodes[0], 1)
+        self.sync_all()
+        self.stop_node(1)
+        self.assert_start_raises_init_error(1, ["-txindex"], 'You need to rebuild the database using -reindex to change -txindex')
+        self.start_node(1, ["-txindex", "-reindex"])
+        connect_nodes(self.nodes[0], 1)
+        self.sync_all()
+
         self.log.info("Mining blocks...")
         self.nodes[0].generate(105)
         self.sync_all()
@@ -47,11 +58,12 @@ class TxIndexTest(BitcoinTestFramework):
 
         privkey = "cU4zhap7nPJAWeMFu4j6jLrfPmqakDAzy8zn8Fhb3oEevdm4e5Lc"
         address = "yeMpGzMj3rhtnz48XsfpB8itPHhHtgxLc3"
-        addressHash = "C5E4FB9171C22409809A3E8047A29C83886E325D".decode("hex")
+        addressHash = binascii.unhexlify("C5E4FB9171C22409809A3E8047A29C83886E325D")
         scriptPubKey = CScript([OP_DUP, OP_HASH160, addressHash, OP_EQUALVERIFY, OP_CHECKSIG])
         unspent = self.nodes[0].listunspent()
         tx = CTransaction()
-        amount = unspent[0]["amount"] * 100000000
+        tx_fee_sat = 1000
+        amount = int(unspent[0]["amount"] * 100000000) - tx_fee_sat
         tx.vin = [CTxIn(COutPoint(int(unspent[0]["txid"], 16), unspent[0]["vout"]))]
         tx.vout = [CTxOut(amount, scriptPubKey)]
         tx.rehash()
@@ -62,9 +74,9 @@ class TxIndexTest(BitcoinTestFramework):
         self.sync_all()
 
         # Check verbose raw transaction results
-        verbose = self.nodes[3].getrawtransaction(unspent[0]["txid"], 1)
-        assert_equal(verbose["vout"][0]["valueSat"], 5000000000);
-        assert_equal(verbose["vout"][0]["value"], 50);
+        verbose = self.nodes[3].getrawtransaction(txid, 1)
+        assert_equal(verbose["vout"][0]["valueSat"], 50000000000 - tx_fee_sat);
+        assert_equal(verbose["vout"][0]["value"] * 100000000, 50000000000 - tx_fee_sat);
 
         self.log.info("Passed")
 

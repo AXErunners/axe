@@ -11,6 +11,7 @@ src/axed
 src/axe-cli
 src/axe-tx
 src/test/test_axe
+src/test/test_axe_fuzzy
 src/qt/test/test_axe-qt
 src/bench/bench_axe
 
@@ -88,7 +89,6 @@ Axe-Qt.app
 # Unit-tests
 Makefile.test
 axe-qt_test
-src/test/buildenv.py
 
 # Resources cpp
 qrc_*.cpp
@@ -109,8 +109,7 @@ coverage_percent.txt
 linux-coverage-build
 linux-build
 win32-build
-test/functional/config.ini
-test/util/buildenv.py
+test/config.ini
 test/cache/*
 
 !src/leveldb*/Makefile

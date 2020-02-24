@@ -1,4 +1,4 @@
-// Copyright (c) 2018-2019 The Axe Core developers
+// Copyright (c) 2018-2020 The Dash Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -36,7 +36,7 @@ public:
 class CDKGContribution
 {
 public:
-    uint8_t llmqType;
+    Consensus::LLMQType llmqType;
     uint256 quorumHash;
     uint256 proTxHash;
     BLSVerificationVectorPtr vvec;
@@ -88,7 +88,7 @@ public:
 class CDKGComplaint
 {
 public:
-    uint8_t llmqType;
+    Consensus::LLMQType llmqType;
     uint256 quorumHash;
     uint256 proTxHash;
     std::vector<bool> badMembers;
@@ -123,7 +123,7 @@ public:
 class CDKGJustification
 {
 public:
-    uint8_t llmqType;
+    Consensus::LLMQType llmqType;
     uint256 quorumHash;
     uint256 proTxHash;
     std::vector<std::pair<uint32_t, CBLSSecretKey>> contributions;
@@ -157,7 +157,7 @@ public:
 class CDKGPrematureCommitment
 {
 public:
-    uint8_t llmqType;
+    Consensus::LLMQType llmqType;
     uint256 quorumHash;
     uint256 proTxHash;
     std::vector<bool> validMembers;
@@ -240,7 +240,6 @@ class CDKGSession
     friend class CDKGSessionHandler;
     friend class CDKGSessionManager;
     friend class CDKGLogger;
-    template<typename Message> friend class CDKGMessageHandler;
 
 private:
     const Consensus::LLMQParams& params;
@@ -275,7 +274,6 @@ private:
     std::map<uint256, CDKGComplaint> complaints;
     std::map<uint256, CDKGJustification> justifications;
     std::map<uint256, CDKGPrematureCommitment> prematureCommitments;
-    std::set<CInv> invSet;
 
     std::vector<size_t> pendingContributionVerifications;
 
@@ -342,6 +340,6 @@ public:
 
 void SetSimulatedDKGErrorRate(const std::string& type, double rate);
 
-}
+} // namespace llmq
 
 #endif //AXE_QUORUMS_DKGSESSION_H

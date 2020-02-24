@@ -30,28 +30,25 @@ confirm 1/2/3/4 balances are same as before.
 Shutdown again, restore using importwallet,
 and confirm again balances are correct.
 """
+from random import randint
+import shutil
 
 from test_framework.test_framework import BitcoinTestFramework
 from test_framework.util import *
-from random import randint
 
 class WalletBackupTest(BitcoinTestFramework):
-
-    def __init__(self):
-        super().__init__()
-        self.setup_clean_chain = True
+    def set_test_params(self):
         self.num_nodes = 4
+        self.setup_clean_chain = True
         # nodes 1, 2,3 are spenders, let's give them a keypool=100
         self.extra_args = [["-keypool=100"], ["-keypool=100"], ["-keypool=100"], []]
 
-    # This mirrors how the network was setup in the bash test
     def setup_network(self, split=False):
-        self.nodes = start_nodes(self.num_nodes, self.options.tmpdir, self.extra_args)
+        self.setup_nodes()
         connect_nodes(self.nodes[0], 3)
         connect_nodes(self.nodes[1], 3)
         connect_nodes(self.nodes[2], 3)
         connect_nodes(self.nodes[2], 0)
-        self.is_network_split=False
         self.sync_all()
 
     def one_send(self, from_node, to_address):
@@ -79,18 +76,18 @@ class WalletBackupTest(BitcoinTestFramework):
 
     # As above, this mirrors the original bash test.
     def start_three(self):
-        self.nodes[0] = start_node(0, self.options.tmpdir)
-        self.nodes[1] = start_node(1, self.options.tmpdir)
-        self.nodes[2] = start_node(2, self.options.tmpdir)
+        self.start_node(0)
+        self.start_node(1)
+        self.start_node(2)
         connect_nodes(self.nodes[0], 3)
         connect_nodes(self.nodes[1], 3)
         connect_nodes(self.nodes[2], 3)
         connect_nodes(self.nodes[2], 0)
 
     def stop_three(self):
-        stop_node(self.nodes[0], 0)
-        stop_node(self.nodes[1], 1)
-        stop_node(self.nodes[2], 2)
+        self.stop_node(0)
+        self.stop_node(1)
+        self.stop_node(2)
 
     def erase_three(self):
         os.remove(self.options.tmpdir + "/node0/regtest/wallet.dat")
@@ -194,6 +191,16 @@ class WalletBackupTest(BitcoinTestFramework):
         assert_equal(self.nodes[0].getbalance(), balance0)
         assert_equal(self.nodes[1].getbalance(), balance1)
         assert_equal(self.nodes[2].getbalance(), balance2)
+
+        # Backup to source wallet file must fail
+        sourcePaths = [
+            tmpdir + "/node0/regtest/wallet.dat",
+            tmpdir + "/node0/./regtest/wallet.dat",
+            tmpdir + "/node0/regtest/",
+            tmpdir + "/node0/regtest"]
+
+        for sourcePath in sourcePaths:
+            assert_raises_rpc_error(-4, "backup failed", self.nodes[0].backupwallet, sourcePath)
 
 
 if __name__ == '__main__':

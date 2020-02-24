@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2019 The Axe Core developers
+// Copyright (c) 2017-2020 The Dash Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -19,7 +19,7 @@ class CDeterministicMN;
 namespace llmq
 {
     class CFinalCommitment;
-}
+} // namespace llmq
 
 class CSimplifiedMNListEntry
 {
@@ -81,7 +81,7 @@ public:
     CSimplifiedMNList(const std::vector<CSimplifiedMNListEntry>& smlEntries);
     CSimplifiedMNList(const CDeterministicMNList& dmnList);
 
-    uint256 CalcMerkleRoot(bool* pmutated = NULL) const;
+    uint256 CalcMerkleRoot(bool* pmutated = nullptr) const;
 };
 
 /// P2P messages

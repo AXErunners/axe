@@ -12,7 +12,6 @@
 * evodb/*: special txes and quorums database
 * fee_estimates.dat: stores statistics used to estimate minimum transaction fees and priorities required for confirmation
 * governance.dat: stores data for governance obgects
-* instantsend.dat: stores data for instantsend locks
 * llmq/*: quorum signatures database
 * mempool.dat: dump of the mempool's transactions
 * mncache.dat: stores data for masternode list
@@ -21,3 +20,4 @@
 * wallet.dat: personal wallet (BDB) with keys and transactions
 * .cookie: session RPC authentication cookie (written at start when cookie authentication is used, deleted on shutdown)
 * onion_private_key: cached Tor hidden service private key for `-listenonion`
+* guisettings.ini.bak: backup of former GUI settings after `-resetguisettings` is used

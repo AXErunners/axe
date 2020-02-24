@@ -43,9 +43,9 @@ bip112txs_vary_OP_CSV_9 - 16 txs with nSequence = 9 evaluated against varying {r
 bip112tx_special - test negative argument to OP_CSV
 """
 
-from test_framework.test_framework import ComparisonTestFramework
+from test_framework.test_framework import (ComparisonTestFramework, GENESISTIME)
 from test_framework.util import *
-from test_framework.mininode import ToHex, CTransaction, NetworkThread
+from test_framework.mininode import ToHex, CTransaction, network_thread_start
 from test_framework.blocktools import create_coinbase, create_block
 from test_framework.comptool import TestInstance, TestManager
 from test_framework.script import *
@@ -92,22 +92,20 @@ def all_rlt_txs(txarray):
     return txs
 
 class BIP68_112_113Test(ComparisonTestFramework):
-    def __init__(self):
-        super().__init__()
+    def set_test_params(self):
         self.num_nodes = 1
-
-    def setup_network(self):
-        # Must set the blockversion for this test
+        self.setup_clean_chain = True
         # Must also set '-maxtipage=600100' to allow syncing from very old blocks
         # and '-dip3params=2000:2000' to create pre-dip3 blocks only
-        self.nodes = start_nodes(self.num_nodes, self.options.tmpdir,
-                                 extra_args=[['-whitelist=127.0.0.1', '-blockversion=4', '-maxtipage=600100', '-dip3params=2000:2000']],
-                                 binary=[self.options.testbinary])
+        self.extra_args = [['-whitelist=127.0.0.1', '-blockversion=4', '-maxtipage=600100', '-dip3params=2000:2000']]
+
+    def setup_network(self):
+        self.setup_nodes()
 
     def run_test(self):
         test = TestManager(self, self.options.tmpdir)
         test.add_all_connections(self.nodes)
-        NetworkThread().start() # Start up network handling in another thread
+        network_thread_start()
         test.run()
 
     def send_generic_input_tx(self, node, coinbases):

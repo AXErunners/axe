@@ -17,12 +17,6 @@
 struct CActiveMasternodeInfo;
 class CActiveMasternodeManager;
 
-static const int ACTIVE_MASTERNODE_INITIAL          = 0; // initial state
-static const int ACTIVE_MASTERNODE_SYNC_IN_PROCESS  = 1;
-static const int ACTIVE_MASTERNODE_INPUT_TOO_NEW    = 2;
-static const int ACTIVE_MASTERNODE_NOT_CAPABLE      = 3;
-static const int ACTIVE_MASTERNODE_STARTED          = 4;
-
 extern CActiveMasternodeInfo activeMasternodeInfo;
 extern CActiveMasternodeManager* activeMasternodeManager;
 
@@ -46,12 +40,12 @@ public:
         MASTERNODE_POSE_BANNED,
         MASTERNODE_REMOVED,
         MASTERNODE_OPERATOR_KEY_CHANGED,
+        MASTERNODE_PROTX_IP_CHANGED,
         MASTERNODE_READY,
         MASTERNODE_ERROR,
     };
 
 private:
-    CDeterministicMNCPtr mnListEntry;
     masternode_state_t state{MASTERNODE_WAITING_FOR_PROTX};
     std::string strError;
 
@@ -59,8 +53,6 @@ public:
     virtual void UpdatedBlockTip(const CBlockIndex* pindexNew, const CBlockIndex* pindexFork, bool fInitialDownload);
 
     void Init();
-
-    CDeterministicMNCPtr GetDMN() const { return mnListEntry; }
 
     std::string GetStateString() const;
     std::string GetStatus() const;

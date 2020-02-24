@@ -7,12 +7,14 @@
 #define BITCOIN_POLICY_POLICY_H
 
 #include "consensus/consensus.h"
+#include "feerate.h"
 #include "script/interpreter.h"
 #include "script/standard.h"
 
 #include <string>
 
 class CCoinsViewCache;
+class CTxOut;
 
 /** Default for -blockmaxsize, which controls the maximum size of block the mining code will create **/
 static const unsigned int DEFAULT_BLOCK_MAX_SIZE = 2000000;
@@ -28,12 +30,12 @@ static const unsigned int MAX_STANDARD_TX_SIGOPS = 4000;
 static const unsigned int DEFAULT_MAX_MEMPOOL_SIZE = 300;
 /** Default for -incrementalrelayfee, which sets the minimum feerate increase for mempool limiting or BIP 125 replacement **/
 static const unsigned int DEFAULT_INCREMENTAL_RELAY_FEE = 1000;
-/** Min feerate for defining dust. Historically this has been the same as the
+/** Min feerate for defining dust. Historically this has been based on the
  * minRelayTxFee, however changing the dust limit changes which transactions are
  * standard and should be done with care and ideally rarely. It makes sense to
  * only increase the dust limit after prior releases were already not creating
  * outputs below the new threshold */
-static const unsigned int DUST_RELAY_TX_FEE = 1000;
+static const unsigned int DUST_RELAY_TX_FEE = 3000;
 /**
  * Standard script verification flags that standard transactions will comply
  * with. However scripts violating these flags may still be present in valid
@@ -57,6 +59,10 @@ static const unsigned int STANDARD_NOT_MANDATORY_VERIFY_FLAGS = STANDARD_SCRIPT_
 /** Used as the flags parameter to sequence and nLocktime checks in non-consensus code. */
 static const unsigned int STANDARD_LOCKTIME_VERIFY_FLAGS = LOCKTIME_VERIFY_SEQUENCE |
                                                            LOCKTIME_MEDIAN_TIME_PAST;
+
+CAmount GetDustThreshold(const CTxOut& txout, const CFeeRate& dustRelayFee);
+
+bool IsDust(const CTxOut& txout, const CFeeRate& dustRelayFee);
 
 bool IsStandard(const CScript& scriptPubKey, txnouttype& whichType);
     /**

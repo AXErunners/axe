@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
-# Copyright (c) 2015-2018 The Axe Core developers
+# Copyright (c) 2015-2020 The Dash Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 from collections import namedtuple
 
 from test_framework.mininode import *
 from test_framework.test_framework import AxeTestFramework
-from test_framework.util import *
-from time import *
+from test_framework.util import p2p_port, assert_equal, sync_blocks, set_node_times
 
 '''
 dip4-coinbasemerkleroots.py
@@ -16,30 +15,30 @@ Checks DIP4 merkle roots in coinbases
 
 '''
 
-class TestNode(SingleNodeConnCB):
+class TestNode(NodeConnCB):
     def __init__(self):
-        SingleNodeConnCB.__init__(self)
+        super().__init__()
         self.last_mnlistdiff = None
 
     def on_mnlistdiff(self, conn, message):
         self.last_mnlistdiff = message
 
     def wait_for_mnlistdiff(self, timeout=30):
-        self.last_mnlistdiff = None
         def received_mnlistdiff():
             return self.last_mnlistdiff is not None
         return wait_until(received_mnlistdiff, timeout=timeout)
 
     def getmnlistdiff(self, baseBlockHash, blockHash):
         msg = msg_getmnlistd(baseBlockHash, blockHash)
+        self.last_mnlistdiff = None
         self.send_message(msg)
         self.wait_for_mnlistdiff()
         return self.last_mnlistdiff
 
 
 class LLMQCoinbaseCommitmentsTest(AxeTestFramework):
-    def __init__(self):
-        super().__init__(6, 5, [], fast_dip3_enforcement=True)
+    def set_test_params(self):
+        self.set_axe_test_params(6, 5, fast_dip3_enforcement=True)
 
     def run_test(self):
         self.test_node = TestNode()
@@ -269,8 +268,8 @@ class LLMQCoinbaseCommitmentsTest(AxeTestFramework):
         else:
             assert_equal(merkleRootQuorums, 0)
 
-        set_mocktime(get_mocktime() + 1)
-        set_node_times(self.nodes, get_mocktime())
+        self.bump_mocktime(1)
+        set_node_times(self.nodes, self.mocktime)
         self.nodes[0].spork("SPORK_17_QUORUM_DKG_ENABLED", 0)
         self.wait_for_sporks_same()
 

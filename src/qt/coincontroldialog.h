@@ -20,7 +20,6 @@ class PlatformStyle;
 class WalletModel;
 
 class CCoinControl;
-class CTxMemPool;
 
 namespace Ui {
     class CoinControlDialog;
@@ -53,7 +52,7 @@ public:
     static void updateLabels(WalletModel*, QDialog*);
 
     static QList<CAmount> payAmounts;
-    static CCoinControl *coinControl;
+    static CCoinControl* coinControl;
     static bool fSubtractFeeFromAmount;
 
 private:

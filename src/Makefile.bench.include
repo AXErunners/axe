@@ -23,14 +23,18 @@ bench_bench_axe_SOURCES = \
   bench/ecdsa.cpp \
   bench/Examples.cpp \
   bench/rollingbloom.cpp \
+  bench/chacha20.cpp \
+  bench/chacha_poly_aead.cpp \
   bench/crypto_hash.cpp \
   bench/ccoins_caching.cpp \
+  bench/merkle_root.cpp \
   bench/mempool_eviction.cpp \
   bench/base58.cpp \
   bench/lockedpool.cpp \
+  bench/poly1305.cpp \
   bench/perf.cpp \
   bench/perf.h \
-  bench/prevector_destructor.cpp \
+  bench/prevector.cpp \
   bench/string_cast.cpp
 
 nodist_bench_bench_axe_SOURCES = $(GENERATED_TEST_FILES)
@@ -44,6 +48,7 @@ bench_bench_axe_LDADD = \
   $(LIBBITCOIN_CONSENSUS) \
   $(LIBBITCOIN_CRYPTO) \
   $(LIBLEVELDB) \
+  $(LIBLEVELDB_SSE42) \
   $(LIBMEMENV) \
   $(LIBSECP256K1) \
   $(LIBUNIVALUE)

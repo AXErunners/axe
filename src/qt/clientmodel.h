@@ -14,13 +14,10 @@
 
 #include <atomic>
 
-class AddressTableModel;
 class BanTableModel;
 class OptionsModel;
 class PeerTableModel;
-class TransactionTableModel;
 
-class CWallet;
 class CBlockIndex;
 
 QT_BEGIN_NAMESPACE
@@ -69,7 +66,7 @@ public:
     void setMasternodeList(const CDeterministicMNList& mnList);
     CDeterministicMNList getMasternodeList() const;
     void refreshMasternodeList();
-    
+
     quint64 getTotalBytesRecv() const;
     quint64 getTotalBytesSent() const;
 
@@ -134,7 +131,7 @@ public Q_SLOTS:
     void updateTimer();
     void updateNumConnections(int numConnections);
     void updateNetworkActive(bool networkActive);
-    void updateAlert(const QString &hash, int status);
+    void updateAlert();
     void updateBanlist();
 };
 

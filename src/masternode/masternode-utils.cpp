@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019 The Dash Core developers
+// Copyright (c) 2014-2020 The Dash Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -20,57 +20,23 @@ struct CompareScoreMN
     }
 };
 
-bool CMasternodeUtils::GetMasternodeScores(const uint256& nBlockHash, score_pair_vec_t& vecMasternodeScoresRet)
-{
-    vecMasternodeScoresRet.clear();
-
-    auto mnList = deterministicMNManager->GetListAtChainTip();
-    auto scores = mnList.CalculateScores(nBlockHash);
-    for (const auto& p : scores) {
-        vecMasternodeScoresRet.emplace_back(p.first, p.second);
-    }
-
-    std::sort(vecMasternodeScoresRet.rbegin(), vecMasternodeScoresRet.rend(), CompareScoreMN());
-    return !vecMasternodeScoresRet.empty();
-}
-
-bool CMasternodeUtils::GetMasternodeRank(const COutPoint& outpoint, int& nRankRet, uint256& blockHashRet, int nBlockHeight)
-{
-    nRankRet = -1;
-
-    if (!masternodeSync.IsBlockchainSynced())
-        return false;
-
-    // make sure we know about this block
-    blockHashRet = uint256();
-    if (!GetBlockHash(blockHashRet, nBlockHeight)) {
-        LogPrintf("CMasternodeUtils::%s -- ERROR: GetBlockHash() failed at nBlockHeight %d\n", __func__, nBlockHeight);
-        return false;
-    }
-
-    score_pair_vec_t vecMasternodeScores;
-    if (!GetMasternodeScores(blockHashRet, vecMasternodeScores))
-        return false;
-
-    int nRank = 0;
-    for (const auto& scorePair : vecMasternodeScores) {
-        nRank++;
-        if(scorePair.second->collateralOutpoint == outpoint) {
-            nRankRet = nRank;
-            return true;
-        }
-    }
-
-    return false;
-}
-
-
 void CMasternodeUtils::ProcessMasternodeConnections(CConnman& connman)
 {
     std::vector<CDeterministicMNCPtr> vecDmns; // will be empty when no wallet
 #ifdef ENABLE_WALLET
     privateSendClient.GetMixingMasternodesInfo(vecDmns);
 #endif // ENABLE_WALLET
+
+    // Don't disconnect masternode connections when we have less then the desired amount of outbound nodes
+    int nonMasternodeCount = 0;
+    connman.ForEachNode(CConnman::AllNodes, [&](CNode* pnode) {
+        if (!pnode->fInbound && !pnode->fFeeler && !pnode->m_manual_connection && !pnode->fMasternode) {
+            nonMasternodeCount++;
+        }
+    });
+    if (nonMasternodeCount < connman.GetMaxOutboundNodeCount()) {
+        return;
+    }
 
     connman.ForEachNode(CConnman::AllNodes, [&](CNode* pnode) {
         if (pnode->fMasternode && !connman.IsMasternodeQuorumNode(pnode)) {
@@ -84,7 +50,11 @@ void CMasternodeUtils::ProcessMasternodeConnections(CConnman& connman)
             }
             if (fFound) return; // do NOT disconnect mixing masternodes
 #endif // ENABLE_WALLET
-            LogPrintf("Closing Masternode connection: peer=%d, addr=%s\n", pnode->id, pnode->addr.ToString());
+            if (fLogIPs) {
+                LogPrintf("Closing Masternode connection: peer=%d, addr=%s\n", pnode->GetId(), pnode->addr.ToString());
+            } else {
+                LogPrintf("Closing Masternode connection: peer=%d\n", pnode->GetId());
+            }
             pnode->fDisconnect = true;
         }
     });
@@ -92,8 +62,6 @@ void CMasternodeUtils::ProcessMasternodeConnections(CConnman& connman)
 
 void CMasternodeUtils::DoMaintenance(CConnman& connman)
 {
-    if(fLiteMode) return; // disable all Axe specific functionality
-
     if(!masternodeSync.IsBlockchainSynced() || ShutdownRequested())
         return;
 

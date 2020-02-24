@@ -15,7 +15,7 @@ Generate 427 more blocks.
 
 from test_framework.test_framework import BitcoinTestFramework
 from test_framework.util import *
-from test_framework.mininode import CTransaction, NetworkThread
+from test_framework.mininode import CTransaction, network_thread_start
 from test_framework.blocktools import create_coinbase, create_block
 from test_framework.script import CScript
 from io import BytesIO
@@ -36,21 +36,16 @@ def trueDummy(tx):
 
 class NULLDUMMYTest(BitcoinTestFramework):
 
-    def __init__(self):
-        super().__init__()
+    def set_test_params(self):
         self.num_nodes = 1
         self.setup_clean_chain = True
-
-    def setup_network(self):
-        # Must set the blockversion for this test
-        self.nodes = start_nodes(self.num_nodes, self.options.tmpdir,
-                                 extra_args=[['-whitelist=127.0.0.1']])
+        self.extra_args = [['-whitelist=127.0.0.1']]
 
     def run_test(self):
         self.address = self.nodes[0].getnewaddress()
         self.ms_address = self.nodes[0].addmultisigaddress(1,[self.address])
 
-        NetworkThread().start() # Start up network handling in another thread
+        network_thread_start()
         self.coinbase_blocks = self.nodes[0].generate(2) # Block 2
         coinbase_txid = []
         for i in self.coinbase_blocks:
@@ -59,7 +54,7 @@ class NULLDUMMYTest(BitcoinTestFramework):
         self.lastblockhash = self.nodes[0].getbestblockhash()
         self.tip = int("0x" + self.lastblockhash, 0)
         self.lastblockheight = 429
-        self.lastblocktime = get_mocktime() + 429
+        self.lastblocktime = self.mocktime + 429
 
         self.log.info("Test 1: NULLDUMMY compliant base transactions should be accepted to mempool and mined before activation [430]")
         test1txs = [self.create_transaction(self.nodes[0], coinbase_txid[0], self.ms_address, 49)]
@@ -71,7 +66,7 @@ class NULLDUMMYTest(BitcoinTestFramework):
         self.log.info("Test 2: Non-NULLDUMMY base multisig transaction should not be accepted to mempool before activation")
         test2tx = self.create_transaction(self.nodes[0], txid2, self.ms_address, 47)
         trueDummy(test2tx)
-        assert_raises_jsonrpc(-26, NULLDUMMY_ERROR, self.nodes[0].sendrawtransaction, bytes_to_hex_str(test2tx.serialize()), True)
+        assert_raises_rpc_error(-26, NULLDUMMY_ERROR, self.nodes[0].sendrawtransaction, bytes_to_hex_str(test2tx.serialize()), True)
 
         self.log.info("Test 3: Non-NULLDUMMY base transactions should be accepted in a block before activation [431]")
         self.block_submit(self.nodes[0], [test2tx], True)
@@ -80,7 +75,7 @@ class NULLDUMMYTest(BitcoinTestFramework):
         test4tx = self.create_transaction(self.nodes[0], test2tx.hash, self.address, 46)
         test6txs=[CTransaction(test4tx)]
         trueDummy(test4tx)
-        assert_raises_jsonrpc(-26, NULLDUMMY_ERROR, self.nodes[0].sendrawtransaction, bytes_to_hex_str(test4tx.serialize()), True)
+        assert_raises_rpc_error(-26, NULLDUMMY_ERROR, self.nodes[0].sendrawtransaction, bytes_to_hex_str(test4tx.serialize()), True)
         self.block_submit(self.nodes[0], [test4tx])
 
         self.log.info("Test 6: NULLDUMMY compliant transactions should be accepted to mempool and in block after activation [432]")

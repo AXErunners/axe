@@ -12,23 +12,22 @@ import http.client
 import urllib.parse
 
 class HTTPBasicsTest (BitcoinTestFramework):
-
-    def __init__(self):
-        super().__init__()
-        self.setup_clean_chain = False
-        self.num_nodes = 1
+    def set_test_params(self):
+        self.num_nodes = 2
 
     def setup_chain(self):
         super().setup_chain()
         #Append rpcauth to axe.conf before initialization
         rpcauth = "rpcauth=rt:93648e835a54c573682c2eb19f882535$7681e9c5b74bdd85e78166031d2058e1069b3ed7ed967c93fc63abba06f31144"
         rpcauth2 = "rpcauth=rt2:f8607b1a88861fac29dfccf9b52ff9f$ff36a0c23c8c62b4846112e50fa888416e94c17bfd4c42f88fd8f55ec6a3137e"
+        rpcuser = "rpcuser=rpcuser💻"
+        rpcpassword = "rpcpassword=rpcpassword🔑"
         with open(os.path.join(self.options.tmpdir+"/node0", "axe.conf"), 'a', encoding='utf8') as f:
             f.write(rpcauth+"\n")
             f.write(rpcauth2+"\n")
-
-    def setup_network(self):
-        self.nodes = self.setup_nodes()
+        with open(os.path.join(self.options.tmpdir+"/node1", "axe.conf"), 'a', encoding='utf8') as f:
+            f.write(rpcuser+"\n")
+            f.write(rpcpassword+"\n")
 
     def run_test(self):
 
@@ -41,11 +40,9 @@ class HTTPBasicsTest (BitcoinTestFramework):
         authpair = url.username + ':' + url.password
 
         #New authpair generated via share/rpcuser tool
-        rpcauth = "rpcauth=rt:93648e835a54c573682c2eb19f882535$7681e9c5b74bdd85e78166031d2058e1069b3ed7ed967c93fc63abba06f31144"
         password = "cA773lm788buwYe4g4WT+05pKyNruVKjQ25x3n0DQcM="
 
         #Second authpair with different username
-        rpcauth2 = "rpcauth=rt2:f8607b1a88861fac29dfccf9b52ff9f$ff36a0c23c8c62b4846112e50fa888416e94c17bfd4c42f88fd8f55ec6a3137e"
         password2 = "8/F3uMDw4KSEbw96U3CA1C4X05dkHDN2BPFjTgZW4KI="
         authpairnew = "rt:"+password
 
@@ -55,9 +52,9 @@ class HTTPBasicsTest (BitcoinTestFramework):
         conn.connect()
         conn.request('POST', '/', '{"method": "getbestblockhash"}', headers)
         resp = conn.getresponse()
-        assert_equal(resp.status==401, False)
+        assert_equal(resp.status, 200)
         conn.close()
-        
+
         #Use new authpair to confirm both work
         headers = {"Authorization": "Basic " + str_to_b64str(authpairnew)}
 
@@ -65,7 +62,7 @@ class HTTPBasicsTest (BitcoinTestFramework):
         conn.connect()
         conn.request('POST', '/', '{"method": "getbestblockhash"}', headers)
         resp = conn.getresponse()
-        assert_equal(resp.status==401, False)
+        assert_equal(resp.status, 200)
         conn.close()
 
         #Wrong login name with rt's password
@@ -76,7 +73,7 @@ class HTTPBasicsTest (BitcoinTestFramework):
         conn.connect()
         conn.request('POST', '/', '{"method": "getbestblockhash"}', headers)
         resp = conn.getresponse()
-        assert_equal(resp.status==401, True)
+        assert_equal(resp.status, 401)
         conn.close()
 
         #Wrong password for rt
@@ -87,7 +84,7 @@ class HTTPBasicsTest (BitcoinTestFramework):
         conn.connect()
         conn.request('POST', '/', '{"method": "getbestblockhash"}', headers)
         resp = conn.getresponse()
-        assert_equal(resp.status==401, True)
+        assert_equal(resp.status, 401)
         conn.close()
 
         #Correct for rt2
@@ -98,7 +95,7 @@ class HTTPBasicsTest (BitcoinTestFramework):
         conn.connect()
         conn.request('POST', '/', '{"method": "getbestblockhash"}', headers)
         resp = conn.getresponse()
-        assert_equal(resp.status==401, False)
+        assert_equal(resp.status, 200)
         conn.close()
 
         #Wrong password for rt2
@@ -109,7 +106,46 @@ class HTTPBasicsTest (BitcoinTestFramework):
         conn.connect()
         conn.request('POST', '/', '{"method": "getbestblockhash"}', headers)
         resp = conn.getresponse()
-        assert_equal(resp.status==401, True)
+        assert_equal(resp.status, 401)
+        conn.close()
+
+        ###############################################################
+        # Check correctness of the rpcuser/rpcpassword config options #
+        ###############################################################
+        url = urllib.parse.urlparse(self.nodes[1].url)
+
+        # rpcuser and rpcpassword authpair
+        rpcuserauthpair = "rpcuser💻:rpcpassword🔑"
+
+        headers = {"Authorization": "Basic " + str_to_b64str(rpcuserauthpair)}
+
+        conn = http.client.HTTPConnection(url.hostname, url.port)
+        conn.connect()
+        conn.request('POST', '/', '{"method": "getbestblockhash"}', headers)
+        resp = conn.getresponse()
+        assert_equal(resp.status, 200)
+        conn.close()
+
+        #Wrong login name with rpcuser's password
+        rpcuserauthpair = "rpcuserwrong:rpcpassword"
+        headers = {"Authorization": "Basic " + str_to_b64str(rpcuserauthpair)}
+
+        conn = http.client.HTTPConnection(url.hostname, url.port)
+        conn.connect()
+        conn.request('POST', '/', '{"method": "getbestblockhash"}', headers)
+        resp = conn.getresponse()
+        assert_equal(resp.status, 401)
+        conn.close()
+
+        #Wrong password for rpcuser
+        rpcuserauthpair = "rpcuser:rpcpasswordwrong"
+        headers = {"Authorization": "Basic " + str_to_b64str(rpcuserauthpair)}
+
+        conn = http.client.HTTPConnection(url.hostname, url.port)
+        conn.connect()
+        conn.request('POST', '/', '{"method": "getbestblockhash"}', headers)
+        resp = conn.getresponse()
+        assert_equal(resp.status, 401)
         conn.close()
 
 

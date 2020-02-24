@@ -10,6 +10,16 @@
 #include "config/axe-config.h"
 #endif
 
+#include <type_traits>
+
+// GCC 4.8 is missing some C++11 type_traits,
+// https://www.gnu.org/software/gcc/gcc-5/changes.html
+#if defined(__GNUC__) && __GNUC__ < 5
+#define IS_TRIVIALLY_CONSTRUCTIBLE std::is_trivial
+#else
+#define IS_TRIVIALLY_CONSTRUCTIBLE std::is_trivially_constructible
+#endif
+
 #ifdef WIN32
 #ifdef _WIN32_WINNT
 #undef _WIN32_WINNT
@@ -76,7 +86,7 @@ typedef unsigned int SOCKET;
 size_t strnlen( const char *start, size_t max_len);
 #endif // HAVE_DECL_STRNLEN
 
-bool static inline IsSelectableSocket(SOCKET s) {
+bool static inline IsSelectableSocket(const SOCKET& s) {
 #ifdef WIN32
     return true;
 #else

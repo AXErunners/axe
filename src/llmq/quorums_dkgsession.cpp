@@ -65,7 +65,7 @@ CDKGLogger::CDKGLogger(const CDKGSession& _quorumDkg, const std::string& _func) 
 }
 
 CDKGLogger::CDKGLogger(Consensus::LLMQType _llmqType, const uint256& _quorumHash, int _height, bool _areWeMember, const std::string& _func) :
-    CBatchedLogger("llmq-dkg", strprintf("QuorumDKG(type=%d, height=%d, member=%d, func=%s)", _llmqType, _height, _areWeMember, _func))
+    CBatchedLogger(BCLog::LLMQ_DKG, strprintf("QuorumDKG(type=%d, height=%d, member=%d, func=%s)", _llmqType, _height, _areWeMember, _func))
 {
 }
 
@@ -168,7 +168,7 @@ void CDKGSession::SendContributions(CDKGPendingMessages& pendingMessages)
     }
 
     CDKGContribution qc;
-    qc.llmqType = (uint8_t)params.type;
+    qc.llmqType = params.type;
     qc.quorumHash = pindexQuorum->GetBlockHash();
     qc.proTxHash = myProTxHash;
     qc.vvec = vvecContribution;
@@ -280,7 +280,6 @@ void CDKGSession::ReceiveMessage(const uint256& hash, const CDKGContribution& qc
         member->contributions.emplace(hash);
 
         CInv inv(MSG_QUORUM_CONTRIB, hash);
-        invSet.emplace(inv);
         RelayInvToParticipants(inv);
 
         quorumDKGDebugManager->UpdateLocalMemberStatus(params.type, member->idx, [&](CDKGDebugMemberStatus& status) {
@@ -447,7 +446,7 @@ void CDKGSession::SendComplaint(CDKGPendingMessages& pendingMessages)
     assert(AreWeMember());
 
     CDKGComplaint qc(params);
-    qc.llmqType = (uint8_t)params.type;
+    qc.llmqType = params.type;
     qc.quorumHash = pindexQuorum->GetBlockHash();
     qc.proTxHash = myProTxHash;
 
@@ -547,7 +546,6 @@ void CDKGSession::ReceiveMessage(const uint256& hash, const CDKGComplaint& qc, b
         member->complaints.emplace(hash);
 
         CInv inv(MSG_QUORUM_COMPLAINT, hash);
-        invSet.emplace(inv);
         RelayInvToParticipants(inv);
 
         quorumDKGDebugManager->UpdateLocalMemberStatus(params.type, member->idx, [&](CDKGDebugMemberStatus& status) {
@@ -641,7 +639,7 @@ void CDKGSession::SendJustification(CDKGPendingMessages& pendingMessages, const 
     logger.Batch("sending justification for %d members", forMembers.size());
 
     CDKGJustification qj;
-    qj.llmqType = (uint8_t)params.type;
+    qj.llmqType = params.type;
     qj.quorumHash = pindexQuorum->GetBlockHash();
     qj.proTxHash = myProTxHash;
     qj.contributions.reserve(forMembers.size());
@@ -762,7 +760,6 @@ void CDKGSession::ReceiveMessage(const uint256& hash, const CDKGJustification& q
 
         // we always relay, even if further verification fails
         CInv inv(MSG_QUORUM_JUSTIFICATION, hash);
-        invSet.emplace(inv);
         RelayInvToParticipants(inv);
 
         quorumDKGDebugManager->UpdateLocalMemberStatus(params.type, member->idx, [&](CDKGDebugMemberStatus& status) {
@@ -897,7 +894,7 @@ void CDKGSession::SendCommitment(CDKGPendingMessages& pendingMessages)
     logger.Batch("sending commitment");
 
     CDKGPrematureCommitment qc(params);
-    qc.llmqType = (uint8_t)params.type;
+    qc.llmqType = params.type;
     qc.quorumHash = pindexQuorum->GetBlockHash();
     qc.proTxHash = myProTxHash;
 
@@ -1130,7 +1127,6 @@ void CDKGSession::ReceiveMessage(const uint256& hash, const CDKGPrematureCommitm
     validCommitments.emplace(hash);
 
     CInv inv(MSG_QUORUM_PREMATURE_COMMITMENT, hash);
-    invSet.emplace(inv);
     RelayInvToParticipants(inv);
 
     quorumDKGDebugManager->UpdateLocalMemberStatus(params.type, member->idx, [&](CDKGDebugMemberStatus& status) {
@@ -1285,4 +1281,4 @@ void CDKGSession::RelayInvToParticipants(const CInv& inv) const
     });
 }
 
-}
+} // namespace llmq

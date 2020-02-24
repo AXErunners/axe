@@ -35,13 +35,12 @@ def node_sync_via_rpc(nodes):
             unidirectional_node_sync_via_rpc(node_src, node_dest)
 
 class PreciousTest(BitcoinTestFramework):
-    def __init__(self):
-        super().__init__()
+    def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 3
 
     def setup_network(self):
-        self.nodes = self.setup_nodes()
+        self.setup_nodes()
 
     def run_test(self):
         self.log.info("Ensure submitblock can in principle reorg to a competing chain")

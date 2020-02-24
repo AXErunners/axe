@@ -7,11 +7,13 @@
 #include "test/test_axe.h"
 
 #include "clientversion.h"
+#include "checkqueue.h"
+#include "consensus/tx_verify.h"
 #include "consensus/validation.h"
 #include "core_io.h"
 #include "key.h"
 #include "keystore.h"
-#include "validation.h" // For CheckTransaction
+#include "validation.h"
 #include "policy/policy.h"
 #include "script/script.h"
 #include "script/script_error.h"
@@ -22,29 +24,28 @@
 
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
-#include <boost/assign/list_of.hpp>
 #include <boost/test/unit_test.hpp>
-#include <boost/assign/list_of.hpp>
 
 #include <univalue.h>
 
 // In script_tests.cpp
 extern UniValue read_json(const std::string& jsondata);
 
-static std::map<std::string, unsigned int> mapFlagNames = boost::assign::map_list_of
-    (std::string("NONE"), (unsigned int)SCRIPT_VERIFY_NONE)
-    (std::string("P2SH"), (unsigned int)SCRIPT_VERIFY_P2SH)
-    (std::string("STRICTENC"), (unsigned int)SCRIPT_VERIFY_STRICTENC)
-    (std::string("DERSIG"), (unsigned int)SCRIPT_VERIFY_DERSIG)
-    (std::string("LOW_S"), (unsigned int)SCRIPT_VERIFY_LOW_S)
-    (std::string("SIGPUSHONLY"), (unsigned int)SCRIPT_VERIFY_SIGPUSHONLY)
-    (std::string("MINIMALDATA"), (unsigned int)SCRIPT_VERIFY_MINIMALDATA)
-    (std::string("NULLDUMMY"), (unsigned int)SCRIPT_VERIFY_NULLDUMMY)
-    (std::string("DISCOURAGE_UPGRADABLE_NOPS"), (unsigned int)SCRIPT_VERIFY_DISCOURAGE_UPGRADABLE_NOPS)
-    (std::string("CLEANSTACK"), (unsigned int)SCRIPT_VERIFY_CLEANSTACK)
-    (std::string("NULLFAIL"), (unsigned int)SCRIPT_VERIFY_NULLFAIL)
-    (std::string("CHECKLOCKTIMEVERIFY"), (unsigned int)SCRIPT_VERIFY_CHECKLOCKTIMEVERIFY)
-    (std::string("CHECKSEQUENCEVERIFY"), (unsigned int)SCRIPT_VERIFY_CHECKSEQUENCEVERIFY);
+static std::map<std::string, unsigned int> mapFlagNames = {
+    {std::string("NONE"), (unsigned int) SCRIPT_VERIFY_NONE},
+    {std::string("P2SH"), (unsigned int) SCRIPT_VERIFY_P2SH},
+    {std::string("STRICTENC"), (unsigned int) SCRIPT_VERIFY_STRICTENC},
+    {std::string("DERSIG"), (unsigned int) SCRIPT_VERIFY_DERSIG},
+    {std::string("LOW_S"), (unsigned int) SCRIPT_VERIFY_LOW_S},
+    {std::string("SIGPUSHONLY"), (unsigned int) SCRIPT_VERIFY_SIGPUSHONLY},
+    {std::string("MINIMALDATA"), (unsigned int) SCRIPT_VERIFY_MINIMALDATA},
+    {std::string("NULLDUMMY"), (unsigned int) SCRIPT_VERIFY_NULLDUMMY},
+    {std::string("DISCOURAGE_UPGRADABLE_NOPS"), (unsigned int) SCRIPT_VERIFY_DISCOURAGE_UPGRADABLE_NOPS},
+    {std::string("CLEANSTACK"), (unsigned int) SCRIPT_VERIFY_CLEANSTACK},
+    {std::string("NULLFAIL"), (unsigned int) SCRIPT_VERIFY_NULLFAIL},
+    {std::string("CHECKLOCKTIMEVERIFY"), (unsigned int) SCRIPT_VERIFY_CHECKLOCKTIMEVERIFY},
+    {std::string("CHECKSEQUENCEVERIFY"), (unsigned int) SCRIPT_VERIFY_CHECKSEQUENCEVERIFY},
+};
 
 unsigned int ParseScriptFlags(std::string strFlags)
 {
@@ -55,7 +56,7 @@ unsigned int ParseScriptFlags(std::string strFlags)
     std::vector<std::string> words;
     boost::algorithm::split(words, strFlags, boost::algorithm::is_any_of(","));
 
-    BOOST_FOREACH(std::string word, words)
+    for (std::string word : words)
     {
         if (!mapFlagNames.count(word))
             BOOST_ERROR("Bad test: unknown verification flag '" << word << "'");
@@ -139,6 +140,7 @@ BOOST_AUTO_TEST_CASE(tx_valid)
             BOOST_CHECK_MESSAGE(CheckTransaction(tx, state), strTest);
             BOOST_CHECK(state.IsValid());
 
+            PrecomputedTransactionData txdata(tx);
             for (unsigned int i = 0; i < tx.vin.size(); i++)
             {
                 if (!mapprevOutScriptPubKeys.count(tx.vin[i].prevout))
@@ -147,9 +149,10 @@ BOOST_AUTO_TEST_CASE(tx_valid)
                     break;
                 }
 
+                CAmount amount = 0;
                 unsigned int verify_flags = ParseScriptFlags(test[2].get_str());
                 BOOST_CHECK_MESSAGE(VerifyScript(tx.vin[i].scriptSig, mapprevOutScriptPubKeys[tx.vin[i].prevout],
-                                                 verify_flags, TransactionSignatureChecker(&tx, i), &err),
+                                                 verify_flags, TransactionSignatureChecker(&tx, i, amount, txdata), &err),
                                     strTest);
                 BOOST_CHECK_MESSAGE(err == SCRIPT_ERR_OK, ScriptErrorString(err));
             }
@@ -214,6 +217,7 @@ BOOST_AUTO_TEST_CASE(tx_invalid)
             CValidationState state;
             fValid = CheckTransaction(tx, state) && state.IsValid();
 
+            PrecomputedTransactionData txdata(tx);
             for (unsigned int i = 0; i < tx.vin.size() && fValid; i++)
             {
                 if (!mapprevOutScriptPubKeys.count(tx.vin[i].prevout))
@@ -223,8 +227,9 @@ BOOST_AUTO_TEST_CASE(tx_invalid)
                 }
 
                 unsigned int verify_flags = ParseScriptFlags(test[2].get_str());
+                CAmount amount = 0;
                 fValid = VerifyScript(tx.vin[i].scriptSig, mapprevOutScriptPubKeys[tx.vin[i].prevout],
-                                      verify_flags, TransactionSignatureChecker(&tx, i), &err);
+                                      verify_flags, TransactionSignatureChecker(&tx, i, amount, txdata), &err);
             }
             BOOST_CHECK_MESSAGE(!fValid, strTest);
             BOOST_CHECK_MESSAGE(err != SCRIPT_ERR_OK, ScriptErrorString(err));
@@ -335,7 +340,7 @@ BOOST_AUTO_TEST_CASE(test_IsStandard)
     BOOST_CHECK(IsStandardTx(t, reason));
 
     // Check dust with default relay fee:
-    CAmount nDustThreshold = 182 * dustRelayFee.GetFeePerK()/1000 * 3;
+    CAmount nDustThreshold = 182 * dustRelayFee.GetFeePerK()/1000;
     BOOST_CHECK_EQUAL(nDustThreshold, 546);
     // dust:
     t.vout[0].nValue = nDustThreshold - 1;
@@ -345,8 +350,8 @@ BOOST_AUTO_TEST_CASE(test_IsStandard)
     BOOST_CHECK(IsStandardTx(t, reason));
 
     // Check dust with odd relay fee to verify rounding:
-    // nDustThreshold = 182 * 1234 / 1000 * 3
-    minRelayTxFee = CFeeRate(1234);
+    // nDustThreshold = 182 * 3702 / 1000
+    minRelayTxFee = CFeeRate(3702);
     // dust:
     t.vout[0].nValue = 546 - 1;
     BOOST_CHECK(!IsStandardTx(t, reason));

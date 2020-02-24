@@ -161,16 +161,9 @@ extern const char *PING;
  */
 extern const char *PONG;
 /**
- * The alert message warns nodes of problems that may affect them or the rest
- * of the network.
- * @since protocol version 311.
- * @see https://bitcoin.org/en/developer-reference#alert
- */
-extern const char *ALERT;
-/**
  * The notfound message is a reply to a getdata message which requested an
  * object the receiving node does not have available for relay.
- * @ince protocol version 70001.
+ * @since protocol version 70001.
  * @see https://bitcoin.org/en/developer-reference#notfound
  */
 extern const char *NOTFOUND;
@@ -246,8 +239,7 @@ extern const char *BLOCKTXN;
 // Axe message types
 // NOTE: do NOT declare non-implmented here, we don't want them to be exposed to the outside
 // TODO: add description
-extern const char *TXLOCKREQUEST;
-extern const char *TXLOCKVOTE;
+extern const char *LEGACYTXLOCKREQUEST; // only present for backwards compatibility
 extern const char *SPORK;
 extern const char *GETSPORKS;
 extern const char *DSACCEPT;
@@ -314,6 +306,43 @@ enum ServiceFlags : uint64_t {
     // BIP process.
 };
 
+/**
+ * Gets the set of service flags which are "desirable" for a given peer.
+ *
+ * These are the flags which are required for a peer to support for them
+ * to be "interesting" to us, ie for us to wish to use one of our few
+ * outbound connection slots for or for us to wish to prioritize keeping
+ * their connection around.
+ *
+ * Relevant service flags may be peer- and state-specific in that the
+ * version of the peer may determine which flags are required (eg in the
+ * case of NODE_NETWORK_LIMITED where we seek out NODE_NETWORK peers
+ * unless they set NODE_NETWORK_LIMITED and we are out of IBD, in which
+ * case NODE_NETWORK_LIMITED suffices).
+ *
+ * Thus, generally, avoid calling with peerServices == NODE_NONE.
+ */
+static ServiceFlags GetDesirableServiceFlags(ServiceFlags services) {
+    return ServiceFlags(NODE_NETWORK);
+}
+
+/**
+ * A shortcut for (services & GetDesirableServiceFlags(services))
+ * == GetDesirableServiceFlags(services), ie determines whether the given
+ * set of service flags are sufficient for a peer to be "relevant".
+ */
+static inline bool HasAllDesirableServiceFlags(ServiceFlags services) {
+    return !(GetDesirableServiceFlags(services) & (~services));
+}
+
+/**
+ * Checks if a peer with the given service flags may be capable of having a
+ * robust address-storage DB. Currently an alias for checking NODE_NETWORK.
+ */
+static inline bool MayHaveUsefulAddressDB(ServiceFlags services) {
+    return services & NODE_NETWORK;
+}
+
 /** A CService with information about it as peer */
 class CAddress : public CService
 {
@@ -362,8 +391,8 @@ enum GetDataMsg {
     MSG_FILTERED_BLOCK = 3,  //!< Defined in BIP37
     // Axe message types
     // NOTE: declare non-implmented here, we must keep this enum consistent and backwards compatible
-    MSG_TXLOCK_REQUEST = 4,
-    MSG_TXLOCK_VOTE = 5,
+    MSG_LEGACY_TXLOCK_REQUEST = 4,
+    /* MSG_TXLOCK_VOTE = 5, Legacy InstantSend and not used anymore  */
     MSG_SPORK = 6,
     /* 7 - 15 were used in old Axe versions and were mainly budget and MN broadcast/ping related*/
     MSG_DSTX = 16,
@@ -391,7 +420,6 @@ class CInv
 public:
     CInv();
     CInv(int typeIn, const uint256& hashIn);
-    CInv(const std::string& strType, const uint256& hashIn);
 
     ADD_SERIALIZE_METHODS;
 
@@ -405,8 +433,11 @@ public:
     friend bool operator<(const CInv& a, const CInv& b);
 
     bool IsKnownType() const;
-    const char* GetCommand() const;
+    std::string GetCommand() const;
     std::string ToString() const;
+
+private:
+    const char* GetCommandInternal() const;
 
     // TODO: make private (improves encapsulation)
 public:

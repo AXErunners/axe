@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019 The Dash Core developers
+// Copyright (c) 2014-2020 The Dash Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -17,6 +17,7 @@
 #include "validation.h"
 
 #include "llmq/quorums_instantsend.h"
+#include "llmq/quorums_chainlocks.h"
 
 #include <string>
 
@@ -63,7 +64,7 @@ bool CPrivateSendQueue::CheckSignature(const CBLSPublicKey& blsPubKey) const
     CBLSSignature sig;
     sig.SetBuf(vchSig);
     if (!sig.IsValid() || !sig.VerifyInsecure(blsPubKey, hash)) {
-        LogPrintf("CTxLockVote::CheckSignature -- VerifyInsecure() failed\n");
+        LogPrint(BCLog::PRIVATESEND, "CPrivateSendQueue::CheckSignature -- VerifyInsecure() failed\n");
         return false;
     }
 
@@ -74,10 +75,16 @@ bool CPrivateSendQueue::Relay(CConnman& connman)
 {
     connman.ForEachNode([&connman, this](CNode* pnode) {
         CNetMsgMaker msgMaker(pnode->GetSendVersion());
-        if (pnode->nVersion >= MIN_PRIVATESEND_PEER_PROTO_VERSION && pnode->fSendDSQueue)
+        if (pnode->nVersion >= MIN_PRIVATESEND_PEER_PROTO_VERSION && pnode->fSendDSQueue) {
             connman.PushMessage(pnode, msgMaker.Make(NetMsgType::DSQUEUE, (*this)));
+        }
     });
     return true;
+}
+
+bool CPrivateSendQueue::IsTimeOutOfBounds() const
+{
+    return GetAdjustedTime() - nTime > PRIVATESEND_QUEUE_TIMEOUT || nTime - GetAdjustedTime() > PRIVATESEND_QUEUE_TIMEOUT;
 }
 
 uint256 CPrivateSendBroadcastTx::GetSignatureHash() const
@@ -88,7 +95,6 @@ uint256 CPrivateSendBroadcastTx::GetSignatureHash() const
 bool CPrivateSendBroadcastTx::Sign()
 {
     if (!fMasternodeMode) return false;
-
 
     uint256 hash = GetSignatureHash();
 
@@ -103,23 +109,47 @@ bool CPrivateSendBroadcastTx::Sign()
 
 bool CPrivateSendBroadcastTx::CheckSignature(const CBLSPublicKey& blsPubKey) const
 {
-
     uint256 hash = GetSignatureHash();
 
     CBLSSignature sig;
     sig.SetBuf(vchSig);
     if (!sig.IsValid() || !sig.VerifyInsecure(blsPubKey, hash)) {
-        LogPrintf("CTxLockVote::CheckSignature -- VerifyInsecure() failed\n");
+        LogPrint(BCLog::PRIVATESEND, "CPrivateSendBroadcastTx::CheckSignature -- VerifyInsecure() failed\n");
         return false;
     }
 
     return true;
 }
 
-bool CPrivateSendBroadcastTx::IsExpired(int nHeight)
+bool CPrivateSendBroadcastTx::IsExpired(const CBlockIndex* pindex)
 {
-    // expire confirmed DSTXes after ~1h since confirmation
-    return (nConfirmedHeight != -1) && (nHeight - nConfirmedHeight > 24);
+    // expire confirmed DSTXes after ~1h since confirmation or chainlocked confirmation
+    if (nConfirmedHeight == -1 || pindex->nHeight < nConfirmedHeight) return false; // not mined yet
+    if (pindex->nHeight - nConfirmedHeight > 24) return true; // mined more then an hour ago
+    return llmq::chainLocksHandler->HasChainLock(pindex->nHeight, *pindex->phashBlock);
+}
+
+bool CPrivateSendBroadcastTx::IsValidStructure()
+{
+    // some trivial checks only
+    if (tx->vin.size() != tx->vout.size()) {
+        return false;
+    }
+    if (tx->vin.size() < CPrivateSend::GetMinPoolParticipants()) {
+        return false;
+    }
+    if (tx->vin.size() > CPrivateSend::GetMaxPoolParticipants() * PRIVATESEND_ENTRY_MAX_SIZE) {
+        return false;
+    }
+    for (const auto& out : tx->vout) {
+        if (!CPrivateSend::IsDenominatedAmount(out.nValue)) {
+            return false;
+        }
+        if (!out.scriptPubKey.IsPayToPublicKeyHash()) {
+            return false;
+        }
+    }
+    return true;
 }
 
 void CPrivateSendBaseSession::SetNull()
@@ -147,13 +177,14 @@ void CPrivateSendBaseManager::CheckQueue()
     if (!lockDS) return; // it's ok to fail here, we run this quite frequently
 
     // check mixing queue objects for timeouts
-    std::vector<CPrivateSendQueue>::iterator it = vecPrivateSendQueue.begin();
+    auto it = vecPrivateSendQueue.begin();
     while (it != vecPrivateSendQueue.end()) {
-        if ((*it).IsExpired()) {
-            LogPrint("privatesend", "CPrivateSendBaseManager::%s -- Removing expired queue (%s)\n", __func__, (*it).ToString());
+        if ((*it).IsTimeOutOfBounds()) {
+            LogPrint(BCLog::PRIVATESEND, "CPrivateSendBaseManager::%s -- Removing a queue (%s)\n", __func__, (*it).ToString());
             it = vecPrivateSendQueue.erase(it);
-        } else
+        } else {
             ++it;
+        }
     }
 }
 
@@ -164,7 +195,7 @@ bool CPrivateSendBaseManager::GetQueueItemAndTry(CPrivateSendQueue& dsqRet)
 
     for (auto& dsq : vecPrivateSendQueue) {
         // only try each queue once
-        if (dsq.fTried || dsq.IsExpired()) continue;
+        if (dsq.fTried || dsq.IsTimeOutOfBounds()) continue;
         dsq.fTried = true;
         dsqRet = dsq;
         return true;
@@ -191,6 +222,93 @@ std::string CPrivateSendBaseSession::GetStateString() const
     default:
         return "UNKNOWN";
     }
+}
+
+bool CPrivateSendBaseSession::IsValidInOuts(const std::vector<CTxIn>& vin, const std::vector<CTxOut>& vout, PoolMessage& nMessageIDRet, bool* fConsumeCollateralRet) const
+{
+    std::set<CScript> setScripPubKeys;
+    nMessageIDRet = MSG_NOERR;
+    if (fConsumeCollateralRet) *fConsumeCollateralRet = false;
+
+    if (vin.size() != vout.size()) {
+        LogPrint(BCLog::PRIVATESEND, "CPrivateSendBaseSession::%s -- ERROR: inputs vs outputs size mismatch! %d vs %d\n", __func__, vin.size(), vout.size());
+        nMessageIDRet = ERR_SIZE_MISMATCH;
+        if (fConsumeCollateralRet) *fConsumeCollateralRet = true;
+        return false;
+    }
+
+    auto checkTxOut = [&](const CTxOut& txout) {
+        std::vector<CTxOut> vecTxOut{txout};
+        int nDenom = CPrivateSend::GetDenominations(vecTxOut);
+        if (nDenom != nSessionDenom) {
+            LogPrint(BCLog::PRIVATESEND, "CPrivateSendBaseSession::IsValidInOuts -- ERROR: incompatible denom %d (%s) != nSessionDenom %d (%s)\n",
+                    nDenom, CPrivateSend::GetDenominationsToString(nDenom), nSessionDenom, CPrivateSend::GetDenominationsToString(nSessionDenom));
+            nMessageIDRet = ERR_DENOM;
+            if (fConsumeCollateralRet) *fConsumeCollateralRet = true;
+            return false;
+        }
+        if (!txout.scriptPubKey.IsPayToPublicKeyHash()) {
+            LogPrint(BCLog::PRIVATESEND, "CPrivateSendBaseSession::IsValidInOuts -- ERROR: invalid script! scriptPubKey=%s\n", ScriptToAsmStr(txout.scriptPubKey));
+            nMessageIDRet = ERR_INVALID_SCRIPT;
+            if (fConsumeCollateralRet) *fConsumeCollateralRet = true;
+            return false;
+        }
+        if (!setScripPubKeys.insert(txout.scriptPubKey).second) {
+            LogPrint(BCLog::PRIVATESEND, "CPrivateSendBaseSession::IsValidInOuts -- ERROR: already have this script! scriptPubKey=%s\n", ScriptToAsmStr(txout.scriptPubKey));
+            nMessageIDRet = ERR_ALREADY_HAVE;
+            if (fConsumeCollateralRet) *fConsumeCollateralRet = true;
+            return false;
+        }
+        // IsPayToPublicKeyHash() above already checks for scriptPubKey size,
+        // no need to double check, hence no usage of ERR_NON_STANDARD_PUBKEY
+        return true;
+    };
+
+    CAmount nFees{0};
+
+    for (const auto& txout : vout) {
+        if (!checkTxOut(txout)) {
+            return false;
+        }
+        nFees -= txout.nValue;
+    }
+
+    CCoinsViewMemPool viewMemPool(pcoinsTip, mempool);
+
+    for (const auto& txin : vin) {
+        LogPrint(BCLog::PRIVATESEND, "CPrivateSendBaseSession::%s -- txin=%s\n", __func__, txin.ToString());
+
+        if (txin.prevout.IsNull()) {
+            LogPrint(BCLog::PRIVATESEND, "CPrivateSendBaseSession::%s -- ERROR: invalid input!\n", __func__);
+            nMessageIDRet = ERR_INVALID_INPUT;
+            if (fConsumeCollateralRet) *fConsumeCollateralRet = true;
+            return false;
+        }
+
+        Coin coin;
+        if (!viewMemPool.GetCoin(txin.prevout, coin) || coin.IsSpent() ||
+            (coin.nHeight == MEMPOOL_HEIGHT && !llmq::quorumInstantSendManager->IsLocked(txin.prevout.hash))) {
+            LogPrint(BCLog::PRIVATESEND, "CPrivateSendBaseSession::%s -- ERROR: missing, spent or non-locked mempool input! txin=%s\n", __func__, txin.ToString());
+            nMessageIDRet = ERR_MISSING_TX;
+            return false;
+        }
+
+        if (!checkTxOut(coin.out)) {
+            return false;
+        }
+
+        nFees += coin.out.nValue;
+    }
+
+    // The same size and denom for inputs and outputs ensures their total value is also the same,
+    // no need to double check. If not, we are doing smth wrong, bail out.
+    if (nFees != 0) {
+        LogPrint(BCLog::PRIVATESEND, "CPrivateSendBaseSession::%s -- ERROR: non-zero fees! fees: %lld\n", __func__, nFees);
+        nMessageIDRet = ERR_FEES;
+        return false;
+    }
+
+    return true;
 }
 
 // Definitions for static data members
@@ -233,7 +351,7 @@ bool CPrivateSend::IsCollateralValid(const CTransaction& txCollateral)
         nValueOut += txout.nValue;
 
         if (!txout.scriptPubKey.IsPayToPublicKeyHash() && !txout.scriptPubKey.IsUnspendable()) {
-            LogPrintf("CPrivateSend::IsCollateralValid -- Invalid Script, txCollateral=%s", txCollateral.ToString());
+            LogPrint(BCLog::PRIVATESEND, "CPrivateSend::IsCollateralValid -- Invalid Script, txCollateral=%s", txCollateral.ToString());
             return false;
         }
     }
@@ -243,31 +361,31 @@ bool CPrivateSend::IsCollateralValid(const CTransaction& txCollateral)
         auto mempoolTx = mempool.get(txin.prevout.hash);
         if (mempoolTx != nullptr) {
             if (mempool.isSpent(txin.prevout) || !llmq::quorumInstantSendManager->IsLocked(txin.prevout.hash)) {
-                LogPrint("privatesend", "CPrivateSend::IsCollateralValid -- spent or non-locked mempool input! txin=%s\n", txin.ToString());
+                LogPrint(BCLog::PRIVATESEND, "CPrivateSend::IsCollateralValid -- spent or non-locked mempool input! txin=%s\n", txin.ToString());
                 return false;
             }
             nValueIn += mempoolTx->vout[txin.prevout.n].nValue;
         } else if (GetUTXOCoin(txin.prevout, coin)) {
             nValueIn += coin.out.nValue;
         } else {
-            LogPrint("privatesend", "CPrivateSend::IsCollateralValid -- Unknown inputs in collateral transaction, txCollateral=%s", txCollateral.ToString());
+            LogPrint(BCLog::PRIVATESEND, "CPrivateSend::IsCollateralValid -- Unknown inputs in collateral transaction, txCollateral=%s", txCollateral.ToString());
             return false;
         }
     }
 
     //collateral transactions are required to pay out a small fee to the miners
     if (nValueIn - nValueOut < GetCollateralAmount()) {
-        LogPrint("privatesend", "CPrivateSend::IsCollateralValid -- did not include enough fees in transaction: fees: %d, txCollateral=%s", nValueOut - nValueIn, txCollateral.ToString());
+        LogPrint(BCLog::PRIVATESEND, "CPrivateSend::IsCollateralValid -- did not include enough fees in transaction: fees: %d, txCollateral=%s", nValueOut - nValueIn, txCollateral.ToString());
         return false;
     }
 
-    LogPrint("privatesend", "CPrivateSend::IsCollateralValid -- %s", txCollateral.ToString());
+    LogPrint(BCLog::PRIVATESEND, "CPrivateSend::IsCollateralValid -- %s", txCollateral.ToString());
 
     {
         LOCK(cs_main);
         CValidationState validationState;
-        if (!AcceptToMemoryPool(mempool, validationState, MakeTransactionRef(txCollateral), false, NULL, false, maxTxFee, true)) {
-            LogPrint("privatesend", "CPrivateSend::IsCollateralValid -- didn't pass AcceptToMemoryPool()\n");
+        if (!AcceptToMemoryPool(mempool, validationState, MakeTransactionRef(txCollateral), false, nullptr, false, maxTxFee, true)) {
+            LogPrint(BCLog::PRIVATESEND, "CPrivateSend::IsCollateralValid -- didn't pass AcceptToMemoryPool()\n");
             return false;
         }
     }
@@ -327,8 +445,9 @@ int CPrivateSend::GetDenominations(const std::vector<CTxOut>& vecTxOut, bool fSi
     std::vector<std::pair<CAmount, int> > vecDenomUsed;
 
     // make a list of denominations, with zero uses
-    for (const auto& nDenomValue : vecStandardDenominations)
+    for (const auto& nDenomValue : vecStandardDenominations) {
         vecDenomUsed.push_back(std::make_pair(nDenomValue, 0));
+    }
 
     // look for denominations and update uses to 1
     for (const auto& txout : vecTxOut) {
@@ -392,9 +511,9 @@ int CPrivateSend::GetDenominationsByAmounts(const std::vector<CAmount>& vecAmoun
 
 bool CPrivateSend::IsDenominatedAmount(CAmount nInputAmount)
 {
-    for (const auto& nDenomValue : vecStandardDenominations)
-        if (nInputAmount == nDenomValue)
-            return true;
+    for (const auto& nDenomValue : vecStandardDenominations) {
+        if (nInputAmount == nDenomValue) return true;
+    }
     return false;
 }
 
@@ -425,10 +544,6 @@ std::string CPrivateSend::GetMessageByID(PoolMessage nMessageID)
         return _("Not in the Masternode list.");
     case ERR_MODE:
         return _("Incompatible mode.");
-    case ERR_NON_STANDARD_PUBKEY:
-        return _("Non-standard public key detected.");
-    case ERR_NOT_A_MN:
-        return _("This is not a Masternode."); // not used
     case ERR_QUEUE_FULL:
         return _("Masternode queue is full.");
     case ERR_RECENT:
@@ -445,6 +560,10 @@ std::string CPrivateSend::GetMessageByID(PoolMessage nMessageID)
         return _("Transaction created successfully.");
     case MSG_ENTRIES_ADDED:
         return _("Your entries added successfully.");
+    case ERR_SIZE_MISMATCH:
+        return _("Inputs vs outputs size mismatch.");
+    case ERR_NON_STANDARD_PUBKEY:
+    case ERR_NOT_A_MN:
     default:
         return _("Unknown response.");
     }
@@ -463,37 +582,69 @@ CPrivateSendBroadcastTx CPrivateSend::GetDSTX(const uint256& hash)
     return (it == mapDSTX.end()) ? CPrivateSendBroadcastTx() : it->second;
 }
 
-void CPrivateSend::CheckDSTXes(int nHeight)
+void CPrivateSend::CheckDSTXes(const CBlockIndex* pindex)
 {
     LOCK(cs_mapdstx);
-    std::map<uint256, CPrivateSendBroadcastTx>::iterator it = mapDSTX.begin();
+    auto it = mapDSTX.begin();
     while (it != mapDSTX.end()) {
-        if (it->second.IsExpired(nHeight)) {
+        if (it->second.IsExpired(pindex)) {
             mapDSTX.erase(it++);
         } else {
             ++it;
         }
     }
-    LogPrint("privatesend", "CPrivateSend::CheckDSTXes -- mapDSTX.size()=%llu\n", mapDSTX.size());
+    LogPrint(BCLog::PRIVATESEND, "CPrivateSend::CheckDSTXes -- mapDSTX.size()=%llu\n", mapDSTX.size());
 }
 
 void CPrivateSend::UpdatedBlockTip(const CBlockIndex* pindex)
 {
-    if (pindex && !fLiteMode && masternodeSync.IsBlockchainSynced()) {
-        CheckDSTXes(pindex->nHeight);
+    if (pindex && masternodeSync.IsBlockchainSynced()) {
+        CheckDSTXes(pindex);
     }
 }
 
-void CPrivateSend::SyncTransaction(const CTransaction& tx, const CBlockIndex* pindex, int posInBlock)
+void CPrivateSend::NotifyChainLock(const CBlockIndex* pindex)
 {
-    if (tx.IsCoinBase()) return;
+    if (pindex && masternodeSync.IsBlockchainSynced()) {
+        CheckDSTXes(pindex);
+    }
+}
 
-    LOCK2(cs_main, cs_mapdstx);
+void CPrivateSend::UpdateDSTXConfirmedHeight(const CTransactionRef& tx, int nHeight)
+{
+    AssertLockHeld(cs_mapdstx);
 
-    uint256 txHash = tx.GetHash();
-    if (!mapDSTX.count(txHash)) return;
+    auto it = mapDSTX.find(tx->GetHash());
+    if (it == mapDSTX.end()) {
+        return;
+    }
 
-    // When tx is 0-confirmed or conflicted, posInBlock is SYNC_TRANSACTION_NOT_IN_BLOCK and nConfirmedHeight should be set to -1
-    mapDSTX[txHash].SetConfirmedHeight(posInBlock == CMainSignals::SYNC_TRANSACTION_NOT_IN_BLOCK ? -1 : pindex->nHeight);
-    LogPrint("privatesend", "CPrivateSend::SyncTransaction -- txid=%s\n", txHash.ToString());
+    it->second.SetConfirmedHeight(nHeight);
+    LogPrint(BCLog::PRIVATESEND, "CPrivateSend::%s -- txid=%s, nHeight=%d\n", __func__, tx->GetHash().ToString(), nHeight);
+}
+
+void CPrivateSend::TransactionAddedToMempool(const CTransactionRef& tx)
+{
+    LOCK(cs_mapdstx);
+    UpdateDSTXConfirmedHeight(tx, -1);
+}
+
+void CPrivateSend::BlockConnected(const std::shared_ptr<const CBlock>& pblock, const CBlockIndex* pindex, const std::vector<CTransactionRef>& vtxConflicted)
+{
+    LOCK(cs_mapdstx);
+    for (const auto& tx : vtxConflicted) {
+        UpdateDSTXConfirmedHeight(tx, -1);
+    }
+
+    for (const auto& tx : pblock->vtx) {
+        UpdateDSTXConfirmedHeight(tx, pindex->nHeight);
+    }
+}
+
+void CPrivateSend::BlockDisconnected(const std::shared_ptr<const CBlock>& pblock, const CBlockIndex* pindexDisconnected)
+{
+    LOCK(cs_mapdstx);
+    for (const auto& tx : pblock->vtx) {
+        UpdateDSTXConfirmedHeight(tx, -1);
+    }
 }

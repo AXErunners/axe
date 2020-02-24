@@ -9,24 +9,15 @@ from test_framework.util import *
 from test_framework.mininode import COIN, MAX_BLOCK_SIZE
 
 class PrioritiseTransactionTest(BitcoinTestFramework):
-
-    def __init__(self):
-        super().__init__()
+    def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 2
-
-        self.txouts = gen_return_txouts()
-
-    def setup_network(self):
-        self.nodes = []
-        self.is_network_split = False
-
-        self.nodes.append(start_node(0, self.options.tmpdir, ["-printpriority=1"]))
-        self.nodes.append(start_node(1, self.options.tmpdir, ["-printpriority=1"])) # TODO move this to extra_args when Bitcoin #10198 gets backported
-        connect_nodes(self.nodes[0], 1) # TODO remove this when Bitcoin #10198 gets backported
-        self.relayfee = self.nodes[0].getnetworkinfo()['relayfee']
+        self.extra_args = [["-printpriority=1"]] * 2
 
     def run_test(self):
+        self.txouts = gen_return_txouts()
+        self.relayfee = self.nodes[0].getnetworkinfo()['relayfee']
+
         utxo_count = 90
         utxos = create_confirmed_utxos(self.relayfee, self.nodes[0], utxo_count)
         base_fee = self.relayfee*100 # our transactions are smaller than 100kb
@@ -110,7 +101,7 @@ class PrioritiseTransactionTest(BitcoinTestFramework):
         tx_id = self.nodes[0].decoderawtransaction(tx_hex)["txid"]
 
         # This will raise an exception due to min relay fee not being met
-        assert_raises_jsonrpc(-26, "66: min relay fee not met", self.nodes[0].sendrawtransaction, tx_hex)
+        assert_raises_rpc_error(-26, "66: min relay fee not met", self.nodes[0].sendrawtransaction, tx_hex)
         assert(tx_id not in self.nodes[0].getrawmempool())
 
         # This is a less than 1000-byte transaction, so just set the fee
@@ -124,11 +115,10 @@ class PrioritiseTransactionTest(BitcoinTestFramework):
 
         # Test that calling prioritisetransaction is sufficient to trigger
         # getblocktemplate to (eventually) return a new block.
-        mock_time = get_mocktime()
-        self.nodes[0].setmocktime(mock_time)
+        self.nodes[0].setmocktime(self.mocktime)
         template = self.nodes[0].getblocktemplate()
         self.nodes[0].prioritisetransaction(tx_id, -int(self.relayfee*COIN))
-        self.nodes[0].setmocktime(mock_time+10)
+        self.nodes[0].setmocktime(self.mocktime+10)
         new_template = self.nodes[0].getblocktemplate()
 
         assert(template != new_template)

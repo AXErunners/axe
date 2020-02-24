@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-# Copyright (c) 2015-2018 The Axe Core developers
+# Copyright (c) 2015-2020 The Dash Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
+import time
 
 from test_framework.mininode import *
 from test_framework.test_framework import AxeTestFramework
 from test_framework.util import *
-from time import *
 
 '''
 llmq-signing.py
@@ -16,8 +17,8 @@ Checks LLMQs signing sessions
 '''
 
 class LLMQSigningTest(AxeTestFramework):
-    def __init__(self):
-        super().__init__(6, 5, [], fast_dip3_enforcement=True)
+    def set_test_params(self):
+        self.set_axe_test_params(6, 5, fast_dip3_enforcement=True)
 
     def run_test(self):
 
@@ -41,18 +42,18 @@ class LLMQSigningTest(AxeTestFramework):
             return True
 
         def wait_for_sigs(hasrecsigs, isconflicting1, isconflicting2, timeout):
-            t = time()
-            while time() - t < timeout:
+            t = time.time()
+            while time.time() - t < timeout:
                 if check_sigs(hasrecsigs, isconflicting1, isconflicting2):
                     return
-                sleep(0.1)
+                time.sleep(0.1)
             raise AssertionError("wait_for_sigs timed out")
 
         def assert_sigs_nochange(hasrecsigs, isconflicting1, isconflicting2, timeout):
-            t = time()
-            while time() - t < timeout:
+            t = time.time()
+            while time.time() - t < timeout:
                 assert(check_sigs(hasrecsigs, isconflicting1, isconflicting2))
-                sleep(0.1)
+                time.sleep(0.1)
 
         # Initial state
         wait_for_sigs(False, False, False, 1)
@@ -76,13 +77,13 @@ class LLMQSigningTest(AxeTestFramework):
         assert_sigs_nochange(True, False, True, 3)
 
         # fast forward 6.5 days, recovered sig should still be valid
-        set_mocktime(get_mocktime() + int(60 * 60 * 24 * 6.5))
-        set_node_times(self.nodes, get_mocktime())
+        self.bump_mocktime(int(60 * 60 * 24 * 6.5))
+        set_node_times(self.nodes, self.mocktime)
         # Cleanup starts every 5 seconds
         wait_for_sigs(True, False, True, 15)
         # fast forward 1 day, recovered sig should not be valid anymore
-        set_mocktime(get_mocktime() + int(60 * 60 * 24 * 1))
-        set_node_times(self.nodes, get_mocktime())
+        self.bump_mocktime(int(60 * 60 * 24 * 1))
+        set_node_times(self.nodes, self.mocktime)
         # Cleanup starts every 5 seconds
         wait_for_sigs(False, False, False, 15)
 

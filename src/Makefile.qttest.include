@@ -28,13 +28,10 @@ TEST_QT_H = \
   qt/test/wallettests.h
 
 TEST_BITCOIN_CPP = \
-  test/test_axe.cpp \
-  test/testutil.cpp
+  test/test_axe.cpp
 
 TEST_BITCOIN_H = \
-  test/test_axe.h \
-  test/testutil.h
-
+  test/test_axe.h
 qt_test_test_axe_qt_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
   $(QT_INCLUDES) $(QT_TEST_INCLUDES) $(PROTOBUF_CFLAGS)
 
@@ -50,7 +47,8 @@ qt_test_test_axe_qt_SOURCES = \
 if ENABLE_WALLET
 qt_test_test_axe_qt_SOURCES += \
   qt/test/paymentservertests.cpp \
-  qt/test/wallettests.cpp
+  qt/test/wallettests.cpp \
+  wallet/test/wallet_test_fixture.cpp
 endif
 
 nodist_qt_test_test_axe_qt_SOURCES = $(TEST_QT_MOC_CPP)
@@ -63,7 +61,7 @@ if ENABLE_ZMQ
 qt_test_test_axe_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
 endif
 qt_test_test_axe_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CONSENSUS) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBLEVELDB) \
-  $(LIBMEMENV) $(BACKTRACE_LIB) $(BOOST_LIBS) $(QT_DBUS_LIBS) $(QT_TEST_LIBS) $(QT_LIBS) \
+  $(LIBLEVELDB_SSE42) $(LIBMEMENV) $(BACKTRACE_LIB) $(BOOST_LIBS) $(QT_DBUS_LIBS) $(QT_TEST_LIBS) $(QT_LIBS) \
   $(QR_LIBS) $(PROTOBUF_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) \
   $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS) $(BLS_LIBS)
 qt_test_test_axe_qt_LDFLAGS = $(LDFLAGS_WRAP_EXCEPTIONS) $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)

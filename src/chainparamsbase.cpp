@@ -37,7 +37,6 @@ public:
         nRPCPort = 9337;
     }
 };
-static CBaseMainParams mainParams;
 
 /**
  * Testnet (v3)
@@ -51,7 +50,6 @@ public:
         strDataDir = "testnet3";
     }
 };
-static CBaseTestNetParams testNetParams;
 
 /**
  * Devnet
@@ -61,11 +59,10 @@ class CBaseDevNetParams : public CBaseChainParams
 public:
     CBaseDevNetParams(const std::string &dataDir)
     {
-        nRPCPort = 19337;
+        nRPCPort = 19768;
         strDataDir = dataDir;
     }
 };
-static CBaseDevNetParams *devNetParams;
 
 /*
  * Regression test
@@ -75,54 +72,43 @@ class CBaseRegTestParams : public CBaseChainParams
 public:
     CBaseRegTestParams()
     {
-        nRPCPort = 18332;
+        nRPCPort = 19868;
         strDataDir = "regtest";
     }
 };
-static CBaseRegTestParams regTestParams;
 
-static CBaseChainParams* pCurrentBaseParams = 0;
+static std::unique_ptr<CBaseChainParams> globalChainBaseParams;
 
 const CBaseChainParams& BaseParams()
 {
-    assert(pCurrentBaseParams);
-    return *pCurrentBaseParams;
+    assert(globalChainBaseParams);
+    return *globalChainBaseParams;
 }
 
-CBaseChainParams& BaseParams(const std::string& chain)
+std::unique_ptr<CBaseChainParams> CreateBaseChainParams(const std::string& chain)
 {
     if (chain == CBaseChainParams::MAIN)
-        return mainParams;
+        return std::unique_ptr<CBaseChainParams>(new CBaseMainParams());
     else if (chain == CBaseChainParams::TESTNET)
-        return testNetParams;
+        return std::unique_ptr<CBaseChainParams>(new CBaseTestNetParams());
     else if (chain == CBaseChainParams::DEVNET) {
-        assert(devNetParams);
-        return *devNetParams;
+        return std::unique_ptr<CBaseChainParams>(new CBaseDevNetParams(GetDevNetName()));
     } else if (chain == CBaseChainParams::REGTEST)
-        return regTestParams;
+        return std::unique_ptr<CBaseChainParams>(new CBaseRegTestParams());
     else
         throw std::runtime_error(strprintf("%s: Unknown chain %s.", __func__, chain));
 }
 
 void SelectBaseParams(const std::string& chain)
 {
-    if (chain == CBaseChainParams::DEVNET) {
-        std::string devNetName = GetDevNetName();
-        assert(!devNetName.empty());
-
-        devNetParams = (CBaseDevNetParams*)new uint8_t[sizeof(CBaseDevNetParams)];
-        memset(devNetParams, 0, sizeof(CBaseDevNetParams));
-        new (devNetParams) CBaseDevNetParams(devNetName);
-    }
-
-    pCurrentBaseParams = &BaseParams(chain);
+    globalChainBaseParams = CreateBaseChainParams(chain);
 }
 
 std::string ChainNameFromCommandLine()
 {
-    bool fRegTest = GetBoolArg("-regtest", false);
-    bool fDevNet = IsArgSet("-devnet");
-    bool fTestNet = GetBoolArg("-testnet", false);
+    bool fRegTest = gArgs.GetBoolArg("-regtest", false);
+    bool fDevNet = gArgs.IsArgSet("-devnet");
+    bool fTestNet = gArgs.GetBoolArg("-testnet", false);
 
     int nameParamsCount = (fRegTest ? 1 : 0) + (fDevNet ? 1 : 0) + (fTestNet ? 1 : 0);
     if (nameParamsCount > 1)
@@ -140,12 +126,7 @@ std::string ChainNameFromCommandLine()
 std::string GetDevNetName()
 {
     // This function should never be called for non-devnets
-    assert(IsArgSet("-devnet"));
-    std::string devNetName = GetArg("-devnet", "");
+    assert(gArgs.IsArgSet("-devnet"));
+    std::string devNetName = gArgs.GetArg("-devnet", "");
     return "devnet" + (devNetName.empty() ? "" : "-" + devNetName);
-}
-
-bool AreBaseParamsConfigured()
-{
-    return pCurrentBaseParams != NULL;
 }

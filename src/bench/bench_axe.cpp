@@ -4,26 +4,33 @@
 
 #include "bench.h"
 
+#include "crypto/sha256.h"
 #include "key.h"
 #include "stacktraces.h"
 #include "validation.h"
 #include "util.h"
+#include "random.h"
 
 #include "bls/bls.h"
 
+void InitBLSTests();
 void CleanupBLSTests();
 void CleanupBLSDkgTests();
 
 int
 main(int argc, char** argv)
 {
+    SHA256AutoDetect();
+
     RegisterPrettySignalHandlers();
     RegisterPrettyTerminateHander();
 
+    RandomInit();
     ECC_Start();
     ECCVerifyHandle verifyHandle;
 
     BLSInit();
+    InitBLSTests();
     SetupEnvironment();
     fPrintToDebugLog = false; // don't want to write to debug.log file
 

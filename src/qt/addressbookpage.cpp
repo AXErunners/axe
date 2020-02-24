@@ -31,7 +31,6 @@ AddressBookPage::AddressBookPage(const PlatformStyle *platformStyle, Mode _mode,
     mode(_mode),
     tab(_tab)
 {
-    QString theme = GUIUtil::getThemeName();
     ui->setupUi(this);
     if (!platformStyle->getImagesOnButtons()) {
         ui->newAddress->setIcon(QIcon());
@@ -39,10 +38,10 @@ AddressBookPage::AddressBookPage(const PlatformStyle *platformStyle, Mode _mode,
         ui->deleteAddress->setIcon(QIcon());
         ui->exportButton->setIcon(QIcon());
     } else {
-        ui->newAddress->setIcon(QIcon(":/icons/" + theme + "/add"));
-        ui->copyAddress->setIcon(QIcon(":/icons/" + theme + "/editcopy"));
-        ui->deleteAddress->setIcon(QIcon(":/icons/" + theme + "/remove"));
-        ui->exportButton->setIcon(QIcon(":/icons/" + theme + "/export"));
+        ui->newAddress->setIcon(QIcon(":/icons/add"));
+        ui->copyAddress->setIcon(QIcon(":/icons/editcopy"));
+        ui->deleteAddress->setIcon(QIcon(":/icons/remove"));
+        ui->exportButton->setIcon(QIcon(":/icons/export"));
     }
     ui->showAddressQRCode->setIcon(QIcon());
 
@@ -228,7 +227,7 @@ void AddressBookPage::on_showAddressQRCode_clicked()
 
     QString strAddress = entries.at(0).data(Qt::EditRole).toString();
     QRDialog* dialog = new QRDialog(this);
-    OptionsModel *model = new OptionsModel(NULL, false);
+    OptionsModel *model = new OptionsModel(nullptr, false);
 
     dialog->setModel(model);
     dialog->setAttribute(Qt::WA_DeleteOnClose);
@@ -280,7 +279,7 @@ void AddressBookPage::done(int retval)
     // Figure out which address was selected, and return it
     QModelIndexList indexes = table->selectionModel()->selectedRows(AddressTableModel::Address);
 
-    Q_FOREACH (const QModelIndex& index, indexes) {
+    for (const QModelIndex& index : indexes) {
         QVariant address = table->model()->data(index);
         returnValue = address.toString();
     }
@@ -299,7 +298,7 @@ void AddressBookPage::on_exportButton_clicked()
     // CSV is currently the only supported format
     QString filename = GUIUtil::getSaveFileName(this,
         tr("Export Address List"), QString(),
-        tr("Comma separated file (*.csv)"), NULL);
+        tr("Comma separated file (*.csv)"), nullptr);
 
     if (filename.isNull())
         return;

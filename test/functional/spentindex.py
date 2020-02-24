@@ -15,19 +15,18 @@ import binascii
 
 class SpentIndexTest(BitcoinTestFramework):
 
-    def __init__(self):
-        super().__init__()
+    def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 4
 
     def setup_network(self):
-        self.nodes = []
+        self.add_nodes(self.num_nodes)
         # Nodes 0/1 are "wallet" nodes
-        self.nodes.append(start_node(0, self.options.tmpdir))
-        self.nodes.append(start_node(1, self.options.tmpdir, ["-spentindex"]))
+        self.start_node(0)
+        self.start_node(1, ["-spentindex"])
         # Nodes 2/3 are used for testing
-        self.nodes.append(start_node(2, self.options.tmpdir, ["-spentindex"]))
-        self.nodes.append(start_node(3, self.options.tmpdir, ["-spentindex", "-txindex"]))
+        self.start_node(2, ["-spentindex"])
+        self.start_node(3, ["-spentindex", "-txindex"])
         connect_nodes(self.nodes[0], 1)
         connect_nodes(self.nodes[0], 2)
         connect_nodes(self.nodes[0], 3)
@@ -36,6 +35,18 @@ class SpentIndexTest(BitcoinTestFramework):
         self.sync_all()
 
     def run_test(self):
+        self.log.info("Test that settings can't be changed without -reindex...")
+        self.stop_node(1)
+        self.assert_start_raises_init_error(1, ["-spentindex=0"], 'You need to rebuild the database using -reindex to change -spentindex')
+        self.start_node(1, ["-spentindex=0", "-reindex"])
+        connect_nodes(self.nodes[0], 1)
+        self.sync_all()
+        self.stop_node(1)
+        self.assert_start_raises_init_error(1, ["-spentindex"], 'You need to rebuild the database using -reindex to change -spentindex')
+        self.start_node(1, ["-spentindex", "-reindex"])
+        connect_nodes(self.nodes[0], 1)
+        self.sync_all()
+
         self.log.info("Mining blocks...")
         self.nodes[0].generate(105)
         self.sync_all()

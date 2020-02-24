@@ -1,5 +1,5 @@
 // Copyright (c) 2011-2015 The Bitcoin Core developers
-// Copyright (c) 2014-2017 The Dash Core developers
+// Copyright (c) 2014-2020 The Dash Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -11,7 +11,6 @@
 #include "base58.h"
 #include "wallet/wallet.h"
 
-#include <boost/foreach.hpp>
 
 #include <QFont>
 #include <QDebug>
@@ -82,7 +81,7 @@ public:
         cachedAddressTable.clear();
         {
             LOCK(wallet->cs_wallet);
-            BOOST_FOREACH(const PAIRTYPE(CTxDestination, CAddressBookData)& item, wallet->mapAddressBook)
+            for (const std::pair<CTxDestination, CAddressBookData>& item : wallet->mapAddressBook)
             {
                 const CBitcoinAddress& address = item.first;
                 bool fMine = IsMine(*wallet, address.Get());
@@ -423,10 +422,20 @@ bool AddressTableModel::removeRows(int row, int count, const QModelIndex &parent
  */
 QString AddressTableModel::labelForAddress(const QString &address) const
 {
+    CBitcoinAddress address_parsed(address.toStdString());
+    return labelForAddress(address_parsed);
+}
+
+QString AddressTableModel::labelForAddress(const CBitcoinAddress &address) const
+{
+    return labelForDestination(address.Get());
+}
+
+QString AddressTableModel::labelForDestination(const CTxDestination &dest) const
+{
     {
         LOCK(wallet->cs_wallet);
-        CBitcoinAddress address_parsed(address.toStdString());
-        std::map<CTxDestination, CAddressBookData>::iterator mi = wallet->mapAddressBook.find(address_parsed.Get());
+        std::map<CTxDestination, CAddressBookData>::iterator mi = wallet->mapAddressBook.find(dest);
         if (mi != wallet->mapAddressBook.end())
         {
             return QString::fromStdString(mi->second.name);

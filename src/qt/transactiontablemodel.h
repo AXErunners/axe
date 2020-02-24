@@ -45,6 +45,8 @@ public:
         TypeRole = Qt::UserRole,
         /** Date and time this transaction was created */
         DateRole,
+        /** Date and time this transaction was created in MSec since epoch */
+        DateRoleInt,
         /** Watch-only boolean */
         WatchonlyRole,
         /** Watch-only icon */
@@ -85,9 +87,7 @@ public:
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
     QModelIndex index(int row, int column, const QModelIndex & parent = QModelIndex()) const;
     bool processingQueuedTransactions() { return fProcessingQueuedTransactions; }
-    void updateNumISLocks(int numISLocks);
     void updateChainLockHeight(int chainLockHeight);
-    int getNumISLocks() const;
     int getChainLockHeight() const;
 
 private:
@@ -97,13 +97,12 @@ private:
     TransactionTablePriv *priv;
     bool fProcessingQueuedTransactions;
     const PlatformStyle *platformStyle;
-    int cachedNumISLocks;
     int cachedChainLockHeight;
 
     void subscribeToCoreSignals();
     void unsubscribeFromCoreSignals();
 
-    QString lookupAddress(const std::string &address, bool tooltip) const;
+    QString formatAddressLabel(const std::string &address, const QString& label, bool tooltip) const;
     QVariant addressColor(const TransactionRecord *wtx) const;
     QString formatTxStatus(const TransactionRecord *wtx) const;
     QString formatTxDate(const TransactionRecord *wtx) const;
@@ -119,6 +118,8 @@ private:
 public Q_SLOTS:
     /* New transaction, or transaction changed status */
     void updateTransaction(const QString &hash, int status, bool showTransaction);
+    void updateAddressBook(const QString &address, const QString &label,
+                           bool isMine, const QString &purpose, int status);
     void updateConfirmations();
     void updateDisplayUnit();
     /** Updates the column title to "Amount (DisplayUnit)" and emits headerDataChanged() signal for table headers to react. */

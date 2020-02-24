@@ -1,9 +1,10 @@
-// Copyright (c) 2014-2019 The Dash Core developers
+// Copyright (c) 2014-2020 The Dash Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "masternode/activemasternode.h"
 #include "consensus/validation.h"
+#include "core_io.h"
 #include "governance/governance.h"
 #include "governance/governance-vote.h"
 #include "governance/governance-classes.h"
@@ -127,7 +128,7 @@ void gobject_prepare_help(CWallet* const pwallet)
                 "2. revision      (numeric, required) object revision in the system\n"
                 "3. time          (numeric, required) time this object was created\n"
                 "4. data-hex      (string, required)  data in hex string form\n"
-                "5. use-IS        (boolean, optional, default=false) InstantSend lock the collateral, only requiring one chain confirmation\n"
+                "5. use-IS        (boolean, optional, default=false) Deprecated and ignored\n"
                 "6. outputHash    (string, optional) the single output to submit the proposal fee from\n"
                 "7. outputIndex   (numeric, optional) The output index.\n"
                 );
@@ -160,8 +161,6 @@ UniValue gobject_prepare(const JSONRPCRequest& request)
     int nRevision = atoi(strRevision);
     int64_t nTime = atoi64(strTime);
     std::string strDataHex = request.params[4].get_str();
-    bool useIS = false;
-    if (request.params.size() > 5) useIS = request.params[5].getBool();
 
     // CREATE A NEW COLLATERAL TRANSACTION FOR THIS SPECIFIC OBJECT
 
@@ -206,7 +205,7 @@ UniValue gobject_prepare(const JSONRPCRequest& request)
     }
 
     CWalletTx wtx;
-    if (!pwallet->GetBudgetSystemCollateralTX(wtx, govobj.GetHash(), govobj.GetMinCollateralFee(), useIS, outpoint)) {
+    if (!pwallet->GetBudgetSystemCollateralTX(wtx, govobj.GetHash(), govobj.GetMinCollateralFee(), outpoint)) {
         std::string err = "Error making collateral transaction for governance object. Please check your wallet balance and make sure your wallet is unlocked.";
         if (request.params.size() == 8) err += "Please verify your specified output is valid and is enough for the combined proposal fee and transaction fee.";
         throw JSONRPCError(RPC_INTERNAL_ERROR, err);
@@ -216,11 +215,11 @@ UniValue gobject_prepare(const JSONRPCRequest& request)
     CReserveKey reservekey(pwallet);
     // -- send the tx to the network
     CValidationState state;
-    if (!pwallet->CommitTransaction(wtx, reservekey, g_connman.get(), state, NetMsgType::TX)) {
+    if (!pwallet->CommitTransaction(wtx, reservekey, g_connman.get(), state)) {
         throw JSONRPCError(RPC_INTERNAL_ERROR, "CommitTransaction failed! Reason given: " + state.GetRejectReason());
     }
 
-    LogPrint("gobject", "gobject_prepare -- GetDataAsPlainString = %s, hash = %s, txid = %s\n",
+    LogPrint(BCLog::GOBJECT, "gobject_prepare -- GetDataAsPlainString = %s, hash = %s, txid = %s\n",
                 govobj.GetDataAsPlainString(), govobj.GetHash().ToString(), wtx.GetHash().ToString());
 
     return wtx.GetHash().ToString();
@@ -253,7 +252,7 @@ UniValue gobject_submit(const JSONRPCRequest& request)
     auto mnList = deterministicMNManager->GetListAtChainTip();
     bool fMnFound = mnList.HasValidMNByCollateral(activeMasternodeInfo.outpoint);
 
-    LogPrint("gobject", "gobject_submit -- pubKeyOperator = %s, outpoint = %s, params.size() = %lld, fMnFound = %d\n",
+    LogPrint(BCLog::GOBJECT, "gobject_submit -- pubKeyOperator = %s, outpoint = %s, params.size() = %lld, fMnFound = %d\n",
             (activeMasternodeInfo.blsPubKeyOperator ? activeMasternodeInfo.blsPubKeyOperator->ToString() : "N/A"),
             activeMasternodeInfo.outpoint.ToStringShort(), request.params.size(), fMnFound);
 
@@ -281,7 +280,7 @@ UniValue gobject_submit(const JSONRPCRequest& request)
 
     CGovernanceObject govobj(hashParent, nRevision, nTime, txidFee, strDataHex);
 
-    LogPrint("gobject", "gobject_submit -- GetDataAsPlainString = %s, hash = %s, txid = %s\n",
+    LogPrint(BCLog::GOBJECT, "gobject_submit -- GetDataAsPlainString = %s, hash = %s, txid = %s\n",
                 govobj.GetDataAsPlainString(), govobj.GetHash().ToString(), request.params[5].get_str());
 
     if (govobj.GetObjectType() == GOVERNANCE_OBJECT_PROPOSAL) {
@@ -308,11 +307,10 @@ UniValue gobject_submit(const JSONRPCRequest& request)
     std::string strHash = govobj.GetHash().ToString();
 
     std::string strError = "";
-    bool fMissingMasternode;
     bool fMissingConfirmations;
     {
         LOCK(cs_main);
-        if (!govobj.IsValidLocally(strError, fMissingMasternode, fMissingConfirmations, true) && !fMissingConfirmations) {
+        if (!govobj.IsValidLocally(strError, fMissingConfirmations, true) && !fMissingConfirmations) {
             LogPrintf("gobject(submit) -- Object submission rejected because object is not valid - hash = %s, strError = %s\n", strHash, strError);
             throw JSONRPCError(RPC_INTERNAL_ERROR, "Governance object is not valid - " + strHash + " - " + strError);
         }
@@ -872,8 +870,8 @@ UniValue gobject_getcurrentvotes(const JSONRPCRequest& request)
 [[ noreturn ]] void gobject_help()
 {
     throw std::runtime_error(
-            "gobject \"command\"...\n"
-            "Manage governance objects\n"
+            "gobject \"command\" ...\n"
+            "Set of commands to manage governance objects.\n"
             "\nAvailable commands:\n"
             "  check              - Validate governance object data (proposal only)\n"
 #ifdef ENABLE_WALLET
@@ -955,13 +953,13 @@ UniValue voteraw(const JSONRPCRequest& request)
 {
     if (request.fHelp || request.params.size() != 7)
         throw std::runtime_error(
-                "voteraw <masternode-tx-hash> <masternode-tx-index> <governance-hash> <vote-signal> [yes|no|abstain] <time> <vote-sig>\n"
+                "voteraw <mn-collateral-tx-hash> <mn-collateral-tx-index> <governance-hash> <vote-signal> [yes|no|abstain] <time> <vote-sig>\n"
                 "Compile and relay a governance vote with provided external signature instead of signing vote internally\n"
                 );
 
-    uint256 hashMnTx = ParseHashV(request.params[0], "mn tx hash");
-    int nMnTxIndex = request.params[1].get_int();
-    COutPoint outpoint = COutPoint(hashMnTx, nMnTxIndex);
+    uint256 hashMnCollateralTx = ParseHashV(request.params[0], "mn collateral tx hash");
+    int nMnCollateralTxIndex = request.params[1].get_int();
+    COutPoint outpoint = COutPoint(hashMnCollateralTx, nMnCollateralTxIndex);
 
     uint256 hashGovObj = ParseHashV(request.params[2], "Governance hash");
     std::string strVoteSignal = request.params[3].get_str();
@@ -1080,10 +1078,7 @@ UniValue getsuperblockbudget(const JSONRPCRequest& request)
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Block height out of range");
     }
 
-    CAmount nBudget = CSuperblock::GetPaymentsLimit(nBlockHeight);
-    std::string strBudget = FormatMoney(nBudget);
-
-    return strBudget;
+    return ValueFromAmount(CSuperblock::GetPaymentsLimit(nBlockHeight));
 }
 
 static const CRPCCommand commands[] =

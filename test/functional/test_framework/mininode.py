@@ -12,6 +12,8 @@ found in the mini-node branch of http://github.com/jgarzik/pynode.
 NodeConn: an object which manages p2p connectivity to a bitcoin node
 NodeConnCB: a base class that describes the interface for receiving
             callbacks with network messages from a NodeConn
+P2PDataStore: A p2p interface class that keeps a store of transactions and blocks
+              and can respond correctly to getdata and getheaders messages
 CBlock, CTransaction, CBlockHeader, CTxIn, CTxOut, etc....:
     data structures that should map to corresponding structures in
     bitcoin/primitives
@@ -20,23 +22,24 @@ msg_block, msg_tx, msg_headers, etc.:
 ser_*, deser_*: functions that handle serialization/deserialization
 """
 
-import struct
-import socket
 import asyncore
 from collections import namedtuple
 
-import time
-import sys
-import random
-from .util import hex_str_to_bytes, bytes_to_hex_str
-from io import BytesIO
 from codecs import encode
-import hashlib
-from threading import RLock
-from threading import Thread
-import logging
+from collections import defaultdict
 import copy
+import hashlib
+from io import BytesIO
+import logging
+import random
+import socket
+import struct
+import sys
+import time
+import threading
+
 from test_framework.siphash import siphash256
+from test_framework.util import hex_str_to_bytes, bytes_to_hex_str, wait_until
 
 import axe_hash
 
@@ -54,6 +57,10 @@ NODE_NETWORK = (1 << 0)
 NODE_GETUTXO = (1 << 1)
 NODE_BLOOM = (1 << 2)
 
+MSG_TX = 1
+MSG_BLOCK = 2
+MSG_TYPE_MASK = 0xffffffff >> 2
+
 logger = logging.getLogger("TestFramework.mininode")
 
 # Keep our own socket map for asyncore, so that we can track disconnects
@@ -63,11 +70,11 @@ mininode_socket_map = dict()
 
 # One lock for synchronizing all data access between the networking thread (see
 # NetworkThread below) and the thread running the test logic.  For simplicity,
-# NodeConn acquires this lock whenever delivering a message to to a NodeConnCB,
+# NodeConn acquires this lock whenever delivering a message to a NodeConnCB,
 # and whenever adding anything to the send buffer (in send_message()).  This
 # lock should be acquired in the thread running the test logic to synchronize
 # access to any data shared with the NodeConnCB or NodeConn.
-mininode_lock = RLock()
+mininode_lock = threading.RLock()
 
 # Serialization/deserialization tools
 def sha256(s):
@@ -592,82 +599,6 @@ class CBlock(CBlockHeader):
             % (self.nVersion, self.hashPrevBlock, self.hashMerkleRoot,
                time.ctime(self.nTime), self.nBits, self.nNonce, repr(self.vtx))
 
-
-class CUnsignedAlert(object):
-    def __init__(self):
-        self.nVersion = 1
-        self.nRelayUntil = 0
-        self.nExpiration = 0
-        self.nID = 0
-        self.nCancel = 0
-        self.setCancel = []
-        self.nMinVer = 0
-        self.nMaxVer = 0
-        self.setSubVer = []
-        self.nPriority = 0
-        self.strComment = b""
-        self.strStatusBar = b""
-        self.strReserved = b""
-
-    def deserialize(self, f):
-        self.nVersion = struct.unpack("<i", f.read(4))[0]
-        self.nRelayUntil = struct.unpack("<q", f.read(8))[0]
-        self.nExpiration = struct.unpack("<q", f.read(8))[0]
-        self.nID = struct.unpack("<i", f.read(4))[0]
-        self.nCancel = struct.unpack("<i", f.read(4))[0]
-        self.setCancel = deser_int_vector(f)
-        self.nMinVer = struct.unpack("<i", f.read(4))[0]
-        self.nMaxVer = struct.unpack("<i", f.read(4))[0]
-        self.setSubVer = deser_string_vector(f)
-        self.nPriority = struct.unpack("<i", f.read(4))[0]
-        self.strComment = deser_string(f)
-        self.strStatusBar = deser_string(f)
-        self.strReserved = deser_string(f)
-
-    def serialize(self):
-        r = b""
-        r += struct.pack("<i", self.nVersion)
-        r += struct.pack("<q", self.nRelayUntil)
-        r += struct.pack("<q", self.nExpiration)
-        r += struct.pack("<i", self.nID)
-        r += struct.pack("<i", self.nCancel)
-        r += ser_int_vector(self.setCancel)
-        r += struct.pack("<i", self.nMinVer)
-        r += struct.pack("<i", self.nMaxVer)
-        r += ser_string_vector(self.setSubVer)
-        r += struct.pack("<i", self.nPriority)
-        r += ser_string(self.strComment)
-        r += ser_string(self.strStatusBar)
-        r += ser_string(self.strReserved)
-        return r
-
-    def __repr__(self):
-        return "CUnsignedAlert(nVersion %d, nRelayUntil %d, nExpiration %d, nID %d, nCancel %d, nMinVer %d, nMaxVer %d, nPriority %d, strComment %s, strStatusBar %s, strReserved %s)" \
-            % (self.nVersion, self.nRelayUntil, self.nExpiration, self.nID,
-               self.nCancel, self.nMinVer, self.nMaxVer, self.nPriority,
-               self.strComment, self.strStatusBar, self.strReserved)
-
-
-class CAlert(object):
-    def __init__(self):
-        self.vchMsg = b""
-        self.vchSig = b""
-
-    def deserialize(self, f):
-        self.vchMsg = deser_string(f)
-        self.vchSig = deser_string(f)
-
-    def serialize(self):
-        r = b""
-        r += ser_string(self.vchMsg)
-        r += ser_string(self.vchSig)
-        return r
-
-    def __repr__(self):
-        return "CAlert(vchMsg.sz %d, vchSig.sz %d)" \
-            % (len(self.vchMsg), len(self.vchSig))
-
-
 class PrefilledTransaction(object):
     def __init__(self, index=0, tx = None):
         self.index = index
@@ -1090,25 +1021,6 @@ class msg_addr(object):
         return "msg_addr(addrs=%s)" % (repr(self.addrs))
 
 
-class msg_alert(object):
-    command = b"alert"
-
-    def __init__(self):
-        self.alert = CAlert()
-
-    def deserialize(self, f):
-        self.alert = CAlert()
-        self.alert.deserialize(f)
-
-    def serialize(self):
-        r = b""
-        r += self.alert.serialize()
-        return r
-
-    def __repr__(self):
-        return "msg_alert(alert=%s)" % (repr(self.alert), )
-
-
 class msg_inv(object):
     command = b"inv"
 
@@ -1393,22 +1305,6 @@ class msg_reject(object):
         return "msg_reject: %s %d %s [%064x]" \
             % (self.message, self.code, self.reason, self.data)
 
-# Helper function
-def wait_until(predicate, *, attempts=float('inf'), timeout=float('inf'), sleep=0.05):
-    if attempts == float('inf') and timeout == float('inf'):
-        timeout = 60
-    attempt = 0
-    elapsed = 0
-
-    while attempt < attempts and elapsed < timeout:
-        with mininode_lock:
-            if predicate():
-                return True
-        attempt += 1
-        elapsed += sleep
-        time.sleep(sleep)
-
-    return False
 
 class msg_sendcmpct(object):
     command = b"sendcmpct"
@@ -1595,17 +1491,58 @@ class msg_islock(object):
         return "msg_islock(inputs=%s, txid=%064x)" % (repr(self.inputs), self.txid)
 
 
-# This is what a callback should look like for NodeConn
-# Reimplement the on_* functions to provide handling for events
 class NodeConnCB(object):
+    """Callback and helper functions for P2P connection to a bitcoind node.
+
+    Individual testcases should subclass this and override the on_* methods
+    if they want to alter message handling behaviour.
+    """
+
     def __init__(self):
-        self.verack_received = False
+        # Track whether we have a P2P connection open to the node
+        self.connected = False
+        self.connection = None
+
+        # Track number of messages of each type received and the most recent
+        # message of each type
+        self.message_count = defaultdict(int)
+        self.last_message = {}
+
+        # A count of the number of ping messages we've sent to the node
+        self.ping_counter = 1
+
         # deliver_sleep_time is helpful for debugging race conditions in p2p
         # tests; it causes message delivery to sleep for the specified time
         # before acquiring the global lock and delivering the next message.
         self.deliver_sleep_time = None
+
         # Remember the services our peer has advertised
         self.peer_services = None
+
+    # Message receiving methods
+
+    def deliver(self, conn, message):
+        """Receive message and dispatch message to appropriate callback.
+
+        We keep a count of how many of each message type has been received
+        and the most recent message of each type.
+
+        Optionally waits for deliver_sleep_time before dispatching message.
+        """
+
+        deliver_sleep = self.get_deliver_sleep_time()
+        if deliver_sleep is not None:
+            time.sleep(deliver_sleep)
+        with mininode_lock:
+            try:
+                command = message.command.decode('ascii')
+                self.message_count[command] += 1
+                self.last_message[command] = message
+                getattr(self, 'on_' + command)(conn, message)
+            except:
+                print("ERROR delivering %s (%s)" % (repr(message),
+                                                    sys.exc_info()[0]))
+                raise
 
     def set_deliver_sleep_time(self, value):
         with mininode_lock:
@@ -1615,38 +1552,33 @@ class NodeConnCB(object):
         with mininode_lock:
             return self.deliver_sleep_time
 
-    # Spin until verack message is received from the node.
-    # Tests may want to use this as a signal that the test can begin.
-    # This can be called from the testing thread, so it needs to acquire the
-    # global lock.
-    def wait_for_verack(self):
-        while True:
-            with mininode_lock:
-                if self.verack_received:
-                    return
-            time.sleep(0.05)
+    # Callback methods. Can be overridden by subclasses in individual test
+    # cases to provide custom message handling behaviour.
 
-    def deliver(self, conn, message):
-        deliver_sleep = self.get_deliver_sleep_time()
-        if deliver_sleep is not None:
-            time.sleep(deliver_sleep)
-        with mininode_lock:
-            try:
-                getattr(self, 'on_' + message.command.decode('ascii'))(conn, message)
-            except:
-                logger.exception("ERROR delivering %s" % repr(message))
+    def on_open(self, conn):
+        self.connected = True
 
-    def on_version(self, conn, message):
-        if message.nVersion >= 209:
-            conn.send_message(msg_verack())
-        conn.ver_send = min(MY_VERSION, message.nVersion)
-        if message.nVersion < 209:
-            conn.ver_recv = conn.ver_send
-        conn.nServices = message.nServices
+    def on_close(self, conn):
+        self.connected = False
+        self.connection = None
 
-    def on_verack(self, conn, message):
-        conn.ver_recv = conn.ver_send
-        self.verack_received = True
+    def on_addr(self, conn, message): pass
+    def on_block(self, conn, message): pass
+    def on_blocktxn(self, conn, message): pass
+    def on_cmpctblock(self, conn, message): pass
+    def on_feefilter(self, conn, message): pass
+    def on_getaddr(self, conn, message): pass
+    def on_getblocks(self, conn, message): pass
+    def on_getblocktxn(self, conn, message): pass
+    def on_getdata(self, conn, message): pass
+    def on_getheaders(self, conn, message): pass
+    def on_headers(self, conn, message): pass
+    def on_mempool(self, conn): pass
+    def on_pong(self, conn, message): pass
+    def on_reject(self, conn, message): pass
+    def on_sendcmpct(self, conn, message): pass
+    def on_sendheaders(self, conn, message): pass
+    def on_tx(self, conn, message): pass
 
     def on_inv(self, conn, message):
         want = msg_getdata()
@@ -1656,62 +1588,92 @@ class NodeConnCB(object):
         if len(want.inv):
             conn.send_message(want)
 
-    def on_addr(self, conn, message): pass
-    def on_alert(self, conn, message): pass
-    def on_getdata(self, conn, message): pass
-    def on_getblocks(self, conn, message): pass
-    def on_tx(self, conn, message): pass
-    def on_block(self, conn, message): pass
-    def on_getaddr(self, conn, message): pass
-    def on_headers(self, conn, message): pass
-    def on_getheaders(self, conn, message): pass
     def on_ping(self, conn, message):
         if conn.ver_send > BIP0031_VERSION:
             conn.send_message(msg_pong(message.nonce))
-    def on_reject(self, conn, message): pass
-    def on_open(self, conn): pass
-    def on_close(self, conn): pass
-    def on_mempool(self, conn): pass
-    def on_pong(self, conn, message): pass
-    def on_sendheaders(self, conn, message): pass
-    def on_sendcmpct(self, conn, message): pass
-    def on_cmpctblock(self, conn, message): pass
-    def on_getblocktxn(self, conn, message): pass
-    def on_blocktxn(self, conn, message): pass
+
     def on_mnlistdiff(self, conn, message): pass
     def on_clsig(self, conn, message): pass
     def on_islock(self, conn, message): pass
 
-# More useful callbacks and functions for NodeConnCB's which have a single NodeConn
-class SingleNodeConnCB(NodeConnCB):
-    def __init__(self):
-        NodeConnCB.__init__(self)
-        self.connection = None
-        self.ping_counter = 1
-        self.last_pong = msg_pong()
+    def on_verack(self, conn, message):
+        conn.ver_recv = conn.ver_send
+        self.verack_received = True
+
+    def on_version(self, conn, message):
+        if message.nVersion >= 209:
+            conn.send_message(msg_verack())
+        conn.ver_send = min(MY_VERSION, message.nVersion)
+        if message.nVersion < 209:
+            conn.ver_recv = conn.ver_send
+        conn.nServices = message.nServices
+
+    # Connection helper methods
 
     def add_connection(self, conn):
         self.connection = conn
 
-    # Wrapper for the NodeConn's send_message function
+    def wait_for_disconnect(self, timeout=60):
+        test_function = lambda: not self.connected
+        wait_until(test_function, timeout=timeout, lock=mininode_lock)
+
+    # Message receiving helper methods
+
+    def wait_for_block(self, blockhash, timeout=60):
+        test_function = lambda: self.last_message.get("block") and self.last_message["block"].block.rehash() == blockhash
+        wait_until(test_function, timeout=timeout, lock=mininode_lock)
+
+    def wait_for_getdata(self, timeout=60):
+        """Waits for a getdata message.
+
+        Receiving any getdata message will satisfy the predicate. the last_message["getdata"]
+        value must be explicitly cleared before calling this method, or this will return
+        immediately with success. TODO: change this method to take a hash value and only
+        return true if the correct block/tx has been requested."""
+        test_function = lambda: self.last_message.get("getdata")
+        wait_until(test_function, timeout=timeout, lock=mininode_lock)
+
+    def wait_for_getheaders(self, timeout=60):
+        """Waits for a getheaders message.
+
+        Receiving any getheaders message will satisfy the predicate. the last_message["getheaders"]
+        value must be explicitly cleared before calling this method, or this will return
+        immediately with success. TODO: change this method to take a hash value and only
+        return true if the correct block header has been requested."""
+        test_function = lambda: self.last_message.get("getheaders")
+        wait_until(test_function, timeout=timeout, lock=mininode_lock)
+
+    def wait_for_inv(self, expected_inv, timeout=60):
+        """Waits for an INV message and checks that the first inv object in the message was as expected."""
+        if len(expected_inv) > 1:
+            raise NotImplementedError("wait_for_inv() will only verify the first inv object")
+        test_function = lambda: self.last_message.get("inv") and \
+                                self.last_message["inv"].inv[0].type == expected_inv[0].type and \
+                                self.last_message["inv"].inv[0].hash == expected_inv[0].hash
+        wait_until(test_function, timeout=timeout, lock=mininode_lock)
+
+    def wait_for_verack(self, timeout=60):
+        test_function = lambda: self.message_count["verack"]
+        wait_until(test_function, timeout=timeout, lock=mininode_lock)
+
+    # Message sending helper functions
+
     def send_message(self, message):
-        self.connection.send_message(message)
+        if self.connection:
+            self.connection.send_message(message)
+        else:
+            logger.error("Cannot send message. No connection to node!")
 
     def send_and_ping(self, message):
         self.send_message(message)
         self.sync_with_ping()
 
-    def on_pong(self, conn, message):
-        self.last_pong = message
-
     # Sync up with the node
-    def sync_with_ping(self, timeout=30):
-        def received_pong():
-            return (self.last_pong.nonce == self.ping_counter)
+    def sync_with_ping(self, timeout=60):
         self.send_message(msg_ping(nonce=self.ping_counter))
-        success = wait_until(received_pong, timeout=timeout)
+        test_function = lambda: self.last_message.get("pong") and self.last_message["pong"].nonce == self.ping_counter
+        wait_until(test_function, timeout=timeout, lock=mininode_lock)
         self.ping_counter += 1
-        return success
 
 # The actual NodeConn class
 # This class provides an interface for a p2p connection to a specified node
@@ -1720,7 +1682,6 @@ class NodeConn(asyncore.dispatcher):
         b"version": msg_version,
         b"verack": msg_verack,
         b"addr": msg_addr,
-        b"alert": msg_alert,
         b"inv": msg_inv,
         b"getdata": msg_getdata,
         b"getblocks": msg_getblocks,
@@ -1740,7 +1701,14 @@ class NodeConn(asyncore.dispatcher):
         b"blocktxn": msg_blocktxn,
         b"mnlistdiff": msg_mnlistdiff,
         b"clsig": msg_clsig,
-        b"islock": msg_islock
+        b"islock": msg_islock,
+        b"notfound": None,
+        b"senddsq": None,
+        b"qsendrecsigs": None,
+        b"getsporks": None,
+        b"spork": None,
+        b"govsync": None,
+        b"qfcommit": None,
     }
     MAGIC_BYTES = {
         "mainnet": b"\xbf\x0c\x6b\xbd",   # mainnet
@@ -1775,7 +1743,7 @@ class NodeConn(asyncore.dispatcher):
             vt.addrFrom.port = 0
             self.send_message(vt, True)
 
-        logger.info('Connecting to Axe Node: %s:%d' % (self.dstaddr, self.dstport))
+        logger.debug('Connecting to Axe Node: %s:%d' % (self.dstaddr, self.dstport))
 
         try:
             self.connect((dstaddr, dstport))
@@ -1801,13 +1769,10 @@ class NodeConn(asyncore.dispatcher):
         self.cb.on_close(self)
 
     def handle_read(self):
-        try:
-            t = self.recv(8192)
-            if len(t) > 0:
-                self.recvbuf += t
-                self.got_data()
-        except:
-            pass
+        t = self.recv(8192)
+        if len(t) > 0:
+            self.recvbuf += t
+            self.got_data()
 
     def readable(self):
         return True
@@ -1867,19 +1832,24 @@ class NodeConn(asyncore.dispatcher):
                         raise ValueError("got bad checksum " + repr(self.recvbuf))
                     self.recvbuf = self.recvbuf[4+12+4+4+msglen:]
                 if command in self.messagemap:
+                    if self.messagemap[command] is None:
+                        # Command is known but we don't want/need to handle it
+                        continue
                     f = BytesIO(msg)
                     t = self.messagemap[command]()
                     t.deserialize(f)
                     self.got_message(t)
                 else:
                     logger.warning("Received unknown command from %s:%d: '%s' %s" % (self.dstaddr, self.dstport, str(command), repr(msg)))
+                    raise ValueError("Unknown command: '%s'" % (command))
         except Exception as e:
             logger.exception('got_data:', repr(e))
+            raise
 
     def send_message(self, message, pushbuf=False):
         if self.state != "connected" and not pushbuf:
             raise IOError('Not connected, no pushbuf')
-        logger.debug("Send message to %s:%d: %s" % (self.dstaddr, self.dstport, repr(message)))
+        self._log_message("send", message)
         command = message.command
         data = message.serialize()
         tmsg = self.MAGIC_BYTES[self.network]
@@ -1901,14 +1871,27 @@ class NodeConn(asyncore.dispatcher):
                 self.messagemap[b'ping'] = msg_ping_prebip31
         if self.last_sent + 30 * 60 < time.time():
             self.send_message(self.messagemap[b'ping']())
-        logger.debug("Received message from %s:%d: %s" % (self.dstaddr, self.dstport, repr(message)))
+        self._log_message("receive", message)
         self.cb.deliver(self, message)
+
+    def _log_message(self, direction, msg):
+        if direction == "send":
+            log_message = "Send message to "
+        elif direction == "receive":
+            log_message = "Received message from "
+        log_message += "%s:%d: %s" % (self.dstaddr, self.dstport, repr(msg)[:500])
+        if len(log_message) > 500:
+            log_message += "... (msg truncated)"
+        logger.debug(log_message)
 
     def disconnect_node(self):
         self.disconnect = True
 
 
-class NetworkThread(Thread):
+class NetworkThread(threading.Thread):
+    def __init__(self):
+        super().__init__(name="NetworkThread")
+
     def run(self):
         while mininode_socket_map:
             # We check for whether to disconnect outside of the asyncore
@@ -1921,6 +1904,26 @@ class NetworkThread(Thread):
             [ obj.handle_close() for obj in disconnected ]
             asyncore.loop(0.1, use_poll=True, map=mininode_socket_map, count=1)
 
+def network_thread_start():
+    """Start the network thread."""
+    # Only one network thread may run at a time
+    assert not network_thread_running()
+
+    NetworkThread().start()
+
+def network_thread_running():
+    """Return whether the network thread is running."""
+    return any([thread.name == "NetworkThread" for thread in threading.enumerate()])
+
+def network_thread_join(timeout=10):
+    """Wait timeout seconds for the network thread to terminate.
+
+    Throw if the network thread doesn't terminate in timeout seconds."""
+    network_threads = [thread for thread in threading.enumerate() if thread.name == "NetworkThread"]
+    assert len(network_threads) <= 1
+    for thread in network_threads:
+        thread.join(timeout)
+        assert not thread.is_alive()
 
 # An exception we can raise if we detect a potential disconnect
 # (p2p or rpc) before the test is complete
@@ -1930,3 +1933,141 @@ class EarlyDisconnectError(Exception):
 
     def __str__(self):
         return repr(self.value)
+
+class P2PDataStore(NodeConnCB):
+    """A P2P data store class.
+
+    Keeps a block and transaction store and responds correctly to getdata and getheaders requests."""
+
+    def __init__(self):
+        super().__init__()
+        self.reject_code_received = None
+        self.reject_reason_received = None
+        # store of blocks. key is block hash, value is a CBlock object
+        self.block_store = {}
+        self.last_block_hash = ''
+        # store of txs. key is txid, value is a CTransaction object
+        self.tx_store = {}
+        self.getdata_requests = []
+
+    def on_getdata(self, conn, message):
+        """Check for the tx/block in our stores and if found, reply with an inv message."""
+        for inv in message.inv:
+            self.getdata_requests.append(inv.hash)
+            if (inv.type & MSG_TYPE_MASK) == MSG_TX and inv.hash in self.tx_store.keys():
+                self.send_message(msg_tx(self.tx_store[inv.hash]))
+            elif (inv.type & MSG_TYPE_MASK) == MSG_BLOCK and inv.hash in self.block_store.keys():
+                self.send_message(msg_block(self.block_store[inv.hash]))
+            else:
+                logger.debug('getdata message type {} received.'.format(hex(inv.type)))
+
+    def on_getheaders(self, conn, message):
+        """Search back through our block store for the locator, and reply with a headers message if found."""
+
+        locator, hash_stop = message.locator, message.hashstop
+
+        # Assume that the most recent block added is the tip
+        if not self.block_store:
+            return
+
+        headers_list = [self.block_store[self.last_block_hash]]
+        maxheaders = 2000
+        while headers_list[-1].sha256 not in locator.vHave:
+            # Walk back through the block store, adding headers to headers_list
+            # as we go.
+            prev_block_hash = headers_list[-1].hashPrevBlock
+            if prev_block_hash in self.block_store:
+                prev_block_header = self.block_store[prev_block_hash]
+                headers_list.append(prev_block_header)
+                if prev_block_header.sha256 == hash_stop:
+                    # if this is the hashstop header, stop here
+                    break
+            else:
+                logger.debug('block hash {} not found in block store'.format(hex(prev_block_hash)))
+                break
+
+        # Truncate the list if there are too many headers
+        headers_list = headers_list[:-maxheaders - 1:-1]
+        response = msg_headers(headers_list)
+
+        if response is not None:
+            self.send_message(response)
+
+    def on_reject(self, conn, message):
+        """Store reject reason and code for testing."""
+        self.reject_code_received = message.code
+        self.reject_reason_received = message.reason
+
+    def send_blocks_and_test(self, blocks, rpc, success=True, request_block=True, reject_code=None, reject_reason=None, timeout=60):
+        """Send blocks to test node and test whether the tip advances.
+
+         - add all blocks to our block_store
+         - send a headers message for the final block
+         - the on_getheaders handler will ensure that any getheaders are responded to
+         - if request_block is True: wait for getdata for each of the blocks. The on_getdata handler will
+           ensure that any getdata messages are responded to
+         - if success is True: assert that the node's tip advances to the most recent block
+         - if success is False: assert that the node's tip doesn't advance
+         - if reject_code and reject_reason are set: assert that the correct reject message is received"""
+
+        with mininode_lock:
+            self.reject_code_received = None
+            self.reject_reason_received = None
+
+            for block in blocks:
+                self.block_store[block.sha256] = block
+                self.last_block_hash = block.sha256
+
+        self.send_message(msg_headers([blocks[-1]]))
+
+        if request_block:
+            wait_until(lambda: blocks[-1].sha256 in self.getdata_requests, timeout=timeout, lock=mininode_lock)
+
+        if success:
+            wait_until(lambda: rpc.getbestblockhash() == blocks[-1].hash, timeout=timeout)
+        else:
+            assert rpc.getbestblockhash() != blocks[-1].hash
+
+        if reject_code is not None:
+            wait_until(lambda: self.reject_code_received == reject_code, lock=mininode_lock)
+        if reject_reason is not None:
+            wait_until(lambda: self.reject_reason_received == reject_reason, lock=mininode_lock)
+
+    def send_txs_and_test(self, txs, rpc, success=True, expect_disconnect=False, reject_code=None, reject_reason=None):
+        """Send txs to test node and test whether they're accepted to the mempool.
+
+         - add all txs to our tx_store
+         - send tx messages for all txs
+         - if success is True/False: assert that the txs are/are not accepted to the mempool
+         - if expect_disconnect is True: Skip the sync with ping
+         - if reject_code and reject_reason are set: assert that the correct reject message is received."""
+
+        with mininode_lock:
+            self.reject_code_received = None
+            self.reject_reason_received = None
+
+            for tx in txs:
+                self.tx_store[tx.sha256] = tx
+
+        for tx in txs:
+            self.send_message(msg_tx(tx))
+
+        if expect_disconnect:
+            self.wait_for_disconnect()
+        else:
+            self.sync_with_ping()
+
+        raw_mempool = rpc.getrawmempool()
+        if success:
+            # Check that all txs are now in the mempool
+            for tx in txs:
+                assert tx.hash in raw_mempool, "{} not found in mempool".format(tx.hash)
+        else:
+            # Check that none of the txs are now in the mempool
+            for tx in txs:
+                assert tx.hash not in raw_mempool, "{} tx found in mempool".format(tx.hash)
+
+        if reject_code is not None:
+            wait_until(lambda: self.reject_code_received == reject_code, lock=mininode_lock)
+        if reject_reason is not None:
+            wait_until(lambda: self.reject_reason_received == reject_reason, lock=mininode_lock)

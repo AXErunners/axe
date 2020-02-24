@@ -42,6 +42,7 @@ import decimal
 import json
 import logging
 import socket
+import time
 try:
     import urllib.parse as urlparse
 except ImportError:
@@ -137,17 +138,20 @@ class AuthServiceProxy(object):
             self.__conn.request(method, path, postdata, headers)
             return self._get_response()
 
-    def __call__(self, *args, **argsn):
+    def get_request(self, *args, **argsn):
         AuthServiceProxy.__id_count += 1
 
         log.debug("-%s-> %s %s"%(AuthServiceProxy.__id_count, self._service_name,
                                  json.dumps(args, default=EncodeDecimal, ensure_ascii=self.ensure_ascii)))
         if args and argsn:
             raise ValueError('Cannot handle both named and positional arguments')
-        postdata = json.dumps({'version': '1.1',
-                               'method': self._service_name,
-                               'params': args or argsn,
-                               'id': AuthServiceProxy.__id_count}, default=EncodeDecimal, ensure_ascii=self.ensure_ascii)
+        return {'version': '1.1',
+                'method': self._service_name,
+                'params': args or argsn,
+                'id': AuthServiceProxy.__id_count}
+
+    def __call__(self, *args, **argsn):
+        postdata = json.dumps(self.get_request(*args, **argsn), default=EncodeDecimal, ensure_ascii=self.ensure_ascii)
         response = self._request('POST', self.__url.path, postdata.encode('utf-8'))
         if response['error'] is not None:
             raise JSONRPCException(response['error'])
@@ -157,12 +161,13 @@ class AuthServiceProxy(object):
         else:
             return response['result']
 
-    def _batch(self, rpc_call_list):
+    def batch(self, rpc_call_list):
         postdata = json.dumps(list(rpc_call_list), default=EncodeDecimal, ensure_ascii=self.ensure_ascii)
         log.debug("--> "+postdata)
         return self._request('POST', self.__url.path, postdata.encode('utf-8'))
 
     def _get_response(self):
+        req_start_time = time.time()
         try:
             http_response = self.__conn.getresponse()
         except socket.timeout as e:
@@ -183,8 +188,12 @@ class AuthServiceProxy(object):
 
         responsedata = http_response.read().decode('utf8')
         response = json.loads(responsedata, parse_float=decimal.Decimal)
+        elapsed = time.time() - req_start_time
         if "error" in response and response["error"] is None:
-            log.debug("<-%s- %s"%(response["id"], json.dumps(response["result"], default=EncodeDecimal, ensure_ascii=self.ensure_ascii)))
+            log.debug("<-%s- [%.6f] %s"%(response["id"], elapsed, json.dumps(response["result"], default=EncodeDecimal, ensure_ascii=self.ensure_ascii)))
         else:
-            log.debug("<-- "+responsedata)
+            log.debug("<-- [%.6f] %s"%(elapsed,responsedata))
         return response
+
+    def __truediv__(self, relative_uri):
+        return AuthServiceProxy("{}/{}".format(self.__service_url, relative_uri), self._service_name, connection=self.__conn)

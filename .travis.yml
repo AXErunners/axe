@@ -18,8 +18,10 @@ cache:
 
 env:
   global:
-    - secure: "nhIbqXTJt1cz8t3FMnKK2IWQcCHwHWnMpoBvSB4DuOQA2MsL0PXPtV7rtqP3/eEEc3RyPovacD1lFgTJc0f3hWJmMwMV+g1ax/7ffI8KYBu68kDpn3GcIq7GX8ZZPDFB1m7Mz3jly5PanfIPhCum5jDNMsu7D2CJt/NfWywAYH1x/JNlv5MxFnlZvRaOxTiPx0aiRG1Tr7ZzbVV7LmdiJy+Z1Es6Wn+KExi1LVEx0i3T6Zhax56OFSTfAlge30y10Mx2+IJYCzUA0D8nvUZqOJFy3L1WoNg0AaimaCTelIKbJt/dso4nMxyCIHWp7vND/T5CgN5c1yuQP+cQyMqr6XRXKkBNe1+PhJUHZn0tmu3PLWGZYn0VjmDelJu/GKF2WG+XflkHDdLEFvGEGlA0P8w+u12Ds4HsLVeG+2TJZk7P53pFhmQ73x+uPa0EQhL63Q7ZloLkBCGpoBvLGi+PGikYYwPDstEsNssRtFdlbMqL1DOHFKajFeltTPvzDIGpFkFGL0fUoICxc2pCp7yvEgsAOpy56nlWOiSr8mK9ZXRgrnMWmufvw0cBfGzebNiiYg1vIAy9V8h4sbiQFtRnNUQyVJt/4N+eKraD7Jd9U/OHkYC7oCFB7DVrpSjRHFDTHMNl9SwIGityg0RF1EsEQMqJykWy9d5R7nqK6hD1Pjw="
-    - secure: "xdeQldckRR0Rp+GJr5BV0NRFaR0dGX4469LqAXP8Gn+01ZXtsVuwsereN177nbtRtGcCZYRukrVe9LWvksgWFoHfKuSv82J8TxFRIkXeXbAN1vLJpgQ+MI+iGOt940aiuy8P3eubbHAhqk9kCa9CuQMxtierG7DwgH2ri1zal5Q3x3wQtp0zvq8l36uAma0sGBK9Vz/N+Y+rYc/hAMKUMN8iZ0lt87Vili9hZmpnO7FJ2kkCcD3A24TrD9xnspWxbGO7F6rfWvc6RzbB9X6xQtuzoor7DHPlih93mNmBHjfv5KOwzc8oHY7ry2/54/yGXX9IvANgY3iW24YnyVBCVWaCpRfBG/cgBFbxjfcmaOK2nZHFuaPfpDYc346thQcwu3srPeDJjBaCXaYprrPZWnvaP0OpUcY4M+rxcNcAUY1BmDTa7Fdc1RwbBWJSsdc6qL2XxMR9cZreOYBNN+BWTcZDnnlZ+3zkGcR+P4WUYTvODdqNNj+mm+VwcYxoZzQvtOFyAtsgcEa+47UqFuhczMhU5CocX1fRMdjO0RWWG3A3CenPOMifvyPDSaHe+oPGTpxJTpXw3V5Ceu0gwkSTmMkAx1ZT1qhf7jxcfl9rieCNqF8iQHXOjkiI2mjpI2cK2Ld5IR6V3FNZ2/2MHTs1uGHwVYVoDMUbFCwP2Tcbbes="
+    # DOCKER_HUB_USER
+    - secure: "aRGy3uOirhSKdaKKIoHhdyHwRoIo2WGKNt3SFv7oRyMbafPZylsg7L2Eo7iKRXNT8RmCo5ObpxzfYZo0UJM55ruZUPTAZfUhBTvbfF8a6ZEP7ZS5qGJFc5yLamoZ/Ov4XlAtCJ/mKHQ0a4ekY/qNzg8qNf2B1nwaogIKkDZTiOroSCL7uNntxzQIVt9V3PyE0GdapAjUHMr9IPDzGmRFxcekX36ZbS/vWF5fmWFbNHKnyavMijADS4WjUsjX2SSXUdbaS9sy6XCtjydvlNZYBxgtg/1L7Fe6HtzMS0++2t2xV1Fma6xamcywg2n+6mP8aWLO3wu/tkQdz1mu7XQRYJFxNoeHzGGyY8D2zI9RqDwSpsE4hjZSwycKTvJ3GFGiUaKMeDdbCaHdaqSKiFvKWXr4pgPm2PFk0QRML/sg7srmB7bt5veGQighgT0YdOcSTmSclFuSikMs1xi1EBsK60LSZoQ1f5DlLuglMSnnBX9KN23g/qv3TnvlX/6VeppaqLLsvfkmAxUgMFZlza0uJLwYPiEMc7qy7elCZb+6Yk1pxBJeevQpFcrbkwf5uOz3Gsaj6Kx+yaIcB+Tut0sDWIWR3ZTVny/iFl5PwMYf85lgMSPkJwNeq3bqC5ai0Wu4fd4EL2l3A+XMN5lryltxxswH/lApxX7OTrxIwRbkN9E="
+    # DOCKER_HUB_PASSWORD
+    - secure: "UvMCRP3e4tkWgmTS+W7wj2ZZ07MdlP6/fL+wbQkKQE6sFJwx/wxNsMt2L4qsDhE9iWEbxTXIoIkeqBk/koSQPmRFb9lNvgxguCYEx9z1XnIWLsUjN/OO4kID9BjzQV0fOF4Ig3wo86XxZa1RpKRMNbQV4/FPm7m5LwgshI+7lJXy74juSqa9d+n5CJIQdchm+VvBa8bQBDpQE7b5+OFovchMEAz2eIssKLliwIn2AQ6i0xx6wGFw3bMdsbLmKhuJoJ/FpLx0h9+Okw+hqohnJdHAV6tnxNabfSiDFXZ6CcyA8lC98w6GcaIXkyKCkDZ827Vzj3voXdV5BnEh5/EwTG7XxReOeySKF57bNTnfzWl0DsvTNu30YftFjX+5f+JAFeo0QTI37qoklIj3yFYSqzDargfntft8C0cuJU2HbcW1RVp8+IGYP47xjr6zwcRtrXEPvEIbGQBt1+PsVPhPJdDqOWFYBdfYIFbfZajM9ax9kxh+gTGj69vjccGhF225HcU+AeH4VdtEh3VyeKvh7evM1muwEicZlpmkqqOpO0Biw3n9+nOwNe9d0Rh0+ruuSzzw8AV6iHjDNqwLU1cBtLmLCKoJJfdVdOhOjpPNfaHazkf7vbitItY5egl4NlCsi88ygAEIcrxw3jdmW2NAhTAoTgoMeCaul6qUo411zdM="
     - DOCKER_BUILD=false
 
 stages:
@@ -116,6 +118,8 @@ before_install:
   - travis_retry sudo apt-get -yq --no-install-suggests --no-install-recommends install docker-ce realpath
 
 install:
+    # Fix annoying Travis bug: a branch with a single commit has an empty TRAVIS_COMMIT_RANGE sometimes
+    - if [ -z "$TRAVIS_COMMIT_RANGE" ]; then export TRAVIS_COMMIT_RANGE="HEAD~..HEAD"; fi
     # Our scripts try to be Travis agnostic
     - export PULL_REQUEST="$TRAVIS_PULL_REQUEST"
     - export COMMIT_RANGE="$TRAVIS_COMMIT_RANGE"
@@ -137,7 +141,7 @@ before_script:
     # See https://github.com/travis-ci/travis-ci/issues/4704. If this gets fixed, this line can also be removed.
     - python3 -c 'import os,sys,fcntl; flags = fcntl.fcntl(sys.stdout, fcntl.F_GETFL); fcntl.fcntl(sys.stdout, fcntl.F_SETFL, flags&~os.O_NONBLOCK);'
     # Build docker image only for development branch of the main repo
-    - if [ "$TRAVIS_REPO_SLUG" != "axerunners/axe" -o "$TRAVIS_BRANCH" != "development" -o "$TRAVIS_PULL_REQUEST" != "false" ]; then export DOCKER_BUILD="false"; echo DOCKER_BUILD=$DOCKER_BUILD; fi
+    - if [ "$TRAVIS_REPO_SLUG" != "AXErunners/axe" -o "$TRAVIS_BRANCH" != "development" -o "$TRAVIS_PULL_REQUEST" != "false" ]; then export DOCKER_BUILD="false"; echo DOCKER_BUILD=$DOCKER_BUILD; fi
 after_script:
     - echo $TRAVIS_COMMIT_RANGE
     - echo $TRAVIS_COMMIT_LOG

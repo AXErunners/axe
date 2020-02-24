@@ -76,7 +76,11 @@ In the VirtualBox GUI click "New" and choose the following parameters in the wiz
 
 After creating the VM, we need to configure it.
 
-- Click the `Settings` button, then go to the `Network` tab. Adapter 1 should be attached to `NAT`.
+- Click the `Settings` button, then go to `System` tab and `Processor` sub-tab. Increase the number of processors to the number of cores on your machine if you want builds to be faster.
+
+![](gitian-building/system_settings.png)
+
+- Go to the `Network` tab. Adapter 1 should be attached to `NAT`.
 
 ![](gitian-building/network_settings.png)
 
@@ -131,6 +135,7 @@ To select a different button, press `Tab`.
   - Leave domain name empty.
 
 ![](gitian-building/debian_install_5_configure_the_network.png)
+![](gitian-building/debian_install_6_domain_name.png)
 
 - Choose a root password and enter it twice (remember it for later)
 

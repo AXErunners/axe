@@ -16,10 +16,9 @@ def txFromHex(hexstring):
     return tx
 
 class ListTransactionsTest(BitcoinTestFramework):
-    def __init__(self):
-        super().__init__()
-        self.num_nodes = 4
-        self.setup_clean_chain = False
+    def set_test_params(self):
+        self.num_nodes = 2
+        self.set_cache_mocktime()
 
     def run_test(self):
         # Simple send, 0 to 1:
