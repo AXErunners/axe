@@ -1,4 +1,4 @@
-Axe Core version 1.4.0.1
+Axe Core version 1.5.0.1
 ==========================
 
 Release is now available from:
@@ -22,38 +22,22 @@ If you are running an older version, shut it down. Wait until it has completely
 shut down (which might take a few minutes for older versions), then run the
 installer (on Windows) or just copy over /Applications/Axe-Qt (on Mac) or
 axed/axe-qt (on Linux). If you upgrade after DIP0003 activation and you were
-using version < 0.13 you will have to reindex (start with -reindex-chainstate
+using version < 1.4 you will have to reindex (start with -reindex-chainstate
 or -reindex) to make sure your wallet has all the new data synced. Upgrading from
-version 0.13 should not require any additional actions.
+version 1.4.1 should not require any additional actions.
 
 Downgrade warning
 -----------------
 
-### Downgrade to a version < 1.3.0.0
+### Downgrade to a version < 1.4.0.0
 
-Downgrading to a version smaller than 0.13 is not supported anymore as DIP2/DIP3 has
-activated on mainnet and testnet.
-
-### Downgrade to versions 1.3.0.0
-
-Downgrading to 1.3 releases is fully supported until DIP0008 activation but is not
-recommended unless you have some serious issues with version 1.4.
+Downgrading to a version smaller than 1.4 is not supported anymore.
 
 Notable changes
 ===============
 
-Fixed governance votes pruning for invalid masternodes
-------------------------------------------------------
-A community member reported a possible attack that involves DoSing masternodes to force the network
-to prune all governance votes from this masternodes. This could be used to manipulate vote outcomes.
+Upstream backports
 
-This vulnerability is currently not possible to execute as LLMQ DKGs and PoSe have not activated yet on
-mainnet. This version includes a fix that requires to have at least 51% masternodes to upgrade to
-1.4.0.1, after which superblock trigger voting will automatically fix the discrepancies between
-old and new nodes. This also means that we will postpone activation of LLMQ DKGs and thus PoSe until
-at least 51% of masternodes have upgraded to 1.4.0.1.
+Qt updates
 
-Fixed a rare memory/db leak in LLMQ based InstantSend
------------------------------------------------------
-We fixed a rare memory/db leak in LLMQ based InstantSend leak which would only occur when reorganizations
-would happen.
+Testnet restarted.
