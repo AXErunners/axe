@@ -1305,7 +1305,7 @@ static const CRPCCommand commands[] =
     { "addressindex",       "getaddresstxids",        &getaddresstxids,        {"addresses"} },
     { "addressindex",       "getaddressbalance",      &getaddressbalance,      {"addresses"} },
 
-    /* Dash features */
+    /* Axe features */
     { "axe",               "mnsync",                 &mnsync,                 {} },
     { "axe",               "spork",                  &spork,                  {"value"} },
 
