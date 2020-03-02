@@ -16,6 +16,7 @@ Simulate and check DKG errors
 class LLMQDKGErrors(AxeTestFramework):
     def set_test_params(self):
         self.set_axe_test_params(6, 5, [["-whitelist=127.0.0.1"]] * 6, fast_dip3_enforcement=True)
+        self.set_axe_dip8_activation(10)
 
     def run_test(self):
 
