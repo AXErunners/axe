@@ -18,6 +18,7 @@ Checks simple PoSe system based on LLMQ commitments
 class LLMQSimplePoSeTest(AxeTestFramework):
     def set_test_params(self):
         self.set_axe_test_params(6, 5, fast_dip3_enforcement=True)
+        self.set_axe_llmq_test_params(5, 3)
 
     def run_test(self):
 
@@ -39,7 +40,7 @@ class LLMQSimplePoSeTest(AxeTestFramework):
 
             t = time.time()
             while (not self.check_punished(mn) or not self.check_banned(mn)) and (time.time() - t) < 120:
-                self.mine_quorum(expected_contributions=i-1, expected_complaints=i-1, expected_commitments=i-1)
+                self.mine_quorum(expected_members=i-1, expected_contributions=i-1, expected_complaints=i-1, expected_commitments=i-1)
 
             assert(self.check_punished(mn) and self.check_banned(mn))
 
