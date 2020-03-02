@@ -499,7 +499,7 @@ class AxeTestFramework(BitcoinTestFramework):
             for i in range(0, num_nodes):
                 self.extra_args[i] += ["-dip3params=30:50"]
 
-    def set_dash_dip8_activation(self, activate_after_block):
+    def set_axe_dip8_activation(self, activate_after_block):
         window = int((activate_after_block + 2) / 3)
         threshold = int((window + 1) / 2)
         for i in range(0, self.num_nodes):
