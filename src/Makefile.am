@@ -253,6 +253,8 @@ BITCOIN_CORE_H = \
   wallet/coincontrol.h \
   wallet/crypter.h \
   wallet/db.h \
+  wallet/fees.h \
+  wallet/init.h \
   wallet/rpcwallet.h \
   wallet/wallet.h \
   wallet/walletdb.h \
@@ -375,6 +377,8 @@ libaxe_wallet_a_SOURCES = \
   privatesend/privatesend-util.cpp \
   wallet/crypter.cpp \
   wallet/db.cpp \
+  wallet/fees.cpp \
+  wallet/init.cpp \
   wallet/rpcdump.cpp \
   wallet/rpcwallet.cpp \
   wallet/wallet.cpp \
