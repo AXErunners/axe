@@ -332,13 +332,18 @@ public:
         assert(consensus.hashGenesisBlock == uint256S("0x00000c33631ca6f2f61368991ce2dc03306b5bb50bf7cede5cfbba6db38e52e6"));
         assert(genesis.hashMerkleRoot == uint256S("0x987a08c31d7f04f47f1aeccdffc73ca4336e32a6615f619b94cc7109e7c2a7ac"));
 
-        vSeeds.emplace_back("seed1.0313370.xyz", true);
-        vSeeds.emplace_back("seed2.0313370.xyz", true);
-        vSeeds.emplace_back("207.246.65.114", true);
-        vSeeds.emplace_back("45.32.168.226", true);
-        vSeeds.emplace_back("45.77.149.231", true);
-        vSeeds.emplace_back("144.202.3.252", true);
-        vSeeds.emplace_back("23.95.245.52", true);
+        // Note that of those which support the service bits prefix, most only support a subset of
+        // possible options.
+        // This is fine at runtime as we'll fall back to using them as a oneshot if they dont support the
+        // service bits we want, but we should get them updated to support all service bits wanted by any
+        // release ASAP to avoid it where possible.
+        vSeeds.emplace_back("seed1.0313370.xyz");
+        vSeeds.emplace_back("seed2.0313370.xyz");
+        vSeeds.emplace_back("207.246.65.114");
+        vSeeds.emplace_back("45.32.168.226");
+        vSeeds.emplace_back("45.77.149.231");
+        vSeeds.emplace_back("144.202.3.252");
+        vSeeds.emplace_back("23.95.245.52");
 
         // AXE addresses start with 'P'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,55);
@@ -514,14 +519,14 @@ public:
 
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.emplace_back("seed2.0313370.xyz", true);
-        vSeeds.emplace_back("149.248.61.149", true);
-        vSeeds.emplace_back("45.76.117.5", true);
-        vSeeds.emplace_back("136.244.68.58", true);
-        vSeeds.emplace_back("139.180.146.199", true);
-        vSeeds.emplace_back("104.238.131.87", true);
-        vSeeds.emplace_back("207.148.15.191", true);
-        vSeeds.emplace_back("45.77.1.27", true);
+        vSeeds.emplace_back("seed2.0313370.xyz"); // Just a static list of stable node(s), only supports x9
+        vSeeds.emplace_back("149.248.61.149");
+        vSeeds.emplace_back("45.76.117.5");
+        vSeeds.emplace_back("136.244.68.58");
+        vSeeds.emplace_back("139.180.146.199");
+        vSeeds.emplace_back("104.238.131.87");
+        vSeeds.emplace_back("207.148.15.191");
+        vSeeds.emplace_back("45.77.1.27");
 
         // Testnet AXE addresses start with 'y'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,140);
