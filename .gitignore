@@ -84,6 +84,7 @@ libconftest.dylib*
 Makefile
 axe-qt
 Axe-Qt.app
+background.tiff*
 !/depends/Makefile
 
 # Unit-tests
