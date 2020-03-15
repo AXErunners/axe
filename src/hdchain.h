@@ -4,8 +4,8 @@
 #ifndef AXE_HDCHAIN_H
 #define AXE_HDCHAIN_H
 
-#include "key.h"
-#include "sync.h"
+#include <key.h>
+#include <sync.h>
 
 /* hd account data model */
 class CHDAccount
