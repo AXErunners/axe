@@ -524,10 +524,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_DIP0008].nThreshold = 50; // 50% of 100
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("");
+        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000000000001a10897feeb"); // 28049
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("");
+        consensus.defaultAssumeValid = uint256S("0x000000e826e2f4bff3d2812c08d8a220869c0596ea7ee62fe3a7371846999e05"); // 28049
 
         pchMessageStart[0] = 0xce;
         pchMessageStart[1] = 0xe2;
@@ -595,12 +595,17 @@ public:
             {
                 {     0, uint256S("0x000005b709662e7bc5e89c71d3aba6c9d4623b4bbf44ac205caec55f4cefb483")},
                 {  3845, uint256S("0x000000001c5d59248ddced69c0030c1e77ec4523c79d89ca5278d5aebb84821d")},
+                {  7100, uint256S("0x00000153be6cc0501b1a531484a1b59973173731ece26812851b20205d95cb90")},
+                { 12000, uint256S("0x00000218ab50663cfc87b732d770242738411357ac71bd80e47b5c852694f007")},
+                { 18500, uint256S("0x0000004010b2fa84c89d2ee3be5ab41049e8a8b922c0f543b3261b91b675db59")},
+                { 21000, uint256S("0x00000063b4f439798cfbcbda003ccac7c67d5f445e1bae2e48cb6aa97cc93ef8")},
+                { 27000, uint256S("0x000002980bcd7d6c37d85fe27badff0b81799c4151b664eb4419cc2b4fb34d45")},
             }
         };
 
         chainTxData = ChainTxData{
-            1581201671, // * UNIX timestamp of last known number of transactions
-            3859,    // * total number of transactions between genesis and that timestamp
+            1584318120, // * UNIX timestamp of last known number of transactions
+            37666,    // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the SetBestChain debug.log lines)
             0.01        // * estimated number of transactions per second after that timestamp
         };
