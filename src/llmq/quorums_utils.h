@@ -5,10 +5,10 @@
 #ifndef AXE_QUORUMS_UTILS_H
 #define AXE_QUORUMS_UTILS_H
 
-#include "consensus/params.h"
-#include "net.h"
+#include <consensus/params.h>
+#include <net.h>
 
-#include "evo/deterministicmns.h"
+#include <evo/deterministicmns.h>
 
 #include <vector>
 

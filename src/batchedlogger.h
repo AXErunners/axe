@@ -5,7 +5,7 @@
 #ifndef AXE_BATCHEDLOGGER_H
 #define AXE_BATCHEDLOGGER_H
 
-#include "tinyformat.h"
+#include <tinyformat.h>
 
 class CBatchedLogger
 {
