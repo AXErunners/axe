@@ -70,6 +70,7 @@ BASE_SCRIPTS= [
     'multikeysporks.py',
     'llmq-signing.py', # NOTE: needs axe_hash to pass
     'llmq-chainlocks.py', # NOTE: needs axe_hash to pass
+    'llmq-connections.py', # NOTE: needs axe_hash to pass
     'llmq-simplepose.py', # NOTE: needs axe_hash to pass
     'llmq-is-cl-conflicts.py', # NOTE: needs axe_hash to pass
     'llmq-is-retroactive.py', # NOTE: needs axe_hash to pass
