@@ -123,6 +123,7 @@ void CChainParams::UpdateLLMQTestParams(int size, int threshold) {
     params.size = size;
     params.minSize = threshold;
     params.threshold = threshold;
+    params.dkgBadVotesThreshold = threshold;
 }
 
 void CChainParams::UpdateLLMQDevnetParams(int size, int threshold)
@@ -131,6 +132,7 @@ void CChainParams::UpdateLLMQDevnetParams(int size, int threshold)
     params.size = size;
     params.minSize = threshold;
     params.threshold = threshold;
+    params.dkgBadVotesThreshold = threshold;
 }
 
 static CBlock FindDevNetGenesisBlock(const Consensus::Params& params, const CBlock &prevBlock, const CAmount& reward)
@@ -169,7 +171,7 @@ static Consensus::LLMQParams llmq_test = {
         .dkgPhaseBlocks = 2,
         .dkgMiningWindowStart = 10, // dkgPhaseBlocks * 5 = after finalization
         .dkgMiningWindowEnd = 18,
-        .dkgBadVotesThreshold = 8,
+        .dkgBadVotesThreshold = 2,
 
         .signingActiveQuorumCount = 2, // just a few ones to allow easier testing
 
