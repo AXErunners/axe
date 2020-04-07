@@ -3429,7 +3429,6 @@ std::vector<CNode*> CConnman::CopyNodeVector()
 
 void CConnman::ReleaseNodeVector(const std::vector<CNode*>& vecNodes)
 {
-    LOCK(cs_vNodes);
     for(size_t i = 0; i < vecNodes.size(); ++i) {
         CNode* pnode = vecNodes[i];
         pnode->Release();
