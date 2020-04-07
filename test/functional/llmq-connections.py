@@ -3,7 +3,7 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-from test_framework.test_framework import DashTestFramework
+from test_framework.test_framework import AxeTestFramework
 from test_framework.util import *
 
 '''
@@ -13,10 +13,10 @@ Checks intra quorum connections
 
 '''
 
-class LLMQConnections(DashTestFramework):
+class LLMQConnections(AxeTestFramework):
     def set_test_params(self):
-        self.set_dash_test_params(15, 14, fast_dip3_enforcement=True)
-        self.set_dash_llmq_test_params(5, 3)
+        self.set_axe_test_params(15, 14, fast_dip3_enforcement=True)
+        self.set_axe_llmq_test_params(5, 3)
 
     def run_test(self):
         self.nodes[0].spork("SPORK_17_QUORUM_DKG_ENABLED", 0)
