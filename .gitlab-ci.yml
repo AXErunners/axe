@@ -23,8 +23,8 @@ builder-image:
   script:
     - cd ci
     - docker pull $CI_REGISTRY_IMAGE:builder-$CI_COMMIT_REF_SLUG || true
-    - docker pull $CI_REGISTRY_IMAGE:builder-develop || true
-    - docker build --cache-from $CI_REGISTRY_IMAGE:builder-$CI_COMMIT_REF_SLUG --cache-from $CI_REGISTRY_IMAGE:builder-develop -t $CI_REGISTRY_IMAGE:builder-$CI_COMMIT_REF_SLUG -f Dockerfile.builder .
+    - docker pull $CI_REGISTRY_IMAGE:builder-development || true
+    - docker build --cache-from $CI_REGISTRY_IMAGE:builder-$CI_COMMIT_REF_SLUG --cache-from $CI_REGISTRY_IMAGE:builder-development -t $CI_REGISTRY_IMAGE:builder-$CI_COMMIT_REF_SLUG -f Dockerfile.builder .
     - docker push $CI_REGISTRY_IMAGE:builder-$CI_COMMIT_REF_SLUG
 
 .build-depends-template:
