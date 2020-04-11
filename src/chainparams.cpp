@@ -176,6 +176,7 @@ static Consensus::LLMQParams llmq_test = {
         .signingActiveQuorumCount = 2, // just a few ones to allow easier testing
 
         .keepOldConnections = 3,
+        .recoveryMembers = 3,
 };
 
 // this one is for devnets only
@@ -195,6 +196,7 @@ static Consensus::LLMQParams llmq_devnet = {
         .signingActiveQuorumCount = 3, // just a few ones to allow easier testing
 
         .keepOldConnections = 4,
+        .recoveryMembers = 6,
 };
 
 static Consensus::LLMQParams llmq50_60 = {
@@ -213,6 +215,7 @@ static Consensus::LLMQParams llmq50_60 = {
         .signingActiveQuorumCount = 24, // a full day worth of LLMQs
 
         .keepOldConnections = 25,
+        .recoveryMembers = 25,
 };
 
 static Consensus::LLMQParams llmq400_60 = {
@@ -231,6 +234,7 @@ static Consensus::LLMQParams llmq400_60 = {
         .signingActiveQuorumCount = 4, // two days worth of LLMQs
 
         .keepOldConnections = 5,
+        .recoveryMembers = 100,
 };
 
 // Used for deployment and min-proto-version signalling, so it needs a higher threshold
@@ -250,6 +254,7 @@ static Consensus::LLMQParams llmq400_85 = {
         .signingActiveQuorumCount = 4, // four days worth of LLMQs
 
         .keepOldConnections = 5,
+        .recoveryMembers = 100,
 };
 
 
