@@ -1224,6 +1224,8 @@ public:
      */
     void postInitProcess(CScheduler& scheduler);
 
+    void schedulePrivateSendClientMaintenance(CScheduler& scheduler);
+
     /* Initialize AutoBackup functionality */
     static bool InitAutoBackup();
 
