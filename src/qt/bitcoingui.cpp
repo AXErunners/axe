@@ -601,7 +601,7 @@ void BitcoinGUI::createToolBars()
         QString theme = settings.value("theme", "").toString();
         QString logoImage = ":/images/axe_logo_toolbar";
          if (theme == "Traditional") {
-           logoImage = ":/images/axe_logo_blue";
+             logoImage = ":/images/axe_logo_toolbar_blue";
          }
 
         QPixmap logoPixmap(logoImage);
