@@ -106,8 +106,8 @@ class BitcoinTestFramework():
                           help="Attach a python debugger if test fails")
         parser.add_option("--usecli", dest="usecli", default=False, action="store_true",
                           help="use bitcoin-cli instead of RPC for all commands")
-        parser.add_option("--dashd-arg", dest="dashd_extra_args", default=[], type='string', action='append',
-                          help="Pass extra args to all dashd instances")
+        parser.add_option("--axed-arg", dest="axed_extra_args", default=[], type='string', action='append',
+                          help="Pass extra args to all axed instances")
         self.add_options(parser)
         (self.options, self.args) = parser.parse_args()
 
@@ -119,7 +119,7 @@ class BitcoinTestFramework():
 
         self.options.cachedir = os.path.abspath(self.options.cachedir)
 
-        self.extra_args_from_options = self.options.dashd_extra_args
+        self.extra_args_from_options = self.options.axed_extra_args
 
         # Set up temp directory and start logging
         if self.options.tmpdir:
