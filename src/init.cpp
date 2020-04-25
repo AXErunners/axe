@@ -512,7 +512,7 @@ std::string HelpMessage(HelpMessageMode mode)
 
     strUsage += g_wallet_init_interface->GetHelpString(showDebug);
     if (mode == HMM_BITCOIN_QT)
-        strUsage += HelpMessageOpt("-windowtitle=<name>", _("Sets a window title which is appended to \"Dash Core - \""));
+        strUsage += HelpMessageOpt("-windowtitle=<name>", _("Sets a window title which is appended to \"Axe Core - \""));
 
 #if ENABLE_ZMQ
     strUsage += HelpMessageGroup(_("ZeroMQ notification options:"));

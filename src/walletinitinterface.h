@@ -31,7 +31,7 @@ public:
     /** Close wallets */
     virtual void Close() = 0;
 
-    // Dash Specific WalletInitInterface
+    // Axe Specific WalletInitInterface
     virtual void AutoLockMasternodeCollaterals() = 0;
     virtual void InitPrivateSendSettings() = 0;
     virtual void InitKeePass() = 0;
@@ -53,7 +53,7 @@ public:
     void Stop() override {}
     void Close() override {}
 
-    // Dash Specific WalletInitInterface InitPrivateSendSettings
+    // Axe Specific WalletInitInterface InitPrivateSendSettings
     void AutoLockMasternodeCollaterals() override {}
     void InitPrivateSendSettings() override {}
     void InitKeePass() override {}
