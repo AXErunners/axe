@@ -2693,11 +2693,19 @@ void CConnman::OpenMasternodeConnection(const CAddress &addrConnect, bool probe)
 
 void CConnman::ThreadMessageHandler()
 {
+    int64_t nLastSendMessagesTimeMasternodes = 0;
+
     while (!flagInterruptMsgProc)
     {
         std::vector<CNode*> vNodesCopy = CopyNodeVector();
 
         bool fMoreWork = false;
+
+        bool fSkipSendMessagesForMasternodes = true;
+        if (GetTimeMillis() - nLastSendMessagesTimeMasternodes >= 100) {
+            fSkipSendMessagesForMasternodes = false;
+            nLastSendMessagesTimeMasternodes = GetTimeMillis();
+        }
 
         for (CNode* pnode : vNodesCopy)
         {
@@ -2710,7 +2718,7 @@ void CConnman::ThreadMessageHandler()
             if (flagInterruptMsgProc)
                 return;
             // Send messages
-            {
+            if (!fSkipSendMessagesForMasternodes || !pnode->fMasternode) {
                 LOCK(pnode->cs_sendProcessing);
                 m_msgproc->SendMessages(pnode, flagInterruptMsgProc);
             }
