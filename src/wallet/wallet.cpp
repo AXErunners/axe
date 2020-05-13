@@ -3075,13 +3075,6 @@ bool CWallet::SelectCoinsMinConf(const CAmount& nTargetValue, const int nConfMin
 
             if (tryDenom == 0 && CPrivateSend::IsDenominatedAmount(coin.txout.nValue)) continue; // we don't want denom values on first run
 
-            if (nCoinType == CoinType::ONLY_FULLY_MIXED) {
-                // Make sure it's actually mixed
-                COutPoint outpoint = COutPoint(pcoin->GetHash(), i);
-                int nRounds = GetRealOutpointPrivateSendRounds(outpoint);
-                if (nRounds < privateSendClient.nPrivateSendRounds) continue;
-            }
-
             if (coin.txout.nValue == nTargetValue)
             {
                 setCoinsRet.insert(coin);
@@ -3183,12 +3176,6 @@ bool CWallet::SelectCoins(const std::vector<COutput>& vAvailableCoins, const CAm
             if(!out.fSpendable)
                 continue;
 
-            if(nCoinType == CoinType::ONLY_FULLY_MIXED) {
-                COutPoint outpoint = COutPoint(out.tx->GetHash(),out.i);
-                int nRounds = GetCappedOutpointPrivateSendRounds(outpoint);
-                // make sure it's actually mixed
-                if(nRounds < privateSendClient.nPrivateSendRounds) continue;
-            }
             nValueRet += out.tx->tx->vout[out.i].nValue;
             setCoinsRet.insert(CInputCoin(out.tx, out.i));
 
