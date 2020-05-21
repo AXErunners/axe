@@ -310,7 +310,9 @@ void CDeterministicMNList::PoSePunish(const uint256& proTxHash, int penalty, boo
     assert(penalty > 0);
 
     auto dmn = GetMN(proTxHash);
-    assert(dmn);
+    if (!dmn) {
+        throw(std::runtime_error(strprintf("%s: Can't find a masternode with proTxHash=%s", __func__, proTxHash.ToString())));
+    }
 
     int maxPenalty = CalcMaxPoSePenalty();
 
@@ -336,7 +338,9 @@ void CDeterministicMNList::PoSePunish(const uint256& proTxHash, int penalty, boo
 void CDeterministicMNList::PoSeDecrease(const uint256& proTxHash)
 {
     auto dmn = GetMN(proTxHash);
-    assert(dmn);
+    if (!dmn) {
+        throw(std::runtime_error(strprintf("%s: Can't find a masternode with proTxHash=%s", __func__, proTxHash.ToString())));
+    }
     assert(dmn->pdmnState->nPoSePenalty > 0 && dmn->pdmnState->nPoSeBanHeight == -1);
 
     auto newState = std::make_shared<CDeterministicMNState>(*dmn->pdmnState);
@@ -411,7 +415,9 @@ CDeterministicMNList CDeterministicMNList::ApplyDiff(const CBlockIndex* pindex, 
 
     for (const auto& id : diff.removedMns) {
         auto dmn = result.GetMNByInternalId(id);
-        assert(dmn);
+        if (!dmn) {
+            throw(std::runtime_error(strprintf("%s: can't find a removed masternode, id=%d", __func__, id)));
+        }
         result.RemoveMN(dmn->proTxHash);
     }
     for (const auto& dmn : diff.addedMNs) {
@@ -429,7 +435,9 @@ CDeterministicMNList CDeterministicMNList::ApplyDiff(const CBlockIndex* pindex, 
 
 void CDeterministicMNList::AddMN(const CDeterministicMNCPtr& dmn)
 {
-    assert(!mnMap.find(dmn->proTxHash));
+    if (mnMap.find(dmn->proTxHash)) {
+        throw(std::runtime_error(strprintf("%s: can't add a duplicate masternode with the same proTxHash=%s", __func__, dmn->proTxHash.ToString())));
+    }
     mnMap = mnMap.set(dmn->proTxHash, dmn);
     mnInternalIdMap = mnInternalIdMap.set(dmn->internalId, dmn->proTxHash);
     AddUniqueProperty(dmn, dmn->collateralOutpoint);
@@ -458,7 +466,9 @@ void CDeterministicMNList::UpdateMN(const CDeterministicMNCPtr& oldDmn, const CD
 void CDeterministicMNList::UpdateMN(const uint256& proTxHash, const CDeterministicMNStateCPtr& pdmnState)
 {
     auto oldDmn = mnMap.find(proTxHash);
-    assert(oldDmn != nullptr);
+    if (!oldDmn) {
+        throw(std::runtime_error(strprintf("%s: Can't find a masternode with proTxHash=%s", __func__, proTxHash.ToString())));
+    }
     UpdateMN(*oldDmn, pdmnState);
 }
 
@@ -474,7 +484,9 @@ void CDeterministicMNList::UpdateMN(const CDeterministicMNCPtr& oldDmn, const CD
 void CDeterministicMNList::RemoveMN(const uint256& proTxHash)
 {
     auto dmn = GetMN(proTxHash);
-    assert(dmn != nullptr);
+    if (!dmn) {
+        throw(std::runtime_error(strprintf("%s: Can't find a masternode with proTxHash=%s", __func__, proTxHash.ToString())));
+    }
     DeleteUniqueProperty(dmn, dmn->collateralOutpoint);
     if (dmn->pdmnState->addr != CService()) {
         DeleteUniqueProperty(dmn, dmn->pdmnState->addr);
@@ -1012,9 +1024,14 @@ bool CDeterministicMNManager::UpgradeDiff(CDBBatch& batch, const CBlockIndex* pi
     // manually apply updated MNs and calc new state diffs
     for (auto& p : oldDiff.updatedMNs) {
         auto oldMN = newMNList.GetMN(p.first);
+        if (!oldMN) {
+            throw(std::runtime_error(strprintf("%s: Can't find an old masternode with proTxHash=%s", __func__, p.first.ToString())));
+        }
         newMNList.UpdateMN(p.first, p.second);
         auto newMN = newMNList.GetMN(p.first);
-        assert(oldMN && newMN);
+        if (!newMN) {
+            throw(std::runtime_error(strprintf("%s: Can't find a new masternode with proTxHash=%s", __func__, p.first.ToString())));
+        }
 
         newDiff.updatedMNs.emplace(std::piecewise_construct,
                 std::forward_as_tuple(oldMN->internalId),
