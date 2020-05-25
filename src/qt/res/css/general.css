@@ -6,3 +6,105 @@
     This file contains style changes used by both dash themes:  "Light" and "Dark"
 **/
 
+
+/******************************************************
+QRadioButton
+******************************************************/
+
+QRadioButton {
+    background-color: transparent;
+}
+QRadioButton::indicator {
+    width: 13px;
+    height: 13px;
+    margin-right: 5px;
+}
+QRadioButton::indicator:unchecked {
+    image: url(':/images/radio_normal');
+}
+QRadioButton::indicator:hover:unchecked {
+    image: url(':/images/radio_normal_hover');
+}
+QRadioButton::indicator:unchecked:pressed {
+    image: url(':/images/radio_normal_pressed');
+}
+QRadioButton::indicator:checked {
+    image: url(':/images/radio_checked');
+}
+QRadioButton::indicator:checked:hover {
+    image: url(':/images/radio_checked_hover');
+}
+QRadioButton::indicator:checked:pressed {
+    image: url(':/images/radio_checked_pressed');
+}
+QRadioButton::indicator:checked:disabled {
+    image: url(':/images/radio_checked_disabled');
+}
+QRadioButton::indicator:unchecked:disabled {
+    image: url(':/images/radio_normal_disabled');
+}
+
+/******************************************************
+QCheckBox & QTreeWidget::indicator checkboxes
+******************************************************/
+
+QCheckBox{
+    background-color: transparent;
+    min-height:20px;
+}
+QTreeWidget::indicator,
+QCheckBox::indicator {
+    width: 13px;
+    height: 13px;
+    margin-right: 5px;
+}
+
+QTreeWidget::indicator:unchecked,
+QCheckBox::indicator:unchecked {
+    image: url(':/images/checkbox_normal');
+}
+QTreeWidget::indicator:hover:unchecked,
+QCheckBox::indicator:hover:unchecked {
+    image: url(':/images/checkbox_normal_hover');
+}
+QTreeWidget::indicator:unchecked:pressed,
+QCheckBox::indicator:unchecked:pressed {
+    image: url(':/images/checkbox_normal_pressed');
+}
+QTreeWidget::indicator:unchecked:disabled,
+QCheckBox::indicator:unchecked:disabled {
+    image: url(':/images/checkbox_normal_disabled');
+}
+QTreeWidget::indicator:checked,
+QCheckBox::indicator:checked {
+    image: url(':/images/checkbox_checked');
+}
+QTreeWidget::indicator:checked:hover,
+QCheckBox::indicator:checked:hover {
+    image: url(':/images/checkbox_checked_hover');
+}
+QTreeWidget::indicator:checked:pressed,
+QCheckBox::indicator:checked:pressed {
+    image: url(':/images/checkbox_checked_pressed');
+}
+QTreeWidget::indicator:checked:disabled,
+QCheckBox::indicator:checked:disabled {
+    image: url(':/images/checkbox_checked_disabled');
+}
+QTreeWidget::indicator:indeterminate,
+QCheckBox::indicator:indeterminate {
+    image: url(':/images/checkbox_partly_checked');
+}
+QTreeWidget::indicator:indeterminate:hover,
+QCheckBox::indicator:indeterminate:hover {
+    image: url(':/images/checkbox_partly_checked_hover');
+}
+QTreeWidget::indicator:indeterminate:pressed,
+QCheckBox::indicator:indeterminate:pressed {
+    image: url(':/images/checkbox_partly_checked_pressed');
+}
+QTreeWidget::indicator:indeterminate:disabled,
+QCheckBox::indicator:indeterminate:disabled {
+    image: url(':/images/checkbox_partly_checked_disabled');
+}
+
