@@ -63,19 +63,43 @@ QScrollBar:up-arrow, QScrollBar:down-arrow, QScrollBar:left-arrow, QScrollBar:ri
 }
 
 QScrollBar:up-arrow {
-    background-image: url(':/images/arrow_up_small');
+    background-image: url(':/images/arrow_up_normal');
+}
+QScrollBar:up-arrow:hover {
+    background-image: url(':/images/arrow_up_hover');
+}
+QScrollBar:up-arrow:pressed {
+    background-image: url(':/images/arrow_up_pressed');
 }
 
 QScrollBar:down-arrow {
-    background-image: url(':/images/arrow_down_small');
+    background-image: url(':/images/arrow_down_normal');
+}
+QScrollBar:down-arrow:hover {
+    background-image: url(':/images/arrow_down_hover');
+}
+QScrollBar:down-arrow:pressed {
+    background-image: url(':/images/arrow_down_pressed');
 }
 
 QScrollBar:left-arrow {
-    background-image: url(':/images/arrow_left_small');
+    background-image: url(':/images/arrow_left_normal');
+}
+QScrollBar:left-arrow:hover {
+    background-image: url(':/images/arrow_left_hover');
+}
+QScrollBar:left-arrow:pressed {
+    background-image: url(':/images/arrow_left_pressed');
 }
 
 QScrollBar:right-arrow {
-    background-image: url(':/images/arrow_right_small');
+    background-image: url(':/images/arrow_right_normal');
+}
+QScrollBar:right-arrow:hover {
+    background-image: url(':/images/arrow_right_hover');
+}
+QScrollBar:right-arrow:pressed {
+    background-image: url(':/images/arrow_right_pressed');
 }
 
 QDialog#HelpMessageDialog QScrollBar:vertical, QDialog#HelpMessageDialog QScrollBar:horizontal {

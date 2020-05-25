@@ -303,11 +303,22 @@ BITCOIN_QT_CPP += $(BITCOIN_QT_WALLET_CPP)
 endif
 
 RES_IMAGES = \
-  qt/res/images/arrow_down.png \
-  qt/res/images/arrow_down_small.png \
-  qt/res/images/arrow_left_small.png \
-  qt/res/images/arrow_right_small.png \
-  qt/res/images/arrow_up_small.png \
+  qt/res/images/arrow_down_normal.png \
+  qt/res/images/arrow_down_hover.png \
+  qt/res/images/arrow_down_pressed.png \
+  qt/res/images/arrow_left_normal.png \
+  qt/res/images/arrow_left_hover.png \
+  qt/res/images/arrow_left_pressed.png \
+  qt/res/images/arrow_right_normal.png \
+  qt/res/images/arrow_right_hover.png \
+  qt/res/images/arrow_right_pressed.png \
+  qt/res/images/arrow_up_normal.png \
+  qt/res/images/arrow_up_hover.png \
+  qt/res/images/arrow_up_pressed.png \
+  qt/res/images/arrow_light_down_normal.png \
+  qt/res/images/arrow_light_down_hover.png \
+  qt/res/images/arrow_light_up_normal.png \
+  qt/res/images/arrow_light_up_hover.png \
   qt/res/images/checkbox_normal.png \
   qt/res/images/checkbox_normal_hover.png \
   qt/res/images/checkbox_normal_pressed.png \
