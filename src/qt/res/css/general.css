@@ -225,18 +225,18 @@ QTreeWidget {
     background-color: transparent;
 }
 QTreeWidget::branch::closed:has-children {
-    margin: 0 -2px 0 2px;
+    padding: 0 -2px 0 2px;
     image: url(':/images/arrow_right_normal');
 }
 QTreeWidget::branch::closed:has-children:hover {
-    margin: 0 -2px 0 2px;
+    padding: 0 -2px 0 2px;
     image: url(':/images/arrow_right_hover');
 }
 QTreeWidget::branch::open {
-    margin: 0 -2px 0 2px;
+    padding: 0 -2px 0 2px;
     image: url(':/images/arrow_down_normal');
 }
 QTreeWidget::branch::open:hover {
-    margin: 0 -2px 0 2px;
+    padding: 0 -2px 0 2px;
     image: url(':/images/arrow_down_hover');
 }
