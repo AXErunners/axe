@@ -996,6 +996,14 @@ QString loadStyleSheet()
             if (qFileGeneral.open(QFile::ReadOnly)) {
                 stylesheet.get()->append(QLatin1String(qFileGeneral.readAll()));
             }
+
+#ifndef Q_OS_MAC
+            // Apply some styling to scrollbars
+            QFile qFileScrollbars(QString(":/css/scrollbars"));
+            if (qFileScrollbars.open(QFile::ReadOnly)) {
+                stylesheet.get()->append(QLatin1String(qFileScrollbars.readAll()));
+            }
+#endif
         }
 
         QFile qFileTheme(":themes/" + theme);
