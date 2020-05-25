@@ -84,7 +84,6 @@
         <file alias="axe_logo_horizontal">res/images/axe_logo_horizontal.png</file>
         <file alias="axe_logo_toolbar">res/images/axe_logo_toolbar.png</file>
         <file alias="axe_logo_toolbar_blue">res/images/axe_logo_toolbar_blue.png</file>
-        <file alias="qtreeview_selected">res/images/qtreeview_selected.png</file>
         <file alias="radio_normal">res/images/radio_normal.png</file>
         <file alias="radio_normal_hover">res/images/radio_normal_hover.png</file>
         <file alias="radio_normal_pressed">res/images/radio_normal_pressed.png</file>

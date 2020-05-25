@@ -323,7 +323,6 @@ RES_IMAGES = \
   qt/res/images/axe_logo_horizontal.png \
   qt/res/images/axe_logo_toolbar.png \
   qt/res/images/axe_logo_toolbar_blue.png \
-  qt/res/images/qtreeview_selected.png \
   qt/res/images/radio_normal.png \
   qt/res/images/radio_normal_hover.png \
   qt/res/images/radio_normal_pressed.png \
