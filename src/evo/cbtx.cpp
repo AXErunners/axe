@@ -108,39 +108,44 @@ bool CalcCbTxMerkleRootMNList(const CBlock& block, const CBlockIndex* pindexPrev
 
     int64_t nTime1 = GetTimeMicros();
 
-    CDeterministicMNList tmpMNList;
-    if (!deterministicMNManager->BuildNewListFromBlock(block, pindexPrev, state, tmpMNList, false)) {
-        return false;
+    try {
+        CDeterministicMNList tmpMNList;
+        if (!deterministicMNManager->BuildNewListFromBlock(block, pindexPrev, state, tmpMNList, false)) {
+            return false;
+        }
+
+        int64_t nTime2 = GetTimeMicros(); nTimeDMN += nTime2 - nTime1;
+        LogPrint(BCLog::BENCHMARK, "            - BuildNewListFromBlock: %.2fms [%.2fs]\n", 0.001 * (nTime2 - nTime1), nTimeDMN * 0.000001);
+
+        CSimplifiedMNList sml(tmpMNList);
+
+        int64_t nTime3 = GetTimeMicros(); nTimeSMNL += nTime3 - nTime2;
+        LogPrint(BCLog::BENCHMARK, "            - CSimplifiedMNList: %.2fms [%.2fs]\n", 0.001 * (nTime3 - nTime2), nTimeSMNL * 0.000001);
+
+        static CSimplifiedMNList smlCached;
+        static uint256 merkleRootCached;
+        static bool mutatedCached{false};
+
+        if (sml.mnList == smlCached.mnList) {
+            merkleRootRet = merkleRootCached;
+            return !mutatedCached;
+        }
+
+        bool mutated = false;
+        merkleRootRet = sml.CalcMerkleRoot(&mutated);
+
+        int64_t nTime4 = GetTimeMicros(); nTimeMerkle += nTime4 - nTime3;
+        LogPrint(BCLog::BENCHMARK, "            - CalcMerkleRoot: %.2fms [%.2fs]\n", 0.001 * (nTime4 - nTime3), nTimeMerkle * 0.000001);
+
+        smlCached = std::move(sml);
+        merkleRootCached = merkleRootRet;
+        mutatedCached = mutated;
+
+        return !mutated;
+    } catch (const std::exception& e) {
+        LogPrintf("%s -- failed: %s\n", __func__, e.what());
+        return state.DoS(100, false, REJECT_INVALID, "failed-calc-cb-mnmerkleroot");
     }
-
-    int64_t nTime2 = GetTimeMicros(); nTimeDMN += nTime2 - nTime1;
-    LogPrint(BCLog::BENCHMARK, "            - BuildNewListFromBlock: %.2fms [%.2fs]\n", 0.001 * (nTime2 - nTime1), nTimeDMN * 0.000001);
-
-    CSimplifiedMNList sml(tmpMNList);
-
-    int64_t nTime3 = GetTimeMicros(); nTimeSMNL += nTime3 - nTime2;
-    LogPrint(BCLog::BENCHMARK, "            - CSimplifiedMNList: %.2fms [%.2fs]\n", 0.001 * (nTime3 - nTime2), nTimeSMNL * 0.000001);
-
-    static CSimplifiedMNList smlCached;
-    static uint256 merkleRootCached;
-    static bool mutatedCached{false};
-
-    if (sml.mnList == smlCached.mnList) {
-        merkleRootRet = merkleRootCached;
-        return !mutatedCached;
-    }
-
-    bool mutated = false;
-    merkleRootRet = sml.CalcMerkleRoot(&mutated);
-
-    int64_t nTime4 = GetTimeMicros(); nTimeMerkle += nTime4 - nTime3;
-    LogPrint(BCLog::BENCHMARK, "            - CalcMerkleRoot: %.2fms [%.2fs]\n", 0.001 * (nTime4 - nTime3), nTimeMerkle * 0.000001);
-
-    smlCached = std::move(sml);
-    merkleRootCached = merkleRootRet;
-    mutatedCached = mutated;
-
-    return !mutated;
 }
 
 bool CalcCbTxMerkleRootQuorums(const CBlock& block, const CBlockIndex* pindexPrev, uint256& merkleRootRet, CValidationState& state)

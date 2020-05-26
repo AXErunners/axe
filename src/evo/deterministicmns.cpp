@@ -538,7 +538,7 @@ bool CDeterministicMNManager::ProcessBlock(const CBlock& block, const CBlockInde
 
     int nHeight = pindex->nHeight;
 
-    {
+    try {
         LOCK(cs);
 
         if (!BuildNewListFromBlock(block, pindex->pprev, _state, newList, true)) {
@@ -564,6 +564,9 @@ bool CDeterministicMNManager::ProcessBlock(const CBlock& block, const CBlockInde
             LogPrintf("CDeterministicMNManager::%s -- Wrote snapshot. nHeight=%d, mapCurMNs.allMNsCount=%d\n",
                 __func__, nHeight, newList.GetAllMNsCount());
         }
+    } catch (const std::exception& e) {
+        LogPrintf("CDeterministicMNManager::%s -- internal error: %s\n", __func__, e.what());
+        return _state.DoS(100, false, REJECT_INVALID, "failed-dmn-block");
     }
 
     // Don't hold cs while calling signals
