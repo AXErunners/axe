@@ -317,6 +317,10 @@ RES_IMAGES = \
   qt/res/images/arrow_up_pressed.png \
   qt/res/images/arrow_light_down_normal.png \
   qt/res/images/arrow_light_down_hover.png \
+  qt/res/images/arrow_light_left_normal.png \
+  qt/res/images/arrow_light_left_hover.png \
+  qt/res/images/arrow_light_right_normal.png \
+  qt/res/images/arrow_light_right_hover.png \
   qt/res/images/arrow_light_up_normal.png \
   qt/res/images/arrow_light_up_hover.png \
   qt/res/images/checkbox_normal.png \

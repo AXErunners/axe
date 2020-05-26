@@ -78,6 +78,10 @@
         <file alias="arrow_up_pressed">res/images/arrow_up_pressed.png</file>
         <file alias="arrow_light_down_normal">res/images/arrow_light_down_normal.png</file>
         <file alias="arrow_light_down_hover">res/images/arrow_light_down_hover.png</file>
+        <file alias="arrow_light_left_normal">res/images/arrow_light_left_normal.png</file>
+        <file alias="arrow_light_left_hover">res/images/arrow_light_left_hover.png</file>
+        <file alias="arrow_light_right_normal">res/images/arrow_light_right_normal.png</file>
+        <file alias="arrow_light_right_hover">res/images/arrow_light_right_hover.png</file>
         <file alias="arrow_light_up_normal">res/images/arrow_light_up_normal.png</file>
         <file alias="arrow_light_up_hover">res/images/arrow_light_up_hover.png</file>
         <file alias="checkbox_normal">res/images/checkbox_normal.png</file>
