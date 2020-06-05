@@ -607,9 +607,8 @@ void BitcoinGUI::createToolBars()
         toolbar->addWidget(spacer);
 
         QLabel *logoLabel = new QLabel();
-        QString theme = settings.value("theme", "").toString();
         QString logoImage = ":/images/axe_logo_toolbar";
-        if (theme == "Traditional") {
+        if (!GUIUtil::axeThemeActive()) {
             logoImage = ":/images/axe_logo_toolbar_blue";
         }
 

@@ -85,6 +85,8 @@ void ForceActivation();
 
 namespace GUIUtil {
 
+// The name of the traditional theme
+static const QString traditionalTheme = "Traditional";
 // The theme to set by default if settings are missing or incorrect
 static const QString defaultTheme = "Light";
 // The prefix a theme name should have if we want to apply dark colors and styles to it
@@ -1019,7 +1021,7 @@ bool axeThemeActive()
 {
     QSettings settings;
     QString theme = settings.value("theme", "").toString();
-    return theme == defaultTheme || theme == darkThemePrefix;
+    return theme != traditionalTheme;
 }
 
 void setClipboard(const QString& str)
