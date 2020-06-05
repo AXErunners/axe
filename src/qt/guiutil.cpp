@@ -974,22 +974,44 @@ void migrateQtSettings()
 // Open CSS when configured
 QString loadStyleSheet()
 {
+    static std::unique_ptr<QString> stylesheet;
+
+    if (stylesheet.get() == nullptr) {
+
+        stylesheet = std::make_unique<QString>();
+
+        QSettings settings;
+        QDir themes(":themes");
+        QString theme = settings.value("theme", "").toString();
+
+        // Make sure settings are pointing to an existent theme
+        if (theme.isEmpty() || !themes.exists(theme)) {
+            theme = defaultTheme;
+            settings.setValue("theme", theme);
+        }
+
+        // If light/dark theme is used load general styles first
+        if (axeThemeActive()) {
+            QFile qFileGeneral(":css/general");
+            if (qFileGeneral.open(QFile::ReadOnly)) {
+                stylesheet.get()->append(QLatin1String(qFileGeneral.readAll()));
+            }
+        }
+
+        QFile qFileTheme(":themes/" + theme);
+        if (qFileTheme.open(QFile::ReadOnly)) {
+            stylesheet.get()->append(QLatin1String(qFileTheme.readAll()));
+        }
+    }
+
+    return *stylesheet.get();
+}
+
+bool axeThemeActive()
+{
     QSettings settings;
     QString theme = settings.value("theme", "").toString();
-
-    QDir themes(":themes");
-    // Make sure settings are pointing to an existent theme
-    if (theme.isEmpty() || !themes.exists(theme)) {
-        theme = defaultTheme;
-        settings.setValue("theme", theme);
-    }
-
-    QFile qFile(":themes/" + theme);
-    if (qFile.open(QFile::ReadOnly)) {
-        return QLatin1String(qFile.readAll());
-    }
-
-    return QString();
+    return theme == defaultTheme || theme == darkThemePrefix;
 }
 
 void setClipboard(const QString& str)
