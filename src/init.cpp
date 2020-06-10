@@ -1768,7 +1768,7 @@ bool AppInitMain()
 
     // ********************************************************* Step 7a: check lite mode and load sporks
 
-    // lite mode disables all Axe-specific functionality
+    // lite mode disables governance validation
     fLiteMode = gArgs.GetBoolArg("-litemode", false);
     LogPrintf("fLiteMode %d\n", fLiteMode);
 
