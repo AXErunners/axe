@@ -519,7 +519,7 @@ UniValue decoderawtransaction(const JSONRPCRequest& request)
             "         \"reqSigs\" : n,            (numeric) The required sigs\n"
             "         \"type\" : \"pubkeyhash\",  (string) The type, eg 'pubkeyhash'\n"
             "         \"addresses\" : [           (json array of string)\n"
-            "           \"XwnLY9Tf7Zsef8gMGL2fhWA9ZmMjt4KPwG\"   (string) Axe address\n"
+            "           \"PXBjw3Bwm7tN1rJ83rBr49nhV1AwHToLXc\"   (string) Axe address\n"
             "           ,...\n"
             "         ]\n"
             "       }\n"
