@@ -87,14 +87,14 @@ class ChainstateWriteCrashTest(BitcoinTestFramework):
                 return utxo_hash
             except:
                 # An exception here should mean the node is about to crash.
-                # If bitcoind exits, then try again.  wait_for_node_exit()
-                # should raise an exception if bitcoind doesn't exit.
+                # If axed exits, then try again.  wait_for_node_exit()
+                # should raise an exception if axed doesn't exit.
                 self.wait_for_node_exit(node_index, timeout=10)
             self.crashed_on_restart += 1
             time.sleep(1)
 
-        # If we got here, bitcoind isn't coming back up on restart.  Could be a
-        # bug in bitcoind, or we've gotten unlucky with our dbcrash ratio --
+        # If we got here, axed isn't coming back up on restart.  Could be a
+        # bug in axed, or we've gotten unlucky with our dbcrash ratio --
         # perhaps we generated a test case that blew up our cache?
         # TODO: If this happens a lot, we should try to restart without -dbcrashratio
         # and make sure that recovery happens.
