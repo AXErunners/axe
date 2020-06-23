@@ -4,6 +4,8 @@
 
 `D`: [![Build Status](https://gitlab.com/axerunners/axe/badges/development/pipeline.svg)](https://gitlab.com/axerunners/axe/pipelines)
 
+`t`: [![Version tag](https://img.shields.io/github/tag/axerunners/axe.svg)](https://github.com/axerunners/axe/tags)
+
 What is Axe?
 -------------
 
