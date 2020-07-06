@@ -1517,6 +1517,13 @@ bool AppInitParameterInteraction()
         }
     }
 
+    fDisableGovernance = gArgs.GetBoolArg("-disablegovernance", false);
+    LogPrintf("fDisableGovernance %d\n", fDisableGovernance);
+
+    if (fDisableGovernance) {
+        InitWarning(_("You are starting with governance validation disabled. This is expected if you are running a pruned node"));
+    }
+
     return true;
 }
 
@@ -1786,15 +1793,7 @@ bool AppInitMain()
         nMaxOutboundLimit = gArgs.GetArg("-maxuploadtarget", DEFAULT_MAX_UPLOAD_TARGET)*1024*1024;
     }
 
-    // ********************************************************* Step 7a: check lite mode and load sporks
-
-    // lite mode disables governance validation
-    fDisableGovernance = gArgs.GetBoolArg("-disablegovernance", false);
-    LogPrintf("fDisableGovernance %d\n", fDisableGovernance);
-
-    if (fDisableGovernance) {
-        InitWarning(_("You are starting with governance validation disabled. This is expected if you are running a pruned node."));
-    }
+    // ********************************************************* Step 7a: Load sporks
 
     uiInterface.InitMessage(_("Loading sporks cache..."));
     CFlatDB<CSporkManager> flatdb6("sporks.dat", "magicSporkCache");
