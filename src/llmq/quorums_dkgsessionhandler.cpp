@@ -85,9 +85,8 @@ void CDKGPendingMessages::Clear()
 
 //////
 
-CDKGSessionHandler::CDKGSessionHandler(const Consensus::LLMQParams& _params, ctpl::thread_pool& _messageHandlerPool, CBLSWorker& _blsWorker, CDKGSessionManager& _dkgManager) :
+CDKGSessionHandler::CDKGSessionHandler(const Consensus::LLMQParams& _params, CBLSWorker& _blsWorker, CDKGSessionManager& _dkgManager) :
     params(_params),
-    messageHandlerPool(_messageHandlerPool),
     blsWorker(_blsWorker),
     dkgManager(_dkgManager),
     curSession(std::make_shared<CDKGSession>(_params, _blsWorker, _dkgManager)),
