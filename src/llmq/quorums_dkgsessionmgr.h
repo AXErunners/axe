@@ -50,8 +50,8 @@ public:
     CDKGSessionManager(CDBWrapper& _llmqDb, CBLSWorker& _blsWorker);
     ~CDKGSessionManager();
 
-    void StartMessageHandlerPool();
-    void StopMessageHandlerPool();
+    void StartThreads();
+    void StopThreads();
 
     void UpdatedBlockTip(const CBlockIndex *pindexNew, bool fInitialDownload);
 

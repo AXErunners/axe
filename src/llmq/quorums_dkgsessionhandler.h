@@ -126,6 +126,9 @@ public:
     void UpdatedBlockTip(const CBlockIndex *pindexNew);
     void ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStream& vRecv, CConnman& connman);
 
+    void StartThread();
+    void StopThread();
+
 private:
     bool InitNewQuorum(const CBlockIndex* pindexQuorum);
 

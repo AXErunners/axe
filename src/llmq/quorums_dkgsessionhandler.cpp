@@ -96,18 +96,10 @@ CDKGSessionHandler::CDKGSessionHandler(const Consensus::LLMQParams& _params, ctp
     pendingJustifications((size_t)_params.size * 2, MSG_QUORUM_JUSTIFICATION),
     pendingPrematureCommitments((size_t)_params.size * 2, MSG_QUORUM_PREMATURE_COMMITMENT)
 {
-    phaseHandlerThread = std::thread([this] {
-        RenameThread(strprintf("axe-q-phase-%d", (uint8_t)params.type).c_str());
-        PhaseHandlerThread();
-    });
 }
 
 CDKGSessionHandler::~CDKGSessionHandler()
 {
-    stopRequested = true;
-    if (phaseHandlerThread.joinable()) {
-        phaseHandlerThread.join();
-    }
 }
 
 void CDKGSessionHandler::UpdatedBlockTip(const CBlockIndex* pindexNew)
@@ -143,6 +135,35 @@ void CDKGSessionHandler::ProcessMessage(CNode* pfrom, const std::string& strComm
         pendingJustifications.PushPendingMessage(pfrom->GetId(), vRecv);
     } else if (strCommand == NetMsgType::QPCOMMITMENT) {
         pendingPrematureCommitments.PushPendingMessage(pfrom->GetId(), vRecv);
+    }
+}
+
+void CDKGSessionHandler::StartThread()
+{
+    auto threadName = [&]() -> auto {
+        switch (params.type) {
+            case Consensus::LLMQ_50_60:
+                return "q-phase-1";
+            case Consensus::LLMQ_400_60:
+                return "q-phase-2";
+            case Consensus::LLMQ_400_85:
+                return "q-phase-3";
+            case Consensus::LLMQ_TEST:
+                return "q-phase-100";
+            case Consensus::LLMQ_DEVNET:
+                return "q-phase-101";
+            default:
+                throw std::runtime_error("Tried to start a CDKGSessionHandler thread for LLMQ_NONE.");
+        }
+    };
+    phaseHandlerThread = std::thread(&TraceThread<std::function<void()> >, threadName(), std::function<void()>(std::bind(&CDKGSessionHandler::PhaseHandlerThread, this)));
+}
+
+void CDKGSessionHandler::StopThread()
+{
+    stopRequested = true;
+    if (phaseHandlerThread.joinable()) {
+        phaseHandlerThread.join();
     }
 }
 
