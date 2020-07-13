@@ -95,6 +95,7 @@ private:
 
     QMenuBar *appMenuBar;
     QToolBar *appToolBar;
+    QAction* appToolBarLogoAction;
     QToolButton *overviewAction;
     QToolButton *historyAction;
     QToolButton *masternodeAction;
