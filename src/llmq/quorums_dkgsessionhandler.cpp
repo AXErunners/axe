@@ -95,6 +95,9 @@ CDKGSessionHandler::CDKGSessionHandler(const Consensus::LLMQParams& _params, CBL
     pendingJustifications((size_t)_params.size * 2, MSG_QUORUM_JUSTIFICATION),
     pendingPrematureCommitments((size_t)_params.size * 2, MSG_QUORUM_PREMATURE_COMMITMENT)
 {
+    if (params.type == Consensus::LLMQ_NONE) {
+        throw std::runtime_error("Can't initialize CDKGSessionHandler with LLMQ_NONE type.");
+    }
 }
 
 CDKGSessionHandler::~CDKGSessionHandler()
