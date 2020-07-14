@@ -143,25 +143,8 @@ void CDKGSessionHandler::StartThread()
         throw std::runtime_error("Tried to start an already started CDKGSessionHandler thread.");
     }
 
-    auto threadName = [&]() -> auto {
-        switch (params.type) {
-            case Consensus::LLMQ_50_60:
-                return "q-phase-1";
-            case Consensus::LLMQ_400_60:
-                return "q-phase-2";
-            case Consensus::LLMQ_400_85:
-                return "q-phase-3";
-            case Consensus::LLMQ_TEST:
-                return "q-phase-100";
-            case Consensus::LLMQ_DEVNET:
-                return "q-phase-101";
-            case Consensus::LLMQ_NONE:
-                throw std::runtime_error("Tried to start a CDKGSessionHandler thread for LLMQ_NONE.");
-            default:
-                throw std::runtime_error("Tried to start a CDKGSessionHandler thread for an unknown LLMQ type.");
-        }
-    };
-    phaseHandlerThread = std::thread(&TraceThread<std::function<void()> >, threadName(), std::function<void()>(std::bind(&CDKGSessionHandler::PhaseHandlerThread, this)));
+    std::string threadName = strprintf("q-phase-%d", params.type);
+    phaseHandlerThread = std::thread(&TraceThread<std::function<void()> >, threadName, std::function<void()>(std::bind(&CDKGSessionHandler::PhaseHandlerThread, this)));
 }
 
 void CDKGSessionHandler::StopThread()
