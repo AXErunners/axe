@@ -537,7 +537,7 @@ class TestResult():
 def check_script_prefixes():
     """Check that no more than `EXPECTED_VIOLATION_COUNT` of the
        test scripts don't start with one of the allowed name prefixes."""
-    EXPECTED_VIOLATION_COUNT = 77
+    EXPECTED_VIOLATION_COUNT = 98
 
     # LEEWAY is provided as a transition measure, so that pull-requests
     # that introduce new tests that don't conform with the naming
