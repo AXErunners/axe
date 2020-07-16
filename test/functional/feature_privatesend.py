@@ -7,7 +7,7 @@ from test_framework.test_framework import BitcoinTestFramework
 from test_framework.util import assert_equal
 
 '''
-privatesend.py
+feature_privatesend.py
 
 Tests PrivateSend basic RPC
 '''

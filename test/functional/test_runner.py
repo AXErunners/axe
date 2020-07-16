@@ -58,29 +58,29 @@ TRAVIS_TIMEOUT_DURATION = 20 * 60
 BASE_SCRIPTS= [
     # Scripts that are run by the travis build process.
     # Longest test should go first, to favor running tests in parallel
-    'dip3-deterministicmns.py', # NOTE: needs axe_hash to pass
+    'feature_dip3_deterministicmns.py', # NOTE: needs axe_hash to pass
     'wallet_hd.py',
     'wallet_backup.py',
     # vv Tests less than 5m vv
     'feature_block.py', # NOTE: needs axe_hash to pass
     'rpc_fundrawtransaction.py',
-    'fundrawtransaction-hd.py',
+    'rpc_fundrawtransaction_hd.py',
     # vv Tests less than 2m vv
-    'p2p-instantsend.py',
+    'p2p_instantsend.py',
     'wallet_basic.py',
     'wallet_accounts.py',
     'wallet_dump.py',
     'rpc_listtransactions.py',
-    'multikeysporks.py',
-    'llmq-signing.py', # NOTE: needs axe_hash to pass
-    'llmq-signing.py --spork21', # NOTE: needs axe_hash to pass
-    'llmq-chainlocks.py', # NOTE: needs axe_hash to pass
-    'llmq-connections.py', # NOTE: needs axe_hash to pass
-    'llmq-simplepose.py', # NOTE: needs axe_hash to pass
-    'llmq-is-cl-conflicts.py', # NOTE: needs axe_hash to pass
-    'llmq-is-retroactive.py', # NOTE: needs axe_hash to pass
-    'llmq-dkgerrors.py', # NOTE: needs axe_hash to pass
-    'dip4-coinbasemerkleroots.py', # NOTE: needs axe_hash to pass
+    'feature_multikeysporks.py',
+    'feature_llmq_signing.py', # NOTE: needs axe_hash to pass
+    'feature_llmq_signing.py --spork21', # NOTE: needs axe_hash to pass
+    'feature_llmq_chainlocks.py', # NOTE: needs axe_hash to pass
+    'feature_llmq_connections.py', # NOTE: needs axe_hash to pass
+    'feature_llmq_simplepose.py', # NOTE: needs axe_hash to pass
+    'feature_llmq_is_cl_conflicts.py', # NOTE: needs axe_hash to pass
+    'feature_llmq_is_retroactive.py', # NOTE: needs axe_hash to pass
+    'feature_llmq_dkgerrors.py', # NOTE: needs axe_hash to pass
+    'feature_dip4_coinbasemerkleroots.py', # NOTE: needs axe_hash to pass
     # vv Tests less than 60s vv
     'p2p_sendheaders.py', # NOTE: needs axe_hash to pass
     'wallet_zapwallettxes.py',
@@ -111,16 +111,16 @@ BASE_SCRIPTS= [
     'feature_proxy.py',
     'rpc_signrawtransaction.py',
     'p2p_disconnect_ban.py',
-    'addressindex.py',
-    'timestampindex.py',
-    'spentindex.py',
+    'feature_addressindex.py',
+    'feature_timestampindex.py',
+    'feature_spentindex.py',
     'rpc_decodescript.py',
     'rpc_blockchain.py',
     'rpc_deprecated.py',
     'wallet_disable.py',
     'rpc_net.py',
     'wallet_keypool.py',
-    'keypool-hd.py',
+    'wallet_keypool_hd.py',
     'p2p_mempool.py',
     'mining_prioritisetransaction.py',
     'p2p_invalid_block.py',
@@ -131,27 +131,25 @@ BASE_SCRIPTS= [
     'rpc_signmessage.py',
     'feature_nulldummy.py',
     'wallet_import_rescan.py',
-    'rpcbind_test.py --ipv4',
-    'rpcbind_test.py --ipv6',
-    'rpcbind_test.py --nonloopback',
+    'rpc_bind.py --ipv4',
+    'rpc_bind.py --ipv6',
+    'rpc_bind.py --nonloopback',
     'mining_basic.py',
-    'wallet_bumpfee.py',
     'rpc_named_arguments.py',
     'wallet_listsinceblock.py',
     'p2p_leak.py',
-    'p2p-compactblocks.py',
-    'sporks.py',
+    'p2p_compactblocks.py',
+    'feature_sporks.py',
     'rpc_getblockstats.py',
-    'p2p-fingerprint.py',
     'wallet_encryption.py',
     'feature_dersig.py',
     'feature_cltv.py',
     'rpc_uptime.py',
     'wallet_resendwallettransactions.py',
     'feature_minchainwork.py',
-    'p2p-acceptblock.py', # NOTE: needs axe_hash to pass
+    'p2p_unrequested_blocks.py', # NOTE: needs axe_hash to pass
     'feature_shutdown.py',
-    'privatesend.py',
+    'feature_privatesend.py',
     'p2p_fingerprint.py',
     'feature_uacomment.py',
     'p2p_unrequested_blocks.py',
@@ -183,7 +181,7 @@ EXTENDED_SCRIPTS = [
     'example_test.py',
     'wallet_txn_doublespend.py',
     'wallet_txn_clone.py --mineblock',
-    'txindex.py',
+    'feature_txindex.py',
     'feature_notifications.py',
     'rpc_invalidateblock.py',
 ]
