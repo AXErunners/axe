@@ -674,6 +674,7 @@ void BitcoinGUI::createToolBars()
 
 #ifdef ENABLE_WALLET
         m_wallet_selector = new QComboBox(this);
+        m_wallet_selector->setHidden(true);
         connect(m_wallet_selector, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(setCurrentWallet(const QString&)));
 #endif
 
@@ -806,6 +807,7 @@ bool BitcoinGUI::addWallet(WalletModel *walletModel)
     setWalletActionsEnabled(true);
     m_wallet_selector->addItem(name);
     if (m_wallet_selector->count() == 2) {
+        m_wallet_selector->setHidden(false);
         QVBoxLayout* layout = new QVBoxLayout(this);
         layout->addWidget(m_wallet_selector);
         layout->setSpacing(0);
@@ -843,8 +845,8 @@ void BitcoinGUI::setWalletActionsEnabled(bool enabled)
     sendCoinsAction->setEnabled(enabled);
     sendCoinsMenuAction->setEnabled(enabled);
 #ifdef ENABLE_WALLET
-    privateSendCoinsAction->setEnabled(enabled && privateSendClient.fEnablePrivateSend);
-    privateSendCoinsMenuAction->setEnabled(enabled && privateSendClient.fEnablePrivateSend);
+    privateSendCoinsAction->setEnabled(enabled && CPrivateSendClientOptions::IsEnabled());
+    privateSendCoinsMenuAction->setEnabled(enabled && CPrivateSendClientOptions::IsEnabled());
 #else
     privateSendCoinsAction->setEnabled(enabled);
     privateSendCoinsMenuAction->setEnabled(enabled);
@@ -1234,7 +1236,9 @@ void BitcoinGUI::setNumBlocks(int count, const QDateTime& blockDate, const QStri
     // Disabling macOS App Nap on initial sync, disk, reindex operations and mixing.
     bool disableAppNap = !masternodeSync.IsSynced();
 #ifdef ENABLE_WALLET
-    disableAppNap |= privateSendClient.fPrivateSendRunning;
+    for (const auto& pair : privateSendClientManagers) {
+        disableAppNap |= pair.second->IsMixing();
+    }
 #endif // ENABLE_WALLET
     if (disableAppNap) {
         m_app_nap_inhibitor->disableAppNap();
