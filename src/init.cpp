@@ -1516,9 +1516,7 @@ bool AppInitParameterInteraction()
     }
 
     if (gArgs.IsArgSet("-litemode")) {
-        if (gArgs.GetBoolArg("-litemode", false)) {
-            InitWarning(_("Warning: -litemode is deprecated, please use -disablegovernance.\n"));
-        }
+        InitWarning(_("-litemode is deprecated.") + (gArgs.GetBoolArg("-litemode", false) ? (" "  + _("Its replacement -disablegovernance has been forced instead.")) : ( " " + _("It has been replaced by -disablegovernance."))));
         gArgs.ForceRemoveArg("-litemode");
     }
 
