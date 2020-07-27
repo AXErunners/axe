@@ -38,6 +38,9 @@ ReceiveCoinsDialog::ReceiveCoinsDialog(QWidget* parent) :
     ui->reqMessage->setPlaceholderText(tr("Enter a message to attach to the payment request"));
 #endif
 
+    ui->reqLabel->setPlaceholderText(tr("Enter a label to associate with the new receiving address"));
+    ui->reqMessage->setPlaceholderText(tr("Enter a message to attach to the payment request"));
+
     // context menu actions
     QAction *copyURIAction = new QAction(tr("Copy URI"), this);
     QAction *copyLabelAction = new QAction(tr("Copy label"), this);
