@@ -2,8 +2,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef AXE_QT_APPEARANCE_WIDGET_H
-#define AXE_QT_APPEARANCE_WIDGET_H
+#ifndef BITCOIN_QT_APPEARANCEWIDGET_H
+#define BITCOIN_QT_APPEARANCEWIDGET_H
 
 #include <QWidget>
 
@@ -53,4 +53,4 @@ private:
     void updateWeightSlider();
 };
 
-#endif // AXE_QT_APPEARANCE_WIDGET_H
+#endif // BITCOIN_QT_APPEARANCEWIDGET_H
