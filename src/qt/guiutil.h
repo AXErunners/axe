@@ -182,9 +182,9 @@ namespace GUIUtil
 
     // Open debug.log
     void openDebugLogfile();
-	
+
     // Open axe.conf
-    void openConfigfile();	
+    void openConfigfile();
 
     // Browse backup folder
     void showBackups();
