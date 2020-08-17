@@ -285,7 +285,7 @@ public:
         consensus.nBudgetPaymentsCycleBlocks = 16616;
         consensus.nBudgetPaymentsWindowBlocks = 100;
         consensus.nSuperblockStartBlock = 304800;
-        consensus.nSuperblockStartHash = uint256S("");
+        consensus.nSuperblockStartHash = uint256S("00000000000001d3cb899d50dc4d27c55cf9e497a5c30073c45a6630ae1888e5");
         consensus.nSuperblockCycle = 16616; // ~(60*24*30)/2.6, actual number of blocks per month is 200700 / 12 = 16725
         consensus.nGovernanceMinQuorum = 10;
         consensus.nGovernanceFilterElements = 20000;
