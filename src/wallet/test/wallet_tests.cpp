@@ -479,6 +479,7 @@ BOOST_FIXTURE_TEST_CASE(importwallet_rescan, TestChain100Setup)
         request.params.push_back((pathTemp / "wallet.backup").string());
         AddWallet(&wallet);
         ::dumpwallet(request);
+        RemoveWallet(&wallet);
     }
 
     // Call importwallet RPC and verify all blocks with timestamps >= BLOCK_TIME
