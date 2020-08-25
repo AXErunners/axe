@@ -290,6 +290,10 @@ public:
         consensus.nGovernanceMinQuorum = 10;
         consensus.nGovernanceFilterElements = 20000;
         consensus.nMasternodeMinimumConfirmations = 15;
+        consensus.nQuorumDkgStartBlock = 289023;
+        consensus.nQuorumDkgStartHash = uint256S("00000000000004045ab5f2fef4ae69319a65f1336203f0cc520783691bcf6c39");
+        consensus.nChainlocksActivationBlock = 368964;
+        consensus.nChainlocksActivationHash = uint256S("000000000000058fbbaa6e136351e7d6b02dce98d17303ac390f529fa467eff0");
         consensus.BIP34Height = 1;
         consensus.BIP34Hash = uint256S("0x00000802fb7ee6c756f7158f2986a4a0f30146f29b5c434f49cdb0c3af5bdeba");
         consensus.BIP65Height = 1;
@@ -481,6 +485,10 @@ public:
         consensus.nGovernanceMinQuorum = 1;
         consensus.nGovernanceFilterElements = 500;
         consensus.nMasternodeMinimumConfirmations = 1;
+        consensus.nQuorumDkgStartBlock = ;
+        consensus.nQuorumDkgStartHash = uint256S("");
+        consensus.nChainlocksActivationBlock = ;
+        consensus.nChainlocksActivationHash = uint256S("");
         consensus.BIP34Height = 76;
         consensus.BIP34Hash = uint256S("0x0000089e0534a57c39fc9d89f6a27bea52b8d2d0c3ec348d61e7f7e36844e0ea");
         consensus.BIP65Height = 2431;
@@ -650,6 +658,10 @@ public:
         consensus.nGovernanceMinQuorum = 1;
         consensus.nGovernanceFilterElements = 500;
         consensus.nMasternodeMinimumConfirmations = 1;
+        consensus.nQuorumDkgStartBlock = ;
+        consensus.nQuorumDkgStartHash = uint256S("");
+        consensus.nChainlocksActivationBlock = ;
+        consensus.nChainlocksActivationHash = uint256S("");
         consensus.BIP34Height = 1; // BIP34 activated immediately on devnet
         consensus.BIP65Height = 1; // BIP65 activated immediately on devnet
         consensus.BIP66Height = 1; // BIP66 activated immediately on devnet
@@ -806,6 +818,10 @@ public:
         consensus.nGovernanceMinQuorum = 1;
         consensus.nGovernanceFilterElements = 100;
         consensus.nMasternodeMinimumConfirmations = 1;
+        consensus.nQuorumDkgStartBlock = ;
+        consensus.nQuorumDkgStartHash = uint256S("");
+        consensus.nChainlocksActivationBlock = ;
+        consensus.nChainlocksActivationHash = uint256S("");
         consensus.BIP34Height = 100000000; // BIP34 has not activated on regtest (far in the future so block v1 are not rejected in tests)
         consensus.BIP34Hash = uint256();
         consensus.BIP65Height = 1351; // BIP65 activated on regtest (Used in rpc activation tests)
