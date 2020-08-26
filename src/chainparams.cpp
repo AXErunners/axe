@@ -485,9 +485,9 @@ public:
         consensus.nGovernanceMinQuorum = 1;
         consensus.nGovernanceFilterElements = 500;
         consensus.nMasternodeMinimumConfirmations = 1;
-        consensus.nQuorumDkgStartBlock = ;
+        consensus.nQuorumDkgStartBlock = 7300;
         consensus.nQuorumDkgStartHash = uint256S("");
-        consensus.nChainlocksActivationBlock = ;
+        consensus.nChainlocksActivationBlock = 7300;
         consensus.nChainlocksActivationHash = uint256S("");
         consensus.BIP34Height = 76;
         consensus.BIP34Hash = uint256S("0x0000089e0534a57c39fc9d89f6a27bea52b8d2d0c3ec348d61e7f7e36844e0ea");
@@ -658,9 +658,9 @@ public:
         consensus.nGovernanceMinQuorum = 1;
         consensus.nGovernanceFilterElements = 500;
         consensus.nMasternodeMinimumConfirmations = 1;
-        consensus.nQuorumDkgStartBlock = ;
+        consensus.nQuorumDkgStartBlock = 2;
         consensus.nQuorumDkgStartHash = uint256S("");
-        consensus.nChainlocksActivationBlock = ;
+        consensus.nChainlocksActivationBlock = 2;
         consensus.nChainlocksActivationHash = uint256S("");
         consensus.BIP34Height = 1; // BIP34 activated immediately on devnet
         consensus.BIP65Height = 1; // BIP65 activated immediately on devnet
@@ -818,7 +818,7 @@ public:
         consensus.nGovernanceMinQuorum = 1;
         consensus.nGovernanceFilterElements = 100;
         consensus.nMasternodeMinimumConfirmations = 1;
-        consensus.nQuorumDkgStartBlock = ;
+        consensus.nQuorumDkgStartBlock = 500;
         consensus.nQuorumDkgStartHash = uint256S("");
         consensus.nChainlocksActivationBlock = ;
         consensus.nChainlocksActivationHash = uint256S("");
