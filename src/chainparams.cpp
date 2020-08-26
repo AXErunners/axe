@@ -818,9 +818,9 @@ public:
         consensus.nGovernanceMinQuorum = 1;
         consensus.nGovernanceFilterElements = 100;
         consensus.nMasternodeMinimumConfirmations = 1;
-        consensus.nQuorumDkgStartBlock = 500;
+        consensus.nQuorumDkgStartBlock = 432;
         consensus.nQuorumDkgStartHash = uint256S("");
-        consensus.nChainlocksActivationBlock = ;
+        consensus.nChainlocksActivationBlock = 432;
         consensus.nChainlocksActivationHash = uint256S("");
         consensus.BIP34Height = 100000000; // BIP34 has not activated on regtest (far in the future so block v1 are not rejected in tests)
         consensus.BIP34Hash = uint256();
