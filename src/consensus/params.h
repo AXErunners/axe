@@ -140,6 +140,10 @@ struct Params {
     int nGovernanceMinQuorum; // Min absolute vote count to trigger an action
     int nGovernanceFilterElements;
     int nMasternodeMinimumConfirmations;
+    int nQuorumDkgStartBlock;
+    uint256 nQuorumDkgStartHash;
+    int nChainlocksActivationBlock;
+    uint256 nChainlocksActivationHash;
     /** Block height and hash at which BIP34 becomes active */
     int BIP34Height;
     uint256 BIP34Hash;
