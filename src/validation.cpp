@@ -2070,19 +2070,6 @@ bool CChainState::ConnectBlock(const CBlock& block, CValidationState& state, CBl
             return state.DoS(100, error("ConnectBlock(): invalid superblock start"),
                              REJECT_INVALID, "bad-sb-start");
 
-    // confirm that spork table is valid
-    if (pindex->nHeight == chainparams.GetConsensus().nQuorumDkgStartBlock &&
-        chainparams.GetConsensus().nQuorumDkgStartHash != uint256() &&
-        block.GetHash() != chainparams.GetConsensus().nQuorumDkgStartHash)
-            return state.DoS(100, error("ConnectBlock(): invalid quorum dkg start"),
-                             REJECT_INVALID, "bad-qdkg-start");
-
-    if (pindex->nHeight == chainparams.GetConsensus().nChainlocksActivationBlock &&
-        chainparams.GetConsensus().nChainlocksActivationHash != uint256() &&
-        block.GetHash() != chainparams.GetConsensus().nChainlocksActivationHash)
-            return state.DoS(100, error("ConnectBlock(): invalid quorum dkg start"),
-                             REJECT_INVALID, "bad-chainlocks-start");
-
     /// END AXE
 
     // Start enforcing BIP68 (sequence locks) and BIP112 (CHECKSEQUENCEVERIFY) using versionbits logic.
