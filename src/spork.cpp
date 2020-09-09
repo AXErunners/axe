@@ -71,17 +71,17 @@ CSporkManager::CSporkManager()
         sporkDefsMById.emplace(sporkDefM.sporkId, &sporkDefM);
         sporkDefsMByName.emplace(sporkDefM.name, &sporkDefM);
     };
-    
+
     for (auto& sporkDefT : sporkDefsT) {
         sporkDefsTById.emplace(sporkDefT.sporkId, &sporkDefT);
         sporkDefsTByName.emplace(sporkDefT.name, &sporkDefT);
     };
-    
+
     for (auto& sporkDefR : sporkDefsR) {
         sporkDefsRById.emplace(sporkDefR.sporkId, &sporkDefR);
         sporkDefsRByName.emplace(sporkDefR.name, &sporkDefR);
     };
-    
+
     for (auto& sporkDefD : sporkDefsD) {
         sporkDefsDById.emplace(sporkDefD.sporkId, &sporkDefD);
         sporkDefsDByName.emplace(sporkDefD.name, &sporkDefD);

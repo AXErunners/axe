@@ -179,13 +179,13 @@ private:
 
     std::unordered_map<SporkId, CSporkDefM*> sporkDefsMById;
     std::unordered_map<std::string, CSporkDefM*> sporkDefsMByName;
-    
+
     std::unordered_map<SporkId, CSporkDefT*> sporkDefsTById;
     std::unordered_map<std::string, CSporkDefT*> sporkDefsTByName;
-    
+
     std::unordered_map<SporkId, CSporkDefR*> sporkDefsRById;
     std::unordered_map<std::string, CSporkDefR*> sporkDefsRByName;
-    
+
     std::unordered_map<SporkId, CSporkDefD*> sporkDefsDById;
     std::unordered_map<std::string, CSporkDefD*> sporkDefsDByName;
 
