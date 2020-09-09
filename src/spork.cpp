@@ -15,6 +15,7 @@
 
 const std::string CSporkManager::SERIALIZATION_VERSION_STRING = "CSporkManager-Version-2";
 
+// Mainnet
 #define MAKE_SPORK_DEF_M(name, defaultValue) CSporkDefM{name, defaultValue, #name}
 std::vector<CSporkDefM> sporkDefsM = {
     MAKE_SPORK_DEF_M(SPORK_2_INSTANTSEND_ENABLED,            0),             // ON
@@ -26,6 +27,7 @@ std::vector<CSporkDefM> sporkDefsM = {
     MAKE_SPORK_DEF_M(SPORK_22_PS_MORE_PARTICIPANTS,          4070908800ULL), // OFF
 };
 
+// Testnet
 #define MAKE_SPORK_DEF_T(name, defaultValue) CSporkDefT{name, defaultValue, #name}
 std::vector<CSporkDefT> sporkDefsT = {
     MAKE_SPORK_DEF_T(SPORK_2_INSTANTSEND_ENABLED,            0),             // ON
@@ -37,6 +39,7 @@ std::vector<CSporkDefT> sporkDefsT = {
     MAKE_SPORK_DEF_T(SPORK_22_PS_MORE_PARTICIPANTS,          4070908800ULL), // OFF
 };
 
+// Regtest
 #define MAKE_SPORK_DEF_R(name, defaultValue) CSporkDefR{name, defaultValue, #name}
 std::vector<CSporkDefR> sporkDefsR = {
     MAKE_SPORK_DEF_R(SPORK_2_INSTANTSEND_ENABLED,            4070908800ULL), // OFF
@@ -48,6 +51,7 @@ std::vector<CSporkDefR> sporkDefsR = {
     MAKE_SPORK_DEF_R(SPORK_22_PS_MORE_PARTICIPANTS,          4070908800ULL), // OFF
 };
 
+// Devnet
 #define MAKE_SPORK_DEF_D(name, defaultValue) CSporkDefD{name, defaultValue, #name}
 std::vector<CSporkDefD> sporkDefsD = {
     MAKE_SPORK_DEF_D(SPORK_2_INSTANTSEND_ENABLED,            4070908800ULL), // OFF
