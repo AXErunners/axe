@@ -15,24 +15,72 @@
 
 const std::string CSporkManager::SERIALIZATION_VERSION_STRING = "CSporkManager-Version-2";
 
-#define MAKE_SPORK_DEF(name, defaultValue) CSporkDef{name, defaultValue, #name}
-std::vector<CSporkDef> sporkDefs = {
-    MAKE_SPORK_DEF(SPORK_2_INSTANTSEND_ENABLED,            0),             // ON
-    MAKE_SPORK_DEF(SPORK_3_INSTANTSEND_BLOCK_FILTERING,    0),             // ON
-    MAKE_SPORK_DEF(SPORK_9_SUPERBLOCKS_ENABLED,            0),             // ON
-    MAKE_SPORK_DEF(SPORK_17_QUORUM_DKG_ENABLED,            0),             // ON
-    MAKE_SPORK_DEF(SPORK_19_CHAINLOCKS_ENABLED,            0),             // ON
-    MAKE_SPORK_DEF(SPORK_21_QUORUM_ALL_CONNECTED,          4070908800ULL), // OFF
-    MAKE_SPORK_DEF(SPORK_22_PS_MORE_PARTICIPANTS,          4070908800ULL), // OFF
+#define MAKE_SPORK_DEF_M(name, defaultValue) CSporkDefM{name, defaultValue, #name}
+std::vector<CSporkDefM> sporkDefsM = {
+    MAKE_SPORK_DEF_M(SPORK_2_INSTANTSEND_ENABLED,            0),             // ON
+    MAKE_SPORK_DEF_M(SPORK_3_INSTANTSEND_BLOCK_FILTERING,    0),             // ON
+    MAKE_SPORK_DEF_M(SPORK_9_SUPERBLOCKS_ENABLED,            0),             // ON
+    MAKE_SPORK_DEF_M(SPORK_17_QUORUM_DKG_ENABLED,            0),             // ON
+    MAKE_SPORK_DEF_M(SPORK_19_CHAINLOCKS_ENABLED,            0),             // ON
+    MAKE_SPORK_DEF_M(SPORK_21_QUORUM_ALL_CONNECTED,          4070908800ULL), // OFF
+    MAKE_SPORK_DEF_M(SPORK_22_PS_MORE_PARTICIPANTS,          4070908800ULL), // OFF
+};
+
+#define MAKE_SPORK_DEF_T(name, defaultValue) CSporkDefT{name, defaultValue, #name}
+std::vector<CSporkDefT> sporkDefsT = {
+    MAKE_SPORK_DEF_T(SPORK_2_INSTANTSEND_ENABLED,            0),             // ON
+    MAKE_SPORK_DEF_T(SPORK_3_INSTANTSEND_BLOCK_FILTERING,    0),             // ON
+    MAKE_SPORK_DEF_T(SPORK_9_SUPERBLOCKS_ENABLED,            0),             // ON
+    MAKE_SPORK_DEF_T(SPORK_17_QUORUM_DKG_ENABLED,            0),             // ON
+    MAKE_SPORK_DEF_T(SPORK_19_CHAINLOCKS_ENABLED,            0),             // ON
+    MAKE_SPORK_DEF_T(SPORK_21_QUORUM_ALL_CONNECTED,          4070908800ULL), // OFF
+    MAKE_SPORK_DEF_T(SPORK_22_PS_MORE_PARTICIPANTS,          4070908800ULL), // OFF
+};
+
+#define MAKE_SPORK_DEF_R(name, defaultValue) CSporkDefR{name, defaultValue, #name}
+std::vector<CSporkDefR> sporkDefsR = {
+    MAKE_SPORK_DEF_R(SPORK_2_INSTANTSEND_ENABLED,            4070908800ULL), // OFF
+    MAKE_SPORK_DEF_R(SPORK_3_INSTANTSEND_BLOCK_FILTERING,    4070908800ULL), // OFF
+    MAKE_SPORK_DEF_R(SPORK_9_SUPERBLOCKS_ENABLED,            4070908800ULL), // OFF
+    MAKE_SPORK_DEF_R(SPORK_17_QUORUM_DKG_ENABLED,            4070908800ULL), // OFF
+    MAKE_SPORK_DEF_R(SPORK_19_CHAINLOCKS_ENABLED,            4070908800ULL), // OFF
+    MAKE_SPORK_DEF_R(SPORK_21_QUORUM_ALL_CONNECTED,          4070908800ULL), // OFF
+    MAKE_SPORK_DEF_R(SPORK_22_PS_MORE_PARTICIPANTS,          4070908800ULL), // OFF
+};
+
+#define MAKE_SPORK_DEF_D(name, defaultValue) CSporkDefD{name, defaultValue, #name}
+std::vector<CSporkDefD> sporkDefsD = {
+    MAKE_SPORK_DEF_D(SPORK_2_INSTANTSEND_ENABLED,            4070908800ULL), // OFF
+    MAKE_SPORK_DEF_D(SPORK_3_INSTANTSEND_BLOCK_FILTERING,    4070908800ULL), // OFF
+    MAKE_SPORK_DEF_D(SPORK_9_SUPERBLOCKS_ENABLED,            4070908800ULL), // OFF
+    MAKE_SPORK_DEF_D(SPORK_17_QUORUM_DKG_ENABLED,            4070908800ULL), // OFF
+    MAKE_SPORK_DEF_D(SPORK_19_CHAINLOCKS_ENABLED,            4070908800ULL), // OFF
+    MAKE_SPORK_DEF_D(SPORK_21_QUORUM_ALL_CONNECTED,          4070908800ULL), // OFF
+    MAKE_SPORK_DEF_D(SPORK_22_PS_MORE_PARTICIPANTS,          4070908800ULL), // OFF
 };
 
 CSporkManager sporkManager;
 
 CSporkManager::CSporkManager()
 {
-    for (auto& sporkDef : sporkDefs) {
-        sporkDefsById.emplace(sporkDef.sporkId, &sporkDef);
-        sporkDefsByName.emplace(sporkDef.name, &sporkDef);
+    for (auto& sporkDefM : sporkDefsM) {
+        sporkDefsMById.emplace(sporkDefM.sporkId, &sporkDefM);
+        sporkDefsMByName.emplace(sporkDefM.name, &sporkDefM);
+    };
+    
+    for (auto& sporkDefT : sporkDefsT) {
+        sporkDefsTById.emplace(sporkDefT.sporkId, &sporkDefT);
+        sporkDefsTByName.emplace(sporkDefT.name, &sporkDefT);
+    };
+    
+    for (auto& sporkDefR : sporkDefsR) {
+        sporkDefsRById.emplace(sporkDefR.sporkId, &sporkDefR);
+        sporkDefsRByName.emplace(sporkDefR.name, &sporkDefR);
+    };
+    
+    for (auto& sporkDefD : sporkDefsD) {
+        sporkDefsDById.emplace(sporkDefD.sporkId, &sporkDefD);
+        sporkDefsDByName.emplace(sporkDefD.name, &sporkDefD);
     }
 }
 
@@ -223,13 +271,32 @@ int64_t CSporkManager::GetSporkValue(SporkId nSporkID)
         return nSporkValue;
     }
 
-    //XXX Return 4070908800ULL as a default value of all sporks in REGTEST and DEVNET
-    if (Params().NetworkIDString() == CBaseChainParams::REGTEST || Params().NetworkIDString() == CBaseChainParams::DEVNET)
-        return 4070908800ULL;
-
-    auto it = sporkDefsById.find(nSporkID);
-    if (it != sporkDefsById.end()) {
+    if (Params().NetworkIDString() == CBaseChainParams::MAIN) {
+      auto it = sporkDefsMById.find(nSporkID);
+      if (it != sporkDefsMById.end()) {
         return it->second->defaultValue;
+      }
+    };
+    
+    if (Params().NetworkIDString() == CBaseChainParams::TESTNET) {
+      auto it = sporkDefsTById.find(nSporkID);
+      if (it != sporkDefsTById.end()) {
+        return it->second->defaultValue;
+      }
+    };
+    
+    if (Params().NetworkIDString() == CBaseChainParams::REGTEST) {
+      auto it = sporkDefsRById.find(nSporkID);
+      if (it != sporkDefsRById.end()) {
+        return it->second->defaultValue;
+      }
+    };
+    
+    if (Params().NetworkIDString() == CBaseChainParams::DEVNET) {
+      auto it = sporkDefsDById.find(nSporkID);
+      if (it != sporkDefsDById.end()) {
+        return it->second->defaultValue;
+      }
     }
 
     LogPrint(BCLog::SPORK, "CSporkManager::GetSporkValue -- Unknown Spork ID %d\n", nSporkID);
@@ -238,22 +305,80 @@ int64_t CSporkManager::GetSporkValue(SporkId nSporkID)
 
 SporkId CSporkManager::GetSporkIDByName(const std::string& strName)
 {
-    auto it = sporkDefsByName.find(strName);
-    if (it == sporkDefsByName.end()) {
-        LogPrint(BCLog::SPORK, "CSporkManager::GetSporkIDByName -- Unknown Spork name '%s'\n", strName);
-        return SPORK_INVALID;
-    }
-    return it->second->sporkId;
+    if (Params().NetworkIDString() == CBaseChainParams::MAIN) {
+      auto it = sporkDefsMByName.find(strName);
+      if (it == sporkDefsMByName.end()) {
+          LogPrint(BCLog::SPORK, "CSporkManager::GetSporkIDByName -- Unknown Spork name '%s'\n", strName);
+          return SPORK_INVALID;
+      }
+      return it->second->sporkId;
+    };
+    
+    if (Params().NetworkIDString() == CBaseChainParams::TESTNET) {
+      auto it = sporkDefsTByName.find(strName);
+      if (it == sporkDefsTByName.end()) {
+          LogPrint(BCLog::SPORK, "CSporkManager::GetSporkIDByName -- Unknown Spork name '%s'\n", strName);
+          return SPORK_INVALID;
+      }
+      return it->second->sporkId;
+    };
+    
+    if (Params().NetworkIDString() == CBaseChainParams::REGTEST) {
+      auto it = sporkDefsRByName.find(strName);
+      if (it == sporkDefsRByName.end()) {
+          LogPrint(BCLog::SPORK, "CSporkManager::GetSporkIDByName -- Unknown Spork name '%s'\n", strName);
+          return SPORK_INVALID;
+      }
+      return it->second->sporkId;
+    };
+    
+    if (Params().NetworkIDString() == CBaseChainParams::DEVNET) {
+      auto it = sporkDefsDByName.find(strName);
+      if (it == sporkDefsDByName.end()) {
+          LogPrint(BCLog::SPORK, "CSporkManager::GetSporkIDByName -- Unknown Spork name '%s'\n", strName);
+          return SPORK_INVALID;
+      }
+      return it->second->sporkId;
+    };
 }
 
 std::string CSporkManager::GetSporkNameByID(SporkId nSporkID)
 {
-    auto it = sporkDefsById.find(nSporkID);
-    if (it == sporkDefsById.end()) {
-        LogPrint(BCLog::SPORK, "CSporkManager::GetSporkNameByID -- Unknown Spork ID %d\n", nSporkID);
-        return "Unknown";
-    }
-    return it->second->name;
+    if (Params().NetworkIDString() == CBaseChainParams::MAIN) {
+      auto it = sporkDefsMById.find(nSporkID);
+      if (it == sporkDefsMById.end()) {
+          LogPrint(BCLog::SPORK, "CSporkManager::GetSporkNameByID -- Unknown Spork ID %d\n", nSporkID);
+          return "Unknown";
+      }
+      return it->second->name;
+    };
+    
+    if (Params().NetworkIDString() == CBaseChainParams::TESTNET) {
+      auto it = sporkDefsTById.find(nSporkID);
+      if (it == sporkDefsTById.end()) {
+          LogPrint(BCLog::SPORK, "CSporkManager::GetSporkNameByID -- Unknown Spork ID %d\n", nSporkID);
+          return "Unknown";
+      }
+      return it->second->name;
+    };
+    
+    if (Params().NetworkIDString() == CBaseChainParams::REGTEST) {
+      auto it = sporkDefsRById.find(nSporkID);
+      if (it == sporkDefsRById.end()) {
+          LogPrint(BCLog::SPORK, "CSporkManager::GetSporkNameByID -- Unknown Spork ID %d\n", nSporkID);
+          return "Unknown";
+      }
+      return it->second->name;
+    };
+    
+    if (Params().NetworkIDString() == CBaseChainParams::DEVNET) {
+      auto it = sporkDefsDById.find(nSporkID);
+      if (it == sporkDefsDById.end()) {
+          LogPrint(BCLog::SPORK, "CSporkManager::GetSporkNameByID -- Unknown Spork ID %d\n", nSporkID);
+          return "Unknown";
+      }
+      return it->second->name;
+    };
 }
 
 bool CSporkManager::GetSporkByHash(const uint256& hash, CSporkMessage &sporkRet)

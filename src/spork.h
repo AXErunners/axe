@@ -44,14 +44,38 @@ namespace std
     };
 }
 
-struct CSporkDef
+struct CSporkDefM
 {
     SporkId sporkId{SPORK_INVALID};
     int64_t defaultValue{0};
     std::string name;
 };
 
-extern std::vector<CSporkDef> sporkDefs;
+struct CSporkDefT
+{
+    SporkId sporkId{SPORK_INVALID};
+    int64_t defaultValue{0};
+    std::string name;
+};
+
+struct CSporkDefR
+{
+    SporkId sporkId{SPORK_INVALID};
+    int64_t defaultValue{0};
+    std::string name;
+};
+
+struct CSporkDefD
+{
+    SporkId sporkId{SPORK_INVALID};
+    int64_t defaultValue{0};
+    std::string name;
+};
+
+extern std::vector<CSporkDefM> sporkDefsM;
+extern std::vector<CSporkDefT> sporkDefsT;
+extern std::vector<CSporkDefR> sporkDefsR;
+extern std::vector<CSporkDefD> sporkDefsD;
 extern CSporkManager sporkManager;
 
 /**
@@ -153,8 +177,17 @@ class CSporkManager
 private:
     static const std::string SERIALIZATION_VERSION_STRING;
 
-    std::unordered_map<SporkId, CSporkDef*> sporkDefsById;
-    std::unordered_map<std::string, CSporkDef*> sporkDefsByName;
+    std::unordered_map<SporkId, CSporkDefM*> sporkDefsMById;
+    std::unordered_map<std::string, CSporkDefM*> sporkDefsMByName;
+    
+    std::unordered_map<SporkId, CSporkDefT*> sporkDefsTById;
+    std::unordered_map<std::string, CSporkDefT*> sporkDefsTByName;
+    
+    std::unordered_map<SporkId, CSporkDefR*> sporkDefsRById;
+    std::unordered_map<std::string, CSporkDefR*> sporkDefsRByName;
+    
+    std::unordered_map<SporkId, CSporkDefD*> sporkDefsDById;
+    std::unordered_map<std::string, CSporkDefD*> sporkDefsDByName;
 
     mutable CCriticalSection cs;
     std::unordered_map<uint256, CSporkMessage> mapSporksByHash;
