@@ -281,21 +281,21 @@ int64_t CSporkManager::GetSporkValue(SporkId nSporkID)
         return it->second->defaultValue;
       }
     };
-    
+
     if (Params().NetworkIDString() == CBaseChainParams::TESTNET) {
       auto it = sporkDefsTById.find(nSporkID);
       if (it != sporkDefsTById.end()) {
         return it->second->defaultValue;
       }
     };
-    
+
     if (Params().NetworkIDString() == CBaseChainParams::REGTEST) {
       auto it = sporkDefsRById.find(nSporkID);
       if (it != sporkDefsRById.end()) {
         return it->second->defaultValue;
       }
     };
-    
+
     if (Params().NetworkIDString() == CBaseChainParams::DEVNET) {
       auto it = sporkDefsDById.find(nSporkID);
       if (it != sporkDefsDById.end()) {
@@ -317,7 +317,7 @@ SporkId CSporkManager::GetSporkIDByName(const std::string& strName)
       }
       return it->second->sporkId;
     };
-    
+
     if (Params().NetworkIDString() == CBaseChainParams::TESTNET) {
       auto it = sporkDefsTByName.find(strName);
       if (it == sporkDefsTByName.end()) {
@@ -326,7 +326,7 @@ SporkId CSporkManager::GetSporkIDByName(const std::string& strName)
       }
       return it->second->sporkId;
     };
-    
+
     if (Params().NetworkIDString() == CBaseChainParams::REGTEST) {
       auto it = sporkDefsRByName.find(strName);
       if (it == sporkDefsRByName.end()) {
@@ -335,7 +335,7 @@ SporkId CSporkManager::GetSporkIDByName(const std::string& strName)
       }
       return it->second->sporkId;
     };
-    
+
     if (Params().NetworkIDString() == CBaseChainParams::DEVNET) {
       auto it = sporkDefsDByName.find(strName);
       if (it == sporkDefsDByName.end()) {
@@ -356,7 +356,7 @@ std::string CSporkManager::GetSporkNameByID(SporkId nSporkID)
       }
       return it->second->name;
     };
-    
+
     if (Params().NetworkIDString() == CBaseChainParams::TESTNET) {
       auto it = sporkDefsTById.find(nSporkID);
       if (it == sporkDefsTById.end()) {
@@ -365,7 +365,7 @@ std::string CSporkManager::GetSporkNameByID(SporkId nSporkID)
       }
       return it->second->name;
     };
-    
+
     if (Params().NetworkIDString() == CBaseChainParams::REGTEST) {
       auto it = sporkDefsRById.find(nSporkID);
       if (it == sporkDefsRById.end()) {
@@ -374,7 +374,7 @@ std::string CSporkManager::GetSporkNameByID(SporkId nSporkID)
       }
       return it->second->name;
     };
-    
+
     if (Params().NetworkIDString() == CBaseChainParams::DEVNET) {
       auto it = sporkDefsDById.find(nSporkID);
       if (it == sporkDefsDById.end()) {
