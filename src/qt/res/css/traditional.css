@@ -22,10 +22,10 @@ Loaded in GUIUtil::loadStyleSheet() in guitil.cpp.
 #00000000
 #333
 #fff
-#008de4
-#047ac2
 #a84832
-#ccfafafa
+#c30404
+#facccc
+#ff2424
 
 </colors>
 */
@@ -65,7 +65,7 @@ QPushButton - Special case, tabbar replacement buttons
     border-bottom: 3px solid red;
     padding-bottom: 5px;
     background-color: #00000000;
-    border-color: #008de4;
+    border-color: #ff2424;
 }
 
 /* Debug window buttons */
@@ -111,7 +111,7 @@ QPushButton - Special case, tabbar replacement buttons
     border-radius: 0px;
     border-bottom: 3px solid red;
     background-color: #00000000;
-    border-color: #047ac2;
+    border-color: #c30404;
 }
 
 /* Debug window buttons */
@@ -144,7 +144,7 @@ ModalOverlay
 QWidget#bgWidget { /* The frame overlaying the overview-page */
     padding-left: 10px;
     padding-right: 10px;
-    background-color: #ccfafafa;
+    background-color: #facccc;
 }
 
 QWidget#contentWidget { /* The actual content with the text/buttons/etc... */

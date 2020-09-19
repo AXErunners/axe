@@ -21,16 +21,16 @@ Loaded in GUIUtil::loadStyleSheet() in guitil.cpp.
 
 #00000000
 #555
-#008de4
-#0f75b5
 #a7a7a7
+#ba0700
 #c7c7c7
 #d2d2d2
 #dcdcdc
 #e0e0e0
 #eaeaec
 #f2f2f4
-#ccfafafa
+#facccc
+#ff2424
 
 </colors>
 */
@@ -78,7 +78,7 @@ QComboBox,
 QPlainTextEdit,
 QLineEdit {
     background-color: #eaeaec;
-    border-color: #008de4;
+    border-color: #ff2424;
     color: #555;
 }
 
@@ -88,7 +88,7 @@ QComboBox:hover:!focus,
 QPlainTextEdit:hover:!focus,
 QLineEdit:hover:!focus {
     background-color: #eaeaec;
-    border-color: #0f75b5;
+    border-color: #ba0700;
 }
 
 
@@ -99,7 +99,7 @@ QComboBox:focus,
 QPlainTextEdit:focus,
 QLineEdit:focus {
     background-color: #d2d2d2;
-    border-color: #0f75b5;
+    border-color: #ba0700;
 }
 
 BitcoinAmountField:disabled,
@@ -201,13 +201,13 @@ QHeaderView
 ******************************************************/
 
 QHeaderView::section { /* Table Header Sections */
-    background-color: #008de4;
+    background-color: #ff2424;
     border-color: #f2f2f4;
     color: #f2f2f4;
 }
 
 QHeaderView::section:hover { /* Table Header Sections */
-    background-color: #0f75b5;
+    background-color: #ba0700;
     color: #f2f2f4;
 }
 
@@ -261,7 +261,7 @@ QProgressBar {
 }
 
 QProgressBar::chunk {
-    background-color: #008de4;
+    background-color: #ff2424;
 }
 
 /******************************************************
@@ -277,16 +277,16 @@ QPushButton
 ******************************************************/
 
 QPushButton {
-    background-color: #008de4;
+    background-color: #ff2424;
     color: #f2f2f4;
 }
 
 QPushButton:hover {
-    background-color: #0f75b5;
+    background-color: #ba0700;
 }
 
 QPushButton:pressed {
-    background-color: #008de4;
+    background-color: #ff2424;
 }
 
 QPushButton:disabled {
@@ -388,7 +388,7 @@ QPushButton - Special case, tabbar replacement buttons
 /* Sign/Verify dialog buttons */
 #btnSignMessage,
 #btnVerifyMessage {
-    border-color: #008de4;
+    border-color: #ff2424;
     color: #a7a7a7;
 }
 
@@ -428,7 +428,7 @@ QPushButton - Special case, tabbar replacement buttons
 /* Sign/Verify dialog buttons */
 #btnSignMessage:hover:!checked,
 #btnVerifyMessage:hover:!checked {
-    border-color: #0f75b5;
+    border-color: #ba0700;
     color: #555;
 }
 
@@ -478,10 +478,10 @@ QSlider
 ******************************************************/
 
 QSlider::handle:horizontal {
-	background-color: #008de4;
+	background-color: #ff2424;
 }
 QSlider::handle:horizontal:hover {
-	background-color: #0f75b5;
+	background-color: #ba0700;
 }
 QSlider::sub-page:horizontal {
 	background-color: #c7c7c7;
@@ -551,7 +551,7 @@ QToolBar / QToolButton
 ******************************************************/
 
 QToolBar {
-    background-color: #008de4;
+    background-color: #ff2424;
 }
 
 QToolBar > QToolButton {
@@ -560,7 +560,7 @@ QToolBar > QToolButton {
 }
 
 QToolBar > QToolButton:hover:!checked {
-    background-color: #0f75b5;
+    background-color: #ba0700;
     color: #dcdcdc;
 }
 
@@ -677,7 +677,7 @@ ModalOverlay
 ******************************************************/
 
 QWidget#bgWidget { /* The frame overlaying the overview-page */
-    background-color: #ccfafafa;
+    background-color: #facccc;
 }
 
 QWidget#contentWidget { /* The actual content with the text/buttons/etc... */
