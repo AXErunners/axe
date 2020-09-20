@@ -30,7 +30,7 @@ Loaded in GUIUtil::loadStyleSheet() in guitil.cpp.
 #eaeaec
 #f2f2f4
 #facccc
-#ff2424
+#ff3333
 
 </colors>
 */
@@ -78,7 +78,7 @@ QComboBox,
 QPlainTextEdit,
 QLineEdit {
     background-color: #eaeaec;
-    border-color: #ff2424;
+    border-color: #ff3333;
     color: #555;
 }
 
@@ -201,7 +201,7 @@ QHeaderView
 ******************************************************/
 
 QHeaderView::section { /* Table Header Sections */
-    background-color: #ff2424;
+    background-color: #ff3333;
     border-color: #f2f2f4;
     color: #f2f2f4;
 }
@@ -261,7 +261,7 @@ QProgressBar {
 }
 
 QProgressBar::chunk {
-    background-color: #ff2424;
+    background-color: #ff3333;
 }
 
 /******************************************************
@@ -277,7 +277,7 @@ QPushButton
 ******************************************************/
 
 QPushButton {
-    background-color: #ff2424;
+    background-color: #ff3333;
     color: #f2f2f4;
 }
 
@@ -286,7 +286,7 @@ QPushButton:hover {
 }
 
 QPushButton:pressed {
-    background-color: #ff2424;
+    background-color: #ff3333;
 }
 
 QPushButton:disabled {
@@ -388,7 +388,7 @@ QPushButton - Special case, tabbar replacement buttons
 /* Sign/Verify dialog buttons */
 #btnSignMessage,
 #btnVerifyMessage {
-    border-color: #ff2424;
+    border-color: #ff3333;
     color: #a7a7a7;
 }
 
@@ -478,7 +478,7 @@ QSlider
 ******************************************************/
 
 QSlider::handle:horizontal {
-	background-color: #ff2424;
+	background-color: #ff3333;
 }
 QSlider::handle:horizontal:hover {
 	background-color: #ba0700;
@@ -551,7 +551,7 @@ QToolBar / QToolButton
 ******************************************************/
 
 QToolBar {
-    background-color: #ff2424;
+    background-color: #ff3333;
 }
 
 QToolBar > QToolButton {
