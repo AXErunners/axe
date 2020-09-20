@@ -29,8 +29,8 @@ Loaded in GUIUtil::loadStyleSheet() in guitil.cpp.
 #585858
 #7c2727
 #818181
-#990000
 #c7c7c7
+#e60000
 #f6f6f6
 #cc323232
 
@@ -80,7 +80,7 @@ QComboBox,
 QPlainTextEdit,
 QLineEdit {
     background-color: #2d2d2e;
-    border-color: #990000;
+    border-color: #e60000;
     color: #c7c7c7;
 }
 
@@ -204,7 +204,7 @@ QHeaderView
 ******************************************************/
 
 QHeaderView::section { /* Table Header Sections */
-    background-color: #990000;
+    background-color: #e60000;
     color: #c7c7c7;
 }
 
@@ -273,7 +273,7 @@ QProgressBar {
 }
 
 QProgressBar::chunk {
-    background-color: #990000;
+    background-color: #e60000;
 }
 
 /******************************************************
@@ -290,7 +290,7 @@ QPushButton
 ******************************************************/
 
 QPushButton {
-    background-color: #990000;
+    background-color: #e60000;
     color: #c7c7c7;
 }
 
@@ -304,7 +304,7 @@ QPushButton:focus {
 }
 
 QPushButton:pressed {
-    background-color: #990000;
+    background-color: #e60000;
 }
 
 QPushButton:disabled {
@@ -406,7 +406,7 @@ QPushButton - Special case, tabbar replacement buttons
 /* Sign/Verify dialog buttons */
 #btnSignMessage,
 #btnVerifyMessage {
-    border-color: #990000;
+    border-color: #e60000;
     color: #818181;
 }
 
@@ -446,7 +446,7 @@ QPushButton - Special case, tabbar replacement buttons
 /* Sign/Verify dialog buttons */
 #btnSignMessage:hover:!checked,
 #btnVerifyMessage:hover:!checked {
-    border-color: #990000;
+    border-color: #e60000;
     color: #c7c7c7;
 }
 
@@ -496,7 +496,7 @@ QSlider
 ******************************************************/
 
 QSlider::handle:horizontal {
-	background-color: #990000;
+	background-color: #e60000;
 }
 QSlider::handle:horizontal:hover {
 	background-color: #7c2727;
@@ -567,7 +567,7 @@ QToolBar / QToolButton
 ******************************************************/
 
 QToolBar {
-    background-color: #990000;
+    background-color: #e60000;
 }
 
 QToolBar > QToolButton {
