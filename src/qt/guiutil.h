@@ -62,6 +62,8 @@ namespace GUIUtil
         BORDER_WIDGET,
         /* Pixel color of generated QR codes. */
         QR_PIXEL,
+        /* Logo color */
+        LOGO,
     };
 
     /* Enumeration of possible "styles" */
