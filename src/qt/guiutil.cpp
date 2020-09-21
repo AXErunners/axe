@@ -166,7 +166,7 @@ static const std::map<ThemedColor, QColor> themedColors = {
     { ThemedColor::BACKGROUND_WIDGET, QColor(234, 234, 236) },
     { ThemedColor::BORDER_WIDGET, QColor(220, 220, 220) },
     { ThemedColor::QR_PIXEL, QColor(85, 85, 85) },
-    { ThemedColor::LOGO, QColor(255, 65, 65) },
+    { ThemedColor::LOGO, QColor(242, 25, 25) },
 };
 
 static const std::map<ThemedColor, QColor> themedDarkColors = {
@@ -183,7 +183,7 @@ static const std::map<ThemedColor, QColor> themedDarkColors = {
     { ThemedColor::BACKGROUND_WIDGET, QColor(45, 45, 46) },
     { ThemedColor::BORDER_WIDGET, QColor(74, 74, 75) },
     { ThemedColor::QR_PIXEL, QColor(199, 199, 199) },
-    { ThemedColor::LOGO, QColor(255, 65, 65) },
+    { ThemedColor::LOGO, QColor(242, 25, 25) },
 };
 
 static const std::map<ThemedStyle, QString> themedStyles = {
