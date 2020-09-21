@@ -190,7 +190,7 @@ static const std::map<ThemedStyle, QString> themedStyles = {
     { ThemedStyle::TS_INVALID, "background:#e87b68;" },
     { ThemedStyle::TS_ERROR, "color:#a84832;" },
     { ThemedStyle::TS_SUCCESS, "color:#096e03;" },
-    { ThemedStyle::TS_COMMAND, "color:#1c75bc;" },
+    { ThemedStyle::TS_COMMAND, "color:#ba1c1c;" },
     { ThemedStyle::TS_PRIMARY, "color:#333;" },
     { ThemedStyle::TS_SECONDARY, "color:#444;" },
 };
@@ -199,7 +199,7 @@ static const std::map<ThemedStyle, QString> themedDarkStyles = {
     { ThemedStyle::TS_INVALID, "background:#a84832;" },
     { ThemedStyle::TS_ERROR, "color:#a84832;" },
     { ThemedStyle::TS_SUCCESS, "color:#096e03;" },
-    { ThemedStyle::TS_COMMAND, "color:#1c75bc;" },
+    { ThemedStyle::TS_COMMAND, "color:#ba1c1c;" },
     { ThemedStyle::TS_PRIMARY, "color:#c7c7c7;" },
     { ThemedStyle::TS_SECONDARY, "color:#aaa;" },
 };
