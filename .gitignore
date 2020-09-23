@@ -13,6 +13,7 @@ src/axe-tx
 src/test/test_axe
 src/test/test_axe_fuzzy
 src/qt/test/test_axe-qt
+src/qt/res/css/colors/*
 src/bench/bench_axe
 
 # autoreconf

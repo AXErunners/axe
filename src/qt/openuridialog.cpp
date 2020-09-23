@@ -17,6 +17,8 @@ OpenURIDialog::OpenURIDialog(QWidget *parent) :
     ui(new Ui::OpenURIDialog)
 {
     ui->setupUi(this);
+    GUIUtil::updateFonts();
+    GUIUtil::disableMacFocusRect(this);
 #if QT_VERSION >= 0x040700
     ui->uriEdit->setPlaceholderText("axe:");
 #endif
