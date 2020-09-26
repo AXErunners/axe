@@ -160,7 +160,7 @@ SendCoinsDialog::SendCoinsDialog(bool _fPrivateSend, QWidget* parent) :
         ui->sendButton->setText("PrivateS&end");
         ui->sendButton->setToolTip("Confirm the PrivateSend action");
     } else {
-        ui->sendButton->setText("S&end");
+        ui->sendButton->setText(tr("S&end"));
         ui->sendButton->setToolTip("Confirm the send action");
     }
 }
@@ -170,7 +170,7 @@ void SendCoinsDialog::setClientModel(ClientModel *_clientModel)
     this->clientModel = _clientModel;
 
     if (_clientModel) {
-        connect(_clientModel, SIGNAL(numBlocksChanged(int,QDateTime,double,bool)), this, SLOT(updateSmartFeeLabel()));
+        connect(_clientModel, SIGNAL(numBlocksChanged(int,QDateTime,QString,double,bool)), this, SLOT(updateSmartFeeLabel()));
     }
 }
 
