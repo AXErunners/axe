@@ -1399,7 +1399,7 @@ bool CPrivateSendClientSession::MakeCollateralAmounts(const CompactTallyItem& ta
         // Note, here we first add a zero amount output to get the remainder after all fees and then assign it
         CTransactionBuilderOutput* out = txBuilder.AddOutput();
         CAmount nAmountLeft = txBuilder.GetAmountLeft();
-        // If remainder is denominated add one duff to the fee
+        // If remainder is denominated add one hak to the fee
         out->UpdateAmount(CPrivateSend::IsDenominatedAmount(nAmountLeft) ? nAmountLeft - 1 : nAmountLeft);
 
     } else if (txBuilder.CouldAddOutputs({CPrivateSend::GetCollateralAmount(), CPrivateSend::GetCollateralAmount()})) {
@@ -1412,7 +1412,7 @@ bool CPrivateSendClientSession::MakeCollateralAmounts(const CompactTallyItem& ta
         CTransactionBuilderOutput* out1 = txBuilder.AddOutput();
         CTransactionBuilderOutput* out2 = txBuilder.AddOutput();
 
-        // Create two equal outputs from the available value. This adds one duff to the fee if txBuilder.GetAmountLeft() is odd.
+        // Create two equal outputs from the available value. This adds one hak to the fee if txBuilder.GetAmountLeft() is odd.
         CAmount nAmountOutputs = txBuilder.GetAmountLeft() / 2;
 
         assert(CPrivateSend::IsCollateralAmount(nAmountOutputs));

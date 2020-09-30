@@ -874,7 +874,7 @@ BOOST_FIXTURE_TEST_CASE(CreateTransactionTest, CreateTransactionTestSetup)
         }
     };
 
-    // First run the tests with only one input containing 100k duffs
+    // First run the tests with only one input containing 100k haks
     {
         coinControl.SetNull();
         coinControl.Select(GetCoins({{100000, false}})[0]);
@@ -914,7 +914,7 @@ BOOST_FIXTURE_TEST_CASE(CreateTransactionTest, CreateTransactionTestSetup)
             {13, {false, ChangeTest::Skip}}
         });
     }
-    // Now use 4 different inputs with a total of 100k duff
+    // Now use 4 different inputs with a total of 100k hak
     {
         coinControl.SetNull();
         auto setCoins = GetCoins({{1000, false}, {5000, false}, {10000, false}, {84000, false}});
@@ -958,7 +958,7 @@ BOOST_FIXTURE_TEST_CASE(CreateTransactionTest, CreateTransactionTestSetup)
         });
     }
 
-    // Last use 10 equal inputs with a total of 100k duff
+    // Last use 10 equal inputs with a total of 100k hak
     {
         coinControl.SetNull();
         auto setCoins = GetCoins({{10000, false}, {10000, false}, {10000, false}, {10000, false}, {10000, false},
