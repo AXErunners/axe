@@ -1398,7 +1398,7 @@
     </message>
     <message>
         <source>If you disable the spending of unconfirmed change, the change from a transaction&lt;br/&gt;cannot be used until that transaction has at least one confirmation.&lt;br/&gt;This also affects how your balance is computed.</source>
-        <translation>Indien het uitgeven van onbevestigd wisselgeld uitgeschakeld wordt dan kan het wisselgeld van een transactie niet worden gebruikt totdat de transactie ten minste een bevestiging heeft. 
+        <translation>Indien het uitgeven van onbevestigd wisselgeld uitgeschakeld wordt dan kan het wisselgeld van een transactie niet worden gebruikt totdat de transactie ten minste een bevestiging heeft.
 Dit heeft ook invloed op de manier waarop uw saldo wordt berekend.</translation>
     </message>
     <message>
@@ -1564,7 +1564,7 @@ Dit heeft ook invloed op de manier waarop uw saldo wordt berekend.</translation>
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
 https://www.transifex.com/projects/p/axe/</source>
-        <translation>Is een een taal te kort of een vertaling onvolledig ? Help de vertaling hier: 
+        <translation>Is een een taal te kort of een vertaling onvolledig ? Help de vertaling hier:
 https://www.transifex.com/projects/p/axe/</translation>
     </message>
     <message>
@@ -1740,7 +1740,7 @@ https://www.transifex.com/projects/p/axe/</translation>
     </message>
     <message>
         <source>The denominations you submitted to the Masternode.&lt;br&gt;To mix, other users must submit the exact same denominations.</source>
-        <translation>De denominaties zijn bij de Masternode ingebracht. 
+        <translation>De denominaties zijn bij de Masternode ingebracht.
 Om te mixen moeten andere gebruikers exact dezelfde denominaties inbrengen.</translation>
     </message>
     <message>

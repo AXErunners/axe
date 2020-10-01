@@ -1563,7 +1563,7 @@
     <message>
         <source>Language missing or translation incomplete? Help contributing translations here:
 https://www.transifex.com/projects/p/axe/</source>
-        <translation>La tua lingua manca o la traduzione è incompleta? Contribuisci alla traduzione qui: 
+        <translation>La tua lingua manca o la traduzione è incompleta? Contribuisci alla traduzione qui:
 https://www.transifex.com/projects/p/axe/</translation>
     </message>
     <message>
