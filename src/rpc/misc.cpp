@@ -169,15 +169,33 @@ UniValue spork(const JSONRPCRequest& request)
         std:: string strCommand = request.params[0].get_str();
         if (strCommand == "show") {
             UniValue ret(UniValue::VOBJ);
-            for (const auto& sporkDef : sporkDefs) {
-                ret.push_back(Pair(sporkDef.name, sporkManager.GetSporkValue(sporkDef.sporkId)));
-            }
+            for (const auto& sporkDefM : sporkDefsM) {
+                ret.push_back(Pair(sporkDefM.name, sporkManager.GetSporkValue(sporkDefM.sporkId)));
+            };
+            for (const auto& sporkDefT : sporkDefsT) {
+                ret.push_back(Pair(sporkDefT.name, sporkManager.GetSporkValue(sporkDefT.sporkId)));
+            };
+            for (const auto& sporkDefR : sporkDefsR) {
+                ret.push_back(Pair(sporkDefR.name, sporkManager.GetSporkValue(sporkDefR.sporkId)));
+            };
+            for (const auto& sporkDefD : sporkDefsD) {
+                ret.push_back(Pair(sporkDefD.name, sporkManager.GetSporkValue(sporkDefD.sporkId)));
+            };
             return ret;
         } else if(strCommand == "active"){
             UniValue ret(UniValue::VOBJ);
-            for (const auto& sporkDef : sporkDefs) {
-                ret.push_back(Pair(sporkDef.name, sporkManager.IsSporkActive(sporkDef.sporkId)));
-            }
+            for (const auto& sporkDefM : sporkDefsM) {
+                ret.push_back(Pair(sporkDefM.name, sporkManager.IsSporkActive(sporkDefM.sporkId)));
+            };
+            for (const auto& sporkDefT : sporkDefsT) {
+                ret.push_back(Pair(sporkDefT.name, sporkManager.IsSporkActive(sporkDefT.sporkId)));
+            };
+            for (const auto& sporkDefR : sporkDefsR) {
+                ret.push_back(Pair(sporkDefR.name, sporkManager.IsSporkActive(sporkDefR.sporkId)));
+            };
+            for (const auto& sporkDefD : sporkDefsD) {
+                ret.push_back(Pair(sporkDefD.name, sporkManager.IsSporkActive(sporkDefD.sporkId)));
+            };
             return ret;
         }
     }
