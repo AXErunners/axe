@@ -23,8 +23,8 @@ std::vector<CSporkDefM> sporkDefsM = {
     MAKE_SPORK_DEF_M(SPORK_9_SUPERBLOCKS_ENABLED,            0),             // ON
     MAKE_SPORK_DEF_M(SPORK_17_QUORUM_DKG_ENABLED,            0),             // ON
     MAKE_SPORK_DEF_M(SPORK_19_CHAINLOCKS_ENABLED,            0),             // ON
-    MAKE_SPORK_DEF_M(SPORK_21_QUORUM_ALL_CONNECTED,          4070908800ULL), // OFF
-    MAKE_SPORK_DEF_M(SPORK_22_PS_MORE_PARTICIPANTS,          4070908800ULL), // OFF
+    MAKE_SPORK_DEF_M(SPORK_21_QUORUM_ALL_CONNECTED,          620859),        // ON
+    MAKE_SPORK_DEF_M(SPORK_22_PS_MORE_PARTICIPANTS,          620859),        // ON
 };
 
 // Testnet
@@ -35,8 +35,8 @@ std::vector<CSporkDefT> sporkDefsT = {
     MAKE_SPORK_DEF_T(SPORK_9_SUPERBLOCKS_ENABLED,            0),             // ON
     MAKE_SPORK_DEF_T(SPORK_17_QUORUM_DKG_ENABLED,            0),             // ON
     MAKE_SPORK_DEF_T(SPORK_19_CHAINLOCKS_ENABLED,            0),             // ON
-    MAKE_SPORK_DEF_T(SPORK_21_QUORUM_ALL_CONNECTED,          4070908800ULL), // OFF
-    MAKE_SPORK_DEF_T(SPORK_22_PS_MORE_PARTICIPANTS,          4070908800ULL), // OFF
+    MAKE_SPORK_DEF_T(SPORK_21_QUORUM_ALL_CONNECTED,          172000),        // ON
+    MAKE_SPORK_DEF_T(SPORK_22_PS_MORE_PARTICIPANTS,          172000),        // ON
 };
 
 // Regtest
