@@ -53,11 +53,11 @@ Paths
 
 All three configurations assume several paths that might need to be adjusted.
 
-Binary:              `/usr/bin/axed`  
-Configuration file:  `/etc/axecore/axe.conf`  
+Binary:              `/usr/bin/axed`
+Configuration file:  `/etc/axecore/axe.conf`
 Data directory:      `/var/lib/axed`  
-PID file:            `/var/run/axed/axed.pid` (OpenRC and Upstart) or `/var/lib/axed/axed.pid` (systemd)  
-Lock file:           `/var/lock/subsys/axed` (CentOS)  
+PID file:            `/var/run/axed/axed.pid` (OpenRC and Upstart) or `/var/lib/axed/axed.pid` (systemd)
+Lock file:           `/var/lock/subsys/axed` (CentOS)
 
 The configuration file, PID directory (if applicable) and data directory
 should all be owned by the axecore user and group.  It is advised for security
@@ -67,10 +67,10 @@ can then be controlled by group membership.
 
 ### Mac OS X
 
-Binary:              `/usr/local/bin/axed`  
-Configuration file:  `~/Library/Application Support/AxeCore/axe.conf`  
-Data directory:      `~/Library/Application Support/AxeCore`  
-Lock file:           `~/Library/Application Support/AxeCore/.lock`  
+Binary:              `/usr/local/bin/axed`
+Configuration file:  `~/Library/Application Support/AxeCore/axe.conf`
+Data directory:      `~/Library/Application Support/AxeCore`
+Lock file:           `~/Library/Application Support/AxeCore/.lock`
 
 Installing Service Configuration
 -----------------------------------
