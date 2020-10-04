@@ -18,7 +18,7 @@ only succeeds past a given node once its nMinimumChainWork has been exceeded.
 import time
 
 from test_framework.test_framework import BitcoinTestFramework
-from test_framework.util import sync_blocks, connect_nodes, assert_equal
+from test_framework.util import connect_nodes, assert_equal
 
 # 2 hashes required per regtest block (with no difficulty adjustment)
 REGTEST_WORK_PER_BLOCK = 2
@@ -33,7 +33,7 @@ class MinimumChainWorkTest(BitcoinTestFramework):
 
     def setup_network(self):
         # Force CanDirectFetch to return false (otherwise nMinimumChainWork is ignored)
-        self.mocktime += 21 * 2.6 * 60
+        self.bump_mocktime(21 * 2.6 * 60)
         # This test relies on the chain setup being:
         # node0 <- node1 <- node2
         # Before leaving IBD, nodes prefer to download blocks from outbound

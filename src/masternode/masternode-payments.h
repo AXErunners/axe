@@ -5,13 +5,13 @@
 #ifndef MASTERNODE_PAYMENTS_H
 #define MASTERNODE_PAYMENTS_H
 
-#include "util.h"
-#include "core_io.h"
-#include "key.h"
-#include "net_processing.h"
-#include "utilstrencodings.h"
+#include <util.h>
+#include <core_io.h>
+#include <key.h>
+#include <net_processing.h>
+#include <utilstrencodings.h>
 
-#include "evo/deterministicmns.h"
+#include <evo/deterministicmns.h>
 
 class CMasternodePayments;
 
@@ -33,7 +33,6 @@ class CMasternodePayments
 public:
     bool GetBlockTxOuts(int nBlockHeight, CAmount blockReward, std::vector<CTxOut>& voutMasternodePaymentsRet) const;
     bool IsTransactionValid(const CTransaction& txNew, int nBlockHeight, CAmount blockReward) const;
-    bool IsScheduled(const CDeterministicMNCPtr& dmn, int nNotBlockHeight) const;
 
     bool GetMasternodeTxOuts(int nBlockHeight, CAmount blockReward, std::vector<CTxOut>& voutMasternodePaymentsRet) const;
 };

@@ -5,9 +5,9 @@
 #ifndef BITCOIN_QT_TRANSACTIONRECORD_H
 #define BITCOIN_QT_TRANSACTIONRECORD_H
 
-#include "amount.h"
-#include "uint256.h"
-#include "base58.h"
+#include <amount.h>
+#include <uint256.h>
+#include <base58.h>
 
 #include <QList>
 #include <QString>
@@ -22,7 +22,7 @@ class TransactionStatus
 public:
     TransactionStatus():
         countsForBalance(false), lockedByInstantSend(false), lockedByChainLocks(false), sortKey(""),
-        matures_in(0), status(Offline), depth(0), open_for(0), cur_num_blocks(-1),
+        matures_in(0), status(Unconfirmed), depth(0), open_for(0), cur_num_blocks(-1),
         cachedChainLockHeight(-1), needsUpdate(false)
     { }
 
@@ -31,14 +31,12 @@ public:
         /// Normal (sent/received) transactions
         OpenUntilDate,      /**< Transaction not yet final, waiting for date */
         OpenUntilBlock,     /**< Transaction not yet final, waiting for block */
-        Offline,            /**< Not sent to any other nodes **/
         Unconfirmed,        /**< Not yet mined into a block **/
         Confirming,         /**< Confirmed, but waiting for the recommended number of confirmations **/
         Conflicted,         /**< Conflicts with other transaction or mempool **/
         Abandoned,          /**< Abandoned from the wallet **/
         /// Generated (mined) transactions
         Immature,           /**< Mined but waiting for maturity */
-        MaturesWarning,     /**< Transaction will likely not mature because no nodes have confirmed */
         NotAccepted         /**< Mined but not accepted */
     };
 
@@ -105,16 +103,14 @@ public:
     TransactionRecord():
             hash(), time(0), type(Other), strAddress(""), debit(0), credit(0), idx(0)
     {
-        address = CBitcoinAddress(strAddress);
-        txDest = address.Get();
+        txDest = DecodeDestination(strAddress);
     }
 
     TransactionRecord(uint256 _hash, qint64 _time):
             hash(_hash), time(_time), type(Other), strAddress(""), debit(0),
             credit(0), idx(0)
     {
-        address = CBitcoinAddress(strAddress);
-        txDest = address.Get();
+        txDest = DecodeDestination(strAddress);
     }
 
     TransactionRecord(uint256 _hash, qint64 _time,
@@ -123,8 +119,7 @@ public:
             hash(_hash), time(_time), type(_type), strAddress(_strAddress), debit(_debit), credit(_credit),
             idx(0)
     {
-        address = CBitcoinAddress(strAddress);
-        txDest = address.Get();
+        txDest = DecodeDestination(strAddress);
     }
 
     /** Decompose CWallet transaction to model transaction records.
@@ -138,7 +133,6 @@ public:
     qint64 time;
     Type type;
     std::string strAddress;
-    CBitcoinAddress address;
     CTxDestination txDest;
 
     CAmount debit;
@@ -166,7 +160,7 @@ public:
 
     /** Return whether a status update is needed.
      */
-    bool statusUpdateNeeded(int chainLockHeight);
+    bool statusUpdateNeeded(int chainLockHeight) const;
 };
 
 #endif // BITCOIN_QT_TRANSACTIONRECORD_H

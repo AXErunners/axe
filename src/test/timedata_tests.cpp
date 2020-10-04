@@ -2,8 +2,8 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 //
-#include "timedata.h"
-#include "test/test_axe.h"
+#include <timedata.h>
+#include <test/test_axe.h>
 
 #include <boost/test/unit_test.hpp>
 

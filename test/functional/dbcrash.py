@@ -87,14 +87,14 @@ class ChainstateWriteCrashTest(BitcoinTestFramework):
                 return utxo_hash
             except:
                 # An exception here should mean the node is about to crash.
-                # If bitcoind exits, then try again.  wait_for_node_exit()
-                # should raise an exception if bitcoind doesn't exit.
+                # If axed exits, then try again.  wait_for_node_exit()
+                # should raise an exception if axed doesn't exit.
                 self.wait_for_node_exit(node_index, timeout=10)
             self.crashed_on_restart += 1
             time.sleep(1)
 
-        # If we got here, bitcoind isn't coming back up on restart.  Could be a
-        # bug in bitcoind, or we've gotten unlucky with our dbcrash ratio --
+        # If we got here, axed isn't coming back up on restart.  Could be a
+        # bug in axed, or we've gotten unlucky with our dbcrash ratio --
         # perhaps we generated a test case that blew up our cache?
         # TODO: If this happens a lot, we should try to restart without -dbcrashratio
         # and make sure that recovery happens.
@@ -229,14 +229,15 @@ class ChainstateWriteCrashTest(BitcoinTestFramework):
             self.generate_small_transactions(self.nodes[3], 2500, utxo_list)
             # Pick a random block between current tip, and starting tip
             current_height = self.nodes[3].getblockcount()
-            random_height = random.randint(starting_tip_height, current_height)
-            self.log.debug("At height %d, considering height %d", current_height, random_height)
-            if random_height > starting_tip_height:
-                # Randomly reorg from this point with some probability (1/4 for
-                # tip, 1/5 for tip-1, ...)
-                if random.random() < 1.0/(current_height + 4 - random_height):
-                    self.log.debug("Invalidating block at height %d", random_height)
-                    self.nodes[3].invalidateblock(self.nodes[3].getblockhash(random_height))
+            # TODO: re-enable this when ReplayBlocks is fixed to support evodb and additional indexes
+            # random_height = random.randint(starting_tip_height, current_height)
+            # self.log.debug("At height %d, considering height %d", current_height, random_height)
+            # if random_height > starting_tip_height:
+            #     # Randomly reorg from this point with some probability (1/4 for
+            #     # tip, 1/5 for tip-1, ...)
+            #     if random.random() < 1.0/(current_height + 4 - random_height):
+            #         self.log.debug("Invalidating block at height %d", random_height)
+            #         self.nodes[3].invalidateblock(self.nodes[3].getblockhash(random_height))
 
             # Now generate new blocks until we pass the old tip height
             self.log.debug("Mining longer tip")

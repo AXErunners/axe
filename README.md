@@ -1,8 +1,10 @@
 <p align="center"><img src="https://github.com/AXErunners/media/raw/master/axe-logo256.png"/></p>
 
-`M`: [![Build Status](https://travis-ci.com/AXErunners/axe.svg?branch=master)](https://travis-ci.com/AXErunners/axe)
+`M`: [![Build Status](https://gitlab.com/axerunners/axe/badges/master/pipeline.svg)](https://gitlab.com/axerunners/axe/pipelines)
 
-`D`: [![Build Status](https://travis-ci.com/AXErunners/axe.svg?branch=development)](https://travis-ci.com/AXErunners/axe)
+`D`: [![Build Status](https://gitlab.com/axerunners/axe/badges/development/pipeline.svg)](https://gitlab.com/axerunners/axe/pipelines)
+
+`t`: [![Version tag](https://img.shields.io/github/tag/axerunners/axe.svg)](https://github.com/axerunners/axe/tags)
 
 What is Axe?
 -------------

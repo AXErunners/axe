@@ -35,7 +35,7 @@ class KeypoolRestoreTest(BitcoinTestFramework):
 
         self.stop_node(1)
 
-        shutil.copyfile(self.tmpdir + "/node1/regtest/wallet.dat", self.tmpdir + "/wallet.bak")
+        shutil.copyfile(self.tmpdir + "/node1/regtest/wallets/wallet.dat", self.tmpdir + "/wallet.bak")
         self.start_node(1, self.extra_args[1])
         connect_nodes_bi(self.nodes, 0, 1)
 
@@ -52,13 +52,13 @@ class KeypoolRestoreTest(BitcoinTestFramework):
         self.nodes[0].generate(1)
         self.nodes[0].sendtoaddress(addr_extpool, 5)
         self.nodes[0].generate(1)
-        sync_blocks(self.nodes)
+        self.sync_blocks()
 
         self.log.info("Restart node with wallet backup")
 
         self.stop_node(1)
 
-        shutil.copyfile(self.tmpdir + "/wallet.bak", self.tmpdir + "/node1/regtest/wallet.dat")
+        shutil.copyfile(self.tmpdir + "/wallet.bak", self.tmpdir + "/node1/regtest/wallets/wallet.dat")
 
         self.log.info("Verify keypool is restored and balance is correct")
 
@@ -70,7 +70,7 @@ class KeypoolRestoreTest(BitcoinTestFramework):
         assert_equal(self.nodes[1].listtransactions()[0]['category'], "receive")
 
         # Check that we have marked all keys up to the used keypool key as used
-        assert_equal(self.nodes[1].validateaddress(self.nodes[1].getnewaddress())['hdkeypath'], "m/44'/1'/0'/0/111")
+        assert_equal(self.nodes[1].validateaddress(self.nodes[1].getnewaddress())['hdkeypath'], "m/44'/1'/0'/0/110")
 
 if __name__ == '__main__':
     KeypoolRestoreTest().main()

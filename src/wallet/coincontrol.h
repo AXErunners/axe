@@ -5,19 +5,23 @@
 #ifndef BITCOIN_WALLET_COINCONTROL_H
 #define BITCOIN_WALLET_COINCONTROL_H
 
-#include "policy/feerate.h"
-#include "policy/fees.h"
-#include "primitives/transaction.h"
+#include <policy/feerate.h>
+#include <policy/fees.h>
+#include <primitives/transaction.h>
 
 #include <boost/optional.hpp>
 
 enum class CoinType
 {
     ALL_COINS,
-    ONLY_DENOMINATED,
+    ONLY_FULLY_MIXED,
+    ONLY_READY_TO_MIX,
     ONLY_NONDENOMINATED,
-    ONLY_1000, // find masternode outputs including locked ones (use with caution)
+    ONLY_MASTERNODE_COLLATERAL, // find masternode outputs including locked ones (use with caution)
     ONLY_PRIVATESEND_COLLATERAL,
+    // Attributes
+    MIN_COIN_TYPE = ALL_COINS,
+    MAX_COIN_TYPE = ONLY_PRIVATESEND_COLLATERAL,
 };
 
 /** Coin Control Features. */
@@ -35,6 +39,8 @@ public:
     bool fOverrideFeeRate;
     //! Override the default payTxFee if set
     boost::optional<CFeeRate> m_feerate;
+    //! Override the discard feerate estimation with m_discard_feerate in CreateTransaction if set
+    boost::optional<CFeeRate> m_discard_feerate;
     //! Override the default confirmation target if set
     boost::optional<unsigned int> m_confirm_target;
     //! Fee estimation mode to control arguments to estimateSmartFee
@@ -55,6 +61,7 @@ public:
         fAllowWatchOnly = false;
         setSelected.clear();
         m_feerate.reset();
+        m_discard_feerate.reset();
         fOverrideFeeRate = false;
         m_confirm_target.reset();
         m_fee_mode = FeeEstimateMode::UNSET;
@@ -95,12 +102,12 @@ public:
 
     void UsePrivateSend(bool fUsePrivateSend)
     {
-        nCoinType = fUsePrivateSend ? CoinType::ONLY_DENOMINATED : CoinType::ALL_COINS;
+        nCoinType = fUsePrivateSend ? CoinType::ONLY_FULLY_MIXED : CoinType::ALL_COINS;
     }
 
     bool IsUsingPrivateSend() const
     {
-        return nCoinType == CoinType::ONLY_DENOMINATED;
+        return nCoinType == CoinType::ONLY_FULLY_MIXED;
     }
 
 private:

@@ -4,19 +4,19 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/axe-config.h"
+#include <config/axe-config.h>
 #endif
 
-#include "chainparams.h"
-#include "rpcnestedtests.h"
-#include "util.h"
-#include "uritests.h"
-#include "compattests.h"
-#include "trafficgraphdatatests.h"
+#include <chainparams.h>
+#include <qt/test/rpcnestedtests.h>
+#include <util.h>
+#include <qt/test/uritests.h>
+#include <qt/test/compattests.h>
+#include <qt/test/trafficgraphdatatests.h>
 
 #ifdef ENABLE_WALLET
-#include "paymentservertests.h"
-#include "wallettests.h"
+#include <qt/test/paymentservertests.h>
+#include <qt/test/wallettests.h>
 #endif
 
 #include <QApplication>
@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
     bool fInvalid = false;
 
     // Prefer the "minimal" platform for the test instead of the normal default
-    // platform ("xcb", "windows", or "cocoa") so tests can't unintentially
+    // platform ("xcb", "windows", or "cocoa") so tests can't unintentionally
     // interfere with any background GUIs and don't require extra resources.
     #if defined(WIN32)
         _putenv_s("QT_QPA_PLATFORM", "minimal");

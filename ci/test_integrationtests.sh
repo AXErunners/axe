@@ -17,8 +17,22 @@ export LD_LIBRARY_PATH=$BUILD_DIR/depends/$HOST/lib
 
 cd build-ci/axecore-$BUILD_TARGET
 
+if [ "$SOCKETEVENTS" = "" ]; then
+  # Let's switch socketevents mode to some random mode
+  R=$(($RANDOM%3))
+  if [ "$R" == "0" ]; then
+    SOCKETEVENTS="select"
+  elif [ "$R" == "1" ]; then
+    SOCKETEVENTS="poll"
+  else
+    SOCKETEVENTS="epoll"
+  fi
+fi
+echo "Using socketevents mode: $SOCKETEVENTS"
+EXTRA_ARGS="--axed-arg=-socketevents=$SOCKETEVENTS"
+
 set +e
-./test/functional/test_runner.py --coverage --quiet --nocleanup --tmpdir=$(pwd)/testdatadirs $PASS_ARGS
+./test/functional/test_runner.py --ci --coverage --failfast --nocleanup --tmpdir=$(pwd)/testdatadirs $PASS_ARGS $EXTRA_ARGS
 RESULT=$?
 set -e
 

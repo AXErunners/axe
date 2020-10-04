@@ -1,9 +1,9 @@
 // Copyright (c) 2014-2017 The Dash Core developers
 // Copyright (c) 2017-2018 The AXE Core developers
 
-#include "governance/governance.h"
+#include <governance/governance.h>
 
-#include "test/test_axe.h"
+#include <test/test_axe.h>
 
 #include <boost/test/unit_test.hpp>
 

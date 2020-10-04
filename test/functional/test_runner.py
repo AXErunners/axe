@@ -55,6 +55,7 @@ BASE_SCRIPTS= [
     # Scripts that are run by the travis build process.
     # Longest test should go first, to favor running tests in parallel
     'dip3-deterministicmns.py', # NOTE: needs axe_hash to pass
+    'feature_block_reward_reallocation.py',
     'wallet-hd.py',
     'walletbackup.py',
     # vv Tests less than 5m vv
@@ -69,7 +70,9 @@ BASE_SCRIPTS= [
     'listtransactions.py',
     'multikeysporks.py',
     'llmq-signing.py', # NOTE: needs axe_hash to pass
+    'llmq-signing.py --spork21', # NOTE: needs axe_hash to pass
     'llmq-chainlocks.py', # NOTE: needs axe_hash to pass
+    'llmq-connections.py', # NOTE: needs axe_hash to pass
     'llmq-simplepose.py', # NOTE: needs axe_hash to pass
     'llmq-is-cl-conflicts.py', # NOTE: needs axe_hash to pass
     'llmq-is-retroactive.py', # NOTE: needs axe_hash to pass
@@ -99,6 +102,7 @@ BASE_SCRIPTS= [
     'mempool_reorg.py',
     'mempool_persist.py',
     'multiwallet.py',
+    'multiwallet.py --usecli',
     'httpbasics.py',
     'multi_rpc.py',
     'proxy_test.py',
@@ -109,6 +113,7 @@ BASE_SCRIPTS= [
     'spentindex.py',
     'decodescript.py',
     'blockchain.py',
+    'deprecated_rpc.py',
     'disablewallet.py',
     'net.py',
     'keypool.py',
@@ -139,12 +144,20 @@ BASE_SCRIPTS= [
     'minchainwork.py',
     'p2p-acceptblock.py', # NOTE: needs axe_hash to pass
     'feature_shutdown.py',
+    'privatesend.py',
+    'uacomment.py',
+    'feature_logging.py',
+    'node_network_limited.py',
+    'conf_args.py',
+    'feature_help.py',
+    # Don't append tests at the end to avoid merge conflicts
+    # Put them in a random line within the section that fits their approximate run-time
 ]
 
 EXTENDED_SCRIPTS = [
     # These tests are not run by the travis build process.
     # Longest test should go first, to favor running tests in parallel
-    'pruning.py', # NOTE: Prune mode is incompatible with -txindex, should work in litemode though.
+    'pruning.py', # NOTE: Prune mode is incompatible with -txindex, should work governance validation disabled though.
     # vv Tests less than 20m vv
     'smartfees.py',
     # vv Tests less than 5m vv
@@ -156,7 +169,6 @@ EXTENDED_SCRIPTS = [
     'getblocktemplate_longpoll.py',  # FIXME: "socket.error: [Errno 54] Connection reset by peer" on my Mac, same as  https://github.com/bitcoin/bitcoin/issues/6651
     'p2p-timeouts.py',
     # vv Tests less than 60s vv
-    'bip9-softforks.py',
     'rpcbind_test.py',
     # vv Tests less than 30s vv
     'assumevalid.py',
@@ -164,7 +176,7 @@ EXTENDED_SCRIPTS = [
     'txn_doublespend.py',
     'txn_clone.py --mineblock',
     'txindex.py',
-    'forknotify.py',
+    'notifications.py',
     'invalidateblock.py',
 ]
 
@@ -187,7 +199,8 @@ def main():
     Help text and arguments for individual test script:''',
                                      formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument('--coverage', action='store_true', help='generate a basic coverage report for the RPC interface')
-    parser.add_argument('--exclude', '-x', help='specify a comma-seperated-list of scripts to exclude.')
+    parser.add_argument('--ci', action='store_true', help='Run checks and code that are usually only enabled in a continuous integration environment')
+    parser.add_argument('--exclude', '-x', help='specify a comma-separated-list of scripts to exclude.')
     parser.add_argument('--extended', action='store_true', help='run the extended test suite in addition to the basic tests')
     parser.add_argument('--force', '-f', action='store_true', help='run tests even on platforms where they are disabled by default (e.g. windows).')
     parser.add_argument('--help', '-h', '-?', action='store_true', help='print help text and exit')
@@ -195,6 +208,7 @@ def main():
     parser.add_argument('--quiet', '-q', action='store_true', help='only print results summary and failure logs')
     parser.add_argument('--keepcache', '-k', action='store_true', help='the default behavior is to flush the cache directory on startup. --keepcache retains the cache from the previous testrun.')
     parser.add_argument('--tmpdirprefix', '-t', default=tempfile.gettempdir(), help="Root directory for datadirs")
+    parser.add_argument('--failfast', action='store_true', help='stop execution after the first test failure')
     args, unknown_args = parser.parse_known_args()
 
     # args to be passed on always start with two dashes; tests are the remaining unknown args
@@ -229,7 +243,7 @@ def main():
         sys.exit(0)
 
     if not (enable_wallet and enable_utils and enable_bitcoind):
-        print("No functional tests to run. Wallet, utils, and bitcoind must all be enabled")
+        print("No functional tests to run. Wallet, utils, and axed must all be enabled")
         print("Rerun `configure` with -enable-wallet, -with-utils and -with-daemon and rerun make")
         sys.exit(0)
 
@@ -273,14 +287,27 @@ def main():
         subprocess.check_call([(config["environment"]["SRCDIR"] + '/test/functional/' + test_list[0].split()[0])] + ['-h'])
         sys.exit(0)
 
-    check_script_list(config["environment"]["SRCDIR"])
+    check_script_list(src_dir=config["environment"]["SRCDIR"], fail_on_warn=args.ci)
 
     if not args.keepcache:
         shutil.rmtree("%s/test/cache" % config["environment"]["BUILDDIR"], ignore_errors=True)
 
-    run_tests(test_list, config["environment"]["SRCDIR"], config["environment"]["BUILDDIR"], config["environment"]["EXEEXT"], tmpdir, args.jobs, args.coverage, passon_args)
+    run_tests(
+        test_list=test_list,
+        src_dir=config["environment"]["SRCDIR"],
+        build_dir=config["environment"]["BUILDDIR"],
+        exeext=config["environment"]["EXEEXT"],
+        tmpdir=tmpdir,
+        jobs=args.jobs,
+        enable_coverage=args.coverage,
+        args=passon_args,
+        failfast=args.failfast,
+        runs_ci=args.ci,
+    )
 
-def run_tests(test_list, src_dir, build_dir, exeext, tmpdir, jobs=1, enable_coverage=False, args=[]):
+def run_tests(*, test_list, src_dir, build_dir, exeext, tmpdir, jobs=1, enable_coverage=False, args=None, failfast=False, runs_ci):
+    args = args or []
+
     # Warn if axed is already running (unix only)
     try:
         pidof_output = subprocess.check_output(["pidof", "axed"])
@@ -314,10 +341,21 @@ def run_tests(test_list, src_dir, build_dir, exeext, tmpdir, jobs=1, enable_cove
 
     if len(test_list) > 1 and jobs > 1:
         # Populate cache
-        subprocess.check_output([tests_dir + 'create_cache.py'] + flags + ["--tmpdir=%s/cache" % tmpdir])
+        try:
+            subprocess.check_output([tests_dir + 'create_cache.py'] + flags + ["--tmpdir=%s/cache" % tmpdir])
+        except subprocess.CalledProcessError as e:
+            sys.stdout.buffer.write(e.output)
+            raise
 
     #Run Tests
-    job_queue = TestHandler(jobs, tests_dir, tmpdir, test_list, flags)
+    job_queue = TestHandler(
+        num_tests_parallel=jobs,
+        tests_dir=tests_dir,
+        tmpdir=tmpdir,
+        test_list=test_list,
+        flags=flags,
+        timeout_duration=20 * 60 if runs_ci else float('inf'),  # in seconds
+    )
     time0 = time.time()
     test_results = []
 
@@ -336,6 +374,10 @@ def run_tests(test_list, src_dir, build_dir, exeext, tmpdir, jobs=1, enable_cove
             print(BOLD[1] + 'stdout:\n' + BOLD[0] + stdout + '\n')
             print(BOLD[1] + 'stderr:\n' + BOLD[0] + stderr + '\n')
 
+            if failfast:
+                logging.debug("Early exiting after test failure")
+                break
+
     print_results(test_results, max_len_name, (int(time.time() - time0)))
 
     if coverage:
@@ -349,6 +391,10 @@ def run_tests(test_list, src_dir, build_dir, exeext, tmpdir, jobs=1, enable_cove
         os.rmdir(tmpdir)
 
     all_passed = all(map(lambda test_result: test_result.was_successful, test_results))
+
+    # This will be a no-op unless failfast is True in which case there may be dangling
+    # processes which need to be killed.
+    job_queue.kill_and_join()
 
     sys.exit(not all_passed)
 
@@ -372,18 +418,19 @@ def print_results(test_results, max_len_name, runtime):
 
 class TestHandler:
     """
-    Trigger the testscrips passed in via the list.
+    Trigger the test scripts passed in via the list.
     """
 
-    def __init__(self, num_tests_parallel, tests_dir, tmpdir, test_list=None, flags=None):
-        assert(num_tests_parallel >= 1)
+    def __init__(self, *, num_tests_parallel, tests_dir, tmpdir, test_list, flags, timeout_duration):
+        assert num_tests_parallel >= 1
         self.num_jobs = num_tests_parallel
         self.tests_dir = tests_dir
         self.tmpdir = tmpdir
+        self.timeout_duration = timeout_duration
         self.test_list = test_list
         self.flags = flags
         self.num_running = 0
-        # In case there is a graveyard of zombie bitcoinds, we can apply a
+        # In case there is a graveyard of zombie axeds, we can apply a
         # pseudorandom offset to hopefully jump over them.
         # (625 is PORT_RANGE/MAX_NODES)
         self.portseed_offset = int(time.time() * 1000) % 625
@@ -415,7 +462,7 @@ class TestHandler:
             time.sleep(.5)
             for j in self.jobs:
                 (name, time0, proc, log_out, log_err) = j
-                if os.getenv('TRAVIS') == 'true' and int(time.time() - time0) > 20 * 60:
+                if int(time.time() - time0) > self.timeout_duration:
                     # In travis, timeout individual tests after 20 minutes (to stop tests hanging and not
                     # providing useful output.
                     proc.send_signal(signal.SIGINT)
@@ -434,6 +481,17 @@ class TestHandler:
 
                     return TestResult(name, status, int(time.time() - time0)), stdout, stderr
             print('.', end='', flush=True)
+
+    def kill_and_join(self):
+        """Send SIGKILL to all jobs and block until all have ended."""
+        procs = [i[2] for i in self.jobs]
+
+        for proc in procs:
+            proc.kill()
+
+        for proc in procs:
+            proc.wait()
+
 
 class TestResult():
     def __init__(self, name, status, time):
@@ -460,7 +518,7 @@ class TestResult():
         return self.status != "Failed"
 
 
-def check_script_list(src_dir):
+def check_script_list(*, src_dir, fail_on_warn):
     """Check scripts directory.
 
     Check that there are no scripts in the functional tests directory which are
@@ -470,18 +528,18 @@ def check_script_list(src_dir):
     missed_tests = list(python_files - set(map(lambda x: x.split()[0], ALL_SCRIPTS + NON_SCRIPTS)))
     if len(missed_tests) != 0:
         print("%sWARNING!%s The following scripts are not being run: %s. Check the test lists in test_runner.py." % (BOLD[1], BOLD[0], str(missed_tests)))
-        if os.getenv('TRAVIS') == 'true':
+        if fail_on_warn:
             # On travis this warning is an error to prevent merging incomplete commits into master
             sys.exit(1)
 
-class RPCCoverage(object):
+class RPCCoverage():
     """
     Coverage reporting utilities for test_runner.
 
     Coverage calculation works by having each test script subprocess write
     coverage files into a particular directory. These files contain the RPC
     commands invoked during testing, as well as a complete listing of RPC
-    commands per `bitcoin-cli help` (`rpc_interface.txt`).
+    commands per `axe-cli help` (`rpc_interface.txt`).
 
     After all tests complete, the commands run are combined and diff'd against
     the complete list to calculate uncovered RPC commands.

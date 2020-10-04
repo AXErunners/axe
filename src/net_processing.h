@@ -6,9 +6,9 @@
 #ifndef BITCOIN_NET_PROCESSING_H
 #define BITCOIN_NET_PROCESSING_H
 
-#include "net.h"
-#include "validationinterface.h"
-#include "consensus/params.h"
+#include <net.h>
+#include <validationinterface.h>
+#include <consensus/params.h>
 
 /** Default for -maxorphantxsize, maximum size in megabytes the orphan map can grow before entries are removed */
 static const unsigned int DEFAULT_MAX_ORPHAN_TRANSACTIONS_SIZE = 10; // this allows around 100 TXs of max size (and many more of normal size)
@@ -36,6 +36,11 @@ static constexpr int64_t STALE_CHECK_INTERVAL = 150; // 2.5 minutes (~block inte
 static constexpr int64_t EXTRA_PEER_CHECK_INTERVAL = 45;
 /** Minimum time an outbound-peer-eviction candidate must be connected for, in order to evict, in seconds */
 static constexpr int64_t MINIMUM_CONNECT_TIME = 30;
+
+/** Default for BIP61 (sending reject messages) */
+static constexpr bool DEFAULT_ENABLE_BIP61 = true;
+/** Enable BIP61 (sending reject messages) */
+extern bool g_enable_bip61;
 
 class PeerLogicValidation : public CValidationInterface, public NetEventsInterface {
 private:
@@ -81,7 +86,11 @@ struct CNodeStateStats {
 /** Get statistics from node state */
 bool GetNodeStateStats(NodeId nodeid, CNodeStateStats &stats);
 /** Increase a node's misbehavior score. */
-void Misbehaving(NodeId nodeid, int howmuch);
+void Misbehaving(NodeId nodeid, int howmuch, const std::string& message="");
 bool IsBanned(NodeId nodeid);
+
+void EraseObjectRequest(NodeId nodeId, const CInv& inv);
+void RequestObject(NodeId nodeId, const CInv& inv, std::chrono::microseconds current_time, bool fForce=false);
+size_t GetRequestedObjectCount(NodeId nodeId);
 
 #endif // BITCOIN_NET_PROCESSING_H

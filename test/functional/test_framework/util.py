@@ -9,6 +9,7 @@ from base64 import b64encode
 from binascii import hexlify, unhexlify
 from decimal import Decimal, ROUND_DOWN
 import hashlib
+import inspect
 import json
 import logging
 import os
@@ -28,7 +29,7 @@ logger = logging.getLogger("TestFramework.utils")
 
 def assert_fee_amount(fee, tx_size, fee_per_kB):
     """Assert the fee was in range"""
-    target_fee = tx_size * fee_per_kB / 1000
+    target_fee = round(tx_size * fee_per_kB / 1000, 8)
     if fee < target_fee:
         raise AssertionError("Fee of %s AXE too low! (Should be %s AXE)" % (str(fee), str(target_fee)))
     # allow the wallet's estimation to be at most 2 bytes off
@@ -206,9 +207,9 @@ def wait_until(predicate, *, attempts=float('inf'), timeout=float('inf'), sleep=
     if attempts == float('inf') and timeout == float('inf'):
         timeout = 60
     attempt = 0
-    timeout += time.time()
+    time_end = time.time() + timeout
 
-    while attempt < attempts and time.time() < timeout:
+    while attempt < attempts and time.time() < time_end:
         try:
             if lock:
                 with lock:
@@ -225,8 +226,12 @@ def wait_until(predicate, *, attempts=float('inf'), timeout=float('inf'), sleep=
 
     if do_assert:
         # Print the cause of the timeout
-        assert_greater_than(attempts, attempt)
-        assert_greater_than(timeout, time.time())
+        predicate_source = inspect.getsourcelines(predicate)
+        logger.error("wait_until() failed. Predicate: {}".format(predicate_source))
+        if attempt >= attempts:
+            raise AssertionError("Predicate {} not true after {} attempts".format(predicate_source, attempts))
+        elif time.time() >= time_end:
+            raise AssertionError("Predicate {} not true after {} seconds".format(predicate_source, timeout))
         raise RuntimeError('Unreachable')
     else:
         return False
@@ -298,6 +303,7 @@ def initialize_datadir(dirname, n):
         os.makedirs(datadir)
     with open(os.path.join(datadir, "axe.conf"), 'w', encoding='utf8') as f:
         f.write("regtest=1\n")
+        f.write("[regtest]\n")
         f.write("port=" + str(p2p_port(n)) + "\n")
         f.write("rpcport=" + str(rpc_port(n)) + "\n")
         f.write("listenonion=0\n")
@@ -341,8 +347,11 @@ def copy_datadir(from_node, to_node, dirname):
         except:
             pass
 
-def log_filename(dirname, n_node, logname):
-    return os.path.join(dirname, "node" + str(n_node), "regtest", logname)
+# If a cookie file exists in the given datadir, delete it.
+def delete_cookie_file(datadir):
+    if os.path.isfile(os.path.join(datadir, "regtest", ".cookie")):
+        logger.debug("Deleting leftover cookie file")
+        os.remove(os.path.join(datadir, "regtest", ".cookie"))
 
 def get_bip9_status(node, key):
     info = node.getblockchaininfo()
@@ -350,26 +359,29 @@ def get_bip9_status(node, key):
 
 def set_node_times(nodes, t):
     for node in nodes:
+        node.mocktime = t
         node.setmocktime(t)
 
 def disconnect_nodes(from_connection, node_num):
     for peer_id in [peer['id'] for peer in from_connection.getpeerinfo() if "testnode%d" % node_num in peer['subver']]:
-        from_connection.disconnectnode(nodeid=peer_id)
+        try:
+            from_connection.disconnectnode(nodeid=peer_id)
+        except JSONRPCException as e:
+            # If this node is disconnected between calculating the peer id
+            # and issuing the disconnect, don't worry about it.
+            # This avoids a race condition if we're mass-disconnecting peers.
+            if e.error['code'] != -29: # RPC_CLIENT_NODE_NOT_CONNECTED
+                raise
 
-    for _ in range(50):
-        if [peer['id'] for peer in from_connection.getpeerinfo() if "testnode%d" % node_num in peer['subver']] == []:
-            break
-        time.sleep(0.1)
-    else:
-        raise AssertionError("timed out waiting for disconnect")
+    # wait to disconnect
+    wait_until(lambda: [peer['id'] for peer in from_connection.getpeerinfo() if "testnode%d" % node_num in peer['subver']] == [], timeout=5)
 
 def connect_nodes(from_connection, node_num):
     ip_port = "127.0.0.1:" + str(p2p_port(node_num))
     from_connection.addnode(ip_port, "onetry")
     # poll until version handshake complete to avoid race conditions
     # with transaction relaying
-    while any(peer['version'] == 0 for peer in from_connection.getpeerinfo()):
-        time.sleep(0.1)
+    wait_until(lambda:  all(peer['version'] != 0 for peer in from_connection.getpeerinfo()))
 
 def connect_nodes_bi(nodes, a, b):
     connect_nodes(nodes[a], b)
@@ -425,7 +437,7 @@ def sync_chain(rpc_connections, *, wait=1, timeout=60):
         timeout -= wait
     raise AssertionError("Chain sync failed: Best block hashes don't match")
 
-def sync_mempools(rpc_connections, *, wait=1, timeout=60):
+def sync_mempools(rpc_connections, *, wait=1, timeout=60, wait_func=None):
     """
     Wait until everybody has the same transactions in their memory
     pools
@@ -438,6 +450,8 @@ def sync_mempools(rpc_connections, *, wait=1, timeout=60):
                 num_match = num_match + 1
         if num_match == len(rpc_connections):
             return
+        if wait_func is not None:
+            wait_func()
         time.sleep(wait)
         timeout -= wait
     raise AssertionError("Mempool sync failed")

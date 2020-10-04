@@ -2,20 +2,20 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "cbtx.h"
-#include "core_io.h"
-#include "deterministicmns.h"
-#include "llmq/quorums.h"
-#include "llmq/quorums_blockprocessor.h"
-#include "llmq/quorums_commitment.h"
-#include "simplifiedmns.h"
-#include "specialtx.h"
+#include <evo/cbtx.h>
+#include <core_io.h>
+#include <evo/deterministicmns.h>
+#include <llmq/quorums.h>
+#include <llmq/quorums_blockprocessor.h>
+#include <llmq/quorums_commitment.h>
+#include <evo/simplifiedmns.h>
+#include <evo/specialtx.h>
 
-#include "base58.h"
-#include "chainparams.h"
-#include "consensus/merkle.h"
-#include "univalue.h"
-#include "validation.h"
+#include <base58.h>
+#include <chainparams.h>
+#include <consensus/merkle.h>
+#include <univalue.h>
+#include <validation.h>
 
 CSimplifiedMNListEntry::CSimplifiedMNListEntry(const CDeterministicMN& dmn) :
     proRegTxHash(dmn.proTxHash),
@@ -37,7 +37,7 @@ uint256 CSimplifiedMNListEntry::CalcHash() const
 std::string CSimplifiedMNListEntry::ToString() const
 {
     return strprintf("CSimplifiedMNListEntry(proRegTxHash=%s, confirmedHash=%s, service=%s, pubKeyOperator=%s, votingAddress=%s, isValid=%d)",
-        proRegTxHash.ToString(), confirmedHash.ToString(), service.ToString(false), pubKeyOperator.Get().ToString(), CBitcoinAddress(keyIDVoting).ToString(), isValid);
+        proRegTxHash.ToString(), confirmedHash.ToString(), service.ToString(false), pubKeyOperator.Get().ToString(), EncodeDestination(keyIDVoting), isValid);
 }
 
 void CSimplifiedMNListEntry::ToJson(UniValue& obj) const
@@ -48,7 +48,7 @@ void CSimplifiedMNListEntry::ToJson(UniValue& obj) const
     obj.push_back(Pair("confirmedHash", confirmedHash.ToString()));
     obj.push_back(Pair("service", service.ToString(false)));
     obj.push_back(Pair("pubKeyOperator", pubKeyOperator.Get().ToString()));
-    obj.push_back(Pair("votingAddress", CBitcoinAddress(keyIDVoting).ToString()));
+    obj.push_back(Pair("votingAddress", EncodeDestination(keyIDVoting)));
     obj.push_back(Pair("isValid", isValid));
 }
 

@@ -5,10 +5,10 @@
 #ifndef AXE_QUORUMS_UTILS_H
 #define AXE_QUORUMS_UTILS_H
 
-#include "consensus/params.h"
-#include "net.h"
+#include <consensus/params.h>
+#include <net.h>
 
-#include "evo/deterministicmns.h"
+#include <evo/deterministicmns.h>
 
 #include <vector>
 
@@ -31,8 +31,14 @@ public:
         return BuildSignHash((Consensus::LLMQType)s.llmqType, s.quorumHash, s.id, s.msgHash);
     }
 
-    static std::set<uint256> GetQuorumConnections(Consensus::LLMQType llmqType, const CBlockIndex* pindexQuorum, const uint256& forMember);
+    static bool IsAllMembersConnectedEnabled(Consensus::LLMQType llmqType);
+    static uint256 DeterministicOutboundConnection(const uint256& proTxHash1, const uint256& proTxHash2);
+    static std::set<uint256> GetQuorumConnections(Consensus::LLMQType llmqType, const CBlockIndex* pindexQuorum, const uint256& forMember, bool onlyOutbound);
+    static std::set<uint256> GetQuorumRelayMembers(Consensus::LLMQType llmqType, const CBlockIndex* pindexQuorum, const uint256& forMember, bool onlyOutbound);
     static std::set<size_t> CalcDeterministicWatchConnections(Consensus::LLMQType llmqType, const CBlockIndex* pindexQuorum, size_t memberCount, size_t connectionCount);
+
+    static void EnsureQuorumConnections(Consensus::LLMQType llmqType, const CBlockIndex* pindexQuorum, const uint256& myProTxHash, bool allowWatch);
+    static void AddQuorumProbeConnections(Consensus::LLMQType llmqType, const CBlockIndex* pindexQuorum, const uint256& myProTxHash);
 
     static bool IsQuorumActive(Consensus::LLMQType llmqType, const uint256& quorumHash);
 
@@ -64,6 +70,14 @@ public:
                 idx %= rndNodes.size();
             }
         }
+    }
+    static std::string ToHexStr(const std::vector<bool>& vBits)
+    {
+        std::vector<uint8_t> vBytes((vBits.size() + 7) / 8);
+        for (size_t i = 0; i < vBits.size(); i++) {
+            vBytes[i / 8] |= vBits[i] << (i % 8);
+        }
+        return HexStr(vBytes);
     }
 };
 

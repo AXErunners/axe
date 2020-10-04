@@ -5,7 +5,7 @@
 
 from test_framework.mininode import *
 from test_framework.test_framework import AxeTestFramework
-from test_framework.util import isolate_node, sync_mempools, set_node_times, reconnect_isolated_node, assert_equal, \
+from test_framework.util import isolate_node, sync_mempools, reconnect_isolated_node, assert_equal, \
     assert_raises_rpc_error
 
 '''
@@ -16,7 +16,7 @@ Tests InstantSend functionality (prevent doublespend for unconfirmed transaction
 
 class InstantSendTest(AxeTestFramework):
     def set_test_params(self):
-        self.set_axe_test_params(9, 5, fast_dip3_enforcement=True)
+        self.set_axe_test_params(7, 3, fast_dip3_enforcement=True)
         # set sender,  receiver,  isolated nodes
         self.isolated_idx = 1
         self.receiver_idx = 2
@@ -43,7 +43,6 @@ class InstantSendTest(AxeTestFramework):
         sender_addr = sender.getnewaddress()
         self.nodes[0].sendtoaddress(sender_addr, 1)
         self.bump_mocktime(1)
-        set_node_times(self.nodes, self.mocktime)
         self.nodes[0].generate(2)
         self.sync_all()
 
@@ -57,14 +56,13 @@ class InstantSendTest(AxeTestFramework):
         # wait for the transaction to propagate
         connected_nodes = self.nodes.copy()
         del connected_nodes[self.isolated_idx]
-        sync_mempools(connected_nodes)
+        self.sync_mempools(connected_nodes)
         for node in connected_nodes:
             self.wait_for_instantlock(is_id, node)
         # send doublespend transaction to isolated node
         isolated.sendrawtransaction(dblspnd_tx['hex'])
         # generate block on isolated node with doublespend transaction
         self.bump_mocktime(1)
-        set_node_times(self.nodes, self.mocktime)
         isolated.generate(1)
         wrong_block = isolated.getbestblockhash()
         # connect isolated block to network
@@ -84,7 +82,8 @@ class InstantSendTest(AxeTestFramework):
         # mine more blocks
         # TODO: mine these blocks on an isolated node
         self.bump_mocktime(1)
-        set_node_times(self.nodes, self.mocktime)
+        # make sure the above TX is on node0
+        self.sync_mempools([n for n in self.nodes if n is not isolated])
         self.nodes[0].generate(2)
         self.sync_all()
 
@@ -97,7 +96,6 @@ class InstantSendTest(AxeTestFramework):
         sender_addr = sender.getnewaddress()
         self.nodes[0].sendtoaddress(sender_addr, 1)
         self.bump_mocktime(1)
-        set_node_times(self.nodes, self.mocktime)
         self.nodes[0].generate(2)
         self.sync_all()
 
@@ -119,7 +117,7 @@ class InstantSendTest(AxeTestFramework):
         receiver_addr = receiver.getnewaddress()
         is_id = sender.sendtoaddress(receiver_addr, 0.9)
         # wait for the transaction to propagate
-        sync_mempools(self.nodes)
+        self.sync_mempools()
         for node in self.nodes:
             self.wait_for_instantlock(is_id, node)
         assert_raises_rpc_error(-5, "No such mempool or blockchain transaction", isolated.getrawtransaction, dblspnd_txid)
@@ -128,7 +126,6 @@ class InstantSendTest(AxeTestFramework):
         assert_equal(receiver.getwalletinfo()["balance"], 0)
         # mine more blocks
         self.bump_mocktime(1)
-        set_node_times(self.nodes, self.mocktime)
         self.nodes[0].generate(2)
         self.sync_all()
 

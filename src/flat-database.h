@@ -5,12 +5,12 @@
 #ifndef FLAT_DATABASE_H
 #define FLAT_DATABASE_H
 
-#include "chainparams.h"
-#include "clientversion.h"
-#include "fs.h"
-#include "hash.h"
-#include "streams.h"
-#include "util.h"
+#include <chainparams.h>
+#include <clientversion.h>
+#include <fs.h>
+#include <hash.h>
+#include <streams.h>
+#include <util.h>
 
 /**
 *   Generic Dumping and Loading
@@ -97,7 +97,7 @@ private:
 
         // read data and checksum from file
         try {
-            filein.read((char *)&vchData[0], dataSize);
+            filein.read((char *)vchData.data(), dataSize);
             filein >> hashIn;
         }
         catch (std::exception &e) {

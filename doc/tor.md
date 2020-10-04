@@ -1,5 +1,4 @@
-TOR SUPPORT IN AXE CORE
-=======================
+# TOR SUPPORT IN AXE CORE
 
 It is possible to run Axe Core as a Tor hidden service, and connect to such services.
 
@@ -10,8 +9,7 @@ See [Tor Project FAQ:TBBSocksPort](https://www.torproject.org/docs/faq.html.en#T
 for how to properly configure Tor.
 
 
-1. Run Axe Core behind a Tor proxy
-----------------------------------
+## 1. Run Axe Core behind a Tor proxy
 
 The first step is running Axe Core behind a Tor proxy. This will already make all
 outgoing connections be anonymized, but more is possible.
@@ -44,12 +42,12 @@ In a typical situation, this suffices to run behind a Tor proxy:
 	./axed -proxy=127.0.0.1:9050
 
 
-2. Run a Axe Core hidden server
--------------------------------
+## 2. Run an Axe Core hidden server
 
 If you configure your Tor system accordingly, it is possible to make your node also
 reachable from the Tor network. Add these lines to your /etc/tor/torrc (or equivalent
-config file):
+config file): *Needed for Tor version 0.2.7.0 and older versions of Tor only. For newer
+versions of Tor see [Section 4](#4-automatically-listen-on-tor).*
 
 	HiddenServiceDir /var/lib/tor/axecore-service/
 	HiddenServicePort 9937 127.0.0.1:9937
@@ -99,13 +97,11 @@ for normal IPv4/IPv6 communication, use:
 	./axed -onion=127.0.0.1:9050 -externalip=ssapp53tmftyjmjb.onion -discover
 
 
-3. List of known Axe Core Tor relays
-------------------------------------
+## 3. List of known Axe Core Tor relays
 
 *TODO*
 
-4. Automatically listen on Tor
---------------------------------
+## 4. Automatically listen on Tor
 
 Starting with Tor version 0.2.7.1 it is possible, through Tor's control socket
 API, to create and destroy 'ephemeral' hidden services programmatically.
@@ -131,10 +127,9 @@ which has the appropriate permissions. An alternative authentication method is t
 of the `-torpassword` flag and a `hash-password` which can be enabled and specified in 
 Tor configuration.
 
-4. Privacy recommendations
----------------------------
+## 5. Privacy recommendations
 
-- Do not add anything but bitcoin ports to the hidden service created in section 2.
+- Do not add anything but Axe Core ports to the hidden service created in section 2.
   If you run a web service too, create a new hidden service for that.
   Otherwise it is trivial to link them, which may reduce privacy. Hidden
   services created automatically (as in section 3) always have only one port

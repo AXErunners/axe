@@ -9,7 +9,7 @@ from test_framework import mininode
 from test_framework.blocktools import get_masternode_payment, create_coinbase, create_block
 from test_framework.mininode import *
 from test_framework.test_framework import AxeTestFramework
-from test_framework.util import sync_blocks, sync_mempools, p2p_port, assert_raises_rpc_error, set_node_times
+from test_framework.util import sync_blocks, sync_mempools, p2p_port, assert_raises_rpc_error, get_bip9_status
 
 '''
 llmq-is-cl-conflicts.py
@@ -18,7 +18,7 @@ Checks conflict handling between ChainLocks and InstantSend
 
 '''
 
-class TestNode(NodeConnCB):
+class TestNode(P2PInterface):
     def __init__(self):
         super().__init__()
         self.clsigs = {}
@@ -38,7 +38,7 @@ class TestNode(NodeConnCB):
         inv = msg_inv([CInv(30, hash)])
         self.send_message(inv)
 
-    def on_getdata(self, conn, message):
+    def on_getdata(self, message):
         for inv in message.inv:
             if inv.hash in self.clsigs:
                 self.send_message(self.clsigs[inv.hash])
@@ -48,19 +48,19 @@ class TestNode(NodeConnCB):
 
 class LLMQ_IS_CL_Conflicts(AxeTestFramework):
     def set_test_params(self):
-        self.set_axe_test_params(6, 5, fast_dip3_enforcement=True)
+        self.set_axe_test_params(4, 3, fast_dip3_enforcement=True)
+        self.set_axe_dip8_activation(10)
         #disable_mocktime()
 
     def run_test(self):
 
         while self.nodes[0].getblockchaininfo()["bip9_softforks"]["dip0008"]["status"] != "active":
             self.nodes[0].generate(10)
-        sync_blocks(self.nodes, timeout=60*5)
+        self.sync_blocks(self.nodes, timeout=60*5)
 
-        self.test_node = TestNode()
-        self.test_node.add_connection(NodeConn('127.0.0.1', p2p_port(0), self.nodes[0], self.test_node))
-        NetworkThread().start()  # Start up network handling in another thread
-        self.test_node.wait_for_verack()
+        self.test_node = self.nodes[0].add_p2p_connection(TestNode())
+        network_thread_start()
+        self.nodes[0].p2p.wait_for_verack()
 
         self.nodes[0].spork("SPORK_17_QUORUM_DKG_ENABLED", 0)
         self.nodes[0].spork("SPORK_19_CHAINLOCKS_ENABLED", 0)
@@ -103,7 +103,7 @@ class LLMQ_IS_CL_Conflicts(AxeTestFramework):
         rawtx4_txid = self.nodes[0].sendrawtransaction(rawtx4)
 
         # wait for transactions to propagate
-        sync_mempools(self.nodes)
+        self.sync_mempools()
         for node in self.nodes:
             self.wait_for_instantlock(rawtx1_txid, node)
             self.wait_for_instantlock(rawtx4_txid, node)
@@ -120,7 +120,7 @@ class LLMQ_IS_CL_Conflicts(AxeTestFramework):
         for node in self.nodes:
             self.wait_for_best_chainlock(node, "%064x" % block.sha256)
 
-        sync_blocks(self.nodes)
+        self.sync_blocks()
 
         # At this point all nodes should be in sync and have the same "best chainlock"
 
@@ -146,7 +146,7 @@ class LLMQ_IS_CL_Conflicts(AxeTestFramework):
         rawtx5 = self.nodes[0].signrawtransaction(rawtx5)['hex']
         rawtx5_txid = self.nodes[0].sendrawtransaction(rawtx5)
         # wait for the transaction to propagate
-        sync_mempools(self.nodes)
+        self.sync_mempools()
         for node in self.nodes:
             self.wait_for_instantlock(rawtx5_txid, node)
 
@@ -171,7 +171,7 @@ class LLMQ_IS_CL_Conflicts(AxeTestFramework):
         islock = self.create_islock(rawtx2)
 
         # Stop enough MNs so that ChainLocks don't work anymore
-        for i in range(3):
+        for i in range(2):
             self.stop_node(len(self.nodes) - 1)
             self.nodes.pop(len(self.nodes) - 1)
             self.mninfo.pop(len(self.mninfo) - 1)
@@ -181,7 +181,6 @@ class LLMQ_IS_CL_Conflicts(AxeTestFramework):
 
         # fast forward 11 minutes, so that the TX is considered safe and included in the next block
         self.bump_mocktime(int(60 * 11))
-        set_node_times(self.nodes, self.mocktime)
 
         # Mine the conflicting TX into a block
         good_tip = self.nodes[0].getbestblockhash()
@@ -242,7 +241,11 @@ class LLMQ_IS_CL_Conflicts(AxeTestFramework):
         coinbasevalue -= bt_fees
         coinbasevalue += new_fees
 
-        mn_amount = get_masternode_payment(height, coinbasevalue)
+        realloc_info = get_bip9_status(self.nodes[0], 'realloc')
+        realloc_height = 99999999
+        if realloc_info['status'] == 'active':
+            realloc_height = realloc_info['since']
+        mn_amount = get_masternode_payment(height, coinbasevalue, realloc_height)
         miner_amount = coinbasevalue - mn_amount
 
         outputs = {miner_address: str(Decimal(miner_amount) / COIN)}

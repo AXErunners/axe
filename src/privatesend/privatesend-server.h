@@ -5,8 +5,8 @@
 #ifndef PRIVATESENDSERVER_H
 #define PRIVATESENDSERVER_H
 
-#include "net.h"
-#include "privatesend.h"
+#include <net.h>
+#include <privatesend/privatesend.h>
 
 class CPrivateSendServer;
 class UniValue;
@@ -22,9 +22,6 @@ private:
     // Mixing uses collateral transactions to trust parties entering the pool
     // to behave honestly. If they don't it takes their money.
     std::vector<CTransactionRef> vecSessionCollaterals;
-
-    // Maximum number of participants in a certain session, random between min and max.
-    int nSessionMaxParticipants;
 
     bool fUnitTest;
 
@@ -72,11 +69,11 @@ private:
 public:
     CPrivateSendServer() :
         vecSessionCollaterals(),
-        nSessionMaxParticipants(0),
         fUnitTest(false) {}
 
     void ProcessMessage(CNode* pfrom, const std::string& strCommand, CDataStream& vRecv, CConnman& connman);
 
+    bool HasTimedOut();
     void CheckTimeout(CConnman& connman);
     void CheckForCompleteQueue(CConnman& connman);
 

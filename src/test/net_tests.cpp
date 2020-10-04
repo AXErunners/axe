@@ -1,17 +1,19 @@
 // Copyright (c) 2012-2016 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#include "addrman.h"
-#include "test/test_axe.h"
+#include <addrman.h>
+#include <test/test_axe.h>
 #include <string>
 #include <boost/test/unit_test.hpp>
-#include "hash.h"
-#include "serialize.h"
-#include "streams.h"
-#include "net.h"
-#include "netbase.h"
-#include "chainparams.h"
-#include "util.h"
+#include <hash.h>
+#include <serialize.h>
+#include <streams.h>
+#include <net.h>
+#include <netbase.h>
+#include <chainparams.h>
+#include <util.h>
+
+#include <memory>
 
 class CAddrManSerializationMock : public CAddrMan
 {
@@ -183,6 +185,20 @@ BOOST_AUTO_TEST_CASE(cnode_simple_test)
     std::unique_ptr<CNode> pnode2(new CNode(id++, NODE_NETWORK, height, hSocket, addr, 1, 1, CAddress(), pszDest, fInboundIn));
     BOOST_CHECK(pnode2->fInbound == true);
     BOOST_CHECK(pnode2->fFeeler == false);
+}
+
+BOOST_AUTO_TEST_CASE(PoissonNextSend)
+{
+    g_mock_deterministic_tests = true;
+    int64_t now = 5000;
+    int average_interval_seconds = 600;
+
+    auto poisson = ::PoissonNextSend(now, average_interval_seconds);
+    std::chrono::microseconds poisson_chrono = ::PoissonNextSend(std::chrono::microseconds{now}, std::chrono::seconds{average_interval_seconds});
+
+    BOOST_CHECK_EQUAL(poisson, poisson_chrono.count());
+
+    g_mock_deterministic_tests = false;
 }
 
 BOOST_AUTO_TEST_SUITE_END()

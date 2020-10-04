@@ -6,7 +6,7 @@ from collections import namedtuple
 
 from test_framework.mininode import *
 from test_framework.test_framework import AxeTestFramework
-from test_framework.util import p2p_port, assert_equal, sync_blocks, set_node_times
+from test_framework.util import p2p_port, assert_equal, sync_blocks
 
 '''
 dip4-coinbasemerkleroots.py
@@ -15,12 +15,12 @@ Checks DIP4 merkle roots in coinbases
 
 '''
 
-class TestNode(NodeConnCB):
+class TestNode(P2PInterface):
     def __init__(self):
         super().__init__()
         self.last_mnlistdiff = None
 
-    def on_mnlistdiff(self, conn, message):
+    def on_mnlistdiff(self, message):
         self.last_mnlistdiff = message
 
     def wait_for_mnlistdiff(self, timeout=30):
@@ -38,13 +38,13 @@ class TestNode(NodeConnCB):
 
 class LLMQCoinbaseCommitmentsTest(AxeTestFramework):
     def set_test_params(self):
-        self.set_axe_test_params(6, 5, fast_dip3_enforcement=True)
+        self.set_axe_test_params(4, 3, fast_dip3_enforcement=True)
+        self.set_axe_dip8_activation(200)
 
     def run_test(self):
-        self.test_node = TestNode()
-        self.test_node.add_connection(NodeConn('127.0.0.1', p2p_port(0), self.nodes[0], self.test_node))
-        NetworkThread().start()  # Start up network handling in another thread
-        self.test_node.wait_for_verack()
+        self.test_node = self.nodes[0].add_p2p_connection(TestNode())
+        network_thread_start()
+        self.nodes[0].p2p.wait_for_verack()
 
         self.confirm_mns()
 
@@ -255,7 +255,7 @@ class LLMQCoinbaseCommitmentsTest(AxeTestFramework):
             self.nodes[0].generate(4)
             self.sync_all()
         self.nodes[0].generate(1)
-        sync_blocks(self.nodes)
+        self.sync_blocks()
 
         # Assert that merkleRootQuorums is present and 0 (we have no quorums yet)
         cbtx = self.nodes[0].getblock(self.nodes[0].getbestblockhash(), 2)["tx"][0]
@@ -269,7 +269,6 @@ class LLMQCoinbaseCommitmentsTest(AxeTestFramework):
             assert_equal(merkleRootQuorums, 0)
 
         self.bump_mocktime(1)
-        set_node_times(self.nodes, self.mocktime)
         self.nodes[0].spork("SPORK_17_QUORUM_DKG_ENABLED", 0)
         self.wait_for_sporks_same()
 
@@ -291,7 +290,7 @@ class LLMQCoinbaseCommitmentsTest(AxeTestFramework):
             if not found_unconfirmed:
                 break
             self.nodes[0].generate(1)
-        sync_blocks(self.nodes)
+        self.sync_blocks()
 
 if __name__ == '__main__':
     LLMQCoinbaseCommitmentsTest().main()

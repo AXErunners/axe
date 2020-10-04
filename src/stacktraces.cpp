@@ -2,15 +2,15 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "stacktraces.h"
-#include "fs.h"
-#include "tinyformat.h"
-#include "random.h"
-#include "streams.h"
-#include "util.h"
-#include "utilstrencodings.h"
+#include <stacktraces.h>
+#include <fs.h>
+#include <tinyformat.h>
+#include <random.h>
+#include <streams.h>
+#include <util.h>
+#include <utilstrencodings.h>
 
-#include "axe-config.h"
+#include <axe-config.h>
 
 #include <mutex>
 #include <map>
@@ -262,6 +262,7 @@ static int dl_iterate_callback(struct dl_phdr_info* info, size_t s, void* data)
     if (info->dlpi_name == nullptr || info->dlpi_name[0] == '\0') {
         *p = info->dlpi_addr;
     }
+    return 0;
 }
 
 static uint64_t GetBaseAddress()
@@ -523,7 +524,7 @@ static std::string GetCrashInfoStr(const crash_info& ci, size_t spaces)
 static void PrintCrashInfo(const crash_info& ci)
 {
     auto str = GetCrashInfoStr(ci);
-    LogPrintf("%s", str);
+    LogPrintf("%s", str); /* Continued */
     fprintf(stderr, "%s", str.c_str());
     fflush(stderr);
 }
@@ -689,30 +690,32 @@ crash_info GetCrashInfoFromException(const std::exception_ptr& e)
     std::string type;
     std::string what;
 
+    auto getExceptionType = [&]() -> std::string {
+        auto type = abi::__cxa_current_exception_type();
+        if (type && (strlen(type->name()) > 0)) {
+            return DemangleSymbol(type->name());
+        }
+        return "<unknown>";
+    };
+
     try {
         // rethrow and catch the exception as there is no other way to reliably cast to the real type (not possible with RTTI)
         std::rethrow_exception(e);
     } catch (const std::exception& e) {
-        type = abi::__cxa_current_exception_type()->name();
+        type = getExceptionType();
         what = GetExceptionWhat(e);
     } catch (const std::string& e) {
-        type = abi::__cxa_current_exception_type()->name();
+        type = getExceptionType();
         what = GetExceptionWhat(e);
     } catch (const char* e) {
-        type = abi::__cxa_current_exception_type()->name();
+        type = getExceptionType();
         what = GetExceptionWhat(e);
     } catch (int e) {
-        type = abi::__cxa_current_exception_type()->name();
+        type = getExceptionType();
         what = GetExceptionWhat(e);
     } catch (...) {
-        type = abi::__cxa_current_exception_type()->name();
+        type = getExceptionType();
         what = "<unknown>";
-    }
-
-    if (type.empty()) {
-        type = "<unknown>";
-    } else {
-        type = DemangleSymbol(type);
     }
 
     ci.crashDescription += strprintf("type=%s, what=\"%s\"", type, what);

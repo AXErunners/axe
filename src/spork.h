@@ -5,10 +5,10 @@
 #ifndef SPORK_H
 #define SPORK_H
 
-#include "hash.h"
-#include "net.h"
-#include "utilstrencodings.h"
-#include "key.h"
+#include <hash.h>
+#include <net.h>
+#include <utilstrencodings.h>
+#include <key.h>
 
 #include <unordered_map>
 #include <unordered_set>
@@ -23,13 +23,11 @@ class CSporkManager;
 enum SporkId : int32_t {
     SPORK_2_INSTANTSEND_ENABLED                            = 10001,
     SPORK_3_INSTANTSEND_BLOCK_FILTERING                    = 10002,
-    SPORK_6_NEW_SIGS                                       = 10005,
     SPORK_9_SUPERBLOCKS_ENABLED                            = 10008,
-    SPORK_15_DETERMINISTIC_MNS_ENABLED                     = 10014,
-    SPORK_16_INSTANTSEND_AUTOLOCKS                         = 10015,
     SPORK_17_QUORUM_DKG_ENABLED                            = 10016,
     SPORK_19_CHAINLOCKS_ENABLED                            = 10018,
-    SPORK_20_INSTANTSEND_LLMQ_BASED                        = 10019,
+    SPORK_21_QUORUM_ALL_CONNECTED                          = 10020,
+    SPORK_22_PS_MORE_PARTICIPANTS                          = 10021,
 
     SPORK_INVALID                                          = -1,
 };
@@ -46,14 +44,38 @@ namespace std
     };
 }
 
-struct CSporkDef
+struct CSporkDefM
 {
     SporkId sporkId{SPORK_INVALID};
     int64_t defaultValue{0};
     std::string name;
 };
 
-extern std::vector<CSporkDef> sporkDefs;
+struct CSporkDefT
+{
+    SporkId sporkId{SPORK_INVALID};
+    int64_t defaultValue{0};
+    std::string name;
+};
+
+struct CSporkDefR
+{
+    SporkId sporkId{SPORK_INVALID};
+    int64_t defaultValue{0};
+    std::string name;
+};
+
+struct CSporkDefD
+{
+    SporkId sporkId{SPORK_INVALID};
+    int64_t defaultValue{0};
+    std::string name;
+};
+
+extern std::vector<CSporkDefM> sporkDefsM;
+extern std::vector<CSporkDefT> sporkDefsT;
+extern std::vector<CSporkDefR> sporkDefsR;
+extern std::vector<CSporkDefD> sporkDefsD;
 extern CSporkManager sporkManager;
 
 /**
@@ -122,13 +144,13 @@ public:
     /**
      * Sign will sign the spork message with the given key.
      */
-    bool Sign(const CKey& key, bool fSporkSixActive);
+    bool Sign(const CKey& key);
 
     /**
      * CheckSignature will ensure the spork signature matches the provided public
      * key hash.
      */
-    bool CheckSignature(const CKeyID& pubKeyId, bool fSporkSixActive) const;
+    bool CheckSignature(const CKeyID& pubKeyId) const;
 
     /**
      * GetSignerKeyID is used to recover the spork address of the key used to
@@ -137,7 +159,7 @@ public:
      * This method was introduced along with the multi-signer sporks feature,
      * in order to identify which spork key signed this message.
      */
-    bool GetSignerKeyID(CKeyID& retKeyidSporkSigner, bool fSporkSixActive);
+    bool GetSignerKeyID(CKeyID& retKeyidSporkSigner);
 
     /**
      * Relay is used to send this spork message to other peers.
@@ -155,8 +177,17 @@ class CSporkManager
 private:
     static const std::string SERIALIZATION_VERSION_STRING;
 
-    std::unordered_map<SporkId, CSporkDef*> sporkDefsById;
-    std::unordered_map<std::string, CSporkDef*> sporkDefsByName;
+    std::unordered_map<SporkId, CSporkDefM*> sporkDefsMById;
+    std::unordered_map<std::string, CSporkDefM*> sporkDefsMByName;
+
+    std::unordered_map<SporkId, CSporkDefT*> sporkDefsTById;
+    std::unordered_map<std::string, CSporkDefT*> sporkDefsTByName;
+
+    std::unordered_map<SporkId, CSporkDefR*> sporkDefsRById;
+    std::unordered_map<std::string, CSporkDefR*> sporkDefsRByName;
+
+    std::unordered_map<SporkId, CSporkDefD*> sporkDefsDById;
+    std::unordered_map<std::string, CSporkDefD*> sporkDefsDByName;
 
     mutable CCriticalSection cs;
     std::unordered_map<uint256, CSporkMessage> mapSporksByHash;

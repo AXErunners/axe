@@ -5,11 +5,11 @@
 #ifndef AXE_QUORUMS_DKGSESSIONMGR_H
 #define AXE_QUORUMS_DKGSESSIONMGR_H
 
-#include "llmq/quorums_dkgsessionhandler.h"
+#include <llmq/quorums_dkgsessionhandler.h>
 
-#include "validation.h"
+#include <validation.h>
 
-#include "ctpl.h"
+#include <ctpl.h>
 
 class UniValue;
 
@@ -23,7 +23,6 @@ class CDKGSessionManager
 private:
     CDBWrapper& llmqDb;
     CBLSWorker& blsWorker;
-    ctpl::thread_pool messageHandlerPool;
 
     std::map<Consensus::LLMQType, CDKGSessionHandler> dkgSessionHandlers;
 
@@ -50,8 +49,8 @@ public:
     CDKGSessionManager(CDBWrapper& _llmqDb, CBLSWorker& _blsWorker);
     ~CDKGSessionManager();
 
-    void StartMessageHandlerPool();
-    void StopMessageHandlerPool();
+    void StartThreads();
+    void StopThreads();
 
     void UpdatedBlockTip(const CBlockIndex *pindexNew, bool fInitialDownload);
 

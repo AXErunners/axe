@@ -5,7 +5,7 @@
 #ifndef BITCOIN_QT_ADDRESSTABLEMODEL_H
 #define BITCOIN_QT_ADDRESSTABLEMODEL_H
 
-#include "base58.h"
+#include <base58.h>
 
 #include <QAbstractTableModel>
 #include <QStringList>
@@ -68,7 +68,6 @@ public:
     /* Look up label for address in address book, if not found return empty string.
      */
     QString labelForAddress(const QString &address) const;
-    QString labelForAddress(const CBitcoinAddress &address) const;
     QString labelForDestination(const CTxDestination &dest) const;
 
     /* Look up row index of an address in the model.

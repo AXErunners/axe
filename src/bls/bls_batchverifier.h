@@ -5,7 +5,7 @@
 #ifndef AXE_CRYPTO_BLS_BATCHVERIFIER_H
 #define AXE_CRYPTO_BLS_BATCHVERIFIER_H
 
-#include "bls.h"
+#include <bls/bls.h>
 
 #include <map>
 #include <vector>
@@ -61,6 +61,11 @@ public:
     {
         messages.clear();
         messagesBySource.clear();
+    }
+
+    size_t GetUniqueSourceCount() const
+    {
+        return messagesBySource.size();
     }
 
     void Verify()

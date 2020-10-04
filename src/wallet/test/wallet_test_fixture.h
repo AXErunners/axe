@@ -5,13 +5,19 @@
 #ifndef BITCOIN_WALLET_TEST_FIXTURE_H
 #define BITCOIN_WALLET_TEST_FIXTURE_H
 
-#include "test/test_axe.h"
+#include <test/test_axe.h>
+
+#include <wallet/wallet.h>
+
+#include <memory>
 
 /** Testing setup and teardown for wallet.
  */
 struct WalletTestingSetup: public TestingSetup {
-    WalletTestingSetup(const std::string& chainName = CBaseChainParams::MAIN);
+    explicit WalletTestingSetup(const std::string& chainName = CBaseChainParams::MAIN);
     ~WalletTestingSetup();
+
+    CWallet m_wallet;
 };
 
 #endif

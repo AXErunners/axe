@@ -4,31 +4,34 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/axe-config.h"
+#include <config/axe-config.h>
 #endif
 
-#include "optionsmodel.h"
+#include <qt/optionsmodel.h>
 
-#include "bitcoinunits.h"
-#include "guiutil.h"
+#include <qt/bitcoinunits.h>
+#include <qt/guiutil.h>
 
-#include "amount.h"
-#include "init.h"
-#include "validation.h" // For DEFAULT_SCRIPTCHECK_THREADS
-#include "net.h"
-#include "netbase.h"
-#include "txdb.h" // for -dbcache defaults
+#include <init.h>
+#include <validation.h> // For DEFAULT_SCRIPTCHECK_THREADS
+#include <net.h>
+#include <netbase.h>
+#include <txdb.h> // for -dbcache defaults
 
 #ifdef ENABLE_WALLET
-#include "wallet/wallet.h"
-#include "wallet/walletdb.h"
+#include <wallet/wallet.h>
+#include <wallet/walletdb.h>
 
-#include "privatesend/privatesend-client.h"
+#include <privatesend/privatesend-client.h>
 #endif
 
 #include <QNetworkProxy>
 #include <QSettings>
 #include <QStringList>
+
+const char *DEFAULT_GUI_PROXY_HOST = "127.0.0.1";
+
+static const QString GetDefaultProxyAddress();
 
 OptionsModel::OptionsModel(QObject *parent, bool resetSettings) :
     QAbstractListModel(parent)
@@ -48,8 +51,6 @@ void OptionsModel::Init(bool resetSettings)
         Reset();
 
     checkAndMigrate();
-
-    this->resetSettings = resetSettings;
 
     QSettings settings;
 
@@ -81,8 +82,27 @@ void OptionsModel::Init(bool resetSettings)
         settings.setValue("strThirdPartyTxUrls", "");
     strThirdPartyTxUrls = settings.value("strThirdPartyTxUrls", "").toString();
 
+    // Appearance
     if (!settings.contains("theme"))
-        settings.setValue("theme", "");
+        settings.setValue("theme", GUIUtil::getDefaultTheme());
+
+    if (!settings.contains("fontFamily"))
+        settings.setValue("fontFamily", GUIUtil::fontFamilyToString(GUIUtil::getFontFamilyDefault()));
+
+    if (!settings.contains("fontScale"))
+        settings.setValue("fontScale", GUIUtil::getFontScaleDefault());
+    if (!gArgs.SoftSetArg("-font-scale", settings.value("fontScale").toString().toStdString()))
+        addOverriddenOption("-font-scale");
+
+    if (!settings.contains("fontWeightNormal"))
+        settings.setValue("fontWeightNormal", GUIUtil::weightToArg(GUIUtil::getFontWeightNormalDefault()));
+    if (!gArgs.SoftSetArg("-font-weight-normal", settings.value("fontWeightNormal").toString().toStdString()))
+        addOverriddenOption("-font-weight-normal");
+
+    if (!settings.contains("fontWeightBold"))
+        settings.setValue("fontWeightBold", GUIUtil::weightToArg(GUIUtil::getFontWeightBoldDefault()));
+    if (!gArgs.SoftSetArg("-font-weight-bold", settings.value("fontWeightBold").toString().toStdString()))
+        addOverriddenOption("-font-weight-bold");
 
 #ifdef ENABLE_WALLET
     if (!settings.contains("fCoinControlFeatures"))
@@ -93,6 +113,13 @@ void OptionsModel::Init(bool resetSettings)
         settings.setValue("digits", "2");
 
     // PrivateSend
+    if (!settings.contains("fPrivateSendEnabled")) {
+        settings.setValue("fPrivateSendEnabled", true);
+    }
+    if (!gArgs.SoftSetBoolArg("-enableprivatesend", settings.value("fPrivateSendEnabled").toBool())) {
+        addOverriddenOption("-enableprivatesend");
+    }
+
     if (!settings.contains("fShowAdvancedPSUI"))
         settings.setValue("fShowAdvancedPSUI", false);
     fShowAdvancedPSUI = settings.value("fShowAdvancedPSUI", false).toBool();
@@ -169,7 +196,7 @@ void OptionsModel::Init(bool resetSettings)
     if (!settings.contains("fUseProxy"))
         settings.setValue("fUseProxy", false);
     if (!settings.contains("addrProxy"))
-        settings.setValue("addrProxy", "127.0.0.1:9050");
+        settings.setValue("addrProxy", GetDefaultProxyAddress());
     // Only try to set -proxy, if user has enabled fUseProxy
     if (settings.value("fUseProxy").toBool() && !gArgs.SoftSetArg("-proxy", settings.value("addrProxy").toString().toStdString()))
         addOverriddenOption("-proxy");
@@ -179,7 +206,7 @@ void OptionsModel::Init(bool resetSettings)
     if (!settings.contains("fUseSeparateProxyTor"))
         settings.setValue("fUseSeparateProxyTor", false);
     if (!settings.contains("addrSeparateProxyTor"))
-        settings.setValue("addrSeparateProxyTor", "127.0.0.1:9050");
+        settings.setValue("addrSeparateProxyTor", GetDefaultProxyAddress());
     // Only try to set -onion, if user has enabled fUseSeparateProxyTor
     if (settings.value("fUseSeparateProxyTor").toBool() && !gArgs.SoftSetArg("-onion", settings.value("addrSeparateProxyTor").toString().toStdString()))
         addOverriddenOption("-onion");
@@ -223,7 +250,6 @@ void OptionsModel::Reset()
 
     // Remove all entries from our QSettings object
     settings.clear();
-    resetSettings = true; // Needed in axe.cpp during shotdown to also remove the window positions
 
     // default setting for OptionsModel::StartAtStartup - disabled
     if (GUIUtil::GetStartOnSystemStartup())
@@ -233,6 +259,38 @@ void OptionsModel::Reset()
 int OptionsModel::rowCount(const QModelIndex & parent) const
 {
     return OptionIDRowCount;
+}
+
+struct ProxySetting {
+    bool is_set;
+    QString ip;
+    QString port;
+};
+
+static ProxySetting GetProxySetting(QSettings &settings, const QString &name)
+{
+    static const ProxySetting default_val = {false, DEFAULT_GUI_PROXY_HOST, QString("%1").arg(DEFAULT_GUI_PROXY_PORT)};
+    // Handle the case that the setting is not set at all
+    if (!settings.contains(name)) {
+        return default_val;
+    }
+    // contains IP at index 0 and port at index 1
+    QStringList ip_port = settings.value(name).toString().split(":", QString::SkipEmptyParts);
+    if (ip_port.size() == 2) {
+        return {true, ip_port.at(0), ip_port.at(1)};
+    } else { // Invalid: return default
+        return default_val;
+    }
+}
+
+static void SetProxySetting(QSettings &settings, const QString &name, const ProxySetting &ip_port)
+{
+    settings.setValue(name, ip_port.ip + ":" + ip_port.port);
+}
+
+static const QString GetDefaultProxyAddress()
+{
+    return QString("%1:%2").arg(DEFAULT_GUI_PROXY_HOST).arg(DEFAULT_GUI_PROXY_PORT);
 }
 
 // read QSettings values and return them
@@ -261,36 +319,26 @@ QVariant OptionsModel::data(const QModelIndex & index, int role) const
         // default proxy
         case ProxyUse:
             return settings.value("fUseProxy", false);
-        case ProxyIP: {
-            // contains IP at index 0 and port at index 1
-            QStringList strlIpPort = settings.value("addrProxy").toString().split(":", QString::SkipEmptyParts);
-            return strlIpPort.at(0);
-        }
-        case ProxyPort: {
-            // contains IP at index 0 and port at index 1
-            QStringList strlIpPort = settings.value("addrProxy").toString().split(":", QString::SkipEmptyParts);
-            return strlIpPort.at(1);
-        }
+        case ProxyIP:
+            return GetProxySetting(settings, "addrProxy").ip;
+        case ProxyPort:
+            return GetProxySetting(settings, "addrProxy").port;
 
         // separate Tor proxy
         case ProxyUseTor:
             return settings.value("fUseSeparateProxyTor", false);
-        case ProxyIPTor: {
-            // contains IP at index 0 and port at index 1
-            QStringList strlIpPort = settings.value("addrSeparateProxyTor").toString().split(":", QString::SkipEmptyParts);
-            return strlIpPort.at(0);
-        }
-        case ProxyPortTor: {
-            // contains IP at index 0 and port at index 1
-            QStringList strlIpPort = settings.value("addrSeparateProxyTor").toString().split(":", QString::SkipEmptyParts);
-            return strlIpPort.at(1);
-        }
+        case ProxyIPTor:
+            return GetProxySetting(settings, "addrSeparateProxyTor").ip;
+        case ProxyPortTor:
+            return GetProxySetting(settings, "addrSeparateProxyTor").port;
 
 #ifdef ENABLE_WALLET
         case SpendZeroConfChange:
             return settings.value("bSpendZeroConfChange");
         case ShowMasternodesTab:
             return settings.value("fShowMasternodesTab");
+        case PrivateSendEnabled:
+            return settings.value("fPrivateSendEnabled");
         case ShowAdvancedPSUI:
             return fShowAdvancedPSUI;
         case ShowPrivateSendPopups:
@@ -314,6 +362,20 @@ QVariant OptionsModel::data(const QModelIndex & index, int role) const
 #endif // ENABLE_WALLET
         case Theme:
             return settings.value("theme");
+        case FontFamily:
+            return settings.value("fontFamily");
+        case FontScale:
+            return settings.value("fontScale");
+        case FontWeightNormal: {
+            QFont::Weight weight;
+            GUIUtil::weightFromArg(settings.value("fontWeightNormal").toInt(), weight);
+            return GUIUtil::supportedWeightToIndex(weight);
+        }
+        case FontWeightBold: {
+            QFont::Weight weight;
+            GUIUtil::weightFromArg(settings.value("fontWeightBold").toInt(), weight);
+            return GUIUtil::supportedWeightToIndex(weight);
+        }
         case Language:
             return settings.value("language");
 #ifdef ENABLE_WALLET
@@ -371,25 +433,19 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
             }
             break;
         case ProxyIP: {
-            // contains current IP at index 0 and current port at index 1
-            QStringList strlIpPort = settings.value("addrProxy").toString().split(":", QString::SkipEmptyParts);
-            // if that key doesn't exist or has a changed IP
-            if (!settings.contains("addrProxy") || strlIpPort.at(0) != value.toString()) {
-                // construct new value from new IP and current port
-                QString strNewValue = value.toString() + ":" + strlIpPort.at(1);
-                settings.setValue("addrProxy", strNewValue);
+            auto ip_port = GetProxySetting(settings, "addrProxy");
+            if (!ip_port.is_set || ip_port.ip != value.toString()) {
+                ip_port.ip = value.toString();
+                SetProxySetting(settings, "addrProxy", ip_port);
                 setRestartRequired(true);
             }
         }
         break;
         case ProxyPort: {
-            // contains current IP at index 0 and current port at index 1
-            QStringList strlIpPort = settings.value("addrProxy").toString().split(":", QString::SkipEmptyParts);
-            // if that key doesn't exist or has a changed port
-            if (!settings.contains("addrProxy") || strlIpPort.at(1) != value.toString()) {
-                // construct new value from current IP and new port
-                QString strNewValue = strlIpPort.at(0) + ":" + value.toString();
-                settings.setValue("addrProxy", strNewValue);
+            auto ip_port = GetProxySetting(settings, "addrProxy");
+            if (!ip_port.is_set || ip_port.port != value.toString()) {
+                ip_port.port = value.toString();
+                SetProxySetting(settings, "addrProxy", ip_port);
                 setRestartRequired(true);
             }
         }
@@ -403,25 +459,19 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
             }
             break;
         case ProxyIPTor: {
-            // contains current IP at index 0 and current port at index 1
-            QStringList strlIpPort = settings.value("addrSeparateProxyTor").toString().split(":", QString::SkipEmptyParts);
-            // if that key doesn't exist or has a changed IP
-            if (!settings.contains("addrSeparateProxyTor") || strlIpPort.at(0) != value.toString()) {
-                // construct new value from new IP and current port
-                QString strNewValue = value.toString() + ":" + strlIpPort.at(1);
-                settings.setValue("addrSeparateProxyTor", strNewValue);
+            auto ip_port = GetProxySetting(settings, "addrSeparateProxyTor");
+            if (!ip_port.is_set || ip_port.ip != value.toString()) {
+                ip_port.ip = value.toString();
+                SetProxySetting(settings, "addrSeparateProxyTor", ip_port);
                 setRestartRequired(true);
             }
         }
         break;
         case ProxyPortTor: {
-            // contains current IP at index 0 and current port at index 1
-            QStringList strlIpPort = settings.value("addrSeparateProxyTor").toString().split(":", QString::SkipEmptyParts);
-            // if that key doesn't exist or has a changed port
-            if (!settings.contains("addrSeparateProxyTor") || strlIpPort.at(1) != value.toString()) {
-                // construct new value from current IP and new port
-                QString strNewValue = strlIpPort.at(0) + ":" + value.toString();
-                settings.setValue("addrSeparateProxyTor", strNewValue);
+            auto ip_port = GetProxySetting(settings, "addrSeparateProxyTor");
+            if (!ip_port.is_set || ip_port.port != value.toString()) {
+                ip_port.port = value.toString();
+                SetProxySetting(settings, "addrSeparateProxyTor", ip_port);
                 setRestartRequired(true);
             }
         }
@@ -440,10 +490,18 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
                 setRestartRequired(true);
             }
             break;
+        case PrivateSendEnabled:
+            if (settings.value("fPrivateSendEnabled") != value) {
+                settings.setValue("fPrivateSendEnabled", value.toBool());
+                Q_EMIT privateSendEnabledChanged();
+            }
+            break;
         case ShowAdvancedPSUI:
-            fShowAdvancedPSUI = value.toBool();
-            settings.setValue("fShowAdvancedPSUI", fShowAdvancedPSUI);
-            Q_EMIT advancedPSUIChanged(fShowAdvancedPSUI);
+            if (settings.value("fShowAdvancedPSUI") != value) {
+                fShowAdvancedPSUI = value.toBool();
+                settings.setValue("fShowAdvancedPSUI", fShowAdvancedPSUI);
+                Q_EMIT advancedPSUIChanged(fShowAdvancedPSUI);
+            }
             break;
         case ShowPrivateSendPopups:
             settings.setValue("fShowPrivateSendPopups", value);
@@ -494,11 +552,33 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
             break;
 #endif // ENABLE_WALLET
         case Theme:
-            if (settings.value("theme") != value) {
-                settings.setValue("theme", value);
-                setRestartRequired(true);
+            // Set in AppearanceWidget::updateTheme slot now
+            // to allow instant theme changes.
+            break;
+        case FontFamily:
+            if (settings.value("fontFamily") != value) {
+                settings.setValue("fontFamily", value);
             }
             break;
+        case FontScale:
+            if (settings.value("fontScale") != value) {
+                settings.setValue("fontScale", value);
+            }
+            break;
+        case FontWeightNormal: {
+            int nWeight = GUIUtil::weightToArg(GUIUtil::supportedWeightFromIndex(value.toInt()));
+            if (settings.value("fontWeightNormal") != nWeight) {
+                settings.setValue("fontWeightNormal", nWeight);
+            }
+            break;
+        }
+        case FontWeightBold: {
+            int nWeight = GUIUtil::weightToArg(GUIUtil::supportedWeightFromIndex(value.toInt()));
+            if (settings.value("fontWeightBold") != nWeight) {
+                settings.setValue("fontWeightBold", nWeight);
+            }
+            break;
+        }
         case Language:
             if (settings.value("language") != value) {
                 settings.setValue("language", value);
@@ -570,13 +650,18 @@ bool OptionsModel::getProxySettings(QNetworkProxy& proxy) const
     return false;
 }
 
+void OptionsModel::emitPrivateSendEnabledChanged()
+{
+    Q_EMIT privateSendEnabledChanged();
+}
+
 void OptionsModel::setRestartRequired(bool fRequired)
 {
     QSettings settings;
     return settings.setValue("fRestartRequired", fRequired);
 }
 
-bool OptionsModel::isRestartRequired()
+bool OptionsModel::isRestartRequired() const
 {
     QSettings settings;
     return settings.value("fRestartRequired", false).toBool();
@@ -598,5 +683,23 @@ void OptionsModel::checkAndMigrate()
             settings.setValue("nDatabaseCache", (qint64)nDefaultDbCache);
 
         settings.setValue(strSettingsVersionKey, CLIENT_VERSION);
+    }
+
+    // Overwrite the 'addrProxy' setting in case it has been set to an illegal
+    // default value (see issue #12623; PR #12650).
+    if (settings.contains("addrProxy") && settings.value("addrProxy").toString().endsWith("%2")) {
+        settings.setValue("addrProxy", GetDefaultProxyAddress());
+    }
+
+    // Overwrite the 'addrSeparateProxyTor' setting in case it has been set to an illegal
+    // default value (see issue #12623; PR #12650).
+    if (settings.contains("addrSeparateProxyTor") && settings.value("addrSeparateProxyTor").toString().endsWith("%2")) {
+        settings.setValue("addrSeparateProxyTor", GetDefaultProxyAddress());
+    }
+
+    // Make sure there is a valid theme set in the options.
+    QString strActiveTheme = settings.value("theme", GUIUtil::getDefaultTheme()).toString();
+    if (!GUIUtil::isValidTheme(strActiveTheme)) {
+        settings.setValue("theme", GUIUtil::getDefaultTheme());
     }
 }

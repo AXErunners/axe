@@ -2,12 +2,12 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "governance-validators.h"
+#include <governance/governance-validators.h>
 
-#include "base58.h"
-#include "timedata.h"
-#include "tinyformat.h"
-#include "utilstrencodings.h"
+#include <base58.h>
+#include <timedata.h>
+#include <tinyformat.h>
+#include <utilstrencodings.h>
 
 #include <algorithm>
 
@@ -152,13 +152,14 @@ bool CProposalValidator::ValidatePaymentAddress()
         return false;
     }
 
-    CBitcoinAddress address(strPaymentAddress);
-    if (!address.IsValid()) {
+    CTxDestination dest = DecodeDestination(strPaymentAddress);
+    if (!IsValidDestination(dest)) {
         strErrorMessages += "payment_address is invalid;";
         return false;
     }
 
-    if (address.IsScript()) {
+    const CScriptID *scriptID = boost::get<CScriptID>(&dest);
+    if (scriptID) {
         strErrorMessages += "script addresses are not supported;";
         return false;
     }

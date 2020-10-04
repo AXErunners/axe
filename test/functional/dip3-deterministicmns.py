@@ -37,7 +37,7 @@ class DIP3Test(BitcoinTestFramework):
         self.start_node(0, extra_args=self.extra_args)
         for i in range(1, self.num_nodes):
             if i < len(self.nodes) and self.nodes[i] is not None and self.nodes[i].process is not None:
-                connect_nodes_bi(self.nodes, 0, i)
+                connect_nodes(self.nodes[i], 0)
 
     def stop_controller_node(self):
         self.log.info("stopping controller node")
@@ -50,7 +50,7 @@ class DIP3Test(BitcoinTestFramework):
     def run_test(self):
         self.log.info("funding controller node")
         while self.nodes[0].getbalance() < (self.num_initial_mn + 3) * 1000:
-            self.nodes[0].generate(1) # generate enough for collaterals
+            self.nodes[0].generate(10) # generate enough for collaterals
         self.log.info("controller node has {} axe".format(self.nodes[0].getbalance()))
 
         # Make sure we're below block 135 (which activates dip3)
@@ -66,15 +66,15 @@ class DIP3Test(BitcoinTestFramework):
         mns.append(before_dip3_mn)
 
         # block 150 starts enforcing DIP3 MN payments
-        while self.nodes[0].getblockcount() < 150:
-            self.nodes[0].generate(1)
+        self.nodes[0].generate(150 - self.nodes[0].getblockcount())
+        assert(self.nodes[0].getblockcount() == 150)
 
         self.log.info("mining final block for DIP3 activation")
         self.nodes[0].generate(1)
 
         # We have hundreds of blocks to sync here, give it more time
         self.log.info("syncing blocks for all nodes")
-        sync_blocks(self.nodes, timeout=120)
+        self.sync_blocks(self.nodes, timeout=120)
 
         # DIP3 is fully enforced here
 
@@ -146,7 +146,15 @@ class DIP3Test(BitcoinTestFramework):
             self.test_protx_update_service(mn)
 
         self.log.info("testing P2SH/multisig for payee addresses")
-        multisig = self.nodes[0].createmultisig(1, [self.nodes[0].getnewaddress(), self.nodes[0].getnewaddress()])['address']
+
+        # Create 1 of 2 multisig
+        addr1 = self.nodes[0].getnewaddress()
+        addr2 = self.nodes[0].getnewaddress()
+
+        addr1Obj = self.nodes[0].validateaddress(addr1)
+        addr2Obj = self.nodes[0].validateaddress(addr2)
+
+        multisig = self.nodes[0].createmultisig(1, [addr1Obj['pubkey'], addr2Obj['pubkey']])['address']
         self.update_mn_payee(mns[0], multisig)
         found_multisig_payee = False
         for i in range(len(mns)):
@@ -263,10 +271,8 @@ class DIP3Test(BitcoinTestFramework):
         extra_args = ['-masternodeblsprivkey=%s' % mn.blsMnkey]
         self.start_node(mn.idx, extra_args = self.extra_args + extra_args)
         force_finish_mnsync(self.nodes[mn.idx])
-        for i in range(0, len(self.nodes)):
-            if i < len(self.nodes) and self.nodes[i] is not None and self.nodes[i].process is not None and i != mn.idx:
-                connect_nodes_bi(self.nodes, mn.idx, i)
         mn.node = self.nodes[mn.idx]
+        connect_nodes(mn.node, 0)
         self.sync_all()
 
     def spend_mn_collateral(self, mn, with_dummy_input_output=False):
@@ -386,7 +392,11 @@ class DIP3Test(BitcoinTestFramework):
         coinbasevalue += new_fees
 
         if mn_amount is None:
-            mn_amount = get_masternode_payment(height, coinbasevalue)
+            realloc_info = get_bip9_status(self.nodes[0], 'realloc')
+            realloc_height = 99999999
+            if realloc_info['status'] == 'active':
+                realloc_height = realloc_info['since']
+            mn_amount = get_masternode_payment(height, coinbasevalue, realloc_height)
         miner_amount = coinbasevalue - mn_amount
 
         outputs = {miner_address: str(Decimal(miner_amount) / COIN)}

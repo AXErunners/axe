@@ -2,11 +2,11 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "support/lockedpool.h"
-#include "support/cleanse.h"
+#include <support/lockedpool.h>
+#include <support/cleanse.h>
 
 #if defined(HAVE_CONFIG_H)
-#include "config/axe-config.h"
+#include <config/axe-config.h>
 #endif
 
 #ifdef WIN32
@@ -27,6 +27,7 @@
 #endif
 
 #include <algorithm>
+#include <memory>
 
 LockedPoolManager* LockedPoolManager::_instance = nullptr;
 std::once_flag LockedPoolManager::init_flag;

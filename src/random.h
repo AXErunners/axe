@@ -6,11 +6,12 @@
 #ifndef BITCOIN_RANDOM_H
 #define BITCOIN_RANDOM_H
 
-#include "crypto/chacha20.h"
-#include "crypto/common.h"
-#include "uint256.h"
+#include <crypto/chacha20.h>
+#include <crypto/common.h>
+#include <uint256.h>
 
-#include <stdint.h>
+#include <chrono> // For std::chrono::microseconds
+#include <cstdint>
 
 /* Seed OpenSSL PRNG with additional entropy data */
 void RandAddSeed();
@@ -20,6 +21,7 @@ void RandAddSeed();
  */
 void GetRandBytes(unsigned char* buf, int num);
 uint64_t GetRand(uint64_t nMax);
+std::chrono::microseconds GetRandMicros(std::chrono::microseconds duration_max) noexcept;
 int GetRandInt(int nMax);
 uint256 GetRandHash();
 
@@ -138,7 +140,7 @@ public:
  * sure that the underlying OS APIs for all platforms support the number.
  * (many cap out at 256 bytes).
  */
-static const ssize_t NUM_OS_RANDOM_BYTES = 32;
+static const int NUM_OS_RANDOM_BYTES = 32;
 
 /** Get 32 bytes of system entropy. Do not use this in application code: use
  * GetStrongRandBytes instead.

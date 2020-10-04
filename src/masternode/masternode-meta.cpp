@@ -2,11 +2,29 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "masternode-meta.h"
+#include <masternode/masternode-meta.h>
+
+#include <timedata.h>
 
 CMasternodeMetaMan mmetaman;
 
-const std::string CMasternodeMetaMan::SERIALIZATION_VERSION_STRING = "CMasternodeMetaMan-Version-1";
+const std::string CMasternodeMetaMan::SERIALIZATION_VERSION_STRING = "CMasternodeMetaMan-Version-2";
+
+UniValue CMasternodeMetaInfo::ToJson() const
+{
+    UniValue ret(UniValue::VOBJ);
+
+    auto now = GetAdjustedTime();
+
+    ret.push_back(Pair("lastDSQ", nLastDsq));
+    ret.push_back(Pair("mixingTxCount", nMixingTxCount));
+    ret.push_back(Pair("lastOutboundAttempt", lastOutboundAttempt));
+    ret.push_back(Pair("lastOutboundAttemptElapsed", now - lastOutboundAttempt));
+    ret.push_back(Pair("lastOutboundSuccess", lastOutboundSuccess));
+    ret.push_back(Pair("lastOutboundSuccessElapsed", now - lastOutboundSuccess));
+
+    return ret;
+}
 
 void CMasternodeMetaInfo::AddGovernanceVote(const uint256& nGovernanceObjectHash)
 {
@@ -36,6 +54,21 @@ CMasternodeMetaInfoPtr CMasternodeMetaMan::GetMetaInfo(const uint256& proTxHash,
     }
     it = metaInfos.emplace(proTxHash, std::make_shared<CMasternodeMetaInfo>(proTxHash)).first;
     return it->second;
+}
+
+// We keep track of dsq (mixing queues) count to avoid using same masternodes for mixing too often.
+// This threshold is calculated as the last dsq count this specific masternode was used in a mixing
+// session plus a margin of 20% of masternode count. In other words we expect at least 20% of unique
+// masternodes before we ever see a masternode that we know already mixed someone's funds ealier.
+int64_t CMasternodeMetaMan::GetDsqThreshold(const uint256& proTxHash, int nMnCount)
+{
+    LOCK(cs);
+    auto metaInfo = GetMetaInfo(proTxHash);
+    if (metaInfo == nullptr) {
+        // return a threshold which is slightly above nDsqCount i.e. a no-go
+        return nDsqCount + 1;
+    }
+    return metaInfo->GetLastDsq() + nMnCount / 5;
 }
 
 void CMasternodeMetaMan::AllowMixing(const uint256& proTxHash)

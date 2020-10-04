@@ -7,8 +7,6 @@
 Tests correspond to code in rpc/net.cpp.
 """
 
-import time
-
 from test_framework.test_framework import BitcoinTestFramework
 from test_framework.util import (
     assert_equal,
@@ -25,6 +23,11 @@ class NetTest(BitcoinTestFramework):
         self.num_nodes = 2
 
     def run_test(self):
+        # Wait for one ping/pong to finish so that we can be sure that there is no chatter between nodes for some time
+        # Especially the exchange of messages like getheaders and friends causes test failures here
+        self.nodes[0].ping()
+        wait_until(lambda: all(['pingtime' in n for n in self.nodes[0].getpeerinfo()]))
+
         self._test_connection_count()
         self._test_getnettotals()
         self._test_getnetworkinginfo()
@@ -62,8 +65,8 @@ class NetTest(BitcoinTestFramework):
 
         peer_info_after_ping = self.nodes[0].getpeerinfo()
         for before, after in zip(peer_info, peer_info_after_ping):
-            assert_greater_than_or_equal(after['bytesrecv_per_msg']['pong'], before['bytesrecv_per_msg']['pong'] + 32)
-            assert_greater_than_or_equal(after['bytessent_per_msg']['ping'], before['bytessent_per_msg']['ping'] + 32)
+            assert_greater_than_or_equal(after['bytesrecv_per_msg'].get('pong', 0), before['bytesrecv_per_msg'].get('pong', 0) + 32)
+            assert_greater_than_or_equal(after['bytessent_per_msg'].get('ping', 0), before['bytessent_per_msg'].get('ping', 0) + 32)
 
     def _test_getnetworkinginfo(self):
         assert_equal(self.nodes[0].getnetworkinfo()['networkactive'], True)
@@ -71,12 +74,9 @@ class NetTest(BitcoinTestFramework):
 
         self.nodes[0].setnetworkactive(False)
         assert_equal(self.nodes[0].getnetworkinfo()['networkactive'], False)
-        timeout = 3
-        while self.nodes[0].getnetworkinfo()['connections'] != 0:
-            # Wait a bit for all sockets to close
-            assert timeout > 0, 'not all connections closed in time'
-            timeout -= 0.1
-            time.sleep(0.1)
+        # Wait a bit for all sockets to close
+        wait_until(lambda: self.nodes[0].getnetworkinfo()['connections'] == 0, timeout=3)
+        wait_until(lambda: self.nodes[1].getnetworkinfo()['connections'] == 0, timeout=3)
 
         self.nodes[0].setnetworkactive(True)
         connect_nodes_bi(self.nodes, 0, 1)
@@ -92,7 +92,7 @@ class NetTest(BitcoinTestFramework):
         added_nodes = self.nodes[0].getaddednodeinfo(ip_port)
         assert_equal(len(added_nodes), 1)
         assert_equal(added_nodes[0]['addednode'], ip_port)
-        # check that a non-existant node returns an error
+        # check that a non-existent node returns an error
         assert_raises_rpc_error(-24, "Node has not been added", self.nodes[0].getaddednodeinfo, '1.1.1.1')
 
     def _test_getpeerinfo(self):

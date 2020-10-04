@@ -5,18 +5,18 @@
 #ifndef BITCOIN_QT_RPCCONSOLE_H
 #define BITCOIN_QT_RPCCONSOLE_H
 
-#include "guiutil.h"
-#include "peertablemodel.h"
-#include "trafficgraphdata.h"
+#include <qt/guiutil.h>
+#include <qt/peertablemodel.h>
+#include <qt/trafficgraphdata.h>
 
-#include "net.h"
+#include <net.h>
 
+#include <QButtonGroup>
 #include <QWidget>
 #include <QCompleter>
 #include <QThread>
 
 class ClientModel;
-class PlatformStyle;
 class RPCTimerInterface;
 
 namespace Ui {
@@ -34,7 +34,7 @@ class RPCConsole: public QWidget
     Q_OBJECT
 
 public:
-    explicit RPCConsole(const PlatformStyle *platformStyle, QWidget *parent);
+    explicit RPCConsole(QWidget* parent);
     ~RPCConsole();
 
     static bool RPCParseCommandLine(std::string &strResult, const std::string &strCommand, bool fExecute, std::string * const pstrFilteredOut = nullptr);
@@ -65,17 +65,18 @@ protected:
     void keyPressEvent(QKeyEvent *);
 
 private Q_SLOTS:
+    /** custom tab buttons clicked */
+    void showPage(int index);
     void on_lineEdit_returnPressed();
-    void on_tabWidget_currentChanged(int index);
+    void on_stackedWidgetRPC_currentChanged(int index);
     /** open the debug.log from the current datadir */
     void on_openDebugLogfileButton_clicked();
     /** change the time range of the network traffic graph */
     void on_sldGraphRange_valueChanged(int value);
-    /** update traffic statistics */
-    void updateTrafficStats(quint64 totalBytesIn, quint64 totalBytesOut);
     void resizeEvent(QResizeEvent *event);
     void showEvent(QShowEvent *event);
     void hideEvent(QHideEvent *event);
+    void changeEvent(QEvent* e);
     /** Show custom context menu on Peers tab */
     void showPeersTableContextMenu(const QPoint& point);
     /** Show custom context menu on Bans tab */
@@ -107,8 +108,8 @@ public Q_SLOTS:
     void setNetworkActive(bool networkActive);
     /** Update number of masternodes shown in the UI */
     void updateMasternodeCount();
-    /** Set number of blocks and last block date shown in the UI */
-    void setNumBlocks(int count, const QDateTime& blockDate, double nVerificationProgress, bool headers);
+    /** Set number of blocks, last block date and last block hash shown in the UI */
+    void setNumBlocks(int count, const QDateTime& blockDate, const QString& blockHash, double nVerificationProgress, bool headers);
     /** Set size (number of transactions and memory usage) of the mempool in the UI */
     void setMempoolSize(long numberOfTxs, size_t dynUsage);
     /** Set number of InstantSend locks */
@@ -140,13 +141,14 @@ Q_SIGNALS:
     void handleRestart(QStringList args);
 
 private:
-    static QString FormatBytes(quint64 bytes);
     void startExecutor();
     void setTrafficGraphRange(TrafficGraphData::GraphRange range);
     /** Build parameter list for restart */
     void buildParameterlist(QString arg);
     /** show detailed information on ui about selected node */
     void updateNodeDetail(const CNodeCombinedStats *stats);
+    /** Set required icons for buttons inside the dialog */
+    void setButtonIcons();
 
     enum ColumnWidths
     {
@@ -159,12 +161,12 @@ private:
     };
 
     Ui::RPCConsole *ui;
+    QButtonGroup pageButtons;
     ClientModel *clientModel;
     QStringList history;
     int historyPtr;
     QString cmdBeforeBrowsing;
     QList<NodeId> cachedNodeids;
-    const PlatformStyle *platformStyle;
     RPCTimerInterface *rpcTimerInterface;
     QMenu *peersTableContextMenu;
     QMenu *banTableContextMenu;

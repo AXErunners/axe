@@ -2,27 +2,28 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "qrdialog.h"
-#include "ui_qrdialog.h"
+#include <qt/qrdialog.h>
+#include <qt/forms/ui_qrdialog.h>
 
-#include "bitcoinunits.h"
-#include "guiconstants.h"
-#include "guiutil.h"
-#include "optionsmodel.h"
-#include "walletmodel.h"
+#include <qt/bitcoinunits.h>
+#include <qt/guiconstants.h>
+#include <qt/guiutil.h>
+#include <qt/optionsmodel.h>
+#include <qt/walletmodel.h>
 
 #include <QClipboard>
 #include <QDrag>
 #include <QMenu>
 #include <QMimeData>
 #include <QMouseEvent>
+#include <QPainter>
 #include <QPixmap>
 #if QT_VERSION < 0x050000
 #include <QUrl>
 #endif
 
 #if defined(HAVE_CONFIG_H)
-#include "config/axe-config.h" /* for USE_QRCODE */
+#include <config/axe-config.h> /* for USE_QRCODE */
 #endif
 
 #ifdef USE_QRCODE
@@ -96,6 +97,10 @@ QRDialog::QRDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    GUIUtil::setFont({ui->labelQRCodeTitle}, GUIUtil::FontWeight::Bold, 16);
+
+    GUIUtil::updateFonts();
+
 #ifndef USE_QRCODE
     ui->button_saveImage->setVisible(false);
     ui->lblQRCode->setVisible(false);
@@ -155,20 +160,27 @@ void QRDialog::update()
         }
         ui->lblQRCode->setToolTip(strQRCode);
         QImage myImage = QImage(code->width + 8, code->width + 8, QImage::Format_RGB32);
-        myImage.fill(0xffffff);
+        myImage.fill(GUIUtil::getThemedQColor(GUIUtil::ThemedColor::BACKGROUND_WIDGET));
         unsigned char *p = code->data;
         for (int y = 0; y < code->width; y++)
         {
             for (int x = 0; x < code->width; x++)
             {
-                myImage.setPixel(x + 4, y + 4, ((*p & 1) ? 0x0 : 0xffffff));
+                myImage.setPixel(x + 4, y + 4, ((*p & 1) ? GUIUtil::getThemedQColor(GUIUtil::ThemedColor::QR_PIXEL).rgb() : GUIUtil::getThemedQColor(GUIUtil::ThemedColor::BACKGROUND_WIDGET).rgb()));
                 p++;
             }
         }
         QRcode_free(code);
 
+        QImage qrImage = QImage(QR_IMAGE_SIZE, QR_IMAGE_SIZE, QImage::Format_RGB32);
+        qrImage.fill(GUIUtil::getThemedQColor(GUIUtil::ThemedColor::BORDER_WIDGET));
+        QPainter painter(&qrImage);
+        QRect paddedRect = qrImage.rect().adjusted(1, 1, -1, -1);
+        painter.fillRect(paddedRect, GUIUtil::getThemedQColor(GUIUtil::ThemedColor::BACKGROUND_WIDGET));
+        painter.drawImage(1, 1, myImage.scaled(QR_IMAGE_SIZE - 2, QR_IMAGE_SIZE - 2));
+
         ui->labelQRCodeTitle->setText(strQRCodeTitle);
-        ui->lblQRCode->setPixmap(QPixmap::fromImage(myImage).scaled(300, 300));
+        ui->lblQRCode->setPixmap(QPixmap::fromImage(qrImage));
         ui->button_saveImage->setEnabled(true);
     }
 #endif

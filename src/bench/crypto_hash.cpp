@@ -5,16 +5,16 @@
 
 #include <iostream>
 
-#include "bench.h"
-#include "bloom.h"
-#include "hash.h"
-#include "random.h"
-#include "uint256.h"
-#include "utiltime.h"
-#include "crypto/ripemd160.h"
-#include "crypto/sha1.h"
-#include "crypto/sha256.h"
-#include "crypto/sha512.h"
+#include <bench/bench.h>
+#include <bloom.h>
+#include <hash.h>
+#include <random.h>
+#include <uint256.h>
+#include <utiltime.h>
+#include <crypto/ripemd160.h>
+#include <crypto/sha1.h>
+#include <crypto/sha256.h>
+#include <crypto/sha512.h>
 
 /* Number of bytes to hash per iteration */
 static const uint64_t BUFFER_SIZE = 1000*1000;
@@ -48,7 +48,7 @@ static void HASH_SHA256_0032b(benchmark::State& state)
     std::vector<uint8_t> in(32,0);
     while (state.KeepRunning()) {
         for (int i = 0; i < 1000000; i++) {
-            CSHA256().Write(in.data(), in.size()).Finalize(&in[0]);
+            CSHA256().Write(in.data(), in.size()).Finalize(in.data());
         }
     }
 }
@@ -66,7 +66,7 @@ static void HASH_DSHA256_0032b(benchmark::State& state)
     std::vector<uint8_t> in(32,0);
     while (state.KeepRunning()) {
         for (int i = 0; i < 1000000; i++) {
-            CHash256().Write(in.data(), in.size()).Finalize(&in[0]);
+            CHash256().Write(in.data(), in.size()).Finalize(in.data());
         }
     }
 }
@@ -123,42 +123,42 @@ static void HASH_DSHA256_0032b_single(benchmark::State& state)
 {
     std::vector<uint8_t> in(32,0);
     while (state.KeepRunning())
-        CHash256().Write(in.data(), in.size()).Finalize(&in[0]);
+        CHash256().Write(in.data(), in.size()).Finalize(in.data());
 }
 
 static void HASH_DSHA256_0080b_single(benchmark::State& state)
 {
     std::vector<uint8_t> in(80,0);
     while (state.KeepRunning())
-        CHash256().Write(in.data(), in.size()).Finalize(&in[0]);
+        CHash256().Write(in.data(), in.size()).Finalize(in.data());
 }
 
 static void HASH_DSHA256_0128b_single(benchmark::State& state)
 {
     std::vector<uint8_t> in(128,0);
     while (state.KeepRunning())
-        CHash256().Write(in.data(), in.size()).Finalize(&in[0]);
+        CHash256().Write(in.data(), in.size()).Finalize(in.data());
 }
 
 static void HASH_DSHA256_0512b_single(benchmark::State& state)
 {
     std::vector<uint8_t> in(512,0);
     while (state.KeepRunning())
-        CHash256().Write(in.data(), in.size()).Finalize(&in[0]);
+        CHash256().Write(in.data(), in.size()).Finalize(in.data());
 }
 
 static void HASH_DSHA256_1024b_single(benchmark::State& state)
 {
     std::vector<uint8_t> in(1024,0);
     while (state.KeepRunning())
-        CHash256().Write(in.data(), in.size()).Finalize(&in[0]);
+        CHash256().Write(in.data(), in.size()).Finalize(in.data());
 }
 
 static void HASH_DSHA256_2048b_single(benchmark::State& state)
 {
     std::vector<uint8_t> in(2048,0);
     while (state.KeepRunning())
-        CHash256().Write(in.data(), in.size()).Finalize(&in[0]);
+        CHash256().Write(in.data(), in.size()).Finalize(in.data());
 }
 
 static void HASH_X11(benchmark::State& state)

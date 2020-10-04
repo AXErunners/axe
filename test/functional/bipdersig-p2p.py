@@ -55,7 +55,7 @@ class BIP66Test(BitcoinTestFramework):
         self.setup_clean_chain = True
 
     def run_test(self):
-        self.nodes[0].add_p2p_connection(NodeConnCB())
+        self.nodes[0].add_p2p_connection(P2PInterface())
 
         network_thread_start()
 
@@ -126,9 +126,9 @@ class BIP66Test(BitcoinTestFramework):
         wait_until(lambda: "reject" in self.nodes[0].p2p.last_message.keys(), lock=mininode_lock)
         with mininode_lock:
             # We can receive different reject messages depending on whether
-            # bitcoind is running with multiple script check threads. If script
+            # axed is running with multiple script check threads. If script
             # check threads are not in use, then transaction script validation
-            # happens sequentially, and bitcoind produces more specific reject
+            # happens sequentially, and axed produces more specific reject
             # reasons.
             assert self.nodes[0].p2p.last_message["reject"].code in [REJECT_INVALID, REJECT_NONSTANDARD]
             assert_equal(self.nodes[0].p2p.last_message["reject"].data, block.sha256)

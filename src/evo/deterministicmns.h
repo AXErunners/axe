@@ -5,18 +5,19 @@
 #ifndef AXE_DETERMINISTICMNS_H
 #define AXE_DETERMINISTICMNS_H
 
-#include "arith_uint256.h"
-#include "bls/bls.h"
-#include "dbwrapper.h"
-#include "evodb.h"
-#include "providertx.h"
-#include "simplifiedmns.h"
-#include "sync.h"
+#include <arith_uint256.h>
+#include <bls/bls.h>
+#include <dbwrapper.h>
+#include <evo/evodb.h>
+#include <evo/providertx.h>
+#include <evo/simplifiedmns.h>
+#include <saltedhasher.h>
+#include <sync.h>
 
-#include "immer/map.hpp"
-#include "immer/map_transient.hpp"
+#include <immer/map.hpp>
+#include <immer/map_transient.hpp>
 
-#include <map>
+#include <unordered_map>
 
 class CBlock;
 class CBlockIndex;
@@ -52,7 +53,7 @@ public:
 
 public:
     CDeterministicMNState() {}
-    CDeterministicMNState(const CProRegTx& proTx)
+    explicit CDeterministicMNState(const CProRegTx& proTx)
     {
         keyIDOwner = proTx.keyIDOwner;
         pubKeyOperator.Set(proTx.pubKeyOperator);
@@ -187,8 +188,23 @@ public:
 
 class CDeterministicMN
 {
+private:
+    uint64_t internalId{std::numeric_limits<uint64_t>::max()};
+
 public:
-    CDeterministicMN() {}
+    CDeterministicMN() = delete; // no default constructor, must specify internalId
+    CDeterministicMN(uint64_t _internalId) : internalId(_internalId)
+    {
+        // only non-initial values
+        assert(_internalId != std::numeric_limits<uint64_t>::max());
+    }
+    // TODO: can be removed in a future version
+    CDeterministicMN(const CDeterministicMN& mn, uint64_t _internalId) : CDeterministicMN(mn) {
+        // only non-initial values
+        assert(_internalId != std::numeric_limits<uint64_t>::max());
+        internalId = _internalId;
+    }
+
     template <typename Stream>
     CDeterministicMN(deserialize_type, Stream& s)
     {
@@ -196,7 +212,6 @@ public:
     }
 
     uint256 proTxHash;
-    uint64_t internalId{std::numeric_limits<uint64_t>::max()};
     COutPoint collateralOutpoint;
     uint16_t nOperatorReward;
     CDeterministicMNStateCPtr pdmnState;
@@ -226,7 +241,8 @@ public:
         SerializationOp(s, CSerActionUnserialize(), oldFormat);
     }
 
-public:
+    uint64_t GetInternalId() const;
+
     std::string ToString() const;
     void ToJson(UniValue& obj) const;
 };
@@ -325,7 +341,7 @@ public:
 
         size_t cnt = ReadCompactSize(s);
         for (size_t i = 0; i < cnt; i++) {
-            AddMN(std::make_shared<CDeterministicMN>(deserialize, s));
+            AddMN(std::make_shared<CDeterministicMN>(deserialize, s), false);
         }
     }
 
@@ -376,10 +392,6 @@ public:
     uint32_t GetTotalRegisteredCount() const
     {
         return nTotalRegisteredCount;
-    }
-    void SetTotalRegisteredCount(uint32_t _count)
-    {
-        nTotalRegisteredCount = _count;
     }
 
     bool IsMNValid(const uint256& proTxHash) const;
@@ -462,7 +474,7 @@ public:
     CSimplifiedMNListDiff BuildSimplifiedDiff(const CDeterministicMNList& to) const;
     CDeterministicMNList ApplyDiff(const CBlockIndex* pindex, const CDeterministicMNListDiff& diff) const;
 
-    void AddMN(const CDeterministicMNCPtr& dmn);
+    void AddMN(const CDeterministicMNCPtr& dmn, bool fBumpTotalCount = true);
     void UpdateMN(const CDeterministicMNCPtr& oldDmn, const CDeterministicMNStateCPtr& pdmnState);
     void UpdateMN(const uint256& proTxHash, const CDeterministicMNStateCPtr& pdmnState);
     void UpdateMN(const CDeterministicMNCPtr& oldDmn, const CDeterministicMNStateDiff& stateDiff);
@@ -535,6 +547,8 @@ private:
 class CDeterministicMNListDiff
 {
 public:
+    int nHeight{-1}; //memory only
+
     std::vector<CDeterministicMNCPtr> addedMNs;
     // keys are all relating to the internalId of MNs
     std::map<uint64_t, CDeterministicMNStateDiff> updatedMNs;
@@ -607,7 +621,10 @@ public:
         size_t cnt = ReadCompactSize(s);
         for (size_t i = 0; i < cnt; i++) {
             uint256 proTxHash;
-            auto dmn = std::make_shared<CDeterministicMN>();
+            // NOTE: This is a hack and "0" is just a dummy id. The actual internalId is assigned to a copy
+            // of this dmn via corresponding ctor when we convert the diff format to a new one in UpgradeDiff
+            // thus the logic that we must set internalId before dmn is used in any meaningful way is preserved.
+            auto dmn = std::make_shared<CDeterministicMN>(0);
             s >> proTxHash;
             dmn->Unserialize(s, true);
             addedMNs.emplace(proTxHash, dmn);
@@ -619,8 +636,9 @@ public:
 
 class CDeterministicMNManager
 {
-    static const int SNAPSHOT_LIST_PERIOD = 576; // once per day
-    static const int LISTS_CACHE_SIZE = 576;
+    static const int DISK_SNAPSHOT_PERIOD = 576; // once per day
+    static const int DISK_SNAPSHOTS = 3; // keep cache for 3 disk snapshots to have 2 full days covered
+    static const int LIST_DIFFS_CACHE_SIZE = DISK_SNAPSHOT_PERIOD * DISK_SNAPSHOTS;
 
 public:
     CCriticalSection cs;
@@ -628,11 +646,12 @@ public:
 private:
     CEvoDB& evoDb;
 
-    std::map<uint256, CDeterministicMNList> mnListsCache;
+    std::unordered_map<uint256, CDeterministicMNList, StaticSaltedHasher> mnListsCache;
+    std::unordered_map<uint256, CDeterministicMNListDiff, StaticSaltedHasher> mnListDiffsCache;
     const CBlockIndex* tipIndex{nullptr};
 
 public:
-    CDeterministicMNManager(CEvoDB& _evoDb);
+    explicit CDeterministicMNManager(CEvoDB& _evoDb);
 
     bool ProcessBlock(const CBlock& block, const CBlockIndex* pindex, CValidationState& state, bool fJustCheck);
     bool UndoBlock(const CBlock& block, const CBlockIndex* pindex);
@@ -654,13 +673,13 @@ public:
 
 public:
     // TODO these can all be removed in a future version
-    bool UpgradeDiff(CDBBatch& batch, const CBlockIndex* pindexNext, const CDeterministicMNList& curMNList, CDeterministicMNList& newMNList);
-    void UpgradeDBIfNeeded();
+    void UpgradeDiff(CDBBatch& batch, const CBlockIndex* pindexNext, const CDeterministicMNList& curMNList, CDeterministicMNList& newMNList);
+    bool UpgradeDBIfNeeded();
 
 private:
     void CleanupCache(int nHeight);
 };
 
-extern CDeterministicMNManager* deterministicMNManager;
+extern std::unique_ptr<CDeterministicMNManager> deterministicMNManager;
 
 #endif //AXE_DETERMINISTICMNS_H

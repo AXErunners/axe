@@ -70,9 +70,9 @@ class WalletBackupTest(BitcoinTestFramework):
 
         # Have the miner (node3) mine a block.
         # Must sync mempools before mining.
-        sync_mempools(self.nodes)
+        self.sync_mempools()
         self.nodes[3].generate(1)
-        sync_blocks(self.nodes)
+        self.sync_blocks()
 
     # As above, this mirrors the original bash test.
     def start_three(self):
@@ -90,20 +90,20 @@ class WalletBackupTest(BitcoinTestFramework):
         self.stop_node(2)
 
     def erase_three(self):
-        os.remove(self.options.tmpdir + "/node0/regtest/wallet.dat")
-        os.remove(self.options.tmpdir + "/node1/regtest/wallet.dat")
-        os.remove(self.options.tmpdir + "/node2/regtest/wallet.dat")
+        os.remove(self.options.tmpdir + "/node0/regtest/wallets/wallet.dat")
+        os.remove(self.options.tmpdir + "/node1/regtest/wallets/wallet.dat")
+        os.remove(self.options.tmpdir + "/node2/regtest/wallets/wallet.dat")
 
     def run_test(self):
         self.log.info("Generating initial blockchain")
         self.nodes[0].generate(1)
-        sync_blocks(self.nodes)
+        self.sync_blocks()
         self.nodes[1].generate(1)
-        sync_blocks(self.nodes)
+        self.sync_blocks()
         self.nodes[2].generate(1)
-        sync_blocks(self.nodes)
+        self.sync_blocks()
         self.nodes[3].generate(100)
-        sync_blocks(self.nodes)
+        self.sync_blocks()
 
         assert_equal(self.nodes[0].getbalance(), 500)
         assert_equal(self.nodes[1].getbalance(), 500)
@@ -155,13 +155,13 @@ class WalletBackupTest(BitcoinTestFramework):
         shutil.rmtree(self.options.tmpdir + "/node2/regtest/evodb")
 
         # Restore wallets from backup
-        shutil.copyfile(tmpdir + "/node0/wallet.bak", tmpdir + "/node0/regtest/wallet.dat")
-        shutil.copyfile(tmpdir + "/node1/wallet.bak", tmpdir + "/node1/regtest/wallet.dat")
-        shutil.copyfile(tmpdir + "/node2/wallet.bak", tmpdir + "/node2/regtest/wallet.dat")
+        shutil.copyfile(tmpdir + "/node0/wallet.bak", tmpdir + "/node0/regtest/wallets/wallet.dat")
+        shutil.copyfile(tmpdir + "/node1/wallet.bak", tmpdir + "/node1/regtest/wallets/wallet.dat")
+        shutil.copyfile(tmpdir + "/node2/wallet.bak", tmpdir + "/node2/regtest/wallets/wallet.dat")
 
         self.log.info("Re-starting nodes")
         self.start_three()
-        sync_blocks(self.nodes)
+        self.sync_blocks()
 
         assert_equal(self.nodes[0].getbalance(), balance0)
         assert_equal(self.nodes[1].getbalance(), balance1)
@@ -186,7 +186,7 @@ class WalletBackupTest(BitcoinTestFramework):
         self.nodes[1].importwallet(tmpdir + "/node1/wallet.dump")
         self.nodes[2].importwallet(tmpdir + "/node2/wallet.dump")
 
-        sync_blocks(self.nodes)
+        self.sync_blocks()
 
         assert_equal(self.nodes[0].getbalance(), balance0)
         assert_equal(self.nodes[1].getbalance(), balance1)
@@ -194,10 +194,10 @@ class WalletBackupTest(BitcoinTestFramework):
 
         # Backup to source wallet file must fail
         sourcePaths = [
-            tmpdir + "/node0/regtest/wallet.dat",
-            tmpdir + "/node0/./regtest/wallet.dat",
-            tmpdir + "/node0/regtest/",
-            tmpdir + "/node0/regtest"]
+            tmpdir + "/node0/regtest/wallets/wallet.dat",
+            tmpdir + "/node0/./regtest/wallets/wallet.dat",
+            tmpdir + "/node0/regtest/wallets/",
+            tmpdir + "/node0/regtest/wallets"]
 
         for sourcePath in sourcePaths:
             assert_raises_rpc_error(-4, "backup failed", self.nodes[0].backupwallet, sourcePath)

@@ -5,9 +5,11 @@
 #ifndef MASTERNODE_META_H
 #define MASTERNODE_META_H
 
-#include "serialize.h"
+#include <serialize.h>
 
-#include "evo/deterministicmns.h"
+#include <evo/deterministicmns.h>
+
+#include <univalue.h>
 
 #include <memory>
 
@@ -33,14 +35,19 @@ private:
     // KEEP TRACK OF GOVERNANCE ITEMS EACH MASTERNODE HAS VOTE UPON FOR RECALCULATION
     std::map<uint256, int> mapGovernanceObjectsVotedOn;
 
+    int64_t lastOutboundAttempt = 0;
+    int64_t lastOutboundSuccess = 0;
+
 public:
     CMasternodeMetaInfo() {}
-    CMasternodeMetaInfo(const uint256& _proTxHash) : proTxHash(_proTxHash) {}
+    explicit CMasternodeMetaInfo(const uint256& _proTxHash) : proTxHash(_proTxHash) {}
     CMasternodeMetaInfo(const CMasternodeMetaInfo& ref) :
         proTxHash(ref.proTxHash),
         nLastDsq(ref.nLastDsq),
         nMixingTxCount(ref.nMixingTxCount),
-        mapGovernanceObjectsVotedOn(ref.mapGovernanceObjectsVotedOn)
+        mapGovernanceObjectsVotedOn(ref.mapGovernanceObjectsVotedOn),
+        lastOutboundAttempt(ref.lastOutboundAttempt),
+        lastOutboundSuccess(ref.lastOutboundSuccess)
     {
     }
 
@@ -53,7 +60,11 @@ public:
         READWRITE(nLastDsq);
         READWRITE(nMixingTxCount);
         READWRITE(mapGovernanceObjectsVotedOn);
+        READWRITE(lastOutboundAttempt);
+        READWRITE(lastOutboundSuccess);
     }
+
+    UniValue ToJson() const;
 
 public:
     const uint256& GetProTxHash() const { LOCK(cs); return proTxHash; }
@@ -66,6 +77,11 @@ public:
     void AddGovernanceVote(const uint256& nGovernanceObjectHash);
 
     void RemoveGovernanceObject(const uint256& nGovernanceObjectHash);
+
+    void SetLastOutboundAttempt(int64_t t) { LOCK(cs); lastOutboundAttempt = t; }
+    int64_t GetLastOutboundAttempt() const { LOCK(cs); return lastOutboundAttempt; }
+    void SetLastOutboundSuccess(int64_t t) { LOCK(cs); lastOutboundSuccess = t; }
+    int64_t GetLastOutboundSuccess() const { LOCK(cs); return lastOutboundSuccess; }
 };
 typedef std::shared_ptr<CMasternodeMetaInfo> CMasternodeMetaInfoPtr;
 
@@ -124,6 +140,7 @@ public:
     CMasternodeMetaInfoPtr GetMetaInfo(const uint256& proTxHash, bool fCreate = true);
 
     int64_t GetDsqCount() { LOCK(cs); return nDsqCount; }
+    int64_t GetDsqThreshold(const uint256& proTxHash, int nMnCount);
 
     void AllowMixing(const uint256& proTxHash);
     void DisallowMixing(const uint256& proTxHash);
