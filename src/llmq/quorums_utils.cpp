@@ -46,7 +46,7 @@ uint256 CLLMQUtils::BuildSignHash(Consensus::LLMQType llmqType, const uint256& q
 
 bool CLLMQUtils::IsAllMembersConnectedEnabled(Consensus::LLMQType llmqType)
 {
-    if (sporkManager.IsSporkActive(SPORK_21_QUORUM_ALL_CONNECTED)) {
+    if (sporkManager.IsSporkActive(SPORK_21_QUORUM_ALL_CONNECTED) && llmqType != Consensus::LLMQ_400_60 && llmqType != Consensus::LLMQ_400_85) {
         return true;
     }
     return false;
