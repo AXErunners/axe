@@ -360,10 +360,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_REALLOC].nFalloffCoeff = 5; // this corresponds to 10 periods
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000057d1699af8ff34e377"); // 507186
+        consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000005dd60d804ed482dce3"); // 551525
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x00000000000004d7bcf343ee36d62beae50d19cf26f6ffeb774ee561ab9cc632"); // 507186
+        consensus.defaultAssumeValid = uint256S("0x000000000000253fe23b3fe2ad44457bbdd1f24516805fc7fad9fbcd96f9610b"); // 551525
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
