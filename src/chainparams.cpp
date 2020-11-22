@@ -360,10 +360,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_REALLOC].nFalloffCoeff = 5; // this corresponds to 10 periods
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000057d1699af8ff34e377"); // 507186
+        consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000000000005dd60d804ed482dce3"); // 551525
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x00000000000004d7bcf343ee36d62beae50d19cf26f6ffeb774ee561ab9cc632"); // 507186
+        consensus.defaultAssumeValid = uint256S("0x000000000000253fe23b3fe2ad44457bbdd1f24516805fc7fad9fbcd96f9610b"); // 551525
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -466,10 +466,10 @@ public:
         };
 
         chainTxData = ChainTxData{
-            1597784558, // * UNIX timestamp of last known number of transactions
-            1043092,    // * total number of transactions between genesis and that timestamp
+            1604796713, // * UNIX timestamp of last known number of transactions
+            1127533,    // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the SetBestChain debug.log lines)
-            0.02         // * estimated number of transactions per second after that timestamp
+            0.01         // * estimated number of transactions per second after that timestamp
         };
     }
 };
@@ -560,15 +560,15 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_REALLOC].nFalloffCoeff = 5; // this corresponds to 10 periods
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x000000000000000000000000000000000000000000000000000001a10897feeb"); // 28049
+        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000006f80bb27579f1"); // 189536
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x000000e826e2f4bff3d2812c08d8a220869c0596ea7ee62fe3a7371846999e05"); // 28049
+        consensus.defaultAssumeValid = uint256S("0x00000109ef379bab833e20aaa4ccca1123ea9ba13abd68da4e0ace7cdf16115f"); // 189536
 
         pchMessageStart[0] = 0xce;
         pchMessageStart[1] = 0xe2;
         pchMessageStart[2] = 0xca;
-        pchMessageStart[3] = 0xff;
+        pchMessageStart[3] = 0xf1;
         nDefaultPort = 19937;
         nPruneAfterHeight = 1000;
 
@@ -643,8 +643,8 @@ public:
         };
 
         chainTxData = ChainTxData{
-            1597784520, // * UNIX timestamp of last known number of transactions
-            194076,    // * total number of transactions between genesis and that timestamp
+            1604797397, // * UNIX timestamp of last known number of transactions
+            273040,    // * total number of transactions between genesis and that timestamp
                         //   (the tx=... number in the SetBestChain debug.log lines)
             0.01        // * estimated number of transactions per second after that timestamp
         };
