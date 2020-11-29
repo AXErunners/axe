@@ -1,5 +1,5 @@
 ---
-name: "axe-linux-1.6"
+name: "axe-linux-1.7"
 enable_cache: true
 suites:
 - "bionic"
