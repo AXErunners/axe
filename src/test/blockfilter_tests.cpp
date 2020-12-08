@@ -134,9 +134,11 @@ BOOST_AUTO_TEST_CASE(blockfilters_json_test)
         uint256 filter_header_basic = ParseHashStr(test[pos++].get_str(), "filter_header_basic");
 
         BlockFilter computed_filter_basic(BlockFilterType::BASIC_FILTER, block, block_undo);
+        print(computed_filter_basic.GetFilter().GetEncoded());
         BOOST_CHECK(computed_filter_basic.GetFilter().GetEncoded() == filter_basic);
 
         uint256 computed_header_basic = computed_filter_basic.ComputeHeader(prev_filter_header_basic);
+        print(computed_header_basic);
         BOOST_CHECK(computed_header_basic == filter_header_basic);
     }
 }
