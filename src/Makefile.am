@@ -123,6 +123,7 @@ BITCOIN_CORE_H = \
   bloom.h \
   cachemap.h \
   cachemultimap.h \
+  blockfilter.h \
   chain.h \
   chainparams.h \
   chainparamsbase.h \
@@ -282,6 +283,7 @@ libaxe_server_a_SOURCES = \
   batchedlogger.cpp \
   bloom.cpp \
   blockencodings.cpp \
+  blockfilter.cpp \
   chain.cpp \
   checkpoints.cpp \
   consensus/tx_verify.cpp \
