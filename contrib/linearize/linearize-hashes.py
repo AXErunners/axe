@@ -72,7 +72,7 @@ def get_block_hashes(settings, max_blocks_per_call=10000):
     rpc = BitcoinRPC(settings['host'], settings['port'],
 			 settings['rpcuser'], settings['rpcpassword'])
 
-	height = settings['min_height']
+    height = settings['min_height']
 	while height < settings['max_height']+1:
 		num_blocks = min(settings['max_height']+1-height, max_blocks_per_call)
 		batch = []
@@ -88,7 +88,7 @@ def get_block_hashes(settings, max_blocks_per_call=10000):
 			if rpc.response_is_error(resp_obj):
 				print('JSON-RPC: error at height', height+x, ': ', resp_obj['error'], file=sys.stderr)
                 sys.exit(1)
-			assert(resp_obj['id'] == x) # assume replies are in-sequence
+            assert(resp_obj['id'] == x) # assume replies are in-sequence
 			if settings['rev_hash_bytes'] == 'true':
 				resp_obj['result'] = hex_switchEndian(resp_obj['result'])
 			print(resp_obj['result'])
@@ -139,9 +139,9 @@ if __name__ == '__main__':
 		use_userpass = False
 	if 'datadir' in settings and not use_userpass:
 		use_datadir = True
-	if not use_userpass and not use_datadir:
+    if not use_userpass and not use_datadir:
         print("Missing datadir or username and/or password in cfg file", file=sys.stderr)
-		sys.exit(1)
+        sys.exit(1)
 
 	settings['port'] = int(settings['port'])
 	settings['min_height'] = int(settings['min_height'])
