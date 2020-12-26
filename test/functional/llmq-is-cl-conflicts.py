@@ -5,11 +5,10 @@
 import time
 from decimal import Decimal
 
-from test_framework import mininode
 from test_framework.blocktools import get_masternode_payment, create_coinbase, create_block
 from test_framework.mininode import *
 from test_framework.test_framework import AxeTestFramework
-from test_framework.util import sync_blocks, sync_mempools, p2p_port, assert_raises_rpc_error, get_bip9_status
+from test_framework.util import assert_raises_rpc_error
 
 '''
 llmq-is-cl-conflicts.py

@@ -13,7 +13,6 @@ import re
 import os
 import os.path
 import sys
-import hashlib
 import axe_hash
 import datetime
 import time
