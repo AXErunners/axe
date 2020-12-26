@@ -73,7 +73,7 @@ def get_block_hashes(settings, max_blocks_per_call=10000):
 			 settings['rpcuser'], settings['rpcpassword'])
 
     height = settings['min_height']
-	while height < settings['max_height']+1:
+    while height < settings['max_height']+1:
 		num_blocks = min(settings['max_height']+1-height, max_blocks_per_call)
 		batch = []
 		for x in range(num_blocks):
