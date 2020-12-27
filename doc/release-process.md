@@ -91,7 +91,7 @@ Create the OS X SDK tarball, see the [OS X readme](README_osx.md) for details, a
 
 NOTE: Gitian is sometimes unable to download files. If you have errors, try the step below.
 
-By default, Gitian will fetch source files as needed. To cache them ahead of time, make sure you have checked out the tag you want to build in dash, then:
+By default, Gitian will fetch source files as needed. To cache them ahead of time, make sure you have checked out the tag you want to build in axe, then:
 
     pushd ./gitian-builder
     make -C ../axe/depends download SOURCES_PATH=`pwd`/cache/common
