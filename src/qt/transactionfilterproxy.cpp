@@ -44,11 +44,6 @@ bool TransactionFilterProxy::filterAcceptsRow(int sourceRow, const QModelIndex &
         return false;
     if (!involvesWatchAddress && watchOnlyFilter == WatchOnlyFilter_Yes)
         return false;
-    bool lockedByInstantSend = index.data(TransactionTableModel::InstantSendRole).toBool();
-    if (lockedByInstantSend && instantsendFilter == InstantSendFilter_No)
-        return false;
-    if (!lockedByInstantSend && instantsendFilter == InstantSendFilter_Yes)
-        return false;
     qint64 datetime = index.data(TransactionTableModel::DateRoleInt).toLongLong();
     if (datetime < dateFrom || datetime > dateTo)
         return false;
