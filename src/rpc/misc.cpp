@@ -185,7 +185,7 @@ UniValue spork(const JSONRPCRequest& request)
         } else if(strCommand == "active"){
             UniValue ret(UniValue::VOBJ);
             for (const auto& sporkDefM : sporkDefsM) {
-                ret.pushKV(sporkDef.name, sporkManager.IsSporkActive(sporkDef.sporkId));
+                ret.pushKV(sporkDefM.name, sporkManager.IsSporkActive(sporkDefM.sporkId));
             };
             for (const auto& sporkDefT : sporkDefsT) {
                 ret.pushKV(sporkDefT.name, sporkManager.IsSporkActive(sporkDefT.sporkId));
