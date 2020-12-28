@@ -3320,6 +3320,8 @@ bool CWallet::FundTransaction(CMutableTransaction& tx, CAmount& nFeeRet, int& nC
 
 bool CWallet::SelectPSInOutPairsByDenominations(int nDenom, CAmount nValueMax, std::vector< std::pair<CTxDSIn, CTxOut> >& vecPSInOutPairsRet)
 {
+    LOCK2(cs_main, cs_wallet);
+
     CAmount nValueTotal{0};
 
     std::set<uint256> setRecentTxIds;
@@ -3467,6 +3469,8 @@ bool CWallet::SelectCoinsGroupedByAddresses(std::vector<CompactTallyItem>& vecTa
 
 bool CWallet::SelectDenominatedAmounts(CAmount nValueMax, std::set<CAmount>& setAmountsRet) const
 {
+    LOCK2(cs_main, cs_wallet);
+
     CAmount nValueTotal{0};
     setAmountsRet.clear();
 
@@ -3510,6 +3514,8 @@ bool CWallet::GetCollateralTxDSIn(CTxDSIn& txdsinRet, CAmount& nValueRet) const
 
 bool CWallet::GetMasternodeOutpointAndKeys(COutPoint& outpointRet, CPubKey& pubKeyRet, CKey& keyRet, const std::string& strTxHash, const std::string& strOutputIndex)
 {
+    LOCK2(cs_main, cs_wallet);
+
     // wait for reindex and/or import to finish
     if (fImporting || fReindex) return false;
 
@@ -3586,6 +3592,8 @@ int CWallet::CountInputsWithAmount(CAmount nInputAmount) const
 
 bool CWallet::HasCollateralInputs(bool fOnlyConfirmed) const
 {
+    LOCK2(cs_main, cs_wallet);
+
     std::vector<COutput> vCoins;
     CCoinControl coin_control;
     coin_control.nCoinType = CoinType::ONLY_PRIVATESEND_COLLATERAL;
