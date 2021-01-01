@@ -1,4 +1,4 @@
-This directory contains the BitcoinQT graphical user interface (GUI). It uses the cross platform framework [QT](https://www1.qt.io/developers/).
+This directory contains the AxeQT graphical user interface (GUI). It uses the cross platform framework [QT](https://www1.qt.io/developers/).
 
 The current precise version for QT 5 is specified in [qt.mk](/depends/packages/qt.mk). QT 4 is also supported (see [#8263](https://github.com/bitcoin/bitcoin/issues/8263)).
 
@@ -9,7 +9,7 @@ See build instructions ([OSX](/doc/build-osx.md), [Windows](/doc/build-windows.m
 To run:
 
 ```sh
-./src/qt/bitcoin-qt
+./src/qt/axe-qt
 ```
 
 ## Files and directories
@@ -32,7 +32,7 @@ Tests.
 
 ### bitcoingui.(h/cpp)
 
-Represents the main window of the Bitcoin UI.
+Represents the main window of the Axe UI.
 
 ### \*model.(h/cpp)
 
@@ -50,7 +50,7 @@ Various dialogs, e.g. to open a URL. Inherit from [QDialog](http://doc.qt.io/qt-
 
 ### paymentserver.(h/cpp)
 
-Used to process BIP21 and BIP70 (see https://github.com/bitcoin/bitcoin/pull/11622) payment URI / requests. Also handles URI based application switching (e.g. when following a bitcoin:... link from a browser).
+Used to process BIP21 and BIP70 (see https://github.com/bitcoin/bitcoin/pull/11622) payment URI / requests. Also handles URI based application switching (e.g. when following an axe:... link from a browser).
 
 ### walletview.(h/cpp)
 
@@ -71,7 +71,7 @@ Represents the view to a single wallet.
 
 See [CONTRIBUTING.md](/CONTRIBUTING.md) for general guidelines. Specifically for QT:
 
-* don't change `local/bitcoin_en.ts`; this happens [automatically](/doc/translation_process.md#writing-code-with-translations)
+* don't change `local/axe_en.ts`; this happens [automatically](/doc/translation_process.md#writing-code-with-translations)
 
 ## Using Qt Creator as IDE
 
@@ -86,10 +86,10 @@ Instructions for OSX:
 1. Make sure you installed everything through Homebrew mentioned in the [OSX build instructions](/docs/build-osx.md)
 2. Use `./configure` with the `--enable-debug` flag
 3. In Qt Creator do "New Project" -> Import Project -> Import Existing Project
-4. Enter "bitcoin-qt" as project name, enter src/qt as location
+4. Enter "axe-qt" as project name, enter src/qt as location
 5. Leave the file selection as it is
 6. Confirm the "summary page"
 7. In the "Projects" tab select "Manage Kits..."
 8. Select the default "Desktop" kit and select "Clang (x86 64bit in /usr/bin)" as compiler
 9. Select LLDB as debugger (you might need to set the path to your installation)
-10. Start debugging with Qt Creator (you might need to the executable to "bitcoin-qt" under "Run", which is where you can also add command line arguments)
+10. Start debugging with Qt Creator (you might need to the executable to "axe-qt" under "Run", which is where you can also add command line arguments)
