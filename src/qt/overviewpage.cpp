@@ -163,10 +163,6 @@ OverviewPage::OverviewPage(QWidget* parent) :
     // start with displaying the "out of sync" warnings
     showOutOfSyncWarning(true);
 
-    // Disable privateSendClient builtin support for automatic backups while we are in GUI,
-    // we'll handle automatic backups and user warnings in privateSendStatus()
-    privateSendClient.fCreateAutoBackups = false;
-
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(privateSendStatus()));
 }
@@ -286,6 +282,10 @@ void OverviewPage::setWalletModel(WalletModel *model)
         connect(model->getOptionsModel(), &OptionsModel::privateSendEnabledChanged, [=]() {
             privateSendStatus(true);
         });
+        
+        // Disable privateSendClient builtin support for automatic backups while we are in GUI,
+        // we'll handle automatic backups and user warnings in privateSendStatus()
+        walletModel->privateSend().disableAutobackups();
 
         connect(ui->togglePrivateSend, SIGNAL(clicked()), this, SLOT(togglePrivateSend()));
 
@@ -451,7 +451,7 @@ void OverviewPage::privateSendStatus(bool fForce)
         return;
     }
 
-    bool fIsEnabled = privateSendClient.fEnablePrivateSend;
+    bool fIsEnabled = CPrivateSendClientOptions::IsEnabled();
     ui->framePrivateSend->setVisible(fIsEnabled);
     if (!fIsEnabled) {
         SetupTransactionList(NUM_ITEMS_DISABLED);
