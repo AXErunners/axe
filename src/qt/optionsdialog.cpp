@@ -163,9 +163,9 @@ OptionsDialog::OptionsDialog(QWidget *parent, bool enableWallet) :
 
     // Store the current PrivateSend enabled state to recover it if it gets changed but the dialog gets not accepted but declined.
 #ifdef ENABLE_WALLET
-    fPrivateSendEnabledPrev = privateSendClient.fEnablePrivateSend;
+    fPrivateSendEnabledPrev = CPrivateSendClientOptions::IsEnabled();
     connect(this, &OptionsDialog::rejected, [=]() {
-        if (fPrivateSendEnabledPrev != privateSendClient.fEnablePrivateSend) {
+        if (fPrivateSendEnabledPrev != CPrivateSendClientOptions::IsEnabled()) {
             ui->privateSendEnabled->click();
         }
     });
@@ -199,7 +199,7 @@ void OptionsDialog::setModel(OptionsModel *_model)
         // If -enableprivatesend was passed in on the command line, set the checkbox
         // to the value given via commandline and disable it (make it unclickable).
         if (strLabel.contains("-enableprivatesend")) {
-            bool fEnabled = privateSendClient.fEnablePrivateSend;
+            bool fEnabled = CPrivateSendClientOptions::IsEnabled();
             ui->privateSendEnabled->setChecked(fEnabled);
             ui->privateSendEnabled->setEnabled(false);
         }
@@ -233,7 +233,7 @@ void OptionsDialog::setModel(OptionsModel *_model)
 
     connect(ui->privateSendEnabled, &QCheckBox::clicked, [=](bool fChecked) {
 #ifdef ENABLE_WALLET
-        privateSendClient.fEnablePrivateSend = fChecked;
+        CPrivateSendClientOptions::SetEnabled(fChecked);
 #endif
         updatePrivateSendVisibility();
         if (_model != nullptr) {
@@ -431,7 +431,7 @@ void OptionsDialog::updateDefaultProxyNets()
 void OptionsDialog::updatePrivateSendVisibility()
 {
 #ifdef ENABLE_WALLET
-    bool fEnabled = privateSendClient.fEnablePrivateSend;
+    bool fEnabled = CPrivateSendClientOptions::IsEnabled();
 #else
     bool fEnabled = false;
 #endif
