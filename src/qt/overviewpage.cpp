@@ -282,7 +282,7 @@ void OverviewPage::setWalletModel(WalletModel *model)
         connect(model->getOptionsModel(), &OptionsModel::privateSendEnabledChanged, [=]() {
             privateSendStatus(true);
         });
-        
+
         // Disable privateSendClient builtin support for automatic backups while we are in GUI,
         // we'll handle automatic backups and user warnings in privateSendStatus()
         walletModel->privateSend().disableAutobackups();
