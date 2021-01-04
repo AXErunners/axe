@@ -481,7 +481,7 @@ void BitcoinApplication::initializeResult(bool success)
 #ifdef ENABLE_WALLET
         bool fFirstWallet = true;
         for (CWallet* pwallet : GetWallets()) {
-            WalletModel * const walletModel = new WalletModel(platformStyle, pwallet, optionsModel);
+            WalletModel * const walletModel = new WalletModel(pwallet, optionsModel);
 
             window->addWallet(walletModel);
             if (fFirstWallet) {
