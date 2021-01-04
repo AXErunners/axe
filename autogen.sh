@@ -3,6 +3,7 @@
 # Copyright (c) 2017-2018 The AXE Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 cat << "EOF"
 
          █████╗    ██╗  ██╗   ███████╗
@@ -18,7 +19,7 @@ cat << "EOF"
   ██║        ██║   ██║   ██╔══██╗   ██╔══╝
   ╚██████╗   ╚██████╔╝   ██║  ██║   ███████╗
    ╚═════╝    ╚═════╝    ╚═╝  ╚═╝   ╚══════╝
-   
+
 EOF
 printf "\033[1m\033[31mAXE\033[0m\n\033[33;2mWarming up...\033[0m\n"
 set -e
