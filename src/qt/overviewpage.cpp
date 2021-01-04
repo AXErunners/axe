@@ -163,6 +163,17 @@ OverviewPage::OverviewPage(QWidget* parent) :
     // start with displaying the "out of sync" warnings
     showOutOfSyncWarning(true);
 
+    // Disable privateSendClient builtin support for automatic backups while we are in GUI,
+    // we'll handle automatic backups and user warnings in privateSendStatus()
+    for (auto& pair : privateSendClientManagers) {
+        if (!pair.second->IsMixing()) {
+            ui->togglePrivateSend->setText(tr("Start Mixing"));
+        } else {
+            ui->togglePrivateSend->setText(tr("Stop Mixing"));
+        }
+        pair.second->fCreateAutoBackups = false;
+    }
+
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(privateSendStatus()));
 }
@@ -282,10 +293,6 @@ void OverviewPage::setWalletModel(WalletModel *model)
         connect(model->getOptionsModel(), &OptionsModel::privateSendEnabledChanged, [=]() {
             privateSendStatus(true);
         });
-
-        // Disable privateSendClient builtin support for automatic backups while we are in GUI,
-        // we'll handle automatic backups and user warnings in privateSendStatus()
-        walletModel->privateSend().disableAutobackups();
 
         connect(ui->togglePrivateSend, SIGNAL(clicked()), this, SLOT(togglePrivateSend()));
 
@@ -648,7 +655,7 @@ void OverviewPage::togglePrivateSend(){
             if(!ctx.isValid())
             {
                 //unlock was cancelled
-                privateSendClientManager->nCachedNumBlockss = std::numeric_limits<int>::max();
+                privateSendClientManager->nCachedNumBlocks = std::numeric_limits<int>::max();
                 QMessageBox::warning(this, "PrivateSend",
                     tr("Wallet is locked and user declined to unlock. Disabling PrivateSend."),
                     QMessageBox::Ok, QMessageBox::Ok);
