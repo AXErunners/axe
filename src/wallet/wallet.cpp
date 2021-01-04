@@ -1583,7 +1583,7 @@ int CWallet::GetRealOutpointPrivateSendRounds(const COutPoint& outpoint, int nRo
 {
     LOCK(cs_wallet);
 
-    const int nRoundsMax = MAX_PRIVATESEND_ROUNDS + privateSendClient.nPrivateSendRandomRounds;
+    const int nRoundsMax = MAX_PRIVATESEND_ROUNDS + CPrivateSendClientOptions::GetRandomRounds();
 
     if (nRounds >= nRoundsMax) {
         // there can only be nRoundsMax rounds max
@@ -1687,13 +1687,13 @@ bool CWallet::IsFullyMixed(const COutPoint& outpoint) const
 {
     int nRounds = GetRealOutpointPrivateSendRounds(outpoint);
     // Mix again if we don't have N rounds yet
-    if (nRounds < privateSendClient.nPrivateSendRounds) return false;
+    if (nRounds < CPrivateSendClientOptions::GetRounds()) return false;
 
     // Try to mix a "random" number of rounds more than minimum.
     // If we have already mixed N + MaxOffset rounds, don't mix again.
     // Otherwise, we should mix again 50% of the time, this results in an exponential decay
     // N rounds 50% N+1 25% N+2 12.5%... until we reach N + GetRandomRounds() rounds where we stop.
-    if (nRounds < privateSendClient.nPrivateSendRounds + privateSendClient.nPrivateSendRandomRounds) {
+    if (nRounds < CPrivateSendClientOptions::GetRounds() + CPrivateSendClientOptions::GetRandomRounds()) {
         CDataStream ss(SER_GETHASH, PROTOCOL_VERSION);
         ss << outpoint << nPrivateSendSalt;
         uint256 nHash;
