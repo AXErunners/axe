@@ -25,6 +25,7 @@ from test_framework.util import (assert_raises_rpc_error, connect_nodes, assert_
 import collections
 import enum
 import itertools
+import sys
 
 Call = enum.Enum("Call", "single multi")
 Data = enum.Enum("Data", "address pub priv")
