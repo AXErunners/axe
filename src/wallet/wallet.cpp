@@ -53,6 +53,7 @@ bool AddWallet(CWallet* wallet)
     std::vector<CWallet*>::const_iterator i = std::find(vpwallets.begin(), vpwallets.end(), wallet);
     if (i != vpwallets.end()) return false;
     vpwallets.push_back(wallet);
+    privateSendClientManagers.emplace(std::make_pair(wallet->GetName(), new CPrivateSendClientManager()));
     return true;
 }
 
@@ -63,6 +64,10 @@ bool RemoveWallet(CWallet* wallet)
     std::vector<CWallet*>::iterator i = std::find(vpwallets.begin(), vpwallets.end(), wallet);
     if (i == vpwallets.end()) return false;
     vpwallets.erase(i);
+    auto it = privateSendClientManagers.find(wallet->GetName());
+    delete it->second;
+    it->second = nullptr;
+    privateSendClientManagers.erase(it);
     return true;
 }
 
@@ -1578,7 +1583,7 @@ int CWallet::GetRealOutpointPrivateSendRounds(const COutPoint& outpoint, int nRo
 {
     LOCK(cs_wallet);
 
-    const int nRoundsMax = MAX_PRIVATESEND_ROUNDS + privateSendClient.nPrivateSendRandomRounds;
+    const int nRoundsMax = MAX_PRIVATESEND_ROUNDS + CPrivateSendClientOptions::GetRandomRounds();
 
     if (nRounds >= nRoundsMax) {
         // there can only be nRoundsMax rounds max
@@ -1659,7 +1664,7 @@ int CWallet::GetCappedOutpointPrivateSendRounds(const COutPoint& outpoint) const
 {
     LOCK(cs_wallet);
     int realPrivateSendRounds = GetRealOutpointPrivateSendRounds(outpoint);
-    return realPrivateSendRounds > privateSendClient.nPrivateSendRounds ? privateSendClient.nPrivateSendRounds : realPrivateSendRounds;
+    return realPrivateSendRounds > CPrivateSendClientOptions::GetRounds() ? CPrivateSendClientOptions::GetRounds() : realPrivateSendRounds;
 }
 
 bool CWallet::IsDenominated(const COutPoint& outpoint) const
@@ -1682,13 +1687,13 @@ bool CWallet::IsFullyMixed(const COutPoint& outpoint) const
 {
     int nRounds = GetRealOutpointPrivateSendRounds(outpoint);
     // Mix again if we don't have N rounds yet
-    if (nRounds < privateSendClient.nPrivateSendRounds) return false;
+    if (nRounds < CPrivateSendClientOptions::GetRounds()) return false;
 
     // Try to mix a "random" number of rounds more than minimum.
     // If we have already mixed N + MaxOffset rounds, don't mix again.
     // Otherwise, we should mix again 50% of the time, this results in an exponential decay
     // N rounds 50% N+1 25% N+2 12.5%... until we reach N + GetRandomRounds() rounds where we stop.
-    if (nRounds < privateSendClient.nPrivateSendRounds + privateSendClient.nPrivateSendRandomRounds) {
+    if (nRounds < CPrivateSendClientOptions::GetRounds() + CPrivateSendClientOptions::GetRandomRounds()) {
         CDataStream ss(SER_GETHASH, PROTOCOL_VERSION);
         ss << outpoint << nPrivateSendSalt;
         uint256 nHash;
@@ -2561,7 +2566,7 @@ CAmount CWallet::GetBalance() const
 
 CAmount CWallet::GetAnonymizableBalance(bool fSkipDenominated, bool fSkipUnconfirmed) const
 {
-    if(!privateSendClient.fEnablePrivateSend) return 0;
+    if (!CPrivateSendClientOptions::IsEnabled()) return 0;
 
     std::vector<CompactTallyItem> vecTally;
     if(!SelectCoinsGroupedByAddresses(vecTally, fSkipDenominated, true, fSkipUnconfirmed)) return 0;
@@ -2583,7 +2588,7 @@ CAmount CWallet::GetAnonymizableBalance(bool fSkipDenominated, bool fSkipUnconfi
 
 CAmount CWallet::GetAnonymizedBalance(const CCoinControl* coinControl) const
 {
-    if(!privateSendClient.fEnablePrivateSend) return 0;
+    if (!CPrivateSendClientOptions::IsEnabled()) return 0;
 
     CAmount nTotal = 0;
 
@@ -2600,7 +2605,7 @@ CAmount CWallet::GetAnonymizedBalance(const CCoinControl* coinControl) const
 // that's ok as long as we use it for informational purposes only
 float CWallet::GetAverageAnonymizedRounds() const
 {
-    if(!privateSendClient.fEnablePrivateSend) return 0;
+    if (!CPrivateSendClientOptions::IsEnabled()) return 0;
 
     int nTotal = 0;
     int nCount = 0;
@@ -2622,7 +2627,7 @@ float CWallet::GetAverageAnonymizedRounds() const
 // that's ok as long as we use it for informational purposes only
 CAmount CWallet::GetNormalizedAnonymizedBalance() const
 {
-    if(!privateSendClient.fEnablePrivateSend) return 0;
+    if (!CPrivateSendClientOptions::IsEnabled()) return 0;
 
     CAmount nTotal = 0;
 
@@ -2636,7 +2641,7 @@ CAmount CWallet::GetNormalizedAnonymizedBalance() const
         if (it->second.GetDepthInMainChain() < 0) continue;
 
         int nRounds = GetCappedOutpointPrivateSendRounds(outpoint);
-        nTotal += nValue * nRounds / privateSendClient.nPrivateSendRounds;
+        nTotal += nValue * nRounds / CPrivateSendClientOptions::GetRounds();
     }
 
     return nTotal;
@@ -2644,7 +2649,7 @@ CAmount CWallet::GetNormalizedAnonymizedBalance() const
 
 CAmount CWallet::GetDenominatedBalance(bool unconfirmed) const
 {
-    if(!privateSendClient.fEnablePrivateSend) return 0;
+    if (!CPrivateSendClientOptions::IsEnabled()) return 0;
 
     CAmount nTotal = 0;
 
@@ -2819,11 +2824,11 @@ void CWallet::AvailableCoins(std::vector<COutput> &vCoins, bool fOnlySafe, const
             if (nCoinType == CoinType::ONLY_FULLY_MIXED) {
                 if (!CPrivateSend::IsDenominatedAmount(pcoin->tx->vout[i].nValue)) continue;
                 int nRounds = GetCappedOutpointPrivateSendRounds(COutPoint(wtxid, i));
-                found = nRounds >= privateSendClient.nPrivateSendRounds;
+                found = nRounds >= CPrivateSendClientOptions::GetRounds();
             } else if(nCoinType == CoinType::ONLY_READY_TO_MIX) {
                 if (!CPrivateSend::IsDenominatedAmount(pcoin->tx->vout[i].nValue)) continue;
                 int nRounds = GetCappedOutpointPrivateSendRounds(COutPoint(wtxid, i));
-                found = nRounds < privateSendClient.nPrivateSendRounds;
+                found = nRounds < CPrivateSendClientOptions::GetRounds();
             } else if(nCoinType == CoinType::ONLY_NONDENOMINATED) {
                 if (CPrivateSend::IsCollateralAmount(pcoin->tx->vout[i].nValue)) continue; // do not use collateral amounts
                 found = !CPrivateSend::IsDenominatedAmount(pcoin->tx->vout[i].nValue);
@@ -4363,7 +4368,7 @@ bool CWallet::NewKeyPool()
             batch.ErasePool(nIndex);
         }
         setExternalKeyPool.clear();
-        privateSendClient.fPrivateSendRunning = false;
+        privateSendClientManagers.at(GetName())->StopMixing();
         nKeysLeftSinceAutoBackup = 0;
 
         m_pool_key_to_index.clear();
