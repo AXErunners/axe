@@ -11,6 +11,7 @@
 
 #include <QEvent>
 #include <QHeaderView>
+#include <QItemDelegate>
 #include <QMessageBox>
 #include <QObject>
 #include <QProgressBar>
@@ -182,9 +183,9 @@ namespace GUIUtil
 
     // Open debug.log
     void openDebugLogfile();
-	
+
     // Open axe.conf
-    void openConfigfile();	
+    void openConfigfile();
 
     // Browse backup folder
     void showBackups();
@@ -435,6 +436,18 @@ namespace GUIUtil
     typedef ClickableProgressBar ProgressBar;
 #endif
 
+    class ItemDelegate : public QItemDelegate
+    {
+        Q_OBJECT
+    public:
+        ItemDelegate(QObject* parent) : QItemDelegate(parent) {}
+
+    Q_SIGNALS:
+        void keyEscapePressed();
+
+    private:
+        bool eventFilter(QObject *object, QEvent *event);
+    };
 } // namespace GUIUtil
 
 #endif // BITCOIN_QT_GUIUTIL_H
