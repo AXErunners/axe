@@ -60,54 +60,85 @@ jobs:
   include:
     # build depends
     - <<: *builddepends
+      name: depends-arm-linux
       env: BUILD_TARGET=arm-linux
     - <<: *builddepends
+      name: depends-win32
       env: BUILD_TARGET=win32
     - <<: *builddepends
+      name: depends-win64
       env: BUILD_TARGET=win64
     - <<: *builddepends
+      name: depends-linux32
       env: BUILD_TARGET=linux32
     - <<: *builddepends
+      name: depends-linux64
       env: BUILD_TARGET=linux64
     - <<: *builddepends
+      name: depends-linux64_nowallet
       env: BUILD_TARGET=linux64_nowallet
     - <<: *builddepends
-      env: BUILD_TARGET=linux64_release DOCKER_BUILD=true
+      name: depends-linux64_release
+      env:
+        - BUILD_TARGET=linux64_release
+        - DOCKER_BUILD=true
     - <<: *builddepends
+      name: depends-mac
       env: BUILD_TARGET=mac
     # build source
     - <<: *buildsrc
+      name: src-arm-linux
       env: BUILD_TARGET=arm-linux
     - <<: *buildsrc
+      name: src-win32
       env: BUILD_TARGET=win32
     - <<: *buildsrc
+      name: src-win64
       env: BUILD_TARGET=win64
     - <<: *buildsrc
+      name: src-linux32
       env: BUILD_TARGET=linux32
     - <<: *buildsrc
+      name: src-linux64
       env: BUILD_TARGET=linux64
     - <<: *buildsrc
+      name: src-linux64_nowallet
       env: BUILD_TARGET=linux64_nowallet
     - <<: *buildsrc
-      env: BUILD_TARGET=linux64_release DOCKER_BUILD=true
+      name: src-linux64_release
+      env:
+        - BUILD_TARGET=linux64_release
+        - DOCKER_BUILD=true
     - <<: *buildsrc
+      name: src-mac
       env: BUILD_TARGET=mac
     # run tests (no tests for arm-linux and mac)
     - <<: *runtests
+      name: tests-win32
       env: BUILD_TARGET=win32
     - <<: *runtests
+      name: tests-win64
       env: BUILD_TARGET=win64
     - <<: *runtests
+      name: tests-linux32
       env: BUILD_TARGET=linux32
     - <<: *runtests
+      name: tests-linux64
       env: BUILD_TARGET=linux64
     - <<: *runtests
+      name: tests-linux64_nowallet
       env: BUILD_TARGET=linux64_nowallet
     - <<: *runtests
-      env: BUILD_TARGET=linux64_release DOCKER_BUILD=true
+      name: tests-linux64_release
+      env:
+        - BUILD_TARGET=linux64_release
+        - DOCKER_BUILD=true
     # build docker
     - <<: *builddocker
-      env: BUILD_TARGET=linux64_release DOCKER_BUILD=true
+      name: docker-linux64_release
+      env:
+        - BUILD_TARGET=linux64_release
+        - DOCKER_BUILD=true
 
 before_cache:
   # Save builder image
