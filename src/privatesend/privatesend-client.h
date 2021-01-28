@@ -89,7 +89,7 @@ public:
 
     CService GetAddr() { return addr; }
     CPrivateSendAccept GetDSA() { return dsa; }
-    bool IsExpired() { return GetTime() - nTimeCreated > TIMEOUT; }
+    bool IsExpired() const { return GetTime() - nTimeCreated > TIMEOUT; }
 
     friend bool operator==(const CPendingDsaRequest& a, const CPendingDsaRequest& b)
     {
@@ -220,7 +220,7 @@ private:
     // Keep track of current block height
     int nCachedBlockHeight;
 
-    bool WaitForAnotherBlock();
+    bool WaitForAnotherBlock() const;
 
     // Make sure we have enough keys since last backup
     bool CheckAutomaticBackup();
@@ -292,8 +292,8 @@ public:
     static void SetRounds(int nRounds);
     static void SetAmount(CAmount amount);
 
-    static int IsEnabled() { return CPrivateSendClientOptions::Get().fEnablePrivateSend; }
-    static int IsMultiSessionEnabled() { return CPrivateSendClientOptions::Get().fPrivateSendMultiSession; }
+    static bool IsEnabled() { return CPrivateSendClientOptions::Get().fEnablePrivateSend; }
+    static bool IsMultiSessionEnabled() { return CPrivateSendClientOptions::Get().fPrivateSendMultiSession; }
 
     static void GetJsonInfo(UniValue& obj);
 

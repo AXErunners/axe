@@ -309,7 +309,7 @@ std::string CPrivateSendClientSession::GetStatus(bool fWaitForBlock)
 {
     static int nStatusMessageProgress = 0;
     nStatusMessageProgress += 10;
-    std::string strSuffix = "";
+    std::string strSuffix;
 
     if (fWaitForBlock || !masternodeSync.IsBlockchainSynced()) {
         return strAutoDenomResult;
@@ -691,7 +691,7 @@ void CPrivateSendClientManager::UpdatedSuccessBlock()
     nCachedLastSuccessBlock = nCachedBlockHeight;
 }
 
-bool CPrivateSendClientManager::WaitForAnotherBlock()
+bool CPrivateSendClientManager::WaitForAnotherBlock() const
 {
     if (!masternodeSync.IsBlockchainSynced()) return true;
 
@@ -1767,8 +1767,8 @@ void CPrivateSendClientManager::DoMaintenance(CConnman& connman)
 
     if (!masternodeSync.IsBlockchainSynced() || ShutdownRequested()) return;
 
-    static unsigned int nTick = 0;
-    static unsigned int nDoAutoNextRun = nTick + PRIVATESEND_AUTO_TIMEOUT_MIN;
+    static int nTick = 0;
+    static int nDoAutoNextRun = nTick + PRIVATESEND_AUTO_TIMEOUT_MIN;
 
     nTick++;
     CheckTimeout();
